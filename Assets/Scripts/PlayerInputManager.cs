@@ -29,7 +29,6 @@ public class PlayerInputManager : GenericUnitySingleton<PlayerInputManager>
 
 	public Vector2 GetPlayerMovement()
 	{
-		Debug.Log("Move input = " + playerControls.PlayerMovement.Move.ReadValue<Vector2>());
 		return playerControls.PlayerMovement.Move.ReadValue<Vector2>();
 	}
 
