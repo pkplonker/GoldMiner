@@ -8,11 +8,7 @@ using UnityEngine;
     /// </summary>
     
 public class Target : MonoBehaviour
-{
-    private void Start()
     {
+	   [Range(0.01f,1)] [SerializeField] private float signalStrength;
+	    public float GetSignalStrength() => signalStrength;
     }
-    private void Update()
-    {
-    }
-}

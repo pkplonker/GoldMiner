@@ -13,7 +13,6 @@ public class Detector : MonoBehaviour
 	private Vector3 rightPosition;
 	private Vector3 leftRot;
 	private Vector3 rightRot;
-	private bool @false = true;
 	[SerializeField] private float rotationAmount;
 	[SerializeField] private float moveAmount;
 	private float startTime;

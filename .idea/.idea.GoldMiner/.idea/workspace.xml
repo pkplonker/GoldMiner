@@ -3,18 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AnimationController.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AnimationController.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/New Material.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/New Material.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LowPoly Environment Pack/FBX/Materials/Brown.4.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LowPoly Environment Pack/FBX/Materials/Brown.4.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LowPoly Environment Pack/FBX/Materials/Brown.5.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LowPoly Environment Pack/FBX/Materials/Brown.5.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LowPoly Environment Pack/FBX/Materials/Gray.3.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LowPoly Environment Pack/FBX/Materials/Gray.3.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerInputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Detector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Detector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorHead.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorHead.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Target.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +25,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Gold.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerAnimation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerInputManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/DetectorSlider.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -93,7 +87,7 @@
       <workItem from="1657111026630" duration="312000" />
       <workItem from="1657315360672" duration="637000" />
       <workItem from="1657316019964" duration="11471000" />
-      <workItem from="1657397556120" duration="9274000" />
+      <workItem from="1657397556120" duration="11087000" />
     </task>
     <servers />
   </component>
