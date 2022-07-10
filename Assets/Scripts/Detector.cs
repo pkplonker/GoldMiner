@@ -18,8 +18,8 @@ public class Detector : MonoBehaviour
 	private float startTime;
 	private float totalDistance;
 	private bool movingLeft;
-	[SerializeField] private Transform handTarget;
-	[SerializeField] private Transform handle;
+	[SerializeField] private Transform rigHandTarget;
+	[SerializeField] private Transform handleIKTarget;
 	[SerializeField] private Animator animator;
 	[SerializeField] private Rig rig;
 	void Start()
@@ -45,7 +45,7 @@ public class Detector : MonoBehaviour
 	
 	void Update()
 	{
-		handTarget.position = handle.position;
+		rigHandTarget.position = handleIKTarget.position;
 		if (!detecting)
 		{
 			animator.SetLayerWeight(animator.GetLayerIndex("RightHand"), 0);
@@ -57,8 +57,8 @@ public class Detector : MonoBehaviour
 
 		//PingPong between 0 and 1
 		float time = Mathf.PingPong(Time.time * moveRate, 1);
-		transform.localPosition = Vector3.Lerp(leftPosition, rightPosition, time);
-		//transform.localEulerAngles = Vector3.Lerp(leftRot, rightRot, time);
+		transform.localPosition = Vector3.Slerp(leftPosition, rightPosition, time);
+		transform.localEulerAngles = Vector3.Slerp(leftRot, rightRot, time);
 
 	}
 }
