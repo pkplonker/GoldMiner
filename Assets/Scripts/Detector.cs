@@ -7,43 +7,59 @@ using UnityEngine.Animations.Rigging;
 public class Detector : MonoBehaviour
 {
 	[SerializeField] private bool detecting = true;
-	[SerializeField] private float moveRate = 3f;
-	[SerializeField] private float rotationRate = 2f;
-	private Vector3 leftPosition;
-	private Vector3 rightPosition;
-	private Vector3 leftRot;
-	private Vector3 rightRot;
-	[SerializeField] private float rotationAmount;
-	[SerializeField] private float moveAmount;
-	private float startTime;
-	private float totalDistance;
-	private bool movingLeft;
+
 	[SerializeField] private Transform rigHandTarget;
 	[SerializeField] private Transform handleIKTarget;
 	[SerializeField] private Animator animator;
 	[SerializeField] private Rig rig;
-	void Start()
+	private float directionTimer;
+	[SerializeField] private float directionTime = 2f;
+	private bool movingLeft;
+	[SerializeField] private Transform leftPos;
+	[SerializeField] private Transform rightPos;
+	[SerializeField] private float rotDegrees = 80f;
+	private Vector3 leftRot;
+	private Vector3 rightRot;
+
+
+	private void Start()
 	{
-		var position = transform.localPosition;
-		leftPosition = position -
-		               new Vector3((moveAmount / 2),0,0);
-		rightPosition = position + new Vector3((moveAmount / 2), 0, 0);
-		var eulerAngles = transform.eulerAngles;
-		leftRot = eulerAngles - new Vector3(0, (rotationAmount / 2), 0);
-		rightRot = eulerAngles + new Vector3(0, (rotationAmount / 2), 0);
+		leftRot = transform.localEulerAngles - new Vector3(0, rotDegrees / 2, 0);
+		rightRot = transform.localEulerAngles + new Vector3(0, rotDegrees / 2, 0);
 	}
 
-	// Update is called once per frame    
-	/*void Update()
+
+	private void Update()
 	{
-		if (!detecting) return;
-		transform.position =
-			Vector3.Lerp(transform.position, movingLeft ? leftPosition : rightPosition, Time.deltaTime) * moveRate;
-		if (Vector3.Distance(transform.position, leftPosition) < 0.2f) movingLeft = false;
-		else if (Vector3.Distance(transform.position, rightPosition) < 0.1f) movingLeft = true;
-	}*/
-	
-	void Update()
+		UpdateHandIK();
+		MoveDetector();
+	}
+
+	private void MoveDetector()
+	{
+		//determine if moving left or right
+		directionTimer += Time.deltaTime;
+		if (directionTimer >= directionTime)
+		{
+			movingLeft = !movingLeft;
+			directionTimer = 0;
+		}
+
+		var interpolationRatio = directionTimer / directionTime;
+		Debug.Log(interpolationRatio);
+		if (movingLeft)
+		{
+			transform.position = Vector3.Lerp(rightPos.position, leftPos.position, interpolationRatio);
+			transform.localEulerAngles = Vector3.Lerp(rightRot, leftRot, interpolationRatio);
+		}
+		else
+		{
+			transform.position = Vector3.Lerp(leftPos.position, rightPos.position, interpolationRatio);
+			transform.localEulerAngles = Vector3.Lerp(leftRot, rightRot, interpolationRatio);
+		}
+	}
+
+	private void UpdateHandIK()
 	{
 		rigHandTarget.position = handleIKTarget.position;
 		if (!detecting)
@@ -52,13 +68,8 @@ public class Detector : MonoBehaviour
 			rig.weight = 0;
 			return;
 		}
+
 		animator.SetLayerWeight(animator.GetLayerIndex("RightHand"), 1);
 		rig.weight = 1;
-
-		//PingPong between 0 and 1
-		float time = Mathf.PingPong(Time.time * moveRate, 1);
-		transform.localPosition = Vector3.Slerp(leftPosition, rightPosition, time);
-		transform.localEulerAngles = Vector3.Slerp(leftRot, rightRot, time);
-
 	}
 }
