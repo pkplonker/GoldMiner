@@ -18,19 +18,10 @@ public class PlayerInputManager : GenericUnitySingleton<PlayerInputManager>
 		base.Awake();
 		playerControls = new PlayerControls();
 	}
-
-
-	private void OnEnable()
-	{
-		playerControls.Enable();
-	}
-
+	private void OnEnable()=>playerControls.Enable();
 	private void OnDisable() => playerControls.Disable();
-
-	public Vector2 GetPlayerMovement()
-	{
-		return playerControls.PlayerMovement.Move.ReadValue<Vector2>();
-	}
-
+	public Vector2 GetPlayerMovement() => playerControls.PlayerMovement.Move.ReadValue<Vector2>();
 	public Vector2 GetMouseDelta() => playerControls.PlayerMovement.Look.ReadValue<Vector2>();
+	public bool GetLeftClick() => playerControls.PlayerMovement.LeftClick.inProgress;
+	public bool GetRightClick() => playerControls.PlayerMovement.RightClick.inProgress;
 }
