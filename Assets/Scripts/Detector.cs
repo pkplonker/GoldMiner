@@ -14,44 +14,45 @@ public class Detector : MonoBehaviour
 {
 	[Range(0.01f, 0.8f)] [SerializeField] private float maxYRot = 30f;
 	[SerializeField] private float autoMoveSpeed = 2f;
-	[SerializeField] private float manualMoveSpeed = 25f;
+	[SerializeField] private float manualMoveSpeed = 50f;
 
 	private float startX = 0f;
-	[SerializeField] private bool isManualMovement;
-	[SerializeField] private bool isDetecting;
-	[SerializeField] private Transform rigHandTarget;
-	[SerializeField] private Transform handleIKTarget;
-	[SerializeField] private Animator animator;
-	[SerializeField] private Rig rig;
-	[SerializeField] private Quaternion startRotation;
-	[SerializeField] private Quaternion finishRotation;
+	
+	 private Quaternion startRotation;
+	 private Quaternion finishRotation;
 
-	private void Start()
+	 private void OnEnable()
+		 => DetectorState.RegisterDetector(this);
+	 private void OnDisable()
+		 => DetectorState.UnregisterDetector(this);
+
+	
+
+	 private void Start()
 	{
-		var rotation = transform.rotation;
+		var rotation = transform.localRotation;
 		startRotation = Quaternion.Euler(rotation.x, rotation.y + (360 - maxYRot), rotation.z);
 		finishRotation = Quaternion.Euler(rotation.x, rotation.y + maxYRot, rotation.z);
 	}
 
 	private void Update()
 	{
-		UpdateHandIK();
-		if (!isDetecting) ResetPosition();
+		if (!DetectorState.isDetecting) ResetPosition();
 		else
 		{
-			if (isManualMovement) HandleManualMovement();
+			if (DetectorState.isManualDetecting) HandleManualMovement();
 			else HandleAutomaticMovement();
 		}
 	}
 
-	private void ResetPosition()
+	public void ResetPosition()
 	{
-		var eulerAngles = transform.eulerAngles;
+		var eulerAngles = transform.localEulerAngles;
 		eulerAngles = new Vector3(startX, eulerAngles.y, eulerAngles.z);
-		transform.eulerAngles = eulerAngles;
+		transform.localEulerAngles = eulerAngles;
 	}
 
-	private void HandleAutomaticMovement()
+	public void HandleAutomaticMovement()
 	{
 		//rotate between startRotation and finishRotation with movespeed
 
@@ -59,71 +60,39 @@ public class Detector : MonoBehaviour
 		transform.localRotation = Quaternion.Lerp(startRotation, finishRotation, lerp);
 	}
 
-	private void HandleManualMovement()
+	public void HandleManualMovement()
 	{
 		if (PlayerInputManager.Instance.GetLeftClick() && PlayerInputManager.Instance.GetRightClick()) return;
-
-
-		if (PlayerInputManager.Instance.GetLeftClick())
-		{
-			HandleLeftMove();
-		}
-
-		if (PlayerInputManager.Instance.GetRightClick())
-		{
-			HandleRightMove();
-		}
+		if (PlayerInputManager.Instance.GetLeftClick()) HandleLeftMove();
+		else if (PlayerInputManager.Instance.GetRightClick()) HandleRightMove();
+		
 	}
 
 	private void HandleLeftMove()
 	{
-		transform.Rotate(Vector3.up, manualMoveSpeed * Time.deltaTime * -1);
-		Debug.Log(Clamp0360(transform.eulerAngles.y));
+		transform.Rotate(Vector3.up, manualMoveSpeed * Time.deltaTime * -1,Space.Self);
 		var x = maxYRot * -1;
-		if (transform.eulerAngles.y < 360-maxYRot && transform.eulerAngles.y>maxYRot)
+		if (transform.localEulerAngles.y < 360-maxYRot && transform.localEulerAngles.y>maxYRot)
 		{
-			Debug.Log("Hit left limit");
-			var eulerAngles = transform.eulerAngles;
+			var eulerAngles = transform.localEulerAngles;
 			eulerAngles = new Vector3(eulerAngles.x, maxYRot * -1, eulerAngles.z);
-			transform.eulerAngles = eulerAngles;
+			transform.localEulerAngles = eulerAngles;
 		}
 	}
 
 	private void HandleRightMove()
 	{
-		transform.Rotate(Vector3.down, manualMoveSpeed * Time.deltaTime*-1);
-		Debug.Log(Clamp0360(transform.eulerAngles.y));
-		if (transform.eulerAngles.y > maxYRot && transform.eulerAngles.y<360-maxYRot)
+		transform.Rotate(Vector3.down, manualMoveSpeed * Time.deltaTime*-1,Space.Self);
+		if (transform.localEulerAngles.y > maxYRot && transform.localEulerAngles.y<360-maxYRot)
 		{
-			Debug.Log("Hit right limit");
-			var eulerAngles = transform.eulerAngles;
+			var eulerAngles = transform.localEulerAngles;
 			eulerAngles = new Vector3(eulerAngles.x, maxYRot, eulerAngles.z);
-			transform.eulerAngles = eulerAngles;
+			transform.localEulerAngles = eulerAngles;
 		}
 		
 	}
 
-	private void UpdateHandIK()
-	{
-		rigHandTarget.position = handleIKTarget.position;
-		if (!isDetecting)
-		{
-			animator.SetLayerWeight(animator.GetLayerIndex("RightHand"), 0);
-			rig.weight = 0;
-			return;
-		}
 
-		animator.SetLayerWeight(animator.GetLayerIndex("RightHand"), 1);
-		rig.weight = 1;
-	}
 	
-	public static float Clamp0360(float eulerAngles)
-	{
-		float result = eulerAngles - Mathf.CeilToInt(eulerAngles / 360f) * 360f;
-		if (result < 0)
-		{
-			result += 360f;
-		}
-		return result;
-	}
+
 }

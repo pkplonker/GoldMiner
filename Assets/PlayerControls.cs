@@ -62,6 +62,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DetectionToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""d27e320c-5368-4bee-a5d4-2ecda6580884"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ManualDetectionToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""bf19ec8c-53fe-40d0-88e0-b4790350b34b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +170,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""RightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d25c81d-e227-451a-b83a-2f689452f2a6"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DetectionToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b8838bd3-a8e0-46b5-af24-9806ad2fd691"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ManualDetectionToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +204,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerMovement_Look = m_PlayerMovement.FindAction("Look", throwIfNotFound: true);
         m_PlayerMovement_LeftClick = m_PlayerMovement.FindAction("LeftClick", throwIfNotFound: true);
         m_PlayerMovement_RightClick = m_PlayerMovement.FindAction("RightClick", throwIfNotFound: true);
+        m_PlayerMovement_DetectionToggle = m_PlayerMovement.FindAction("DetectionToggle", throwIfNotFound: true);
+        m_PlayerMovement_ManualDetectionToggle = m_PlayerMovement.FindAction("ManualDetectionToggle", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +269,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_Look;
     private readonly InputAction m_PlayerMovement_LeftClick;
     private readonly InputAction m_PlayerMovement_RightClick;
+    private readonly InputAction m_PlayerMovement_DetectionToggle;
+    private readonly InputAction m_PlayerMovement_ManualDetectionToggle;
     public struct PlayerMovementActions
     {
         private @PlayerControls m_Wrapper;
@@ -235,6 +279,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_PlayerMovement_Look;
         public InputAction @LeftClick => m_Wrapper.m_PlayerMovement_LeftClick;
         public InputAction @RightClick => m_Wrapper.m_PlayerMovement_RightClick;
+        public InputAction @DetectionToggle => m_Wrapper.m_PlayerMovement_DetectionToggle;
+        public InputAction @ManualDetectionToggle => m_Wrapper.m_PlayerMovement_ManualDetectionToggle;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -256,6 +302,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RightClick.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnRightClick;
                 @RightClick.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnRightClick;
                 @RightClick.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnRightClick;
+                @DetectionToggle.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDetectionToggle;
+                @DetectionToggle.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDetectionToggle;
+                @DetectionToggle.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDetectionToggle;
+                @ManualDetectionToggle.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnManualDetectionToggle;
+                @ManualDetectionToggle.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnManualDetectionToggle;
+                @ManualDetectionToggle.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnManualDetectionToggle;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -272,6 +324,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RightClick.started += instance.OnRightClick;
                 @RightClick.performed += instance.OnRightClick;
                 @RightClick.canceled += instance.OnRightClick;
+                @DetectionToggle.started += instance.OnDetectionToggle;
+                @DetectionToggle.performed += instance.OnDetectionToggle;
+                @DetectionToggle.canceled += instance.OnDetectionToggle;
+                @ManualDetectionToggle.started += instance.OnManualDetectionToggle;
+                @ManualDetectionToggle.performed += instance.OnManualDetectionToggle;
+                @ManualDetectionToggle.canceled += instance.OnManualDetectionToggle;
             }
         }
     }
@@ -282,5 +340,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnLeftClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
+        void OnDetectionToggle(InputAction.CallbackContext context);
+        void OnManualDetectionToggle(InputAction.CallbackContext context);
     }
 }
