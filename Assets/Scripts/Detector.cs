@@ -3,7 +3,6 @@
 //
 
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -15,17 +14,57 @@ public class Detector : MonoBehaviour
 	[Range(0.01f, 0.8f)] [SerializeField] private float maxYRot = 30f;
 	[SerializeField] private float autoMoveSpeed = 2f;
 	[SerializeField] private float manualMoveSpeed = 50f;
-
+	[SerializeField] private Quaternion autoMoveStartRot;
 	private float startX = 0f;
+	private bool currentTargetIsLeft;
 
 	private Quaternion startRotation;
 	private Quaternion finishRotation;
 
 	private void OnEnable()
-		=> DetectorState.RegisterDetector(this);
+	{
+		DetectorState.RegisterDetector(this);
+		DetectorState.OnDetectorManualToggleChanged += OnDetectorAutoToggle;
+	}
+
+	private void OnDetectorAutoToggle(bool obj)
+	{
+		autoMoveStartRot = transform.localRotation;
+
+		var s = Quaternion.Angle(autoMoveStartRot, startRotation);
+		var f = Quaternion.Angle(autoMoveStartRot, finishRotation);
+		Debug.Log(s + " " + f);
+		currentTargetIsLeft = !(s > f);
+	}
+
+	public void HandleAutomaticMovement()
+	{
+		if (currentTargetIsLeft)
+		{
+			HandleLeftMove();
+			if (Math.Abs(transform.localEulerAngles.y - startRotation.eulerAngles.y) < 0.1f)
+			{
+				currentTargetIsLeft = false;
+				Debug.Log("Switched to right");
+			}
+		}
+		else
+		{
+			HandleRightMove();
+			if (Math.Abs(transform.localEulerAngles.y - finishRotation.eulerAngles.y) < 0.1f)
+			{
+				currentTargetIsLeft = true;
+				Debug.Log("Switched to left");
+			}
+		}
+	}
+
 
 	private void OnDisable()
-		=> DetectorState.UnregisterDetector(this);
+	{
+		DetectorState.UnregisterDetector(this);
+		DetectorState.OnDetectorManualToggleChanged -= OnDetectorAutoToggle;
+	}
 
 	private void Start()
 	{
@@ -51,9 +90,6 @@ public class Detector : MonoBehaviour
 		transform.localEulerAngles = eulerAngles;
 	}
 
-	public void HandleAutomaticMovement()=>transform.localRotation = Quaternion.Lerp(startRotation, finishRotation,
-			0.5F * (1.0F + Mathf.Sin(Mathf.PI * Time.realtimeSinceStartup * autoMoveSpeed)));
-	
 
 	public void HandleManualMovement()
 	{
