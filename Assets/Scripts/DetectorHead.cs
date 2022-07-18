@@ -10,21 +10,19 @@ using UnityEngine;
 /// </summary>
 public class DetectorHead : MonoBehaviour
 {
-	[SerializeField] private float topRadius = 0.4f;
-	[SerializeField] private float bottomRadius = 0.4f;
-
+	[SerializeField] private float lowerRad = 0.4f;
+	[SerializeField] private float upperRad = 0.4f;
 	[SerializeField] private float distance = 0.4f;
-	[SerializeField]private Transform headConePoint;
 	public static event Action<float> OnDetection;
 	private void GenerateCone()
 	{
 		GameObject go = new GameObject("Cone");
-		go.transform.SetParent(headConePoint);
-		go.transform.localPosition = headConePoint.localPosition;
-		go.transform.localRotation = headConePoint.localRotation;
-		go.transform.localScale = headConePoint.localScale;
+		go.transform.SetParent(transform);
+		go.transform.localPosition = Vector3.zero;
+		go.transform.localRotation =  Quaternion.Euler(-90,0,0);
+		go.transform.localScale = transform.localScale;
 		var cone = go.AddComponent<Cone>();
-		cone.GenerateCone(transform.localPosition,12, distance,topRadius,bottomRadius);
+		cone.GenerateCone(transform.localPosition, 12, distance,lowerRad,upperRad);
 		
 		//debug only
 		
@@ -34,22 +32,16 @@ public class DetectorHead : MonoBehaviour
 	}
 	private void Update()
 	{
+		if(Input.GetKeyDown(KeyCode.F))
+		{
+			GenerateCone();
+		}
 		if (!DetectorState.isDetecting) return;
 		
 		
 		//OnDetection?.Invoke(x);
 	}
-
-	private void DrawDebug()
-	{
-		for (var i = 0; i < 360; i++)
-		{
-			var angle = i * Mathf.Deg2Rad;
-			var x = Mathf.Cos(angle);
-			var z = Mathf.Sin(angle);
-			var point = new Vector3(x,0, z);
-		}
-	}
+	
 
 	private float CalculateSignalStrength(Target t) => (Vector3.Distance(transform.position, t.transform.position) /
 	                                                    distance) * t.GetSignalStrength();

@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Detector.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Detector.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Detector.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Detector.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Detector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Detector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Cone.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Cone.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorHead.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorHead.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,6 +141,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/DetectorHead.cs</url>
+          <line>19</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\DetectorHead.cs" initialLine="20" containingFunctionPresentation="method 'GenerateCone'">
+            <startOffsets>
+              <option value="439" />
+            </startOffsets>
+            <endOffsets>
+              <option value="478" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

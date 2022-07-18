@@ -69,13 +69,13 @@ public class Cone : MonoBehaviour
 	private static void GenerateVertices(Vector3 startPos, float bottomRadius, float topRadius, int sides, float height,
 		List<Vector3> vertices)
 	{
-		vertices.Add(startPos);
+		vertices.Add(Vector3.zero);
 		for (var i = 0; i < sides; i++)
 		{
 			var angle = TAU * i / sides;
 			var x = Mathf.Cos(angle);
 			var y = Mathf.Sin(angle);
-			vertices.Add(new Vector3(startPos.x + (x * (bottomRadius / 2)), startPos.y + (y * (bottomRadius / 2)), 0));
+			vertices.Add(new Vector3( (x * (bottomRadius / 2)),0,  (y * (bottomRadius / 2))));
 		}
 
 		for (var i = 0; i < sides; i++)
@@ -83,20 +83,11 @@ public class Cone : MonoBehaviour
 			var angle = TAU * i / sides;
 			var x = Mathf.Cos(angle);
 			var y = Mathf.Sin(angle);
-			vertices.Add(new Vector3(startPos.x + (x * (topRadius / 2)), startPos.y + (y * (topRadius / 2)), -height));
+			vertices.Add(new Vector3( (x * (topRadius / 2)), height, (y * (topRadius / 2)) ));
 		}
-
-		vertices.Add(new Vector3(startPos.x, startPos.y, -height));
-
-		//debug
-		/*
-		foreach (var v in vertices)
-		{
-			var sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-			sphere.transform.position = v;
-			sphere.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-		}
-		*/
+		vertices.Add( new Vector3(0,height,0));
+		
+		
 	}
 
 
