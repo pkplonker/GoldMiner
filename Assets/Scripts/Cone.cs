@@ -12,6 +12,7 @@ public class Cone : MonoBehaviour
 
 	public void GenerateCone(Vector3 pos, int sides, float height, float topRadius, float bottomRadius)
 	{
+		pos = transform.position;
 		GenerateVertices(pos, bottomRadius, topRadius, sides, height, vertices);
 		GenerateTriangles(triangles, sides, vertices.Count);
 		GetComponent<MeshFilter>().mesh = GenerateMesh(vertices, triangles, "cone");
