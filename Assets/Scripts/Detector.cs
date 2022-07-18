@@ -4,7 +4,6 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 
 /// <summary>
 ///DetectorTest full description
@@ -12,12 +11,9 @@ using UnityEngine.Animations.Rigging;
 public class Detector : MonoBehaviour
 {
 	[Range(0.01f, 0.8f)] [SerializeField] private float maxYRot = 30f;
-	[SerializeField] private float autoMoveSpeed = 2f;
-	[SerializeField] private float manualMoveSpeed = 50f;
-	[SerializeField] private Quaternion autoMoveStartRot;
+	[SerializeField] private float rotationSpeed = 50f;
 	private float startX = 0f;
 	private bool currentTargetIsLeft;
-
 	private Quaternion startRotation;
 	private Quaternion finishRotation;
 
@@ -27,14 +23,12 @@ public class Detector : MonoBehaviour
 		DetectorState.OnDetectorManualToggleChanged += OnDetectorAutoToggle;
 	}
 
-	private void OnDetectorAutoToggle(bool obj)
+	private void OnDetectorAutoToggle(bool on)
 	{
-		autoMoveStartRot = transform.localRotation;
-
-		var s = Quaternion.Angle(autoMoveStartRot, startRotation);
-		var f = Quaternion.Angle(autoMoveStartRot, finishRotation);
-		Debug.Log(s + " " + f);
-		currentTargetIsLeft = !(s > f);
+		if (!on) return;
+		var localRotation = transform.localRotation;
+		currentTargetIsLeft = !(Quaternion.Angle(localRotation, startRotation) >
+		                        Quaternion.Angle(localRotation, finishRotation));
 	}
 
 	public void HandleAutomaticMovement()
@@ -43,19 +37,13 @@ public class Detector : MonoBehaviour
 		{
 			HandleLeftMove();
 			if (Math.Abs(transform.localEulerAngles.y - startRotation.eulerAngles.y) < 0.1f)
-			{
 				currentTargetIsLeft = false;
-				Debug.Log("Switched to right");
-			}
 		}
 		else
 		{
 			HandleRightMove();
 			if (Math.Abs(transform.localEulerAngles.y - finishRotation.eulerAngles.y) < 0.1f)
-			{
 				currentTargetIsLeft = true;
-				Debug.Log("Switched to left");
-			}
 		}
 	}
 
@@ -100,24 +88,20 @@ public class Detector : MonoBehaviour
 
 	private void HandleLeftMove()
 	{
-		transform.Rotate(Vector3.up, manualMoveSpeed * Time.deltaTime * -1, Space.Self);
+		transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime * -1, Space.Self);
 		var x = maxYRot * -1;
-		if (transform.localEulerAngles.y < 360 - maxYRot && transform.localEulerAngles.y > maxYRot)
-		{
-			var eulerAngles = transform.localEulerAngles;
-			eulerAngles = new Vector3(eulerAngles.x, maxYRot * -1, eulerAngles.z);
-			transform.localEulerAngles = eulerAngles;
-		}
+		if (!(transform.localEulerAngles.y < 360 - maxYRot) || !(transform.localEulerAngles.y > maxYRot)) return;
+		var eulerAngles = transform.localEulerAngles;
+		eulerAngles = new Vector3(eulerAngles.x, maxYRot * -1, eulerAngles.z);
+		transform.localEulerAngles = eulerAngles;
 	}
 
 	private void HandleRightMove()
 	{
-		transform.Rotate(Vector3.down, manualMoveSpeed * Time.deltaTime * -1, Space.Self);
-		if (transform.localEulerAngles.y > maxYRot && transform.localEulerAngles.y < 360 - maxYRot)
-		{
-			var eulerAngles = transform.localEulerAngles;
-			eulerAngles = new Vector3(eulerAngles.x, maxYRot, eulerAngles.z);
-			transform.localEulerAngles = eulerAngles;
-		}
+		transform.Rotate(Vector3.down, rotationSpeed * Time.deltaTime * -1, Space.Self);
+		if (!(transform.localEulerAngles.y > maxYRot) || !(transform.localEulerAngles.y < 360 - maxYRot)) return;
+		var eulerAngles = transform.localEulerAngles;
+		eulerAngles = new Vector3(eulerAngles.x, maxYRot, eulerAngles.z);
+		transform.localEulerAngles = eulerAngles;
 	}
 }

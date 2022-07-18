@@ -9,6 +9,12 @@ namespace UI
 		[SerializeField] private Image manualDetectionImage;
 		[SerializeField] private Image detectionImage;
 
+		private void Awake()
+		{
+			SetImageColor(manualDetectionImage,Color.red);
+			SetImageColor(detectionImage, Color.red);
+		}
+
 		private void OnEnable()
 		{
 			DetectorState.OnDetectorToggleChanged += OnDetectorToggleChanged;
