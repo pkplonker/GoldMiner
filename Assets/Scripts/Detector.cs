@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 public class Detector : MonoBehaviour
 {
-	[Range(0.01f, 0.8f)] [SerializeField] private float maxYRot = 30f;
+	[SerializeField] private float maxYRot = 35f;
 	[SerializeField] private float rotationSpeed = 50f;
 	private float startX = 0f;
 	private bool currentTargetIsLeft;

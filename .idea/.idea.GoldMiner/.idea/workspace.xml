@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Detector.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Detector.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Detector.fbx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Detector.fbx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Detector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Detector.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,13 +129,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Cone.cs</url>
-          <line>65</line>
+          <line>66</line>
           <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\Cone.cs" initialLine="66" containingFunctionPresentation="method 'GenerateTriangles'">
             <startOffsets>
-              <option value="1554" />
+              <option value="1582" />
             </startOffsets>
             <endOffsets>
-              <option value="1591" />
+              <option value="1619" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="1" />
