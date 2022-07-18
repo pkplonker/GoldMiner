@@ -15,17 +15,23 @@ namespace UI
 	{
 		[SerializeField] private Image image;
 
-		private void Start() => SetFillAmount(0);
+		private void OnEnable() => DetectorHead.OnDetection += SetFillAmount;
+
+
+		private void OnDisable() => DetectorHead.OnDetection -= SetFillAmount;
+
+		private void Update()
+		{
+			if (DetectorState.isDetecting)
+			{
+				SetFillAmount(DetectorHead.currentSignal);
+			}
+			else if (image.fillAmount != 0)
+			{
+				SetFillAmount(0);
+			}
+		}
 
 		private void SetFillAmount(float i) => image.fillAmount = i;
-
-		private void OnEnable() => DetectorHead.OnDetection += Detect;
-
-		private void OnDisable() => DetectorHead.OnDetection -= Detect;
-
-		private void Detect(float strength)
-		{
-			SetFillAmount(strength);
-		} 
 	}
 }

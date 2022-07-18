@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(MeshFilter))]
-public class Cone : MonoBehaviour
+public class ConeGenerator : MonoBehaviour
 {
 	private List<Vector3> vertices = new List<Vector3>();
 	private List<int> triangles = new List<int>();
@@ -86,7 +86,8 @@ public class Cone : MonoBehaviour
 			vertices.Add(new Vector3( (x * (topRadius / 2)), height, (y * (topRadius / 2)) ));
 		}
 		vertices.Add( new Vector3(0,height,0));
-		
+
+	
 		
 	}
 

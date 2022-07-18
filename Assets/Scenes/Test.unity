@@ -3808,6 +3808,11 @@ PrefabInstance:
       propertyPath: bottomRadius
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1881947245022206764, guid: 7256dc8a1f156ac42a5bd5f96d43efc9,
+        type: 3}
+      propertyPath: signalDegradeSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7115179166986297814, guid: 7256dc8a1f156ac42a5bd5f96d43efc9,
         type: 3}
       propertyPath: m_RootOrder
@@ -3880,7 +3885,7 @@ PrefabInstance:
     - target: {fileID: 3007131178052959607, guid: e4810478f0e810e4dbd8b1b622ea7a20,
         type: 3}
       propertyPath: signalStrength
-      value: 0.198
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 4019241905904308558, guid: e4810478f0e810e4dbd8b1b622ea7a20,
         type: 3}
