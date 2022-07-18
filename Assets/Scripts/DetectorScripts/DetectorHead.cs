@@ -14,7 +14,7 @@ public class DetectorHead : MonoBehaviour
 	[SerializeField] private float upperRad = 0.4f;
 	[SerializeField] private float distance = 0.4f;
 	private ConeGenerator coneGenerator;
-	public static float currentSignal;
+	public static float currentSignal { get; private set; }
 	[SerializeField] private float signalDegradeSpeed = 2f;
 	public static event Action<float> OnDetection ;
 
