@@ -15,7 +15,7 @@ namespace Player
 		public BaseState idleState = new IdleState();
 		[Header("Digging")] public SpriteRenderer diggingTarget;
 		public readonly string GROUND_LAYER = "Ground";
-
+		public float maxDigRange = 2f;
 
 		[Header("Detecting")] public Transform rigHandTarget;
 		public Transform handleIKTarget;
@@ -34,7 +34,6 @@ namespace Player
 			isManualDetecting = false;
 			detectorModel.SetActive(false);
 
-			ChangeState(idleState);
 		}
 
 		private void OnEnable()
@@ -71,6 +70,8 @@ namespace Player
 		private void Awake()
 		{
 			camera = Camera.main;
+			ChangeState(idleState);
+
 		}
 
 		protected override void ChangeState(BaseState state)

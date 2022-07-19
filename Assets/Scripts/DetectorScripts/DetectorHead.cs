@@ -25,6 +25,9 @@ namespace DetectorScripts
 		private void Start()
 		{
 			GenerateCone();
+			currentSignal = 0;
+			OnDetection?.Invoke(currentSignal);
+
 		}
 
 		private void GenerateCone()
