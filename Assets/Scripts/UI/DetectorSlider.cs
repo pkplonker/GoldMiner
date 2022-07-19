@@ -4,6 +4,7 @@
 
 using System;
 using DetectorScripts;
+using Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,22 +18,15 @@ namespace UI
 		[SerializeField] private Image image;
 
 		private void OnEnable() => DetectorHead.OnDetection += SetFillAmount;
-
-
 		private void OnDisable() => DetectorHead.OnDetection -= SetFillAmount;
-
+		private void SetFillAmount(float i) => image.fillAmount = i;
+		
 		private void Update()
 		{
-			if (DetectorState.isDetecting)
-			{
-				SetFillAmount(DetectorHead.currentSignal);
-			}
-			else if (image.fillAmount != 0)
-			{
-				SetFillAmount(0);
-			}
+			if (PlayerInteractionStateMachine.isDetecting) SetFillAmount(DetectorHead.currentSignal);
+			else if (image.fillAmount != 0) SetFillAmount(0);
+			
 		}
 
-		private void SetFillAmount(float i) => image.fillAmount = i;
 	}
 }

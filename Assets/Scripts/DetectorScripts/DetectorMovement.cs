@@ -11,7 +11,7 @@ namespace DetectorScripts
 	/// <summary>
 	///DetectorTest full description
 	/// </summary>
-	public class Detector : MonoBehaviour
+	public class DetectorMovement : MonoBehaviour
 	{
 		[SerializeField] private float maxYRot = 35f;
 		[SerializeField] private float rotationSpeed = 50f;
@@ -23,7 +23,7 @@ namespace DetectorScripts
 		private void OnEnable()
 		{
 			DetectorState.RegisterDetector(this);
-			DetectorState.OnDetectorManualToggleChanged += OnDetectorAutoToggle;
+			PlayerInteractionStateMachine.OnDetectorManualToggleChanged += OnDetectorAutoToggle;
 		}
 
 		private void OnDetectorAutoToggle(bool on)
@@ -54,7 +54,7 @@ namespace DetectorScripts
 		private void OnDisable()
 		{
 			DetectorState.UnregisterDetector(this);
-			DetectorState.OnDetectorManualToggleChanged -= OnDetectorAutoToggle;
+			PlayerInteractionStateMachine.OnDetectorManualToggleChanged -= OnDetectorAutoToggle;
 		}
 
 		private void Start()
@@ -66,10 +66,10 @@ namespace DetectorScripts
 
 		private void Update()
 		{
-			if (!DetectorState.isDetecting) ResetPosition();
+			if (!PlayerInteractionStateMachine.isDetecting) ResetPosition();
 			else
 			{
-				if (DetectorState.isManualDetecting) HandleManualMovement();
+				if (PlayerInteractionStateMachine.isManualDetecting) HandleManualMovement();
 				else HandleAutomaticMovement();
 			}
 		}

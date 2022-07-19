@@ -41,7 +41,7 @@ namespace DetectorScripts
 
 			toneClipData = clipData;
 			//play tone
-			audioSource.Stop();
+			//audioSource.Stop();
 			audioSource.clip = clipData.clip;
 			audioSource.Play();
 		}

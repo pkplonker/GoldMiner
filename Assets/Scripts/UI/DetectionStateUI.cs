@@ -1,5 +1,8 @@
 using System;
+using System.Diagnostics;
 using DetectorScripts;
+using Player;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,37 +10,25 @@ namespace UI
 {
 	public class DetectionStateUI : MonoBehaviour
 	{
-		[SerializeField] private Image manualDetectionImage;
-		[SerializeField] private Image detectionImage;
+		 [SerializeField] private TextMeshProUGUI text;
 
 		private void Awake()
 		{
-			SetImageColor(manualDetectionImage,Color.red);
-			SetImageColor(detectionImage, Color.red);
 		}
 
 		private void OnEnable()
 		{
-			DetectorState.OnDetectorToggleChanged += OnDetectorToggleChanged;
-			DetectorState.OnDetectorManualToggleChanged += OnDetectorManualToggleChanged;
+			PlayerInteractionStateMachine.OnStateChanged += StateChange;
 		}
 
 		private void OnDisable()
 		{
-			DetectorState.OnDetectorToggleChanged += OnDetectorToggleChanged;
-			DetectorState.OnDetectorManualToggleChanged += OnDetectorManualToggleChanged;
+			PlayerInteractionStateMachine.OnStateChanged -= StateChange;
 		}
 
-		private void OnDetectorManualToggleChanged(bool state) =>
-			SetImageColor(manualDetectionImage, state ? Color.green : Color.red);
-
-		private void OnDetectorToggleChanged(bool state) =>
-			SetImageColor(detectionImage, state ? Color.green : Color.red);
-
-		private void SetImageColor(Image image, Color color)
+		private void StateChange(BaseState state)
 		{
-			if (image == null) return;
-			image.color = color;
+			text.text = "PlayerState = "+state.GetType();
 		}
 	}
 }

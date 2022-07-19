@@ -46,6 +46,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""b9a68e66-cfb9-43cc-af9e-442a23e78eeb"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""LeftClick"",
                     ""type"": ""Button"",
                     ""id"": ""9deca139-7ca2-4ce4-be8b-35f545d4ebce"",
@@ -76,6 +85,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": ""ManualDetectionToggle"",
                     ""type"": ""Button"",
                     ""id"": ""bf19ec8c-53fe-40d0-88e0-b4790350b34b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Digging"",
+                    ""type"": ""Button"",
+                    ""id"": ""212b2212-1a60-4a35-80f5-84ae68641958"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -192,6 +210,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""ManualDetectionToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d673bc8d-3e46-4f86-94e1-d47102ceeb79"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""062a6f89-9b7e-4f59-ab32-c55062b30b45"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Digging"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -202,10 +242,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
         m_PlayerMovement_Move = m_PlayerMovement.FindAction("Move", throwIfNotFound: true);
         m_PlayerMovement_Look = m_PlayerMovement.FindAction("Look", throwIfNotFound: true);
+        m_PlayerMovement_MousePosition = m_PlayerMovement.FindAction("MousePosition", throwIfNotFound: true);
         m_PlayerMovement_LeftClick = m_PlayerMovement.FindAction("LeftClick", throwIfNotFound: true);
         m_PlayerMovement_RightClick = m_PlayerMovement.FindAction("RightClick", throwIfNotFound: true);
         m_PlayerMovement_DetectionToggle = m_PlayerMovement.FindAction("DetectionToggle", throwIfNotFound: true);
         m_PlayerMovement_ManualDetectionToggle = m_PlayerMovement.FindAction("ManualDetectionToggle", throwIfNotFound: true);
+        m_PlayerMovement_Digging = m_PlayerMovement.FindAction("Digging", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -267,20 +309,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private IPlayerMovementActions m_PlayerMovementActionsCallbackInterface;
     private readonly InputAction m_PlayerMovement_Move;
     private readonly InputAction m_PlayerMovement_Look;
+    private readonly InputAction m_PlayerMovement_MousePosition;
     private readonly InputAction m_PlayerMovement_LeftClick;
     private readonly InputAction m_PlayerMovement_RightClick;
     private readonly InputAction m_PlayerMovement_DetectionToggle;
     private readonly InputAction m_PlayerMovement_ManualDetectionToggle;
+    private readonly InputAction m_PlayerMovement_Digging;
     public struct PlayerMovementActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerMovementActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_PlayerMovement_Move;
         public InputAction @Look => m_Wrapper.m_PlayerMovement_Look;
+        public InputAction @MousePosition => m_Wrapper.m_PlayerMovement_MousePosition;
         public InputAction @LeftClick => m_Wrapper.m_PlayerMovement_LeftClick;
         public InputAction @RightClick => m_Wrapper.m_PlayerMovement_RightClick;
         public InputAction @DetectionToggle => m_Wrapper.m_PlayerMovement_DetectionToggle;
         public InputAction @ManualDetectionToggle => m_Wrapper.m_PlayerMovement_ManualDetectionToggle;
+        public InputAction @Digging => m_Wrapper.m_PlayerMovement_Digging;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -296,6 +342,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnLook;
+                @MousePosition.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnMousePosition;
                 @LeftClick.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnLeftClick;
                 @LeftClick.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnLeftClick;
                 @LeftClick.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnLeftClick;
@@ -308,6 +357,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @ManualDetectionToggle.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnManualDetectionToggle;
                 @ManualDetectionToggle.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnManualDetectionToggle;
                 @ManualDetectionToggle.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnManualDetectionToggle;
+                @Digging.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDigging;
+                @Digging.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDigging;
+                @Digging.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDigging;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -318,6 +370,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
                 @LeftClick.started += instance.OnLeftClick;
                 @LeftClick.performed += instance.OnLeftClick;
                 @LeftClick.canceled += instance.OnLeftClick;
@@ -330,6 +385,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @ManualDetectionToggle.started += instance.OnManualDetectionToggle;
                 @ManualDetectionToggle.performed += instance.OnManualDetectionToggle;
                 @ManualDetectionToggle.canceled += instance.OnManualDetectionToggle;
+                @Digging.started += instance.OnDigging;
+                @Digging.performed += instance.OnDigging;
+                @Digging.canceled += instance.OnDigging;
             }
         }
     }
@@ -338,9 +396,11 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
         void OnLeftClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
         void OnDetectionToggle(InputAction.CallbackContext context);
         void OnManualDetectionToggle(InputAction.CallbackContext context);
+        void OnDigging(InputAction.CallbackContext context);
     }
 }

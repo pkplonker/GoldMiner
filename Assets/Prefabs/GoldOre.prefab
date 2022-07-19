@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 4019241905907700078}
   - component: {fileID: 4019241905906733998}
   - component: {fileID: 3007131178052959607}
-  m_Layer: 0
+  - component: {fileID: 6122178655367527705}
+  m_Layer: 7
   m_Name: GoldOre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,3 +97,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0f80b3f265f2b4ba1b5e4f50f430ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  signalStrength: 0
+--- !u!135 &6122178655367527705
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4019241905904536942}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.20397341
+  m_Center: {x: -0.01827658, y: 0.18285127, z: -0.011873253}

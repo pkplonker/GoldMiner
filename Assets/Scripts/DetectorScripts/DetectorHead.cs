@@ -3,6 +3,7 @@
 //
 
 using System;
+using Player;
 using UnityEngine;
 
 namespace DetectorScripts
@@ -19,6 +20,7 @@ namespace DetectorScripts
 		public static float currentSignal { get; private set; }
 		[SerializeField] private float signalDegradeSpeed = 2f;
 		public static event Action<float> OnDetection;
+		private const string targetLayerMask = "Target";
 
 		private void Start()
 		{
@@ -43,7 +45,7 @@ namespace DetectorScripts
 
 		private void Update()
 		{
-			if (!DetectorState.isDetecting) return;
+			if (!PlayerInteractionStateMachine.isDetecting) return;
 			OnDetection?.Invoke(currentSignal);
 			DegradeSignal();
 		}
@@ -56,14 +58,25 @@ namespace DetectorScripts
 
 		private float CalculateSignalStrength(Target t)
 		{
-			Debug.DrawLine(coneGenerator.transform.position, transform.position,Color.red,1f);
-			return (Mathf.Clamp01(Vector3.Distance(coneGenerator.transform.position, t.transform.position) /
-			                      distance));
+			var direction = (t.transform.position - coneGenerator.transform.position).normalized;
+
+			if (!Physics.Raycast(coneGenerator.transform.position, direction, out var hit, distance,
+				    LayerMask.GetMask(targetLayerMask))) return 0;
+
+			if (hit.collider.gameObject == t.gameObject)
+			{
+				Debug.DrawLine(coneGenerator.transform.position, hit.point, Color.red, 1f);
+				Debug.Log("distance  = " + hit.distance);
+				Debug.Log(1-(hit.distance/distance));
+				return 1-(hit.distance/distance);
+			}
+
+			return 0;
 		}
 
 		public void TargetDetected(Target target)
 		{
-			if (!DetectorState.isDetecting) return;
+			if (!PlayerInteractionStateMachine.isDetecting) return;
 			currentSignal = CalculateSignalStrength(target);
 			Debug.Log("BUZZZZZ");
 			OnDetection?.Invoke(currentSignal);
