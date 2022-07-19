@@ -6858,6 +6858,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1691519813, guid: 7256dc8a1f156ac42a5bd5f96d43efc9, type: 3}
+      propertyPath: lowFreq
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1691519813, guid: 7256dc8a1f156ac42a5bd5f96d43efc9, type: 3}
+      propertyPath: highFreq
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1691519813, guid: 7256dc8a1f156ac42a5bd5f96d43efc9, type: 3}
       propertyPath: maxPitch
       value: 1.5
       objectReference: {fileID: 0}
@@ -6865,6 +6873,11 @@ PrefabInstance:
       propertyPath: highestFrequency
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 1691519814, guid: 7256dc8a1f156ac42a5bd5f96d43efc9, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 6621629012507747766, guid: c1d24308a9474be458f23191c415bb24,
+        type: 2}
     - target: {fileID: 7115179166986297814, guid: 7256dc8a1f156ac42a5bd5f96d43efc9,
         type: 3}
       propertyPath: m_RootOrder

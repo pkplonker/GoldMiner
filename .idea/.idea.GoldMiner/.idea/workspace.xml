@@ -2,25 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/HUDUI.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/HUDUI.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/audiomass-output.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/audiomass-output.wav.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/ConeGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/ConeGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/Detector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/Detector.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorBeep.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorBeep.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorCone.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorCone.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorHead.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorHead.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerAnimation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/DetectionStateUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/DetectionStateUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/DetectorSlider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/DetectorSlider.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
