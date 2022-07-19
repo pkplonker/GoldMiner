@@ -3,6 +3,7 @@
 //
 
 using System;
+using DetectorScripts;
 using UnityEngine;
 using UnityEngine.UI;
 

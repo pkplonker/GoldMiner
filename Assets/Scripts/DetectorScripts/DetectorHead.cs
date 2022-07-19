@@ -5,62 +5,68 @@
 using System;
 using UnityEngine;
 
-/// <summary>
-///DetectorHead full description
-/// </summary>
-public class DetectorHead : MonoBehaviour
+namespace DetectorScripts
 {
-	[SerializeField] private float lowerRad = 0.4f;
-	[SerializeField] private float upperRad = 0.4f;
-	[SerializeField] private float distance = 0.4f;
-	private ConeGenerator coneGenerator;
-	public static float currentSignal { get; private set; }
-	[SerializeField] private float signalDegradeSpeed = 2f;
-	public static event Action<float> OnDetection ;
-
-	private void Start()
+	/// <summary>
+	///DetectorHead full description
+	/// </summary>
+	public class DetectorHead : MonoBehaviour
 	{
-		GenerateCone();
-	}
+		[SerializeField] private float lowerRad = 0.4f;
+		[SerializeField] private float upperRad = 0.4f;
+		[SerializeField] private float distance = 0.4f;
+		private ConeGenerator coneGenerator;
+		public static float currentSignal { get; private set; }
+		[SerializeField] private float signalDegradeSpeed = 2f;
+		public static event Action<float> OnDetection;
 
-	private void GenerateCone()
-	{
-		GameObject go = new GameObject("Cone");
-		go.transform.SetParent(transform);
-		go.transform.localPosition = Vector3.zero;
-		go.transform.localRotation = Quaternion.Euler(-90, 0, 0);
-		go.transform.localScale = transform.localScale;
-		coneGenerator = go.AddComponent<ConeGenerator>();
-		coneGenerator.GenerateCone(transform.localPosition, 12, distance, lowerRad, upperRad);
-		coneGenerator.enabled = false;
-		go.AddComponent<DetectorCone>();
+		private void Start()
+		{
+			GenerateCone();
+		}
 
-		//debug only
-		go.AddComponent<MeshRenderer>();
-	}
+		private void GenerateCone()
+		{
+			GameObject go = new GameObject("Cone");
+			go.transform.SetParent(transform);
+			go.transform.localPosition = Vector3.zero;
+			go.transform.localRotation = Quaternion.Euler(-90, 0, 0);
+			go.transform.localScale = transform.localScale;
+			coneGenerator = go.AddComponent<ConeGenerator>();
+			coneGenerator.GenerateCone(transform.localPosition, 12, distance, lowerRad, upperRad);
+			coneGenerator.enabled = false;
+			go.AddComponent<DetectorCone>();
 
-	private void Update()
-	{
-		if (!DetectorState.isDetecting) return;
-		OnDetection?.Invoke(currentSignal);
-		DegradeSignal();
-	}
+			//debug only
+			go.AddComponent<MeshRenderer>();
+		}
 
-	private void DegradeSignal()
-	{
-		currentSignal=Mathf.Lerp(currentSignal, 0, Time.deltaTime*signalDegradeSpeed);
-	}
+		private void Update()
+		{
+			if (!DetectorState.isDetecting) return;
+			OnDetection?.Invoke(currentSignal);
+			DegradeSignal();
+		}
+
+		private void DegradeSignal()
+		{
+			currentSignal = Mathf.Lerp(currentSignal, 0, Time.deltaTime * signalDegradeSpeed);
+		}
 
 
-	private float CalculateSignalStrength(Target t) => (Vector3.Distance(coneGenerator.transform.position, t.transform.position) /
-	                                                    distance) * t.GetSignalStrength();
+		private float CalculateSignalStrength(Target t)
+		{
+			Debug.DrawLine(coneGenerator.transform.position, transform.position,Color.red,1f);
+			return (Mathf.Clamp01(Vector3.Distance(coneGenerator.transform.position, t.transform.position) /
+			                      distance));
+		}
 
-	public void TargetDetected(Target target)
-	{
-		if (!DetectorState.isDetecting) return;
-		currentSignal = CalculateSignalStrength(target);
-		Debug.Log("BUZZZZZ");
-		OnDetection?.Invoke(currentSignal);
-
+		public void TargetDetected(Target target)
+		{
+			if (!DetectorState.isDetecting) return;
+			currentSignal = CalculateSignalStrength(target);
+			Debug.Log("BUZZZZZ");
+			OnDetection?.Invoke(currentSignal);
+		}
 	}
 }
