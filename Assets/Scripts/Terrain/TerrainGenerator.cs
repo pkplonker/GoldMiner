@@ -11,6 +11,14 @@ namespace Terrain
 		private List<int> triangles = new List<int>();
 		private List<Vector3> vertices = new List<Vector3>();
 		[SerializeField] private bool debug;
+		private MeshCollider meshCollider;
+		private MeshFilter meshFilter;
+
+		private void Awake()
+		{
+			meshCollider = GetComponent<MeshCollider>();
+			meshFilter = GetComponent<MeshFilter>();
+		}
 
 		private void Update()
 		{
@@ -23,13 +31,16 @@ namespace Terrain
 		public void GenerateTerrain()
 		{
 			GenerateMeshData();
-			var mf = GetComponent<MeshFilter>();
 			var mesh = GenerateMesh();
-			SetMesh(mesh, mf);
+			SetMesh(mesh, meshFilter);
 
-			var mc = GetComponent<MeshCollider>();
+			UpdateCollider(meshCollider, mesh);
+		}
+
+		private void UpdateCollider(MeshCollider mc, Mesh mesh)
+		{
 			mc.sharedMesh = null;
-			mc.sharedMesh = mf.mesh;
+			mc.sharedMesh = mesh;
 		}
 
 		private void SetMesh(Mesh generatedMesh, MeshFilter mf)
