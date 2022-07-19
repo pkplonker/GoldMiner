@@ -16,7 +16,7 @@ namespace Player
 		[Header("Digging")] public SpriteRenderer diggingTarget;
 		public readonly string GROUND_LAYER = "Ground";
 		public float maxDigRange = 2f;
-
+		public float digDepth = 1f;
 		[Header("Detecting")] public Transform rigHandTarget;
 		public Transform handleIKTarget;
 		public Animator animator;
