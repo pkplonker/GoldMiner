@@ -70,7 +70,7 @@ public class Digging : BaseState
 		UpdateMarkerPosition();
 		if (PlayerInputManager.Instance.GetLeftClick() && canDig)
 		{
-			Debug.Log("Dig dig");
+			Debug.Log("Dig dig" + Time.frameCount);
 			canDig = false;
 
 			AttemptDig();

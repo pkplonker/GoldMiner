@@ -15,6 +15,8 @@ namespace Player
 	public class PlayerInputManager : GenericUnitySingleton<PlayerInputManager>
 	{
 		private PlayerControls playerControls;
+		private bool rightClick;
+		private bool leftClick;
 		public static event Action OnDetectionToggle;
 		public static event Action OnManualDetectionToggle;
 		public static event Action OnDiggingToggle;
@@ -28,8 +30,8 @@ namespace Player
 		public Vector2 GetMouseDelta() => playerControls.PlayerMovement.Look.ReadValue<Vector2>();
 		public Vector2 GetMousePosition() => playerControls.PlayerMovement.MousePosition.ReadValue<Vector2>();
 
-		public bool GetLeftClick() => playerControls.PlayerMovement.LeftClick.inProgress;
-		public bool GetRightClick() => playerControls.PlayerMovement.RightClick.inProgress;
+		public bool GetLeftClick() => leftClick;
+		public bool GetRightClick() => rightClick;
 		protected override void Awake()
 		{
 			base.Awake();
@@ -42,9 +44,14 @@ namespace Player
 			playerControls.PlayerMovement.DetectionToggle.performed += Detection;
 			playerControls.PlayerMovement.ManualDetectionToggle.performed += ManualDetectionToggle;
 			playerControls.PlayerMovement.Digging.performed += Digging;
+			playerControls.PlayerMovement.LeftClick.performed += _ => leftClick = true;
+			playerControls.PlayerMovement.LeftClick.performed += _ => rightClick = true;
+
 		}
 
-
-	
+		private void LateUpdate()
+		{
+			leftClick = false;
+			 rightClick = false;		}
 	}
 }
