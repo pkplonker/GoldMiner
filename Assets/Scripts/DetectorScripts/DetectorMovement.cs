@@ -84,9 +84,9 @@ namespace DetectorScripts
 
 		public void HandleManualMovement()
 		{
-			if (PlayerInputManager.Instance.GetLeftClick() && PlayerInputManager.Instance.GetRightClick()) return;
-			if (PlayerInputManager.Instance.GetLeftClick()) HandleLeftMove();
-			else if (PlayerInputManager.Instance.GetRightClick()) HandleRightMove();
+			if (PlayerInputManager.Instance.GetLeftClickHeld() && PlayerInputManager.Instance.GetRightClickHeld()) return;
+			if (PlayerInputManager.Instance.GetLeftClickHeld()) HandleLeftMove();
+			else if (PlayerInputManager.Instance.GetRightClickHeld()) HandleRightMove();
 		}
 
 		private void HandleLeftMove()

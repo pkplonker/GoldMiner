@@ -5,6 +5,9 @@ using System.Linq;
 using Player;
 using Terrain;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEngine.Profiling;
+#endif
 
 public class Digging : BaseState
 {
@@ -79,6 +82,10 @@ public class Digging : BaseState
 
 	private void AttemptDig()
 	{
+#if UNITY_EDITOR
+
+		Profiler.BeginSample("Digging");
+#endif
 		//cast ray to get vertex
 		Vector3 hitPoint = Vector3.negativeInfinity;
 		Ray ray = stateMachine.camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
@@ -98,33 +105,38 @@ public class Digging : BaseState
 		//get mfilter
 		var mesh = hit.collider.GetComponent<MeshFilter>().mesh;
 		//get closest vertex
+
+		var index = hit.triangleIndex;
+		List<Vector3> hitVerts = new List<Vector3>();
+		hitVerts.Add(mesh.vertices[mesh.triangles[index * 3 + 0]]);
+		hitVerts.Add(mesh.vertices[mesh.triangles[index * 3 + 1]]);
+		hitVerts.Add(mesh.vertices[mesh.triangles[index * 3 + 2]]);
+	
+
 		var verts = mesh.vertices.ToList();
-		int closest = -1;
-		float closestSqrMag = Single.PositiveInfinity;
-		float hitSqrMag = hitPoint.sqrMagnitude;
-		float currentSqrMag;
-		for (int i = 0; i < verts.Count; i++)
+
+		for (var i = 0; i < verts.Count; i++)
 		{
-			currentSqrMag = Mathf.Abs(hitSqrMag - verts[i].sqrMagnitude) ;
-			if (currentSqrMag < closestSqrMag)
+			var v = verts[i];
+			if (hitVerts.Any(hv => v == hv))
 			{
-				closest = i;
-				closestSqrMag = currentSqrMag;
+				verts[i] = new Vector3(v.x, v.y - stateMachine.digDepth, v.z);
 			}
 		}
-
-		if (closest == -1)
-		{
-			Debug.Log("Failed to find closest");
-			return;
-		}
-
-		//modify vertex
-		verts[closest] = new Vector3(verts[closest].x, -stateMachine.digDepth, verts[closest].z);
-
 
 		//get terrain generator and update vertex array;
 		var tg = hit.collider.GetComponent<TerrainGenerator>();
 		tg.UpdateMesh(verts);
+#if UNITY_EDITOR
+		Profiler.EndSample();
+#endif
+	}
+
+	private void SpawnTestBall(Vector3 hitPoint, string name)
+	{
+		var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		go.transform.localScale = Vector3.one * 0.1f;
+		go.transform.SetPositionAndRotation(hitPoint, Quaternion.identity);
+		go.name = name;
 	}
 }

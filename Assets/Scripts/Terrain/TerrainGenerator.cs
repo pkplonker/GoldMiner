@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEngine.Profiling;
+#endif
 
 namespace Terrain
 {
@@ -18,6 +20,7 @@ namespace Terrain
 		[SerializeField] private bool debug;
 		private MeshCollider meshCollider;
 		private MeshFilter meshFilter;
+		[SerializeField] private Material debugMat;
 
 		private void Awake()
 		{
@@ -29,23 +32,34 @@ namespace Terrain
 
 		public void UpdateMesh(List<Vector3> verts)
 		{
-			Profiler.BeginSample("Updating mesh");
+#if UNITY_EDITOR
 
+			Profiler.BeginSample("Updating mesh");
+#endif
 			var mesh = GenerateMesh(verts, triangles, uvs);
 			SetMesh(mesh, meshFilter);
 			UpdateCollider(meshCollider, mesh);
+#if UNITY_EDITOR
+
 			Profiler.EndSample();
+#endif
 		}
 
 		public void GenerateTerrain()
 		{
+#if UNITY_EDITOR
+
 			Profiler.BeginSample("Generate Terrain");
+#endif
 			GenerateMeshData();
 			var mesh = GenerateMesh(vertices, triangles, uvs);
 			SetMesh(mesh, meshFilter);
 
 			UpdateCollider(meshCollider, mesh);
+#if UNITY_EDITOR
+
 			Profiler.EndSample();
+#endif
 		}
 
 		private void UpdateCollider(MeshCollider mc, Mesh mesh)
@@ -61,28 +75,33 @@ namespace Terrain
 
 		private void GenerateMeshData()
 		{
-			int s = size * detailLevel;
-			float topLeftX = (s - 1) / -2f;
-			float topLeftZ = (s - 1) / 2f;
-			for (int y = 0; y < s; y++)
+			var s = size * detailLevel;
+			var topLeftX = (s - 1) / -2f;
+			var topLeftZ = (s - 1) / 2f;
+			for (var y = 0; y < s; y++)
 			{
-				for (int x = 0; x < s; x++)
+				for (var x = 0; x < s; x++)
 				{
 					vertices.Add(new Vector3((topLeftX + x) / detailLevel, 0, (topLeftZ - y) / detailLevel));
 					uvs.Add(new Vector2(x / (float) s, y / (float) s));
-					if (x < s - 1 && y < s - 1)
-					{
-						var i = vertices.Count - 1;
-						triangles.Add(i);
-						triangles.Add(i + s + 1);
-						triangles.Add(i + s);
-
-						triangles.Add(i + s + 1);
-						triangles.Add(i);
-						triangles.Add(i + 1);
-					}
+					
+					if (x >= s - 1 || y >= s - 1) continue;
+					
+					AddTriangles(s);
 				}
 			}
+		}
+
+		private void AddTriangles(int s)
+		{
+			var i = vertices.Count - 1;
+			triangles.Add(i);
+			triangles.Add(i + s + 1);
+			triangles.Add(i + s);
+
+			triangles.Add(i + s + 1);
+			triangles.Add(i);
+			triangles.Add(i + 1);
 		}
 
 		private Mesh GenerateMesh(List<Vector3> verts, List<int> tris, List<Vector2> u)
@@ -99,6 +118,7 @@ namespace Terrain
 					go.transform.localScale = Vector3.one * 0.1f;
 					go.transform.SetParent(transform);
 					go.transform.SetPositionAndRotation(v, Quaternion.identity);
+					go.GetComponent<MeshRenderer>().sharedMaterial = debugMat;
 				}
 			}
 

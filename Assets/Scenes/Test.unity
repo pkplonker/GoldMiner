@@ -849,8 +849,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 20
-  vertexSpacing: 0.2
+  vertexSpacing: 0.33
   debug: 0
+  debugMat: {fileID: 2100000, guid: 0c1504ae0fc68ea4dbe022d9f7745ede, type: 2}
 --- !u!33 &203537218
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6942,7 +6943,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 500
-  field of view: 55
+  field of view: 50
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -7170,6 +7171,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.17416048
       objectReference: {fileID: 0}
+    - target: {fileID: 5189435418136734021, guid: 7256dc8a1f156ac42a5bd5f96d43efc9,
+        type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7115179166986297814, guid: 7256dc8a1f156ac42a5bd5f96d43efc9,
         type: 3}
       propertyPath: m_RootOrder
@@ -7224,6 +7230,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115179166986297815, guid: 7256dc8a1f156ac42a5bd5f96d43efc9,
+        type: 3}
+      propertyPath: topClamp
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115179166986297815, guid: 7256dc8a1f156ac42a5bd5f96d43efc9,
+        type: 3}
+      propertyPath: bottomClamp
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 7635256604560604012, guid: 7256dc8a1f156ac42a5bd5f96d43efc9,
         type: 3}
