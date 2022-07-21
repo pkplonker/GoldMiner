@@ -111,7 +111,7 @@ public class Digging : BaseState
 		hitVerts.Add(mesh.vertices[mesh.triangles[index * 3 + 0]]);
 		hitVerts.Add(mesh.vertices[mesh.triangles[index * 3 + 1]]);
 		hitVerts.Add(mesh.vertices[mesh.triangles[index * 3 + 2]]);
-	
+
 
 		var verts = mesh.vertices.ToList();
 
@@ -125,8 +125,10 @@ public class Digging : BaseState
 		}
 
 		//get terrain generator and update vertex array;
-		var tg = hit.collider.GetComponent<TerrainGenerator>();
-		tg.UpdateMesh(verts);
+		var tg = hit.collider.GetComponent<DiggableTerrain>();
+		if (tg != null) tg.UpdateMesh(verts);
+		else Debug.Log("Failed to get diggable terrain");
+
 #if UNITY_EDITOR
 		Profiler.EndSample();
 #endif

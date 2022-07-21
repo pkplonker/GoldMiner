@@ -20,6 +20,9 @@ namespace Terrain
 		{
 			meshFilter.sharedMesh = meshData.CreateMesh();
 			meshRenderer.sharedMaterial.mainTexture = texture2D;
+			var c = meshRenderer.GetComponent<MeshCollider>();
+			c.sharedMesh = meshFilter.sharedMesh;
+			
 		}
 	}
 }

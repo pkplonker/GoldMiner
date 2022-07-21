@@ -6,7 +6,7 @@ namespace Terrain
 	public static class Noise
 	{
 		public static float[,] GenerateNoiseMap(int width, int height,int seed, float scale, int octaves,
-			float persistance, float lacunarity, Vector2 offset)
+			float persistance, float lacunarity, Vector2 offset, int vertexCountMultiplier)
 		{
 			float[,] noiseMap = new float[width, height];
 			System.Random rng = new System.Random(seed);
@@ -32,8 +32,8 @@ namespace Terrain
 					float noiseHeight = 0;
 					for (int i = 0; i < octaves; i++)
 					{
-						float sampleX = (x-halfSize) / scale * frequency+octaveOffsets[i].x;
-						float sampleY = (y-halfSize) / scale * frequency+octaveOffsets[i].y;
+						float sampleX = ((x-halfSize) / scale * frequency+octaveOffsets[i].x)/vertexCountMultiplier;
+						float sampleY = ((y-halfSize) / scale * frequency+octaveOffsets[i].y)/vertexCountMultiplier;
 						float perlinValue = (Mathf.PerlinNoise(sampleX, sampleY) * 2) - 1;
 						noiseHeight += perlinValue * amplitude;
 						amplitude *= persistance;

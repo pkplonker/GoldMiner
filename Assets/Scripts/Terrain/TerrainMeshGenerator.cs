@@ -17,8 +17,8 @@ namespace Terrain
 		public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier,
 			AnimationCurve heightCurve, int vertexCountMultiplier)
 		{
-			int width = heightMap.GetLength(0) * vertexCountMultiplier;
-			int height = heightMap.GetLength(1) * vertexCountMultiplier;
+			int width = heightMap.GetLength(0) ;
+			int height = heightMap.GetLength(1) ;
 			float topLeftX = (width/vertexCountMultiplier - 1) / -2f;
 			float topLeftZ = (height/vertexCountMultiplier - 1) / 2f;
 			MeshData meshData = new MeshData();
@@ -26,7 +26,7 @@ namespace Terrain
 
 			for (int y = 0; y < height; y ++) {
 				for (int x = 0; x < width; x ++) {
-					meshData.vertices.Add(new Vector3 (topLeftX + (x/(float)vertexCountMultiplier), heightCurve.Evaluate(heightMap [x/vertexCountMultiplier, y/vertexCountMultiplier]) * heightMultiplier, topLeftZ - (y/(float)vertexCountMultiplier))); ;
+					meshData.vertices.Add(new Vector3 (topLeftX + (x/(float)vertexCountMultiplier), heightCurve.Evaluate(heightMap [x, y]) * heightMultiplier, topLeftZ - (y/(float)vertexCountMultiplier))); ;
 					meshData.uvs.Add(new Vector2 (x / (float)width, y / (float)height));
 
 					if (x < width - 1 && y < height - 1) {
