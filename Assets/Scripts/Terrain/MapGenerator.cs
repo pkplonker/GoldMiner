@@ -33,10 +33,12 @@ namespace Terrain
 		[SerializeField] private DrawMode drawMode = DrawMode.Color;
 
 		[Header("Mesh")]
-		[Range(0.1f, 1f)] [SerializeField] private float vertexSpacing;
+		[Range(0,10)] [SerializeField] private int vertexCountMultiplier;
 		[Range(1f, 100f)] [SerializeField] private float heightMultiplier;
 		[SerializeField] private AnimationCurve heightCurve;
 		private void Awake() => mapDisplay = FindObjectOfType<MapDisplay>();
+
+		
 
 		public void GenerateMap() {
 			float[,] noiseMap = Noise.GenerateNoiseMap (width, height, seed, noiseScale, octaves, persistance, lacunarity, offset);
@@ -54,13 +56,12 @@ namespace Terrain
 				}
 			}
 
-			MapDisplay display = FindObjectOfType<MapDisplay> ();
 			if (drawMode == DrawMode.Noise) {
-				display.DrawTexture (TextureGenerator.TextureFromHeightMap (noiseMap));
+				mapDisplay.DrawTexture (TextureGenerator.TextureFromHeightMap (noiseMap));
 			} else if (drawMode == DrawMode.Color) {
-				display.DrawTexture (TextureGenerator.TextureFromColourMap (colourMap, width, height));
+				mapDisplay.DrawTexture (TextureGenerator.TextureFromColourMap (colourMap, width, height));
 			} else if (drawMode == DrawMode.Mesh) {
-				display.DrawMesh (TerrainMeshGenerator.GenerateTerrainMesh (noiseMap,heightMultiplier,heightCurve), TextureGenerator.TextureFromColourMap (colourMap, width, height));
+				mapDisplay.DrawMesh (TerrainMeshGenerator.GenerateTerrainMesh (noiseMap,heightMultiplier,heightCurve,vertexCountMultiplier), TextureGenerator.TextureFromColourMap (colourMap, width, height));
 			}
 		}
 		
