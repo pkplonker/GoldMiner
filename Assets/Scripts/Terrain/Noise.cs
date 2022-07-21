@@ -5,10 +5,10 @@ namespace Terrain
 {
 	public static class Noise
 	{
-		public static float[,] GenerateNoiseMap(int size, int seed, float scale, int octaves,
+		public static float[,] GenerateNoiseMap(int width, int height,int seed, float scale, int octaves,
 			float persistance, float lacunarity, Vector2 offset)
 		{
-			float[,] noiseMap = new float[size, size];
+			float[,] noiseMap = new float[width, height];
 			System.Random rng = new System.Random(seed);
 			Vector2[] octaveOffsets = new Vector2[octaves];
 			for (int i = 0; i < octaves; i++)
@@ -20,12 +20,12 @@ namespace Terrain
 
 			if (scale <= 0) scale = 0.00001f;
 
-			float halfSize = size / 2f;
+			float halfSize = width / 2f;
 			var maxNoise = float.MinValue;
 			var minNoise = float.MaxValue;
-			for (int y = 0; y < size; y++)
+			for (int y = 0; y < width; y++)
 			{
-				for (int x = 0; x < size; x++)
+				for (int x = 0; x < width; x++)
 				{
 					float amplitude = 1;
 					float frequency = 1;
@@ -53,9 +53,9 @@ namespace Terrain
 				}
 			}
 
-			for (int y = 0; y < size; y++)
+			for (int y = 0; y < width; y++)
 			{
-				for (int x = 0; x < size; x++)
+				for (int x = 0; x < width; x++)
 				{
 					noiseMap[x, y] = Mathf.InverseLerp(minNoise, maxNoise, noiseMap[x, y]);
 				}
