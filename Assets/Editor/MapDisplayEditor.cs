@@ -19,14 +19,11 @@
 			 MapGenerator mapGenerator = target as MapGenerator;
 			 if (DrawDefaultInspector())
 			 {
-				 if (mapGenerator.autoUpdate)
-				 {
-					 mapGenerator.GenerateMap();
-				 }
+				
 			 }
 			 if (GUILayout.Button("Generate"))
 			 {
-				 mapGenerator.GenerateMap();
+				 mapGenerator.GenerateTex();
 			 }
 		 }
 	 }
