@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Player;
-using Terrain;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEngine.Profiling;
@@ -125,9 +124,9 @@ public class Digging : BaseState
 		}
 
 		//get terrain generator and update vertex array;
-		var tg = hit.collider.GetComponent<DiggableTerrain>();
-		if (tg != null) tg.UpdateMesh(verts);
-		else Debug.Log("Failed to get diggable terrain");
+		//var tg = hit.collider.GetComponent<DiggableTerrain>();
+		//if (tg != null) tg.UpdateMesh(verts);
+		//else Debug.Log("Failed to get diggable terrain");
 
 #if UNITY_EDITOR
 		Profiler.EndSample();

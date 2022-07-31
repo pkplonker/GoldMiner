@@ -6,8 +6,7 @@ namespace Player
 	[RequireComponent(typeof(CharacterController))]
 	public class PlayerMovement : MonoBehaviour
 	{
-		[Header("Player")]
-		[SerializeField] private float moveSpeed = 4.0f;
+		[Header("Player")] [SerializeField] private float moveSpeed = 4.0f;
 		[SerializeField] private float rotationSpeedX = 12.0f;
 		[SerializeField] private float rotationSpeedY = 12.0f;
 
@@ -19,8 +18,8 @@ namespace Player
 		[SerializeField] private float fallTimeout = 0.15f;
 		[SerializeField] private float groundedOffset = -0.14f;
 		[SerializeField] private float groundedRadius = 0.5f;
-		public static event Action<Vector2> OnMove; 
-		public static event Action<Vector2> OnRotate; 
+		public event Action<Vector2> OnMove;
+		public event Action<Vector2> OnRotate;
 
 		[SerializeField] private GameObject cinemachineCameraTarget;
 		[SerializeField] private float topClamp = 89.0f;
@@ -38,6 +37,7 @@ namespace Player
 
 		private CharacterController controller;
 		private GameObject mainCamera;
+		private bool canMove;
 
 		private const float THRESHOLD = 0.01f;
 
@@ -72,13 +72,15 @@ namespace Player
 		}
 
 		private bool CanMove() => true;
+		public void SetCanMove(bool m) => canMove = m;
 
 		private void GroundedCheck()
 		{
 			var position = transform.position;
 			Vector3 spherePosition = new Vector3(position.x, position.y - groundedOffset,
 				position.z);
-			grounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers, QueryTriggerInteraction.Ignore);
+			grounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers,
+				QueryTriggerInteraction.Ignore);
 		}
 
 		private void CameraRotation()
@@ -96,7 +98,7 @@ namespace Player
 		private void Move()
 		{
 			var input = PlayerInputManager.Instance.GetPlayerMovement();
-		
+
 			var velocity = controller.velocity;
 			float currentHorizontalSpeed = new Vector3(velocity.x, 0.0f, velocity.z).magnitude;
 			float speedOffset = 0.1f;

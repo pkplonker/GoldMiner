@@ -1067,8 +1067,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 3000511469206955723}
   m_AABB:
-    m_Center: {x: -0.0000008940697, y: 0.86316675, z: -0.040280312}
-    m_Extent: {x: 1.024559, y: 0.96411353, z: 0.300506}
+    m_Center: {x: 0, y: 0.7, z: 0}
+    m_Extent: {x: 0.35, y: 0.9, z: 0.35}
   m_DirtyAABB: 0
 --- !u!1 &3000511469207210635
 GameObject:
@@ -1586,7 +1586,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3000511469206955723}
-  - component: {fileID: 3000511469207394088}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -1610,26 +1609,6 @@ Transform:
   m_Father: {fileID: 3000511469206970537}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &3000511469207394088
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3000511469207394091}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3000511469207394403
 GameObject:
   m_ObjectHideFlags: 0
@@ -2232,7 +2211,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5189435418136733883}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.6221124, z: 0.17416048}
+  m_LocalPosition: {x: 1.7817446e-15, y: 1.6221123, z: 0.17416045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2261,7 +2240,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 2811365849900761648}
   m_Lens:
-    FieldOfView: 55
+    FieldOfView: 50
     OrthographicSize: 10
     NearClipPlane: 0.01
     FarClipPlane: 500
@@ -2269,7 +2248,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6726677, y: 1}
+    m_SensorSize: {x: 1.6754098, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2392,7 +2371,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7635256604560604012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.286, y: 0, z: 1.273}
+  m_LocalPosition: {x: 0, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2444,8 +2423,8 @@ MonoBehaviour:
   groundedOffset: -0.14
   groundedRadius: 0.5
   cinemachineCameraTarget: {fileID: 2811365849900761655}
-  topClamp: 60
-  bottomClamp: -60
+  topClamp: 65
+  bottomClamp: -80
 --- !u!114 &161934956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2460,11 +2439,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
   diggingTarget: {fileID: 0}
+  maxDigRange: 1.7
+  digDepth: 0.25
   rigHandTarget: {fileID: 3000511470367448561}
   handleIKTarget: {fileID: 1881947244732207016}
   animator: {fileID: 3000511469197723241}
   rig: {fileID: 3000511468534618582}
-  model: {fileID: 3000511469207218295}
+  detectorModel: {fileID: 817516918}
 --- !u!1001 &1881947243787532403
 PrefabInstance:
   m_ObjectHideFlags: 0
