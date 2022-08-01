@@ -57,18 +57,17 @@ namespace TerrainGeneration
 					yield return null;
 				}
 
-
-				StartCoroutine(ProcessPointDataCor(poissonDataQueue.Dequeue()));
 				currentAmount++;
+
+				StartCoroutine(ProcessPointDataCor(poissonDataQueue.Dequeue(),currentAmount,targetAmount));
 				yield return null;
 			}
 
-			OnPropsGenerated?.Invoke();
 			StaticBatchingUtility.Combine(container.gameObject);
 		}
 		
 
-		private IEnumerator ProcessPointDataCor(PoissonData poissonData)
+		private IEnumerator ProcessPointDataCor(PoissonData poissonData,int currentAmount, int targetAmount)
 		{
 			var cachedTime = Time.realtimeSinceStartup;
 			var allowedTimePerFrame = 1 / 45f;
@@ -76,7 +75,7 @@ namespace TerrainGeneration
 			points = poissonData.points;
 			if (!propDatas[index].spawn) yield break;
 
-			var prng = new System.Random(mapData.propSeed);
+			var prng = new System.Random(mapData.seed);
 			points.ShuffleWithPRNG(prng);
 			var numToSpawn = Mathf.Min(points.Count,
 				propDatas[index].maxQuantityPer100M / 100f * (mapData.mapChunkSize * mapData.chunksPerRow));
@@ -109,6 +108,8 @@ namespace TerrainGeneration
 
 				numToSpawn--;
 			}
+			if(currentAmount==targetAmount)
+				OnPropsGenerated?.Invoke();
 		}
 
 		private void SpawnProp(int index, Vector3 result, Quaternion rotation)
@@ -130,7 +131,7 @@ namespace TerrainGeneration
 
 		private Quaternion CalculateRotation(int i)
 		{
-			var prng = new System.Random(mapData.propSeed + i);
+			var prng = new System.Random(mapData.seed + i);
 			return Quaternion.Euler(0, prng.NextSingle(0, 360), 0);
 		}
 

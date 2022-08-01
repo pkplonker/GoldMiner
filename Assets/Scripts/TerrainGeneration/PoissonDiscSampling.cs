@@ -8,12 +8,12 @@ namespace TerrainGeneration
 {
 	public static class PoissonDiscSampling
 	{
-		//Credit to Sebastian Lague for the algorithm.
+		//Credit to Sebastian Lague for the original algorithm.
 		public static void GeneratePointsCor(int index,float radius, Vector2 sampleRegionSize,
 			 Action<PoissonData> callback, MapData mapData, int numSamplesBeforeRejection = 30)
 		{
 			Profiler.BeginSample("disc");
-			var prng = new System.Random(mapData.propSeed+index);
+			var prng = new System.Random(mapData.seed+index);
 			var cellSize = radius / Mathf.Sqrt(2);
 
 			var grid = new int[Mathf.CeilToInt(sampleRegionSize.x / cellSize),

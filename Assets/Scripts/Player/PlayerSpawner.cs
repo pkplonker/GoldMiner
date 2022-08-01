@@ -3,6 +3,7 @@
 //
 
 using System;
+using System.Collections;
 using TerrainGeneration;
 using UnityEngine;
 
@@ -18,23 +19,35 @@ namespace Player
 
 		[SerializeField] private string groundLayer = "Ground";
 		private GameObject currentPlayer;
-		
+
 		private void OnEnable() => MapGenerator.OnMapGenerated += SpawnPlayer;
+
 		
 		private void SpawnPlayer(float size)
 		{
+			StartCoroutine(SpawnPlayerCor(size));
+		}
+
+		private IEnumerator SpawnPlayerCor(float size)
+		{
+			yield return 0;
+
 			if (currentPlayer != null)
 			{
 				Destroy(currentPlayer);
 			}
-			currentPlayer = Instantiate(playerPrefab);
 
+			currentPlayer = Instantiate(playerPrefab);
+			currentPlayer.SetActive(false);
 			var spawnPos = CalculateSpawnPosition(size) + offset;
+			Debug.LogWarning(spawnPos);
+
 			if (spawnPos != Vector3.positiveInfinity)
 			{
 				currentPlayer.transform.position = spawnPos;
+
 				currentPlayer.GetComponent<PlayerMovement>().SetCanMove(true);
-				
+				currentPlayer.SetActive(true);
 			}
 			else HandleFailedSpawn();
 		}
@@ -65,11 +78,11 @@ namespace Player
 				{
 					if (hits[i].collider.transform == currentPlayer.transform) continue;
 					position.y = hits[i].point.y;
-				
-					
-					
+
+
 					var bounds = currentPlayer.GetComponentInChildren<SkinnedMeshRenderer>().bounds;
-					if (!BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(hits[i].point - new Vector3(0, bounds.extents.y, 0),
+					if (!BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
+						    hits[i].point - new Vector3(0, bounds.extents.y, 0),
 						    bounds, 1f,
 						    groundLayer, Quaternion.identity))) continue;
 

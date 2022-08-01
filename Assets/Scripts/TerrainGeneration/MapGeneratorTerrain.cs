@@ -52,7 +52,7 @@ namespace TerrainGeneration
 
 			var vertsPerRow = (mapData.mapChunkSize * mapData.LOD) + 1;
 			var mapSize = vertsPerRow * mapData.chunksPerRow;
-			noiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, mapData.terrainSeed, mapData.noiseScale*mapData.LOD,
+			noiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, mapData.seed, mapData.noiseScale*mapData.LOD,
 				mapData.octaves,
 				mapData.persistance,
 				mapData.lacunarity,

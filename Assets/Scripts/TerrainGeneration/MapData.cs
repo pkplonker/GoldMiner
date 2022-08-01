@@ -13,8 +13,7 @@ namespace TerrainGeneration
 		public int chunksPerRow { get; private set; }
 
 		[Range(1, 10), SerializeField] public int LOD;
-		[field: SerializeField] public int terrainSeed;
-		[field: SerializeField] public int propSeed  ;
+		[field: SerializeField] public int seed;
 
 		[field: Range(1, 8), SerializeField] public int octaves ;
 

@@ -44,9 +44,15 @@ namespace TerrainGeneration
 			propsTimer.Start();
 		}
 
-		private void OnPropsGenerated() => Debug.Log("Props Spawned in " + propsTimer.ElapsedMilliseconds +
-		                                             "ms . Frames taken = " +
-		                                             (Time.frameCount - startFrame));
+		private void OnPropsGenerated()
+		{
+			spawnedProps = true;
+			
+			Debug.Log("Props Spawned in " + propsTimer.ElapsedMilliseconds +
+			          "ms . Frames taken = " +
+			          (Time.frameCount - startFrame));
+			OnMapGenerated?.Invoke(mapGeneratorTerrain.mapData.GetSize());
+		} 
 
 
 		public void SpawnTerrain()
@@ -67,7 +73,6 @@ namespace TerrainGeneration
 				propSpawner.SpawnObjects(mapGeneratorTerrain.mapData.GetSize(),
 					mapGeneratorTerrain.mapData);
 				spawnedProps = true;
-				OnMapGenerated?.Invoke(mapGeneratorTerrain.mapData.GetSize());
 			}
 		}
 	}
