@@ -2783,10 +2783,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <mapData>k__BackingField:
     <mapChunkSize>k__BackingField: 10
-    <chunksPerRow>k__BackingField: 5
-    LOD: 1
-    terrainSeed: 0
-    propSeed: 0
+    <chunksPerRow>k__BackingField: 10
+    LOD: 2
+    seed: 0
     octaves: 4
     persistance: 0.8
     lacunarity: 0.8

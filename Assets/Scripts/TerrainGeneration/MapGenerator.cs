@@ -11,6 +11,8 @@ namespace TerrainGeneration
 		[field: SerializeField] public MapGeneratorTerrain mapGeneratorTerrain { get; private set; }
 		[field: SerializeField] public PropSpawner propSpawner { get; private set; }
 		public static event Action<float> OnMapGenerated;
+		public static event Action OnMapGenerationStarted;
+
 
 #if UNITY_EDITOR
 		public bool spawnedProps { get; set; } = true;
@@ -62,7 +64,7 @@ namespace TerrainGeneration
 			mapTimer.Start();
 			startFrame = Time.frameCount;
 #endif
-
+			OnMapGenerationStarted?.Invoke();
 			mapGeneratorTerrain.Generate();
 		}
 

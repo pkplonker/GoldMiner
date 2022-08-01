@@ -20,32 +20,32 @@ namespace Player
 		[SerializeField] private string groundLayer = "Ground";
 		private GameObject currentPlayer;
 
-		private void OnEnable() => MapGenerator.OnMapGenerated += SpawnPlayer;
-
-		
-		private void SpawnPlayer(float size)
+		private void OnEnable()
 		{
-			StartCoroutine(SpawnPlayerCor(size));
+			MapGenerator.OnMapGenerated += SpawnPlayer;
+			MapGenerator.OnMapGenerationStarted += DespawnPlayer;
 		}
 
-		private IEnumerator SpawnPlayerCor(float size)
+		private void DespawnPlayer()
 		{
-			yield return 0;
-
-			if (currentPlayer != null)
+			if (currentPlayer )
 			{
 				Destroy(currentPlayer);
 			}
+		}
+
+
+		private void SpawnPlayer(float size)
+		{
+			DespawnPlayer();
 
 			currentPlayer = Instantiate(playerPrefab);
 			currentPlayer.SetActive(false);
 			var spawnPos = CalculateSpawnPosition(size) + offset;
-			Debug.LogWarning(spawnPos);
 
 			if (spawnPos != Vector3.positiveInfinity)
 			{
 				currentPlayer.transform.position = spawnPos;
-
 				currentPlayer.GetComponent<PlayerMovement>().SetCanMove(true);
 				currentPlayer.SetActive(true);
 			}
