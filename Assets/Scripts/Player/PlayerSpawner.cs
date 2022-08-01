@@ -26,7 +26,7 @@ namespace Player
 			MapGenerator.OnMapGenerationStarted += DespawnPlayer;
 		}
 
-		private void DespawnPlayer()
+		private void DespawnPlayer(int notRequired = 0, int notRequired2 = 0)
 		{
 			if (currentPlayer )
 			{

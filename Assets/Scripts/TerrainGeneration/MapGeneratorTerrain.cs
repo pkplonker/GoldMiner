@@ -16,7 +16,7 @@ namespace TerrainGeneration
 		[SerializeField] private TerrainChunk chunkPrefab;
 		public Transform container { get; private set; }
 		public static event Action OnTerrainGenerated;
-
+		public static event Action<int,int> OnChunkGenerated;
 
 		public float[,] noiseMap { get; private set; }
 #if UNITY_EDITOR
@@ -44,6 +44,9 @@ namespace TerrainGeneration
 
 		public void Generate()
 		{
+			var chunksRequired = mapData.chunksPerRow * mapData.chunksPerRow;
+
+
 			if (!container)
 			{
 				container = new GameObject() {name = "Tile Container"}.transform;
@@ -57,7 +60,7 @@ namespace TerrainGeneration
 				mapData.persistance,
 				mapData.lacunarity,
 				new Vector2(mapData.offset.x, mapData.offset.y));
-			StartCoroutine(AwaitChunkDataCor());
+			StartCoroutine(AwaitChunkDataCor(chunksRequired));
 			for (var x = 0; x < mapData.chunksPerRow; x++)
 			{
 				for (var y = 0; y < mapData.chunksPerRow; y++)
@@ -70,22 +73,23 @@ namespace TerrainGeneration
 			}
 		}
 
-		private IEnumerator AwaitChunkDataCor()
+		private IEnumerator AwaitChunkDataCor(int chunksRequired)
 		{
 			var cachedTime = Time.realtimeSinceStartup;
-			var allowedTimePerFrame = 1 / 45f;
-			while (chunksGeneratedCount != mapData.chunksPerRow * mapData.chunksPerRow)
+			var allowedTimePerFrame = 1 / 100f;
+			while (chunksGeneratedCount != chunksRequired)
 			{
-				yield return 0;
 				if (Time.realtimeSinceStartup - cachedTime >= allowedTimePerFrame)
 				{
-					yield return 0;
+					yield return null;
 					cachedTime = Time.realtimeSinceStartup;
 				}
 
 				if (!terrainChunkDatas.TryDequeue(out var terrainChunkData)) continue;
 				GenerateGameObject(terrainChunkData);
 				chunksGeneratedCount++;
+
+				OnChunkGenerated?.Invoke(chunksGeneratedCount,chunksRequired);
 			}
 
 			chunksGeneratedCount = 0;

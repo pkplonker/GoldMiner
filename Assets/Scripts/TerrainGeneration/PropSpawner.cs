@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using StuartHeathTools;
 using UnityEngine;
@@ -12,6 +13,9 @@ namespace TerrainGeneration
 	{
 		[SerializeField] private List<PropData> propDatas;
 		public Transform container { get; private set; }
+		public static event Action<int,int> OnPropGenerated;
+		public static event Action<int> OnPropsGenerationStarted;
+
 		public static event Action OnPropsGenerated;
 		private List<Vector2> points;
 		private Queue<PoissonData> poissonDataQueue;
@@ -19,6 +23,7 @@ namespace TerrainGeneration
 
 		public void SpawnObjects(int spawnArea, MapData mapData)
 		{
+			OnPropsGenerationStarted?.Invoke(propDatas.Count);
 			this.mapData = mapData;
 			if (container == null)
 			{
@@ -108,6 +113,7 @@ namespace TerrainGeneration
 
 				numToSpawn--;
 			}
+			OnPropGenerated?.Invoke(currentAmount, targetAmount);
 			if(currentAmount==targetAmount)
 				OnPropsGenerated?.Invoke();
 		}
@@ -164,6 +170,11 @@ namespace TerrainGeneration
 				this.factor = factor;
 			}
 		}
+
+		public int GetPropsRequired()
+		{
+			return propDatas.Count(p => p.spawn);
+		} 
 	}
 
 	public struct PoissonData
