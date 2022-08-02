@@ -4,26 +4,26 @@ namespace TerrainGeneration
 {
     public class TerrainChunk : MonoBehaviour
     {
-        [SerializeField] private MeshFilter meshFilter;
-        [SerializeField] private MeshCollider meshCollider;
-        [SerializeField] private MeshRenderer meshRenderer;
+        [SerializeField] private MeshFilter _meshFilter;
+        [SerializeField] private MeshCollider _meshCollider;
+        [SerializeField] private MeshRenderer _meshRenderer;
         public void Generate(MapData mapData, TerrainChunkData tcd)
         {
-            var vertsPerRow = (mapData.mapChunkSize * mapData.LOD) + 1;
-            GenerateMesh(tcd, meshFilter);
-            GenerateCollider(meshCollider, meshFilter);
-            GenerateMeshRenderer(tcd, meshRenderer, vertsPerRow,mapData.material);
+            var vertsPerRow = (mapData.MapChunkSize * mapData._lod) + 1;
+            GenerateMesh(tcd, _meshFilter);
+            GenerateCollider(_meshCollider, _meshFilter);
+            GenerateMeshRenderer(tcd, _meshRenderer, vertsPerRow,mapData._material);
         }
         private static void GenerateMesh(TerrainChunkData tcd, MeshFilter mf)
         {
             var mesh = new Mesh()
             {
-                name = $"X{tcd.x}:Y{tcd.y}"
+                name = $"X{tcd.X}:Y{tcd.Y}"
             };
-            mesh.SetVertices(tcd.verts);
-            mesh.SetTriangles(tcd.triangles, 0);
-            mesh.SetNormals(tcd.normals);
-            mesh.SetUVs(0, tcd.uvs);
+            mesh.SetVertices(tcd.Verts);
+            mesh.SetTriangles(tcd.Triangles, 0);
+            mesh.SetNormals(tcd.Normals);
+            mesh.SetUVs(0, tcd.Uvs);
             mesh.RecalculateBounds();
             mf.mesh = mesh;
         }
@@ -38,7 +38,7 @@ namespace TerrainGeneration
         private void GenerateMeshRenderer(TerrainChunkData tcd, MeshRenderer mr, int vertsPerRow, Material material)
         {
             mr.material = material;
-            mr.material.mainTexture = MapGeneratorTerrain.TextureFromColourMap(tcd.colourMap, vertsPerRow);
+            mr.material.mainTexture = MapGeneratorTerrain.TextureFromColourMap(tcd.ColourMap, vertsPerRow);
         }
     }
 }

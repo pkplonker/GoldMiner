@@ -6,23 +6,23 @@ namespace DetectorScripts
 	[RequireComponent(typeof(MeshFilter))]
 	public class ConeGenerator : MonoBehaviour
 	{
-		private List<Vector3> vertices = new List<Vector3>();
-		private List<int> triangles = new List<int>();
+		private List<Vector3> _vertices = new List<Vector3>();
+		private List<int> _triangles = new List<int>();
 		private const float TAU = 6.283185307179586f;
 
 
-		public void GenerateCone(Vector3 pos, int sides, float height, float topRadius, float bottomRadius)
+		public void GenerateCone( int sides, float height, float topRadius, float bottomRadius)
 		{
-			pos = transform.position;
-			GenerateVertices(pos, bottomRadius, topRadius, sides, height, vertices);
-			GenerateTriangles(triangles, sides, vertices.Count);
-			GetComponent<MeshFilter>().mesh = GenerateMesh(vertices, triangles, "cone");
+			var position = transform.position;
+			GenerateVertices(bottomRadius, topRadius, sides, height, _vertices);
+			GenerateTriangles(_triangles, sides, _vertices.Count);
+			GetComponent<MeshFilter>().mesh = GenerateMesh(_vertices, _triangles, "cone");
 		}
 
 
 		private static void GenerateTriangles(List<int> triangles, int sides, int vertexCount)
 		{
-			for (int i = 0; i < sides - 1; i++)
+			for (var i = 0; i < sides - 1; i++)
 			{
 				var root = i + 1;
 				var rootLeft = root + 1;
@@ -67,7 +67,7 @@ namespace DetectorScripts
 			}
 		}
 
-		private static void GenerateVertices(Vector3 startPos, float bottomRadius, float topRadius, int sides, float height,
+		private static void GenerateVertices(float bottomRadius, float topRadius, int sides, float height,
 			List<Vector3> vertices)
 		{
 			vertices.Add(Vector3.zero);

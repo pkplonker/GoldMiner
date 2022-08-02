@@ -9,18 +9,18 @@ namespace UI
 {
 	public class MapLoadingUI : CanvasGroupBase
 	{
-		[SerializeField] private Image progressLoadingImage;
-		[SerializeField] private float progressBarSpeed=4f;
-		[SerializeField] private float fadeTime=0.3f;
+		[SerializeField] private Image _progressLoadingImage;
+		[SerializeField] private float _progressBarSpeed=4f;
+		[SerializeField] private float _fadeTime=0.3f;
 
-		private int currentPropProgress;
-		private int currentChunkProgress;
-		private int requiredProp;
-		private int requiredChunk;
-		private int totalRequired;
-		private int currentTotal;
-		private float currentFillTarget;
-		private Coroutine updatingCor;
+		private int _currentPropProgress;
+		private int _currentChunkProgress;
+		private int _requiredProp;
+		private int _requiredChunk;
+		private int _totalRequired;
+		private int _currentTotal;
+		private float _currentFillTarget;
+		private Coroutine _updatingCor;
 
 		private void Awake()
 		{
@@ -38,24 +38,24 @@ namespace UI
 
 		private void MapGenerated(float obj)
 		{
-			if(updatingCor!=null) StopCoroutine(updatingCor);
-			fadeTime = 1f;
-			HideUI(fadeTime);
+			if(_updatingCor!=null) StopCoroutine(_updatingCor);
+			_fadeTime = 1f;
+			HideUI(_fadeTime);
 		}
 
 		private void NewProp(int current, int target)
 		{
 			Debug.Log($"Chunks =  {current}/{target}");
 
-			currentPropProgress = current;
+			_currentPropProgress = current;
 			if(current==target) Debug.Log("props complete");
 			UpdateTotals();
 		}
 
 		private void UpdateTotals()
 		{
-			currentTotal = currentChunkProgress + currentPropProgress;
-			if (currentTotal == totalRequired)
+			_currentTotal = _currentChunkProgress + _currentPropProgress;
+			if (_currentTotal == _totalRequired)
 			{
 				Complete();
 			}
@@ -71,15 +71,15 @@ namespace UI
 
 		private void ProgressStarted(int chunks, int props)
 		{
-			currentTotal = 0;
-			currentChunkProgress = 0;
-			currentPropProgress = 0;
-			requiredChunk = chunks;
-			requiredProp = props;
-			totalRequired = requiredChunk + requiredProp;
+			_currentTotal = 0;
+			_currentChunkProgress = 0;
+			_currentPropProgress = 0;
+			_requiredChunk = chunks;
+			_requiredProp = props;
+			_totalRequired = _requiredChunk + _requiredProp;
 			StopCor();
 
-			updatingCor = StartCoroutine(ProgressBarUpdateCor());
+			_updatingCor = StartCoroutine(ProgressBarUpdateCor());
 			ResetFill();
 			ShowUI();
 			UpdateTotals();
@@ -87,25 +87,25 @@ namespace UI
 
 		private void StopCor()
 		{
-			if (updatingCor != null)
+			if (_updatingCor != null)
 			{
-				StopCoroutine(updatingCor);
-				updatingCor = null;
+				StopCoroutine(_updatingCor);
+				_updatingCor = null;
 			}
 		}
 
 		private void ResetFill()
 		{
-			progressLoadingImage.fillAmount = 0f;
+			_progressLoadingImage.fillAmount = 0f;
 		}
 
 		private IEnumerator ProgressBarUpdateCor()
 		{
 			while (true)
 			{
-				currentFillTarget = (float)currentTotal / totalRequired;
-				progressLoadingImage.fillAmount = Mathf.Lerp(progressLoadingImage.fillAmount, currentFillTarget,
-					progressBarSpeed * Time.deltaTime);
+				_currentFillTarget = (float)_currentTotal / _totalRequired;
+				_progressLoadingImage.fillAmount = Mathf.Lerp(_progressLoadingImage.fillAmount, _currentFillTarget,
+					_progressBarSpeed * Time.deltaTime);
 				yield return null;
 			}
 		}
@@ -113,7 +113,7 @@ namespace UI
 		private void NewChunk(int generated, int required)
 		{
 			Debug.Log($"Chunks =  {generated}/{required}");
-			currentChunkProgress = generated;
+			_currentChunkProgress = generated;
 			if(generated==required) Debug.Log("chunks complete");
 			UpdateTotals();
 		}

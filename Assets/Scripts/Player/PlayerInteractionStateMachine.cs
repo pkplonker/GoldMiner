@@ -9,30 +9,30 @@ namespace Player
 	{
 		public static event Action<BaseState> OnStateChanged;
 
-		[HideInInspector] public Camera camera;
-		public BaseState diggingState = new Digging();
-		public BaseState detectingState = new DetectorState();
-		public BaseState idleState = new IdleState();
-		[Header("Digging")] public SpriteRenderer diggingTarget;
+		[HideInInspector] public Camera Camera;
+		public readonly BaseState DiggingState = new Digging();
+		public readonly BaseState DetectingState = new DetectorState();
+		public readonly BaseState IdleState = new IdleState();
+		[Header("Digging")] public SpriteRenderer _diggingTarget;
 		public readonly string GROUND_LAYER = "Ground";
-		public float maxDigRange = 2f;
-		public float digDepth = 1f;
-		[Header("Detecting")] public Transform rigHandTarget;
-		public Transform handleIKTarget;
-		public Animator animator;
-		public Rig rig;
-		public GameObject detectorModel;
-		public static bool isDetecting;
-		public static bool isManualDetecting;
+		public float _maxDigRange = 2f;
+		public float _digDepth = 1f;
+		[Header("Detecting")] public Transform _rigHandTarget;
+		public Transform _handleIKTarget;
+		public Animator _animator;
+		public Rig _rig;
+		public GameObject _detectorModel;
+		public static bool IsDetecting;
+		public static bool IsManualDetecting;
 		public static event Action<bool> OnDetectorManualToggleChanged;
 
 		private void Start()
 		{
-			animator.SetLayerWeight(animator.GetLayerIndex("RightHand"), 0);
-			rig.weight = 0;
-			isDetecting = false;
-			isManualDetecting = false;
-			detectorModel.SetActive(false);
+			_animator.SetLayerWeight(_animator.GetLayerIndex("RightHand"), 0);
+			_rig.weight = 0;
+			IsDetecting = false;
+			IsManualDetecting = false;
+			_detectorModel.SetActive(false);
 
 		}
 
@@ -45,14 +45,14 @@ namespace Player
 
 		private void ManualDetectionToggle()
 		{
-			isManualDetecting = !isManualDetecting;
-			OnDetectorManualToggleChanged?.Invoke(isManualDetecting);
+			IsManualDetecting = !IsManualDetecting;
+			OnDetectorManualToggleChanged?.Invoke(IsManualDetecting);
 		}
 
 		private void ToggleDetection()
 		{
-			isDetecting = !isDetecting;
-			ChangeState(isDetecting ? detectingState : idleState);
+			IsDetecting = !IsDetecting;
+			ChangeState(IsDetecting ? DetectingState : IdleState);
 		}
 
 		private void OnDisable()
@@ -64,20 +64,20 @@ namespace Player
 
 		private void DiggingToggle()
 		{
-			ChangeState(diggingState);
+			ChangeState(DiggingState);
 		}
 
 		private void Awake()
 		{
-			camera = Camera.main;
-			ChangeState(idleState);
+			Camera = Camera.main;
+			ChangeState(IdleState);
 
 		}
 
 		protected override void ChangeState(BaseState state)
 		{
 			base.ChangeState(state);
-			OnStateChanged?.Invoke(currentState);
+			OnStateChanged?.Invoke(CurrentState);
 		}
 	}
 }

@@ -8,8 +8,8 @@ namespace TerrainGeneration
 {
 	public class MapGenerator : MonoBehaviour
 	{
-		[field: SerializeField] public MapGeneratorTerrain mapGeneratorTerrain { get; private set; }
-		[field: SerializeField] public PropSpawner propSpawner { get; private set; }
+		[field: SerializeField] public MapGeneratorTerrain MapGeneratorTerrain { get; private set; }
+		[field: SerializeField] public PropSpawner PropSpawner { get; private set; }
 		public static event Action<float> OnMapGenerated;
 		public static event Action<int,int> OnMapGenerationStarted;
 
@@ -55,7 +55,7 @@ namespace TerrainGeneration
 			Debug.Log("Props Spawned in " + propsTimer.ElapsedMilliseconds +
 			          "ms . Frames taken = " +
 			          (Time.frameCount - startFrame));
-			OnMapGenerated?.Invoke(mapGeneratorTerrain.mapData.GetSize());
+			OnMapGenerated?.Invoke(MapGeneratorTerrain.MapData.GetSize());
 		} 
 
 
@@ -66,17 +66,17 @@ namespace TerrainGeneration
 			mapTimer.Start();
 			startFrame = Time.frameCount;
 #endif
-			var chunksRequired = mapGeneratorTerrain.mapData.chunksPerRow * mapGeneratorTerrain.mapData.chunksPerRow;
-			OnMapGenerationStarted?.Invoke(chunksRequired,propSpawner.GetPropsRequired());
-			mapGeneratorTerrain.Generate();
+			var chunksRequired = MapGeneratorTerrain.MapData.ChunksPerRow * MapGeneratorTerrain.MapData.ChunksPerRow;
+			OnMapGenerationStarted?.Invoke(chunksRequired,PropSpawner.GetPropsRequired());
+			MapGeneratorTerrain.Generate();
 		}
 
 		private void Update()
 		{
-			if (mapGeneratorTerrain.generated && !spawnedProps)
+			if (MapGeneratorTerrain.Generated && !spawnedProps)
 			{
-				propSpawner.SpawnObjects(mapGeneratorTerrain.mapData.GetSize(),
-					mapGeneratorTerrain.mapData);
+				PropSpawner.SpawnObjects(MapGeneratorTerrain.MapData.GetSize(),
+					MapGeneratorTerrain.MapData);
 				spawnedProps = true;
 			}
 		}

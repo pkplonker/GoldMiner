@@ -5,7 +5,7 @@ namespace DetectorScripts
 	[RequireComponent(typeof(Rigidbody), typeof(MeshCollider))]
 	public class DetectorCone : MonoBehaviour
 	{
-		private DetectorHead detectorHead;
+		private DetectorHead _detectorHead;
 
 		private void Awake()
 		{
@@ -13,25 +13,19 @@ namespace DetectorScripts
 			mc.convex = true;
 			mc.isTrigger = true;
 			GetComponent<Rigidbody>().isKinematic = true;
-			detectorHead = GetComponentInParent<DetectorHead>();
-			if (detectorHead == null) Debug.LogError("detector head not detected");
+			_detectorHead = GetComponentInParent<DetectorHead>();
+			if (_detectorHead == null) Debug.LogError("detector head not detected");
 		}
 
-		private void OnTriggerEnter(Collider other)
-		{
-			HandleTrigger(other);
-		}
-
-		private void OnTriggerStay(Collider other)
-		{
-			HandleTrigger(other);
-		}
-
+		private void OnTriggerEnter(Collider other)=>HandleTrigger(other);
+		
+		private void OnTriggerStay(Collider other) => HandleTrigger(other);
+		
 		private void HandleTrigger(Collider other)
 		{
 			if (other.TryGetComponent(typeof(Target), out var target))
 			{
-				detectorHead.TargetDetected(target as Target);
+				_detectorHead.TargetDetected(target as Target);
 			}
 		}
 	}

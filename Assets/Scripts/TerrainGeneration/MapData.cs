@@ -7,34 +7,34 @@ namespace TerrainGeneration
 	public struct MapData
 	{
 		[field: Range(1, 100), SerializeField]
-		public int mapChunkSize { get; private set; } 
+		public int MapChunkSize { get; private set; } 
 
 		[field: Range(1, 50), SerializeField]
-		public int chunksPerRow { get; private set; }
+		public int ChunksPerRow { get; private set; }
 
-		[Range(1, 10), SerializeField] public int LOD;
-		[field: SerializeField] public int seed;
+		[Range(1, 10), SerializeField] public int _lod;
+		[field: SerializeField] public int _seed;
 
-		[field: Range(1, 8), SerializeField] public int octaves ;
+		[field: Range(1, 8), SerializeField] public int _octaves ;
 
 		[field: Range(0f, 2f), SerializeField]
-		public float persistance ;
+		public float _persistance ;
 
-		[field: Range(0f, 1f), SerializeField] public float lacunarity ;
+		[field: Range(0f, 1f), SerializeField] public float _lacunarity ;
 
-		[field: SerializeField] public Vector2 offset ;
-		[field: SerializeField] public Material material;
+		[field: SerializeField] public Vector2 _offset ;
+		[field: SerializeField] public Material _material;
 
 		[field: Range(0f, 1000f), SerializeField]
-		public float noiseScale ;
+		public float _noiseScale ;
 
-		[field: SerializeField] public Terrains[] terrains;
+		[field: SerializeField] public Terrains[] _terrains;
 
 		[field: Range(0f, 100f), SerializeField]
-		public float heightMultiplier;
+		public float _heightMultiplier;
 
-		[field: SerializeField] public AnimationCurve heightCurve;
-		[field: SerializeField] public String terrainLayer;
-		public int GetSize() => mapChunkSize * chunksPerRow;
+		[field: SerializeField] public AnimationCurve _heightCurve;
+		[field: SerializeField] public string _terrainLayer;
+		public int GetSize() => MapChunkSize * ChunksPerRow;
 	}
 }

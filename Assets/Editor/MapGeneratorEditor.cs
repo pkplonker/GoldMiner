@@ -14,25 +14,25 @@ namespace Editor
 	[CustomEditor(typeof(MapGenerator))]
 	public class MapGeneratorEditor : UnityEditor.Editor
 	{
-		public override void OnInspectorGUI()
+		/*public override void OnInspectorGUI()
 		{
 			var mapGenerator = (MapGenerator) target;
 			if (Application.isPlaying)
 			{
-				if (((mapGenerator.spawnedProps)) && mapGenerator.mapGeneratorTerrain.generated)
+				if (((mapGenerator.spawnedProps)) && mapGenerator.MapGeneratorTerrain.Generated)
 				{
 					if (GUILayout.Button("Regenerate Map"))
 					{
-						if (mapGenerator.propSpawner.container != null)
+						if (mapGenerator.PropSpawner.Container != null)
 						{
-							foreach (var v in mapGenerator.propSpawner.container.GetComponentsInChildren<Transform>())
+							foreach (var v in mapGenerator.PropSpawner.Container.GetComponentsInChildren<Transform>())
 							{
-								if (v == mapGenerator.transform || v == mapGenerator.propSpawner.container) continue;
+								if (v == mapGenerator.transform || v == mapGenerator.PropSpawner.Container) continue;
 								Destroy(v.gameObject);
 							}
 						}
 
-						mapGenerator.mapGeneratorTerrain.ClearData();
+						mapGenerator.MapGeneratorTerrain.ClearData();
 						mapGenerator.SpawnTerrain();
 						mapGenerator.spawnedProps = false;
 					}
@@ -40,6 +40,6 @@ namespace Editor
 			}
 
 			base.OnInspectorGUI();
-		}
+		}*/
 	}
 }

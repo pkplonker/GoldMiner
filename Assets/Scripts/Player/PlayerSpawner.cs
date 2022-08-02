@@ -14,11 +14,11 @@ namespace Player
 	/// </summary>
 	public class PlayerSpawner : MonoBehaviour
 	{
-		[SerializeField] private GameObject playerPrefab;
-		[SerializeField] private Vector3 offset;
+		[SerializeField] private GameObject _playerPrefab;
+		[SerializeField] private Vector3 _offset;
 
-		[SerializeField] private string groundLayer = "Ground";
-		private GameObject currentPlayer;
+		[SerializeField] private string _groundLayer = "Ground";
+		private GameObject _currentPlayer;
 
 		private void OnEnable()
 		{
@@ -28,9 +28,9 @@ namespace Player
 
 		private void DespawnPlayer(int notRequired = 0, int notRequired2 = 0)
 		{
-			if (currentPlayer )
+			if (_currentPlayer )
 			{
-				Destroy(currentPlayer);
+				Destroy(_currentPlayer);
 			}
 		}
 
@@ -39,22 +39,22 @@ namespace Player
 		{
 			DespawnPlayer();
 
-			currentPlayer = Instantiate(playerPrefab);
-			currentPlayer.SetActive(false);
-			var spawnPos = CalculateSpawnPosition(size) + offset;
+			_currentPlayer = Instantiate(_playerPrefab);
+			_currentPlayer.SetActive(false);
+			var spawnPos = CalculateSpawnPosition(size) + _offset;
 
 			if (spawnPos != Vector3.positiveInfinity)
 			{
-				currentPlayer.transform.position = spawnPos;
-				currentPlayer.GetComponent<PlayerMovement>().SetCanMove(true);
-				currentPlayer.SetActive(true);
+				_currentPlayer.transform.position = spawnPos;
+				_currentPlayer.GetComponent<PlayerMovement>().SetCanMove(true);
+				_currentPlayer.SetActive(true);
 			}
 			else HandleFailedSpawn();
 		}
 
 		private void HandleFailedSpawn()
 		{
-			currentPlayer.GetComponent<PlayerMovement>().SetCanMove(false);
+			_currentPlayer.GetComponent<PlayerMovement>().SetCanMove(false);
 
 			Debug.LogError("Failed to spawn player");
 			throw new NotImplementedException();
@@ -64,7 +64,7 @@ namespace Player
 		private Vector3 CalculateSpawnPosition(float size, float incrementAmount = 0.2f, int attempts = 20)
 		{
 			var position = new Vector3(size / 2, 50, size / 2);
-			currentPlayer.transform.position = Vector3.zero;
+			_currentPlayer.transform.position = Vector3.zero;
 
 			for (var x = 0; x < attempts; x++)
 			{
@@ -76,15 +76,15 @@ namespace Player
 
 				for (var i = 0; i < hits.Length; i++)
 				{
-					if (hits[i].collider.transform == currentPlayer.transform) continue;
+					if (hits[i].collider.transform == _currentPlayer.transform) continue;
 					position.y = hits[i].point.y;
 
 
-					var bounds = currentPlayer.GetComponentInChildren<SkinnedMeshRenderer>().bounds;
+					var bounds = _currentPlayer.GetComponentInChildren<SkinnedMeshRenderer>().bounds;
 					if (!BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
 						    hits[i].point - new Vector3(0, bounds.extents.y, 0),
 						    bounds, 1f,
-						    groundLayer, Quaternion.identity))) continue;
+						    _groundLayer, Quaternion.identity))) continue;
 
 					return position;
 				}

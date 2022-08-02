@@ -13,37 +13,37 @@ namespace DetectorScripts
 	[RequireComponent(typeof(AudioSource))]
 	public class DetectorBeep : MonoBehaviour
 	{
-		AudioSource audioSource;
-		ToneGenerator.ToneClipData toneClipData;
-		[SerializeField] private float lowFreq;
-		[SerializeField] private float highFreq;
+		AudioSource _audioSource;
+		ToneGenerator.ToneClipData _toneClipData;
+		[SerializeField] private float _lowFreq;
+		[SerializeField] private float _highFreq;
 
 		private void Start()
 		{
-			audioSource = GetComponent<AudioSource>();
-			toneClipData = new ToneGenerator.ToneClipData(0);
+			_audioSource = GetComponent<AudioSource>();
+			_toneClipData = new ToneGenerator.ToneClipData(0);
 		}
 
 		private void Update()
 		{
-			var signal = DetectorHead.currentSignal;
+			var signal = DetectorHead.CurrentSignal;
 			if (signal < 0.1f)
 			{
-				audioSource.Stop();
+				_audioSource.Stop();
 				return;
 			}
 
 			//determine frequency
-			var freq = lowFreq + (highFreq - lowFreq) * signal;
+			var freq = _lowFreq + (_highFreq - _lowFreq) * signal;
 			//generate tone
 			var clipData = new ToneGenerator.ToneClipData(freq);
-			if (toneClipData == null || toneClipData.frequency == clipData.frequency) return;
+			if (_toneClipData == null || _toneClipData.frequency == clipData.frequency) return;
 
-			toneClipData = clipData;
+			_toneClipData = clipData;
 			//play tone
 			//audioSource.Stop();
-			audioSource.clip = clipData.clip;
-			audioSource.Play();
+			_audioSource.clip = clipData.clip;
+			_audioSource.Play();
 		}
 	}
 }

@@ -10,65 +10,70 @@ namespace TerrainGeneration
 {
 	public class MapGeneratorTerrain : MonoBehaviour
 	{
-		[field: SerializeField] public MapData mapData { get; private set; }
-		private ConcurrentQueue<TerrainChunkData> terrainChunkDatas = new ConcurrentQueue<TerrainChunkData>();
-		private int chunksGeneratedCount = 0;
-		[SerializeField] private TerrainChunk chunkPrefab;
-		public Transform container { get; private set; }
+		[field: SerializeField] public MapData MapData { get; private set; }
+		private readonly ConcurrentQueue<TerrainChunkData> _terrainChunkDatas = new ConcurrentQueue<TerrainChunkData>();
+		private int _chunksGeneratedCount = 0;
+		[SerializeField] private TerrainChunk _chunkPrefab;
+		[SerializeField] private float[,] _noiseMap;
+		public Transform Container { get; private set; }
 		public static event Action OnTerrainGenerated;
 		public static event Action<int,int> OnChunkGenerated;
 
-		public float[,] noiseMap { get; private set; }
+		public float[,] NoiseMap
+		{
+			get => _noiseMap;
+			private set => _noiseMap = value;
+		}
 #if UNITY_EDITOR
-		public bool generated { get; set; } = true;
+		public bool Generated { get; set; } = true;
 #else
 		public bool generated { get; private set; }
 #endif
 
 		public void ClearData()
 		{
-			terrainChunkDatas.Clear();
-			if (container)
+			_terrainChunkDatas.Clear();
+			if (Container)
 			{
-				foreach (Transform t in container.GetComponentInChildren<Transform>())
+				foreach (Transform t in Container.GetComponentInChildren<Transform>())
 				{
-					if (t == container) continue;
+					if (t == Container) continue;
 					Destroy(t.gameObject);
 				}
 			}
 
-			chunksGeneratedCount = 0;
-			generated = false;
+			_chunksGeneratedCount = 0;
+			Generated = false;
 		}
 
 
 		public void Generate()
 		{
-			var chunksRequired = mapData.chunksPerRow * mapData.chunksPerRow;
+			var chunksRequired = MapData.ChunksPerRow * MapData.ChunksPerRow;
 
 
-			if (!container)
+			if (!Container)
 			{
-				container = new GameObject() {name = "Tile Container"}.transform;
-				container.SetParent(transform);
+				Container = new GameObject() {name = "Tile Container"}.transform;
+				Container.SetParent(transform);
 			}
 
-			var vertsPerRow = (mapData.mapChunkSize * mapData.LOD) + 1;
-			var mapSize = vertsPerRow * mapData.chunksPerRow;
-			noiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, mapData.seed, mapData.noiseScale*mapData.LOD,
-				mapData.octaves,
-				mapData.persistance,
-				mapData.lacunarity,
-				new Vector2(mapData.offset.x, mapData.offset.y));
+			var vertsPerRow = (MapData.MapChunkSize * MapData._lod) + 1;
+			var mapSize = vertsPerRow * MapData.ChunksPerRow;
+			NoiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, MapData._seed, MapData._noiseScale*MapData._lod,
+				MapData._octaves,
+				MapData._persistance,
+				MapData._lacunarity,
+				new Vector2(MapData._offset.x, MapData._offset.y));
 			StartCoroutine(AwaitChunkDataCor(chunksRequired));
-			for (var x = 0; x < mapData.chunksPerRow; x++)
+			for (var x = 0; x < MapData.ChunksPerRow; x++)
 			{
-				for (var y = 0; y < mapData.chunksPerRow; y++)
+				for (var y = 0; y < MapData.ChunksPerRow; y++)
 				{
 					var x1 = x;
 					var y1 = y;
 					Task.Run(() => new TerrainChunkDataGenerator().Init(AddToTerrainChunkQueue, x1, y1,
-						mapData,noiseMap));
+						MapData,NoiseMap));
 				}
 			}
 		}
@@ -77,7 +82,7 @@ namespace TerrainGeneration
 		{
 			var cachedTime = Time.realtimeSinceStartup;
 			var allowedTimePerFrame = 1 / 100f;
-			while (chunksGeneratedCount != chunksRequired)
+			while (_chunksGeneratedCount != chunksRequired)
 			{
 				if (Time.realtimeSinceStartup - cachedTime >= allowedTimePerFrame)
 				{
@@ -85,33 +90,33 @@ namespace TerrainGeneration
 					cachedTime = Time.realtimeSinceStartup;
 				}
 
-				if (!terrainChunkDatas.TryDequeue(out var terrainChunkData)) continue;
+				if (!_terrainChunkDatas.TryDequeue(out var terrainChunkData)) continue;
 				GenerateGameObject(terrainChunkData);
-				chunksGeneratedCount++;
+				_chunksGeneratedCount++;
 
-				OnChunkGenerated?.Invoke(chunksGeneratedCount,chunksRequired);
+				OnChunkGenerated?.Invoke(_chunksGeneratedCount,chunksRequired);
 			}
 
-			chunksGeneratedCount = 0;
-			generated = true;
+			_chunksGeneratedCount = 0;
+			Generated = true;
 			OnTerrainGenerated?.Invoke();
 		}
 
 
 		private void AddToTerrainChunkQueue(TerrainChunkData terrainChunkData)
 		{
-			lock (terrainChunkDatas)
+			lock (_terrainChunkDatas)
 			{
-				terrainChunkDatas.Enqueue(terrainChunkData);
+				_terrainChunkDatas.Enqueue(terrainChunkData);
 			}
 		}
 
 
 		private void GenerateGameObject(TerrainChunkData tcd)
 		{
-			Instantiate(chunkPrefab,
-				new Vector3(tcd.x * mapData.mapChunkSize, 0, tcd.y * mapData.mapChunkSize),
-				Quaternion.identity, container).Generate(mapData, tcd);
+			Instantiate(_chunkPrefab,
+				new Vector3(tcd.X * MapData.MapChunkSize, 0, tcd.Y * MapData.MapChunkSize),
+				Quaternion.identity, Container).Generate(MapData, tcd);
 		}
 
 		public static Texture2D TextureFromColourMap(Color[] colourMap, int vertsPerRow)
@@ -129,9 +134,8 @@ namespace TerrainGeneration
 
 	[Serializable]
 	public struct Terrains
-
 	{
-		public Color color;
-		[Range(0, 1)] public float height;
+		public Color _color;
+		[Range(0, 1)] public float _height;
 	}
 }

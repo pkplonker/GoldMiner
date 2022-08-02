@@ -1558,9 +1558,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9576f98b5102b941bdb482674c6764f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHeight: 0.1
-  height: 1
-  holeSize: 1
+  _startHeight: 0.1
+  _height: 0
+  _holeSize: 20
 --- !u!1 &364976073
 GameObject:
   m_ObjectHideFlags: 0
@@ -2310,9 +2310,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 0}
-  progressLoadingImage: {fileID: 625107510}
-  progressBarSpeed: 4
-  fadeTime: 0.01
+  _progressLoadingImage: {fileID: 0}
+  _progressBarSpeed: 4
+  _fadeTime: 0.3
 --- !u!114 &550251597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3218,73 +3218,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b46b4edb2860b4687f5d3a590942e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <mapData>k__BackingField:
-    <mapChunkSize>k__BackingField: 10
-    <chunksPerRow>k__BackingField: 20
-    LOD: 3
-    seed: 0
-    octaves: 4
-    persistance: 0.8
-    lacunarity: 0.8
-    offset: {x: 0, y: 0}
-    material: {fileID: 2100000, guid: 8a1ad397b447ca643951705bb09f5075, type: 2}
-    noiseScale: 16
-    terrains:
-    - color: {r: 0.87843144, g: 0.56078434, b: 0.15294118, a: 1}
-      height: 0.1
-    - color: {r: 0.6117647, g: 0.36078432, b: 0.12941177, a: 1}
-      height: 0.36
-    - color: {r: 0.7372549, g: 0.34117648, b: 0.15686275, a: 1}
-      height: 0.65
-    - color: {r: 0.5372549, g: 0.21568629, b: 0.06666667, a: 1}
-      height: 0.85
-    - color: {r: 0.46274513, g: 0.07450981, b: 0.07450981, a: 1}
-      height: 1
-    heightMultiplier: 4.6
-    heightCurve:
+  <MapData>k__BackingField:
+    <MapChunkSize>k__BackingField: 10
+    <ChunksPerRow>k__BackingField: 10
+    _lod: 2
+    _seed: 0
+    _octaves: 0
+    _persistance: 0.8
+    _lacunarity: 0.8
+    _offset: {x: 0, y: 0}
+    _material: {fileID: 2100000, guid: 8a1ad397b447ca643951705bb09f5075, type: 2}
+    _noiseScale: 4.5
+    _terrains: []
+    _heightMultiplier: 0
+    _heightCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 0.49809146
-        outSlope: 0.49809146
+        inSlope: 0.5004402
+        outSlope: 0.5004402
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.3834637
-        value: 0.191
-        inSlope: 0.48687208
-        outSlope: 0.48687208
-        tangentMode: 34
+        time: 0.38346374
+        value: 0.19190067
+        inSlope: 0.13457006
+        outSlope: 0.13457006
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.7114341
-        value: 0.347
-        inSlope: 1.7712005
-        outSlope: 1.7712005
+        value: 0.34720373
+        inSlope: 0.14516482
+        outSlope: 0.14516482
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.3489503
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.7950554
-        value: 0.85252166
-        inSlope: 2.6755435
-        outSlope: 2.6755435
+        time: 0.8223699
+        value: 0.97699136
+        inSlope: 0.54148567
+        outSlope: 0.54148567
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.10658824
+        outWeight: 0.08119229
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 0.719601
-        outSlope: 0.719601
+        inSlope: 0.1295312
+        outSlope: 0.1295312
         tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
@@ -3292,8 +3282,8 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    terrainLayer: Ground
-  chunkPrefab: {fileID: 5502943811654474230, guid: 78e4fce1823e2874e96fa3edfe934f4a,
+    _terrainLayer: Ground
+  _chunkPrefab: {fileID: 5502943811654474230, guid: 78e4fce1823e2874e96fa3edfe934f4a,
     type: 3}
 --- !u!114 &821097373
 MonoBehaviour:
@@ -3307,8 +3297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 655b273de216442459cc8f5b9311946c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <mapGeneratorTerrain>k__BackingField: {fileID: 821097372}
-  <propSpawner>k__BackingField: {fileID: 821097375}
+  <MapGeneratorTerrain>k__BackingField: {fileID: 821097372}
+  <PropSpawner>k__BackingField: {fileID: 821097375}
 --- !u!4 &821097374
 Transform:
   m_ObjectHideFlags: 0
@@ -3336,43 +3326,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830c299a728098448af3599ae14fbca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  propDatas:
-  - staticObject: 1
-    <spawn>k__BackingField: 1
-    <prefab>k__BackingField: {fileID: 5046198083466561727, guid: 871195904a48bc240adb00eb4a225f5f,
-      type: 3}
-    <numSamplesBeforeRejection>k__BackingField: 10
-    <maxQuantityPer100M>k__BackingField: 20
-    <minHeightNormalised>k__BackingField: 0
-    <maxHeightNormalised>k__BackingField: 0.45
-    <dropIntoTerrainAmount>k__BackingField: 0.05
-    <flatnessTolerance>k__BackingField: 0.4
-    <radius>k__BackingField: 0
-    <overrideRideRadius>k__BackingField: 0
-  - staticObject: 1
-    <spawn>k__BackingField: 1
-    <prefab>k__BackingField: {fileID: 4747259746798135874, guid: bf0b5aa57407e4b4f9c811e01247b204,
-      type: 3}
-    <numSamplesBeforeRejection>k__BackingField: 10
-    <maxQuantityPer100M>k__BackingField: 150
-    <minHeightNormalised>k__BackingField: 0
-    <maxHeightNormalised>k__BackingField: 0.55
-    <dropIntoTerrainAmount>k__BackingField: 0.01
-    <flatnessTolerance>k__BackingField: 0.4
-    <radius>k__BackingField: 1
-    <overrideRideRadius>k__BackingField: 1
-  - staticObject: 1
-    <spawn>k__BackingField: 1
-    <prefab>k__BackingField: {fileID: 5947408727813328650, guid: 559a5aa2e121b774da1b194cde4b7937,
-      type: 3}
-    <numSamplesBeforeRejection>k__BackingField: 10
-    <maxQuantityPer100M>k__BackingField: 150
-    <minHeightNormalised>k__BackingField: 0
-    <maxHeightNormalised>k__BackingField: 0.55
-    <dropIntoTerrainAmount>k__BackingField: 0.05
-    <flatnessTolerance>k__BackingField: 0.01
-    <radius>k__BackingField: 1
-    <overrideRideRadius>k__BackingField: 1
+  _propDatas:
+  - _staticObject: 0
+    <Spawn>k__BackingField: 0
+    <Prefab>k__BackingField: {fileID: 0}
+    <NumSamplesBeforeRejection>k__BackingField: 0
+    <MaxQuantityPer100M>k__BackingField: 0
+    <MinHeightNormalised>k__BackingField: 0
+    <MaxHeightNormalised>k__BackingField: 0
+    <DropIntoTerrainAmount>k__BackingField: 0
+    <FlatnessTolerance>k__BackingField: 0
+    <Radius>k__BackingField: 0
+    <OverrideRideRadius>k__BackingField: 0
 --- !u!1001 &856797081
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5324,10 +5289,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10964694ec8108f419e23430ba9f21a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 7635256604560604012, guid: 7256dc8a1f156ac42a5bd5f96d43efc9,
-    type: 3}
-  offset: {x: 0, y: 0, z: 0}
-  groundLayer: Ground
+  _playerPrefab: {fileID: 0}
+  _offset: {x: 0, y: 0, z: 0}
+  _groundLayer: Ground
 --- !u!4 &1351785758
 Transform:
   m_ObjectHideFlags: 0
@@ -6902,13 +6866,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93fc75fe84c6f4246b8c7aadc406c8f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  repeatTime: 1
-  bounceTime: 0.25
-  bounceHeight: 10
-  dots:
-  - {fileID: 820504738}
-  - {fileID: 897629489}
-  - {fileID: 883963960}
+  _repeatTime: 1
+  _bounceTime: 0.25
+  _bounceHeight: 10
+  _dots: []
 --- !u!1001 &1747915697
 PrefabInstance:
   m_ObjectHideFlags: 0

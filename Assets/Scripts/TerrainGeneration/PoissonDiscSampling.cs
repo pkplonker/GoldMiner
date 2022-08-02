@@ -13,7 +13,7 @@ namespace TerrainGeneration
 			 Action<PoissonData> callback, MapData mapData, int numSamplesBeforeRejection = 30)
 		{
 			Profiler.BeginSample("disc");
-			var prng = new System.Random(mapData.seed+index);
+			var prng = new System.Random(mapData._seed+index);
 			var cellSize = radius / Mathf.Sqrt(2);
 
 			var grid = new int[Mathf.CeilToInt(sampleRegionSize.x / cellSize),
@@ -21,26 +21,20 @@ namespace TerrainGeneration
 			var points = new List<Vector2>();
 
 			var spawnPoints = new List<Vector2> {sampleRegionSize / 2};
-			int spawnIndex;
-			Vector2 spawnCentre;
-			bool candidateAccepted;
-			int i;
-			Vector2 dir;
-			float angle;
-			Vector2 candidate;
 			while (spawnPoints.Count > 0)
 			{
-				spawnIndex = (int) prng.NextSingle(0, spawnPoints.Count - 1);
-				spawnCentre = spawnPoints[spawnIndex];
-				candidateAccepted = false;
+				var spawnIndex = (int) prng.NextSingle(0, spawnPoints.Count - 1);
+				var spawnCentre = spawnPoints[spawnIndex];
+				var candidateAccepted = false;
 
 
-				for (i = 0; i < numSamplesBeforeRejection; i++)
+				for (var i = 0; i < numSamplesBeforeRejection; i++)
 				{
-					angle = prng.NextSingle() * Mathf.PI * 2;
+					var angle = prng.NextSingle() * Mathf.PI * 2;
+					Vector2 dir;
 					dir.x = Mathf.Sin(angle);
 					dir.y = Mathf.Cos(angle);
-					candidate = spawnCentre + dir * prng.NextSingle(radius, 2 * radius);
+					var candidate = spawnCentre + dir * prng.NextSingle(radius, 2 * radius);
 					if (!IsValid(candidate, sampleRegionSize, cellSize, radius, points, grid)) continue;
 					points.Add(candidate);
 					spawnPoints.Add(candidate);
@@ -68,17 +62,13 @@ namespace TerrainGeneration
 			var searchEndX = Mathf.Min(cellX + 2, grid.GetLength(0) - 1);
 			var searchStartY = Mathf.Max(0, cellY - 2);
 			var searchEndY = Mathf.Min(cellY + 2, grid.GetLength(1) - 1);
-			int pointIndex;
-			float sqrDst;
-			int x;
-			int y;
-			for (x = searchStartX; x <= searchEndX; x++)
+			for (var x = searchStartX; x <= searchEndX; x++)
 			{
-				for (y = searchStartY; y <= searchEndY; y++)
+				for (var y = searchStartY; y <= searchEndY; y++)
 				{
-					pointIndex = grid[x, y] - 1;
+					var pointIndex = grid[x, y] - 1;
 					if (pointIndex == -1) continue;
-					sqrDst = (candidate - points[pointIndex]).sqrMagnitude;
+					var sqrDst = (candidate - points[pointIndex]).sqrMagnitude;
 					if (sqrDst < radius * radius) return false;
 				}
 			}

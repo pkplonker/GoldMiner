@@ -7,40 +7,40 @@ namespace UI
 	public class LoadingDots : MonoBehaviour
 	{
 		//the total time of the animation
-		public float repeatTime = 1;
+		public float _repeatTime = 1;
 
 		//the time for a dot to bounce up and come back down
-		public float bounceTime = 0.25f;
+		public float _bounceTime = 0.25f;
 
 		//how far does each dot move
-		public float bounceHeight = 10;
+		public float _bounceHeight = 10;
 
-		public List<GameObject> dots;
+		public List<GameObject> _dots;
 
 		private void Start()
 		{
-			if (repeatTime < dots.Count * bounceTime)
+			if (_repeatTime < _dots.Count * _bounceTime)
 			{
-				repeatTime = dots.Count * bounceTime;
+				_repeatTime = _dots.Count * _bounceTime;
 			}
 
-			InvokeRepeating(nameof(Animate), 0, repeatTime);
+			InvokeRepeating(nameof(Animate), 0, _repeatTime);
 		}
 
 		private void Animate()
 		{
-			for (var i = 0; i < dots.Count; i++)
+			for (var i = 0; i < _dots.Count; i++)
 			{
 				var dotIndex = i;
 
-				dots[dotIndex].transform
-					.DOMoveY(dots[dotIndex].transform.position.y + bounceHeight, bounceTime / 2)
-					.SetDelay(dotIndex * bounceTime / 2)
+				_dots[dotIndex].transform
+					.DOMoveY(_dots[dotIndex].transform.position.y + _bounceHeight, _bounceTime / 2)
+					.SetDelay(dotIndex * _bounceTime / 2)
 					.SetEase(Ease.OutQuad)
 					.OnComplete(() =>
 					{
-						dots[dotIndex].transform
-							.DOMoveY(dots[dotIndex].transform.position.y - bounceHeight, bounceTime / 2)
+						_dots[dotIndex].transform
+							.DOMoveY(_dots[dotIndex].transform.position.y - _bounceHeight, _bounceTime / 2)
 							.SetEase(Ease.InQuad);
 					});
 			}

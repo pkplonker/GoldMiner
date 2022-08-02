@@ -12,8 +12,8 @@
     
 public class Target : MonoBehaviour
     {
-	   [Range(0.01f,1)] [SerializeField] private float signalStrength;
-	    public float GetSignalStrength() => signalStrength;
+	   [Range(0.01f,1)] [SerializeField] private float _signalStrength;
+	    public float GetSignalStrength() => _signalStrength;
 
 	   
     }

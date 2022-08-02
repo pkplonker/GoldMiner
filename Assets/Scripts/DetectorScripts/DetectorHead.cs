@@ -13,33 +13,33 @@ namespace DetectorScripts
 	/// </summary>
 	public class DetectorHead : MonoBehaviour
 	{
-		[SerializeField] private float lowerRad = 0.4f;
-		[SerializeField] private float upperRad = 0.4f;
-		[SerializeField] private float distance = 0.4f;
-		private ConeGenerator coneGenerator;
-		public static float currentSignal { get; private set; }
-		[SerializeField] private float signalDegradeSpeed = 2f;
+		[SerializeField] private float _lowerRad = 0.4f;
+		[SerializeField] private float _upperRad = 0.4f;
+		[SerializeField] private float _distance = 0.4f;
+		private ConeGenerator _coneGenerator;
+		public static float CurrentSignal { get; private set; }
+		[SerializeField] private float _signalDegradeSpeed = 2f;
 		public static event Action<float> OnDetection;
-		private const string targetLayerMask = "Target";
+		private const string TARGET_LAYER_MASK = "Target";
 
 		private void Start()
 		{
 			GenerateCone();
-			currentSignal = 0;
-			OnDetection?.Invoke(currentSignal);
+			CurrentSignal = 0;
+			OnDetection?.Invoke(CurrentSignal);
 
 		}
 
 		private void GenerateCone()
 		{
-			GameObject go = new GameObject("Cone");
+			var go = new GameObject("Cone");
 			go.transform.SetParent(transform);
 			go.transform.localPosition = Vector3.zero;
 			go.transform.localRotation = Quaternion.Euler(-90, 0, 0);
 			go.transform.localScale = transform.localScale;
-			coneGenerator = go.AddComponent<ConeGenerator>();
-			coneGenerator.GenerateCone(transform.localPosition, 12, distance, lowerRad, upperRad);
-			coneGenerator.enabled = false;
+			_coneGenerator = go.AddComponent<ConeGenerator>();
+			_coneGenerator.GenerateCone( 12, _distance, _lowerRad, _upperRad);
+			_coneGenerator.enabled = false;
 			go.AddComponent<DetectorCone>();
 
 			//debug only
@@ -48,41 +48,38 @@ namespace DetectorScripts
 
 		private void Update()
 		{
-			if (!PlayerInteractionStateMachine.isDetecting) return;
-			OnDetection?.Invoke(currentSignal);
+			if (!PlayerInteractionStateMachine.IsDetecting) return;
+			OnDetection?.Invoke(CurrentSignal);
 			DegradeSignal();
 		}
 
 		private void DegradeSignal()
 		{
-			currentSignal = Mathf.Lerp(currentSignal, 0, Time.deltaTime * signalDegradeSpeed);
+			CurrentSignal = Mathf.Lerp(CurrentSignal, 0, Time.deltaTime * _signalDegradeSpeed);
 		}
 
 
 		private float CalculateSignalStrength(Target t)
 		{
-			var direction = (t.transform.position - coneGenerator.transform.position).normalized;
+			var direction = (t.transform.position - _coneGenerator.transform.position).normalized;
 
-			if (!Physics.Raycast(coneGenerator.transform.position, direction, out var hit, distance,
-				    LayerMask.GetMask(targetLayerMask))) return 0;
+			if (!Physics.Raycast(_coneGenerator.transform.position, direction, out var hit, _distance,
+				    LayerMask.GetMask(TARGET_LAYER_MASK))) return 0;
 
-			if (hit.collider.gameObject == t.gameObject)
-			{
-				Debug.DrawLine(coneGenerator.transform.position, hit.point, Color.red, 1f);
-				Debug.Log("distance  = " + hit.distance);
-				Debug.Log(1-(hit.distance/distance));
-				return 1-(hit.distance/distance);
-			}
+			if (hit.collider.gameObject != t.gameObject) return 0;
+			Debug.DrawLine(_coneGenerator.transform.position, hit.point, Color.red, 1f);
+			Debug.Log("distance  = " + hit.distance);
+			Debug.Log(1-(hit.distance/_distance));
+			return 1-(hit.distance/_distance);
 
-			return 0;
 		}
 
 		public void TargetDetected(Target target)
 		{
-			if (!PlayerInteractionStateMachine.isDetecting) return;
-			currentSignal = CalculateSignalStrength(target);
+			if (!PlayerInteractionStateMachine.IsDetecting) return;
+			CurrentSignal = CalculateSignalStrength(target);
 			Debug.Log("BUZZZZZ");
-			OnDetection?.Invoke(currentSignal);
+			OnDetection?.Invoke(CurrentSignal);
 		}
 	}
 }

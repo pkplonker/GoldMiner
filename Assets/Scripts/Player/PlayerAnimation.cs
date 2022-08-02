@@ -12,30 +12,30 @@
     
 	 public class PlayerAnimation : MonoBehaviour
 	 {
-		 private Animator animator;
-		 private PlayerMovement playerMovement;
+		 private Animator _animator;
+		 private PlayerMovement _playerMovement;
 		 private void Awake()
 		 {
-			 playerMovement=GetComponentInParent<PlayerMovement>();
+			 _playerMovement=GetComponentInParent<PlayerMovement>();
 			 GetAnimator();
 		 }
 
 		 private void GetAnimator()
 		 {
-			 animator = GetComponent<Animator>();
+			 _animator = GetComponent<Animator>();
 		 }
 
 		 private void OnEnable()
 		 {
-			 playerMovement.OnMove += Move;
-			 playerMovement.OnRotate += Rotate;
+			 _playerMovement.OnMove += Move;
+			 _playerMovement.OnRotate += Rotate;
 
 		 }
 
 		 private void OnDisable()
 		 {
-			 playerMovement.OnMove += Move;
-			 playerMovement.OnRotate += Rotate;
+			 _playerMovement.OnMove += Move;
+			 _playerMovement.OnRotate += Rotate;
 		 }
 
 		 private void Rotate(Vector2 v)
@@ -46,12 +46,12 @@
 
 		 private void Move(Vector2 v)
 		 {
-			 if (!animator)
+			 if (!_animator)
 			 {
 				 GetAnimator();
 			 }
-			 animator.SetFloat("MoveX",v.x);
-			 animator.SetFloat("MoveY",v.y);
+			 _animator.SetFloat("MoveX",v.x);
+			 _animator.SetFloat("MoveY",v.y);
 		 }
 	 }
  }

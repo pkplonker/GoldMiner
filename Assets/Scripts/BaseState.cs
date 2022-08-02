@@ -4,17 +4,17 @@ using UnityEngine;
 
 public abstract class BaseState
 {
-	protected StateMachine stateMachine;
+	protected StateMachine StateMachine;
 
 	public virtual void EnterState(StateMachine sm)
 	{
-		stateMachine = sm;
+		StateMachine = sm;
 	}
 	
 	public void ExitState()
 	{
 		VirtualStateExit();
-		stateMachine = null;
+		StateMachine = null;
 	}
 
 	protected abstract void VirtualStateExit();

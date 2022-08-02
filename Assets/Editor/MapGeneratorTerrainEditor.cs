@@ -25,16 +25,16 @@ namespace Editor
 		{
 			if (Application.isPlaying)
 			{
-				if (mapGeneratorTerrain.container != null)
+				if (mapGeneratorTerrain.Container != null)
 				{
-					foreach (var v in mapGeneratorTerrain.container.GetComponentsInChildren<Transform>())
+					foreach (var v in mapGeneratorTerrain.Container.GetComponentsInChildren<Transform>())
 					{
 						if (v == mapGeneratorTerrain.transform) continue;
 						Destroy(v.gameObject);
 					}
 				}
 
-				mapGeneratorTerrain.generated = false;
+				mapGeneratorTerrain.Generated = false;
 				mapGeneratorTerrain.Generate();
 			}
 		}
