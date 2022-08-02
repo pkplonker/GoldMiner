@@ -2240,7 +2240,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 2811365849900761648}
   m_Lens:
-    FieldOfView: 50
+    FieldOfView: 45
     OrthographicSize: 10
     NearClipPlane: 0.01
     FarClipPlane: 500
@@ -2423,9 +2423,9 @@ MonoBehaviour:
   _fallTimeout: 0.15
   _groundedOffset: -0.14
   _groundedRadius: 0.5
-  _cinemachineCameraTarget: {fileID: 5189435418136733883}
-  _topClamp: 89
-  _bottomClamp: -89
+  _cinemachineCameraTarget: {fileID: 2811365849900761655}
+  _topClamp: 65
+  _bottomClamp: -65
 --- !u!114 &161934956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2529,6 +2529,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Detector
+      objectReference: {fileID: 0}
+    - target: {fileID: 1881947244043790603, guid: 97d5982cbcdad064b9026c2228aec95e,
+        type: 3}
+      propertyPath: _rotationSpeed
+      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97d5982cbcdad064b9026c2228aec95e, type: 3}

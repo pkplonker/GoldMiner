@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using StuartHeathTools;
 using TerrainGeneration;
@@ -45,10 +44,7 @@ namespace UI
 
 		private void NewProp(int current, int target)
 		{
-			Debug.Log($"Props =  {current}/{target}");
-
 			_currentPropProgress = current;
-			if(current==target) Debug.Log("props complete");
 			UpdateTotals();
 		}
 
@@ -64,7 +60,6 @@ namespace UI
 		
 		private void Complete()
 		{
-			Debug.Log("Completed");
 			StopCor();
 			HideUI();
 		}
@@ -112,9 +107,7 @@ namespace UI
 
 		private void NewChunk(int generated, int required)
 		{
-			Debug.Log($"Chunks =  {generated}/{required}");
 			_currentChunkProgress = generated;
-			if(generated==required) Debug.Log("chunks complete");
 			UpdateTotals();
 		}
 	}

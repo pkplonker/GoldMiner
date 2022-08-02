@@ -9,7 +9,7 @@ namespace TerrainGeneration
 {
 	public class PropSpawner : MonoBehaviour
 	{
-		[SerializeField] private List<PropData> _propDatas;
+		[SerializeField] private PropData _propDatas;
 		public Transform Container { get; private set; }
 		public static event Action<int, int> OnPropGenerated;
 		public static event Action<int> OnPropsGenerationStarted;
@@ -21,7 +21,7 @@ namespace TerrainGeneration
 
 		public void SpawnObjects(int spawnArea, MapData mapData)
 		{
-			OnPropsGenerationStarted?.Invoke(_propDatas.Count);
+			OnPropsGenerationStarted?.Invoke(_propDatas.Props.Count);
 			this._mapData = mapData;
 			if (Container == null)
 			{
@@ -40,16 +40,16 @@ namespace TerrainGeneration
 
 		private IEnumerator SpawnObjectsCor(int spawnArea)
 		{
-			for (var j = 0; j < _propDatas.Count; j++)
+			for (var j = 0; j < _propDatas.Props.Count; j++)
 			{
-				var radius = _propDatas[j].GetRadius();
+				var radius = _propDatas.Props[j].GetRadius();
 				var j1 = j;
 				Task.Run(() => PoissonDiscSampling.GeneratePointsCor(j1, radius,
 					new Vector2(spawnArea, spawnArea), PoissonCallback, _mapData,
-					_propDatas[j1].NumSamplesBeforeRejection));
+					_propDatas.Props[j1].NumSamplesBeforeRejection));
 			}
 
-			var targetAmount = _propDatas.Count;
+			var targetAmount = _propDatas.Props.Count;
 			var currentAmount = 0;
 
 			while (currentAmount != targetAmount)
@@ -61,7 +61,7 @@ namespace TerrainGeneration
 				var data = _poissonDataQueue.Dequeue();
 
 				currentAmount++;
-				StartCoroutine(_propDatas[data.Index].ProcessPointDataCor(data, currentAmount, targetAmount,
+				StartCoroutine(_propDatas.Props[data.Index].ProcessPointDataCor(data, currentAmount, targetAmount,
 					PropSpawnCompleteCallback, this, _mapData));
 				yield return null;
 			}
@@ -71,10 +71,10 @@ namespace TerrainGeneration
 
 		public void SpawnProp(int index, Vector3 result, Quaternion rotation)
 		{
-			var go = Instantiate(_propDatas[index].Prefab, Container);
+			var go = Instantiate(_propDatas.Props[index].Prefab, Container);
 			go.transform.localPosition = result;
 			go.transform.localRotation = rotation;
-			go.isStatic = _propDatas[index]._staticObject;
+			go.isStatic = _propDatas.Props[index]._staticObject;
 		}
 
 		private void PropSpawnCompleteCallback(int currentAmount, int targetAmount)
@@ -92,7 +92,7 @@ namespace TerrainGeneration
 			}
 		}
 
-		public int GetPropsRequired() => _propDatas.Count(p => p.Spawn);
+		public int GetPropsRequired() => _propDatas.Props.Count(p => p.Spawn);
 	}
 }
 
