@@ -45,7 +45,7 @@ namespace UI
 
 		private void NewProp(int current, int target)
 		{
-			Debug.Log($"Chunks =  {current}/{target}");
+			Debug.Log($"Props =  {current}/{target}");
 
 			_currentPropProgress = current;
 			if(current==target) Debug.Log("props complete");

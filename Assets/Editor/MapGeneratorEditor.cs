@@ -14,7 +14,7 @@ namespace Editor
 	[CustomEditor(typeof(MapGenerator))]
 	public class MapGeneratorEditor : UnityEditor.Editor
 	{
-		/*public override void OnInspectorGUI()
+		public override void OnInspectorGUI()
 		{
 			var mapGenerator = (MapGenerator) target;
 			if (Application.isPlaying)
@@ -40,6 +40,6 @@ namespace Editor
 			}
 
 			base.OnInspectorGUI();
-		}*/
+		}
 	}
 }

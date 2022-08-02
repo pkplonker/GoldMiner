@@ -51,13 +51,14 @@ namespace TerrainGeneration
 
 			var targetAmount = _propDatas.Count;
 			var currentAmount = 0;
-			var data = _poissonDataQueue.Dequeue();
+
 			while (currentAmount != targetAmount)
 			{
 				while (_poissonDataQueue.Count == 0)
 				{
 					yield return null;
 				}
+				var data = _poissonDataQueue.Dequeue();
 
 				currentAmount++;
 				StartCoroutine(_propDatas[data.Index].ProcessPointDataCor(data, currentAmount, targetAmount,
