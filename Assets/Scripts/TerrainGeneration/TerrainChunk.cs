@@ -32,7 +32,7 @@ namespace TerrainGeneration
         {
             if (mc.sharedMesh) mc.sharedMesh.Clear();
             mc.sharedMesh = mf.mesh;
-            mc.cookingOptions = MeshColliderCookingOptions.EnableMeshCleaning;
+            //mc.cookingOptions = MeshColliderCookingOptions.EnableMeshCleaning;
         }
 
         private void GenerateMeshRenderer(TerrainChunkData tcd, MeshRenderer mr, int vertsPerRow, Material material)

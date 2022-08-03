@@ -49,6 +49,7 @@ namespace TerrainGeneration
 
 		public void Generate()
 		{
+			ClearData();
 			var chunksRequired = MapData.ChunksPerRow * MapData.ChunksPerRow;
 
 

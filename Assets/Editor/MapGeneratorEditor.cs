@@ -23,15 +23,6 @@ namespace Editor
 				{
 					if (GUILayout.Button("Regenerate Map"))
 					{
-						if (mapGenerator.PropSpawner.Container != null)
-						{
-							foreach (var v in mapGenerator.PropSpawner.Container.GetComponentsInChildren<Transform>())
-							{
-								if (v == mapGenerator.transform || v == mapGenerator.PropSpawner.Container) continue;
-								Destroy(v.gameObject);
-							}
-						}
-
 						mapGenerator.MapGeneratorTerrain.ClearData();
 						mapGenerator.SpawnTerrain();
 						mapGenerator.spawnedProps = false;

@@ -86,47 +86,24 @@ public class Digging : BaseState
 		Profiler.BeginSample("Digging");
 #endif
 		//cast ray to get vertex
-		Vector3 hitPoint = Vector3.negativeInfinity;
 		Ray ray = _stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
 		RaycastHit hit;
 		if (Physics.Raycast(ray, out hit, 20f, LayerMask.GetMask(_stateMachine.GROUND_LAYER)))
 		{
 			Debug.Log(Vector3.Distance(_stateMachine.transform.position, hit.point));
-			hitPoint = hit.point;
 		}
 
-		if (hitPoint == Vector3.negativeInfinity)
+		if (hit.point == Vector3.negativeInfinity)
 		{
 			Debug.Log("Failed to get hit point");
 			return;
 		}
 
-		//get mfilter
-		var mesh = hit.collider.GetComponent<MeshFilter>().mesh;
-		//get closest vertex
-
-		var index = hit.triangleIndex;
-		List<Vector3> hitVerts = new List<Vector3>();
-		hitVerts.Add(mesh.vertices[mesh.triangles[index * 3 + 0]]);
-		hitVerts.Add(mesh.vertices[mesh.triangles[index * 3 + 1]]);
-		hitVerts.Add(mesh.vertices[mesh.triangles[index * 3 + 2]]);
-
-
-		var verts = mesh.vertices.ToList();
-
-		for (var i = 0; i < verts.Count; i++)
-		{
-			var v = verts[i];
-			if (hitVerts.Any(hv => v == hv))
-			{
-				verts[i] = new Vector3(v.x, v.y - _stateMachine._digDepth, v.z);
-			}
-		}
 
 		//get terrain generator and update vertex array;
-		//var tg = hit.collider.GetComponent<DiggableTerrain>();
-		//if (tg != null) tg.UpdateMesh(verts);
-		//else Debug.Log("Failed to get diggable terrain");
+		var tg = hit.collider.GetComponent<DiggableTerrain>();
+		if (tg != null) tg.Dig(hit, _stateMachine._digDepth);
+		else Debug.Log("Failed to get diggable terrain");
 
 #if UNITY_EDITOR
 		Profiler.EndSample();

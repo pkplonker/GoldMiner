@@ -66,6 +66,8 @@ namespace TerrainGeneration
 			mapTimer.Start();
 			startFrame = Time.frameCount;
 #endif
+			
+			spawnedProps = false;
 			var chunksRequired = MapGeneratorTerrain.MapData.ChunksPerRow * MapGeneratorTerrain.MapData.ChunksPerRow;
 			OnMapGenerationStarted?.Invoke(chunksRequired,PropSpawner.GetPropsRequired());
 			MapGeneratorTerrain.Generate();
