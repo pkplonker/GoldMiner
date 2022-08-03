@@ -71,7 +71,7 @@ namespace Player
 				position.x += x * incrementAmount;
 				position.z += x * incrementAmount;
 
-				var hits = Physics.RaycastAll(position, Vector3.down, size);
+				var hits = Physics.RaycastAll(position, Vector3.down, 60);
 				if (hits.Length == 0) continue;
 
 				for (var i = 0; i < hits.Length; i++)
@@ -83,7 +83,7 @@ namespace Player
 					var bounds = _currentPlayer.GetComponentInChildren<SkinnedMeshRenderer>().bounds;
 					if (!BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
 						    hits[i].point - new Vector3(0, bounds.extents.y, 0),
-						    bounds, 1f,
+						    bounds, 2f,
 						    _groundLayer, Quaternion.identity))) continue;
 
 					return position;
@@ -91,7 +91,7 @@ namespace Player
 			}
 
 
-			Debug.Log("failed");
+			Debug.Log("failed to spawn player + " + new Vector3(size / 2, 50, size / 2));
 
 			return Vector3.positiveInfinity;
 		}

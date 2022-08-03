@@ -99,6 +99,7 @@ public class Digging : BaseState
 		
 		if (hit.collider != null)
 		{
+			Debug.Log($"Triggering hit at {hit.point} ");
 			//get terrain generator and update vertex array;
 			var tg = hit.collider.GetComponent<DiggableTerrain>();
 			if (tg != null) tg.Dig(hit, _stateMachine._digDepth);
