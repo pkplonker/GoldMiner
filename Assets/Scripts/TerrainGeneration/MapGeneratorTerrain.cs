@@ -17,7 +17,9 @@ namespace TerrainGeneration
 		[SerializeField] private float[,] _noiseMap;
 		public Transform Container { get; private set; }
 		public static event Action OnTerrainGenerated;
-		public static event Action<int,int> OnChunkGenerated;
+		public static event Action<int, int> OnChunkGenerated;
+
+		public static TerrainChunk[,] terrainChunks;
 
 		public float[,] NoiseMap
 		{
@@ -51,6 +53,7 @@ namespace TerrainGeneration
 		{
 			ClearData();
 			var chunksRequired = MapData.ChunksPerRow * MapData.ChunksPerRow;
+			terrainChunks = new TerrainChunk[MapData.ChunksPerRow, MapData.ChunksPerRow];
 
 
 			if (!Container)
@@ -61,7 +64,7 @@ namespace TerrainGeneration
 
 			var vertsPerRow = (MapData.MapChunkSize * MapData._lod) + 1;
 			var mapSize = vertsPerRow * MapData.ChunksPerRow;
-			NoiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, MapData._seed, MapData._noiseScale*MapData._lod,
+			NoiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, MapData._seed, MapData._noiseScale * MapData._lod,
 				MapData._octaves,
 				MapData._persistance,
 				MapData._lacunarity,
@@ -74,7 +77,7 @@ namespace TerrainGeneration
 					var x1 = x;
 					var y1 = y;
 					Task.Run(() => new TerrainChunkDataGenerator().Init(AddToTerrainChunkQueue, x1, y1,
-						MapData,NoiseMap));
+						MapData, NoiseMap));
 				}
 			}
 		}
@@ -95,7 +98,7 @@ namespace TerrainGeneration
 				GenerateGameObject(terrainChunkData);
 				_chunksGeneratedCount++;
 
-				OnChunkGenerated?.Invoke(_chunksGeneratedCount,chunksRequired);
+				OnChunkGenerated?.Invoke(_chunksGeneratedCount, chunksRequired);
 			}
 
 			_chunksGeneratedCount = 0;
@@ -115,9 +118,11 @@ namespace TerrainGeneration
 
 		private void GenerateGameObject(TerrainChunkData tcd)
 		{
-			Instantiate(_chunkPrefab,
+			var ter = Instantiate(_chunkPrefab,
 				new Vector3(tcd.X * MapData.MapChunkSize, 0, tcd.Y * MapData.MapChunkSize),
-				Quaternion.identity, Container).Generate(MapData, tcd);
+				Quaternion.identity, Container);
+			ter.Generate(MapData, tcd);
+			terrainChunks[tcd.X, tcd.Y] = ter;
 		}
 
 		public static Texture2D TextureFromColourMap(Color[] colourMap, int vertsPerRow)

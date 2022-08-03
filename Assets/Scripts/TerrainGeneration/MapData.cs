@@ -10,7 +10,7 @@ namespace TerrainGeneration
 		[field: Range(1, 100), SerializeField]
 		public int MapChunkSize { get; private set; } 
 
-		[field: Range(5, 50), SerializeField]
+		[field: Range(1, 50), SerializeField]
 		public int ChunksPerRow { get; private set; }
 
 		[Range(1, 10), SerializeField] public int _lod;

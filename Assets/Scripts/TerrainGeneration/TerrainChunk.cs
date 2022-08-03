@@ -20,6 +20,36 @@ namespace TerrainGeneration
 			GenerateMesh(tcd, _meshFilter);
 			GenerateCollider(_meshCollider, _meshFilter);
 			GenerateMeshRenderer(tcd, _meshRenderer, vertsPerRow, mapData._material);
+			var mesh = _meshFilter.mesh;
+			
+			var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			go.name = "Dig hit point";
+			go.transform.position = transform.TransformPoint(mesh.vertices[0]);
+			go.transform.localScale = Vector3.one * 0.05f;
+			go.GetComponent<Renderer>().material.color = Color.red;
+			
+			
+			var go2 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			go2.name = "Dig hit point";
+			go2.transform.position =transform.TransformPoint( mesh.vertices[mapData.MapChunkSize*mapData._lod]);
+			go2.transform.localScale = Vector3.one * 0.05f;
+			go2.GetComponent<Renderer>().material.color = Color.black;
+			
+			var totalVerts = ((mapData.MapChunkSize*mapData._lod+1) * (mapData.MapChunkSize*mapData._lod+1))-1;
+			
+			var go3 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			go3.name = "Dig hit point";
+			go3.transform.position = transform.TransformPoint(mesh.vertices[totalVerts]);
+			go3.transform.localScale = Vector3.one * 0.05f;
+			go3.GetComponent<Renderer>().material.color = Color.green;
+			
+			var go1 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			go1.name = "Dig hit point";
+			go1.transform.position =transform.TransformPoint( mesh.vertices[totalVerts-mapData.MapChunkSize*mapData._lod]);
+			go1.transform.localScale = Vector3.one * 0.05f;
+			go1.GetComponent<Renderer>().material.color = Color.blue;
+			
+
 		}
 
 		private static void GenerateMesh(TerrainChunkData tcd, MeshFilter mf)
@@ -34,6 +64,7 @@ namespace TerrainGeneration
 			mesh.SetUVs(0, tcd.Uvs);
 			mesh.RecalculateBounds();
 			mf.mesh = mesh;
+			
 		}
 
 		private static void GenerateCollider(MeshCollider mc, MeshFilter mf)
