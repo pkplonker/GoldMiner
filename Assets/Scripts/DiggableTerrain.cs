@@ -39,7 +39,7 @@ public class DiggableTerrain : MonoBehaviour
 
 	private void CheckNeighbours(RaycastHit hit, Mesh mesh)
 	{
-		List<Tuple<int, int, int>> changes = new List<Tuple<int, int, int>>();
+		var changes = new List<Tuple<int, int, int>>();
 		var terrainChunk = GetComponent<TerrainChunk>();
 		var mapdata = terrainChunk.MapData;
 		var x = terrainChunk.X;
@@ -75,7 +75,7 @@ public class DiggableTerrain : MonoBehaviour
 		ProcessNeighbourChanges(changes, mesh);
 	}
 
-	private void ProcessNeighbourChanges(List<Tuple<int, int, int>> changesRequested, Mesh mesh)
+	private void ProcessNeighbourChanges(IEnumerable<Tuple<int, int, int>> changesRequested, Mesh mesh)
 	{
 		var changes = changesRequested.Distinct().ToList();
 		
@@ -87,9 +87,6 @@ public class DiggableTerrain : MonoBehaviour
 			
 			MapGeneratorTerrain.terrainChunks[change.Item1, change.Item2].GetComponent<DiggableTerrain>()
 					.DigAtVertIndex(change.Item3, _digAmount);
-		
-
-			Debug.Log(change.Item1 + " " + change.Item2 + " " + change.Item3);
 		}
 	}
 
@@ -150,7 +147,7 @@ public class DiggableTerrain : MonoBehaviour
 		return -1;
 	}
 
-	private Vector3[] UpdateVerts(float digAmount, Vector3[] hitVerts, Vector3[] verts)
+	private static Vector3[] UpdateVerts(float digAmount, Vector3[] hitVerts, Vector3[] verts)
 	{
 		for (var i = 0; i < verts.Length; i++)
 		{
@@ -185,9 +182,8 @@ public class DiggableTerrain : MonoBehaviour
 		oldMesh.GetUVs(0, oldUvs);
 		newMesh.SetUVs(0, oldUvs);
 		//newMesh.SetNormals(oldMesh.normals);
-		var normals = new Vector3[verts.Length];
 		var tris = newMesh.triangles.ToList();
-		TerrainChunkDataGenerator.CalculateNormals(ref vertList, out normals, ref tris);
+		TerrainChunkDataGenerator.CalculateNormals(ref vertList, out var normals, ref tris);
 		newMesh.SetNormals(normals);
 		newMesh.RecalculateBounds();
 		_meshFilter.mesh = newMesh;

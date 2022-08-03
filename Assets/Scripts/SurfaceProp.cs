@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TerrainGeneration;
 using UnityEngine;
-[CreateAssetMenu(fileName = "Surface Prop", menuName = "Props/Surface Prop")]
 
+[CreateAssetMenu(fileName = "Surface Prop", menuName = "Props/Surface Prop")]
 public class SurfaceProp : Prop
 {
+	[field: Range(-1f, 1f), SerializeField]
+
+	public float DropIntoTerrainAmount { get; protected set; }
+
 	[field: Range(0, 1f), SerializeField] public float MinHeightNormalised { get; protected set; }
 	[field: Range(0, 1f), SerializeField] public float MaxHeightNormalised { get; protected set; }
 
@@ -17,4 +21,6 @@ public class SurfaceProp : Prop
 			? position
 			: Vector3.positiveInfinity;
 	}
+	protected override float GetDropIntoTerrainAmount()=>DropIntoTerrainAmount;
+
 }

@@ -24,12 +24,18 @@ public class SubSurfaceProp : Prop
 			mapData);
 		rotation = CalculateRotation(i, mapData._seed);
 
-		if (result == Vector3.positiveInfinity) return true;
-		var bounds = BoundDrawer.GetBounds(Prefab);
-		if (!BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
-			    result - new Vector3(0, bounds.extents.y, 0),
-			    bounds, tolerance, mapData._terrainLayer, rotation))) return true;
-		return false;
+		return result == Vector3.positiveInfinity;
+	}
+	
+	protected override Vector3 CalculatePosition(Vector3 position, MapData mapData, float factor = 10)
+	{
+		position.y = mapData._heightMultiplier;
+
+		if (!Physics.Raycast(position, Vector3.down, out var hit, mapData._heightMultiplier + factor,
+			    LayerMask.GetMask(mapData._terrainLayer))) return Vector3.positiveInfinity;
+
+		position.y = hit.point.y - GetDropIntoTerrainAmount();
+		return position;
 	}
 
 	protected override float GetDropIntoTerrainAmount() => Random.Range(_depthMinimum, _depthMaximum);

@@ -15,9 +15,7 @@ public abstract class Prop : ScriptableObject
 		[field: Range(0, 500), SerializeField] public int MaxQuantityPer100M { get; protected set; }
 		
 
-		[field: Range(-1f, 1f), SerializeField]
-		public float DropIntoTerrainAmount { get; protected set; }
-
+	
 		[field: Range(-1f, 1f), SerializeField]
 		public float FlatnessTolerance { get; protected set; }
 
@@ -118,6 +116,6 @@ public abstract class Prop : ScriptableObject
 			return position;
 		}
 
-		protected virtual float GetDropIntoTerrainAmount()=>DropIntoTerrainAmount;
+		protected virtual float GetDropIntoTerrainAmount()=>0f;
 		
 }
