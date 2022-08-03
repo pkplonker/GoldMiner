@@ -2,44 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Test.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Test/TerrainTest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Test/TerrainTest.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/BenchTest.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/BenchTest.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Detector.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Detector.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/GroundTest.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/GroundTest.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Materials/BaseColor.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Materials/BaseColor.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Materials/MapMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Materials/MapMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Pickup.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Pickup.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/Kevin Iglesias/Villager Animations/Materials/VillagerMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/Kevin Iglesias/Villager Animations/Materials/VillagerMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_01_A.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_01_A.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_01_B.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_01_B.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_01_C.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_01_C.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_02_A.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_02_A.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_02_B.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_02_B.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_02_C.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_02_C.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_03_A.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_03_A.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_03_B.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_03_B.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_03_C.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_03_C.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_04_A.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_04_A.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_04_B.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_04_B.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_04_C.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/POLYGONCityCharacters/Materials/Polygon_City_Characters_Mat_04_C.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/MapDisplay.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/MapDisplay.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Testmat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Testmat.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Chunk.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Chunk.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Digging.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Digging.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunk.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/boot.config" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +49,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2BZQDO1UdQrQICxdNpx36WDjE9U" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -117,10 +88,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="23688">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="6528">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="23688" />
+      <option name="pid" value="6528" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -152,6 +123,7 @@
       <workItem from="1659386404276" duration="5772000" />
       <workItem from="1659476941064" duration="3628000" />
       <workItem from="1659509453659" duration="2382000" />
+      <workItem from="1659515860855" duration="3600000" />
     </task>
     <servers />
   </component>
@@ -185,24 +157,14 @@
           <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\Cone.cs" initialLine="66" containingFunctionPresentation="method 'GenerateTriangles'" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Digging.cs</url>
-          <line>97</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\Digging.cs" initialLine="99" containingFunctionPresentation="method 'AttemptDig'">
-            <startOffsets>
-              <option value="2524" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2561" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="hg4idea.settings">
+    <option name="RECENT_HG_ROOT_PATH" value="$PROJECT_DIR$/Assets/Editor/WakaTime/client/tests/samples/projects/hg" />
   </component>
 </project>

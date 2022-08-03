@@ -2248,7 +2248,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6726677, y: 1}
+    m_SensorSize: {x: 2.1213872, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2441,7 +2441,7 @@ MonoBehaviour:
   Camera: {fileID: 0}
   _diggingTarget: {fileID: 568684302760893886}
   _maxDigRange: 2
-  _digDepth: 1
+  _digDepth: 0.1
   _rigHandTarget: {fileID: 3000511470367448561}
   _handleIKTarget: {fileID: 1881947244732207016}
   _animator: {fileID: 3000511469197723241}
@@ -2452,6 +2452,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 7115179166986297814}
     m_Modifications:
     - target: {fileID: 1986650975, guid: 97d5982cbcdad064b9026c2228aec95e, type: 3}
@@ -2536,6 +2537,7 @@ PrefabInstance:
       value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 97d5982cbcdad064b9026c2228aec95e, type: 3}
 --- !u!1 &817516918 stripped
 GameObject:
@@ -2683,6 +2685,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 7115179166986297814}
     m_Modifications:
     - target: {fileID: 1850082478108716112, guid: 93d427a2029512447843673a92a95ce3,
@@ -2746,6 +2749,7 @@ PrefabInstance:
       value: Digging
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 93d427a2029512447843673a92a95ce3, type: 3}
 --- !u!212 &568684302760893886 stripped
 SpriteRenderer:

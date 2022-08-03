@@ -72,7 +72,6 @@ public class Digging : BaseState
 		UpdateMarkerPosition();
 		if (PlayerInputManager.Instance.GetLeftClick() && _canDig)
 		{
-			Debug.Log("Dig dig" + Time.frameCount);
 			_canDig = false;
 
 			AttemptDig();
@@ -90,7 +89,6 @@ public class Digging : BaseState
 		RaycastHit hit;
 		if (Physics.Raycast(ray, out hit, 20f, LayerMask.GetMask(_stateMachine.GROUND_LAYER)))
 		{
-			Debug.Log(Vector3.Distance(_stateMachine.transform.position, hit.point));
 		}
 
 		if (hit.point == Vector3.negativeInfinity)
@@ -99,22 +97,22 @@ public class Digging : BaseState
 			return;
 		}
 
-
-		//get terrain generator and update vertex array;
-		var tg = hit.collider.GetComponent<DiggableTerrain>();
-		if (tg != null) tg.Dig(hit, _stateMachine._digDepth);
-		else Debug.Log("Failed to get diggable terrain");
+		var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		go.name = "Dig hit point";
+		go.transform.position = hit.point;
+		go.transform.localScale = Vector3.one * 0.05f;
+		go.GetComponent<Renderer>().material.color = Color.red;
+		if (hit.collider != null)
+		{
+			//get terrain generator and update vertex array;
+			var tg = hit.collider.GetComponent<DiggableTerrain>();
+			if (tg != null) tg.Dig(hit, _stateMachine._digDepth);
+			else Debug.Log("Failed to get diggable terrain");
+		}
+		
 
 #if UNITY_EDITOR
 		Profiler.EndSample();
 #endif
-	}
-
-	private void SpawnTestBall(Vector3 hitPoint, string name)
-	{
-		var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		go.transform.localScale = Vector3.one * 0.1f;
-		go.transform.SetPositionAndRotation(hitPoint, Quaternion.identity);
-		go.name = name;
 	}
 }
