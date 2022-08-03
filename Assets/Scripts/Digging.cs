@@ -96,12 +96,7 @@ public class Digging : BaseState
 			Debug.Log("Failed to get hit point");
 			return;
 		}
-
-		var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		go.name = "Dig hit point";
-		go.transform.position = hit.point;
-		go.transform.localScale = Vector3.one * 0.05f;
-		go.GetComponent<Renderer>().material.color = Color.red;
+		
 		if (hit.collider != null)
 		{
 			//get terrain generator and update vertex array;

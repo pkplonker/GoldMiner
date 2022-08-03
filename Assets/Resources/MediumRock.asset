@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: MediumRock
   m_EditorClassIdentifier: 
   _staticObject: 1
-  <Spawn>k__BackingField: 1
+  <Spawn>k__BackingField: 0
   <Prefab>k__BackingField: {fileID: 5046198083466561727, guid: 871195904a48bc240adb00eb4a225f5f,
     type: 3}
-  <NumSamplesBeforeRejection>k__BackingField: 10
+  <NumSamplesBeforeRejection>k__BackingField: 0
   <MaxQuantityPer100M>k__BackingField: 20
   <DropIntoTerrainAmount>k__BackingField: 0.1
   <FlatnessTolerance>k__BackingField: 0.4

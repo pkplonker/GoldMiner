@@ -49,48 +49,50 @@ public class DiggableTerrain : MonoBehaviour
 			hitVertsIndexes[i] = mesh.triangles[triangleIndex * 3 + i];
 		}
 
-		var vertsPerRow = mapdata.MapChunkSize * mapdata._lod;
-		var totalVerts = ((mapdata.MapChunkSize * mapdata._lod + 1) * (mapdata.MapChunkSize * mapdata._lod + 1)) - 1;
-		
+		var vertsPerRow = (mapdata.MapChunkSize + 1) * mapdata._lod;
+		var totalVerts = vertsPerRow * vertsPerRow;
+
 
 		foreach (var index in hitVertsIndexes)
 		{
 			var val = CheckTop(index, vertsPerRow, totalVerts);
 			if (val != -1)
 			{
-				changes.Add( new Tuple<int,int,int>(x,y+1,val));
+				changes.Add(new Tuple<int, int, int>(x, y + 1, val));
 			}
 
 			val = CheckBottom(index, vertsPerRow, totalVerts);
 			if (val != -1)
 			{
-				changes.Add( new Tuple<int,int,int>(x,y-1,val));
+				changes.Add(new Tuple<int, int, int>(x, y - 1, val));
+			}
+
+
+			val = CheckLeft(index, vertsPerRow, totalVerts);
+			if (val != -1)
+			{
+				changes.Add(new Tuple<int, int, int>(x - 1, y, val));
 			}
 
 			val = CheckRight(index, vertsPerRow, totalVerts);
 			if (val != -1)
 			{
-				changes.Add( new Tuple<int,int,int>(x-1,y,val));
-			}
-
-			val = CheckLeft(index, vertsPerRow, totalVerts);
-			if (val != -1)
-			{
-				changes.Add( new Tuple<int,int,int>(x+1,y,val));
+				changes.Add(new Tuple<int, int, int>(x + 1, y, val));
 			}
 		}
 
 		ProcessNeighbourChanges(changes);
 	}
 
-	private void ProcessNeighbourChanges(List<Tuple<int,int, int>> changes)
+	private void ProcessNeighbourChanges(List<Tuple<int, int, int>> changes)
 	{
 		changes = changes.Distinct().ToList();
 		foreach (var change in changes)
 		{
-			if(change.Item1<0 || change.Item1>=MapGeneratorTerrain.terrainChunks.Length) continue;
-			if(change.Item2<0 || change.Item2>=MapGeneratorTerrain.terrainChunks.Length) continue;
-			MapGeneratorTerrain.terrainChunks[change.Item2,change.Item1].GetComponent<DiggableTerrain>().DigAtVertIndex(change.Item3,_digAmount);
+			if (change.Item1 < 0 || change.Item1 >= MapGeneratorTerrain.terrainChunks.Length) continue;
+			if (change.Item2 < 0 || change.Item2 >= MapGeneratorTerrain.terrainChunks.Length) continue;
+			MapGeneratorTerrain.terrainChunks[change.Item1, change.Item2].GetComponent<DiggableTerrain>()
+				.DigAtVertIndex(change.Item3, _digAmount);
 		}
 	}
 
@@ -104,23 +106,10 @@ public class DiggableTerrain : MonoBehaviour
 		UpdateCollider(updatedMesh);
 	}
 
-	
+
 	private int CheckLeft(int index, int vertsPerRow, int totalVerts)
 	{
-		
 		if (index % vertsPerRow == 0)
-		{
-			
-			return index - vertsPerRow + 1;
-		}
-
-		return -1;
-	}
-
-	private int CheckRight(int index, int vertsPerRow, int totalVerts)
-	{
-	
-		if ((index + 1) % vertsPerRow == 0)
 		{
 			return index + vertsPerRow - 1;
 		}
@@ -128,12 +117,22 @@ public class DiggableTerrain : MonoBehaviour
 		return -1;
 	}
 
+	private int CheckRight(int index, int vertsPerRow, int totalVerts)
+	{
+		if ((index + 1) % vertsPerRow == 0)
+		{
+			return index - vertsPerRow + 1;
+		}
+
+
+		return -1;
+	}
+
 	private int CheckBottom(int index, int vertsPerRow, int totalVerts)
 	{
-		
 		if (index < vertsPerRow)
 		{
-			return totalVerts - index-1;
+			return totalVerts - vertsPerRow + index;
 		}
 
 		return -1;
@@ -141,7 +140,7 @@ public class DiggableTerrain : MonoBehaviour
 
 	private int CheckTop(int index, int vertsPerRow, int totalVerts)
 	{
-		if (index > (((vertsPerRow - 1) * vertsPerRow) - 1))
+		if (index >= totalVerts - vertsPerRow)
 		{
 			return index % vertsPerRow;
 		}

@@ -52,7 +52,12 @@ public abstract class Prop : ScriptableObject
 			var cachedTime = Time.realtimeSinceStartup;
 			const float ALLOWED_TIME_PER_FRAME = 1 / 45f;
 			var index = poissonData.Index;
-			if (!Spawn) yield break;
+			if (!Spawn)
+			{
+				callback?.Invoke(currentAmount, targetAmount);
+
+				yield break;
+			}
 
 			var prng = new System.Random(mapData._seed);
 			points.ShuffleWithPRNG(prng);

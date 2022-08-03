@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RockSmall2
   m_EditorClassIdentifier: 
   _staticObject: 1
-  <Spawn>k__BackingField: 1
+  <Spawn>k__BackingField: 0
   <Prefab>k__BackingField: {fileID: 5947408727813328650, guid: 559a5aa2e121b774da1b194cde4b7937,
     type: 3}
   <NumSamplesBeforeRejection>k__BackingField: 10
