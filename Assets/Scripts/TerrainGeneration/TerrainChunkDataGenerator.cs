@@ -52,34 +52,34 @@ namespace TerrainGeneration
 				}
 			}
 
-			CalculateNormals();
+			CalculateNormals(ref _verts, out _norms, ref _triangles);
 		}
 
-		private void CalculateNormals()
+		public static void CalculateNormals(ref List<Vector3> verts, out Vector3[] normals, ref List<int> triangles)
 		{
-			_norms = new Vector3[_verts.Count];
+			normals = new Vector3[verts.Count];
 
-			for (var i = 0; i < _triangles.Count / 3; i++)
+			for (var i = 0; i < triangles.Count / 3; i++)
 			{
 				var normalTriangleIndex = i * 3;
-				var vertexIndexA = _triangles[normalTriangleIndex];
-				var vertexIndexB = _triangles[normalTriangleIndex + 1];
-				var vertexIndexC = _triangles[normalTriangleIndex + 2];
+				var vertexIndexA = triangles[normalTriangleIndex];
+				var vertexIndexB = triangles[normalTriangleIndex + 1];
+				var vertexIndexC = triangles[normalTriangleIndex + 2];
 
-				var triangleNormal = SurfaceNormalFromIndices(vertexIndexA, vertexIndexB, vertexIndexC);
-				_norms[vertexIndexA] += triangleNormal;
-				_norms[vertexIndexB] += triangleNormal;
-				_norms[vertexIndexC] += triangleNormal;
+				var triangleNormal = SurfaceNormalFromIndices(vertexIndexA, vertexIndexB, vertexIndexC, verts);
+				normals[vertexIndexA] += triangleNormal;
+				normals[vertexIndexB] += triangleNormal;
+				normals[vertexIndexC] += triangleNormal;
 			}
 
-			for (var i = 0; i < _norms.Length; i++)
+			for (var i = 0; i < normals.Length; i++)
 			{
-				_norms[i].Normalize();
+				normals[i].Normalize();
 			}
 		}
 
-		Vector3 SurfaceNormalFromIndices(int indexA, int indexB, int indexC) =>
-			Vector3.Cross(_verts[indexB] - _verts[indexA], _verts[indexC] - _verts[indexA]).normalized;
+		public static Vector3 SurfaceNormalFromIndices(int indexA, int indexB, int indexC, List<Vector3> verts) =>
+			Vector3.Cross(verts[indexB] - verts[indexA], verts[indexC] - verts[indexA]).normalized;
 
 
 		private Color[] PopulateColorMapFromHeightMap(int mapSize, int vertsPerRow, Terrains[] terrains,
