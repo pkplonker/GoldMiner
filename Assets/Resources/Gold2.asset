@@ -19,7 +19,7 @@ MonoBehaviour:
   <NumSamplesBeforeRejection>k__BackingField: 20
   <MaxQuantityPer100M>k__BackingField: 25
   <FlatnessTolerance>k__BackingField: 0
-  <Radius>k__BackingField: 0
-  <OverrideRideRadius>k__BackingField: 0
+  <Radius>k__BackingField: 1.5
+  <OverrideRideRadius>k__BackingField: 1
   _depthMinimum: 0.2
   _depthMaximum: 0.6
