@@ -11,11 +11,12 @@ using UnityEngine.Profiling;
 public class Digging : BaseState
 {
 	private bool _isDiggingState = false;
-	private new PlayerInteractionStateMachine _stateMachine;
-	private readonly Color canDigColor = Color.white;
-	private readonly Color cannotDigColor = Color.red;
+	private PlayerInteractionStateMachine _stateMachine;
+	private readonly Color _canDigColor = Color.white;
+	private readonly Color _cannotDigColor = Color.red;
 	private bool _canDig = false;
-
+	private const string NONDIGGABLE_LAYER = "BlocksDig";
+	public static Action<Vector3> OnCannotDigHere;
 	private void UpdateMarkerPosition()
 	{
 		Ray ray = _stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
@@ -25,12 +26,12 @@ public class Digging : BaseState
 			if (Vector3.Distance(_stateMachine.transform.position, hit.point) > _stateMachine._maxDigRange)
 			{
 				_canDig = false;
-				_stateMachine._diggingTarget.color = cannotDigColor;
+				_stateMachine._diggingTarget.color = _cannotDigColor;
 			}
 			else
 			{
 				_canDig = true;
-				_stateMachine._diggingTarget.color = canDigColor;
+				_stateMachine._diggingTarget.color = _canDigColor;
 			}
 
 			_stateMachine._diggingTarget.transform.position = hit.point;
@@ -85,30 +86,32 @@ public class Digging : BaseState
 		Profiler.BeginSample("Digging");
 #endif
 		//cast ray to get vertex
-		Ray ray = _stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
-		RaycastHit hit;
-		if (Physics.Raycast(ray, out hit, 20f, LayerMask.GetMask(_stateMachine.GROUND_LAYER)))
+		var ray = _stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
+		if (Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(GetLayerMask())))
 		{
+			if (hit.point == Vector3.negativeInfinity) Debug.Log("Failed to get hit point");
+			else if (hit.collider != null)
+			{
+				if (hit.collider.TryGetComponent(out DiggableTerrain terrain))
+				{
+					if (terrain.Dig(hit, _stateMachine._digDepth, _stateMachine.MaxDigDepth)) return;
+				}
+			}
 		}
 
-		if (hit.point == Vector3.negativeInfinity)
-		{
-			Debug.Log("Failed to get hit point");
-			return;
-		}
-		
-		if (hit.collider != null)
-		{
-			Debug.Log($"Triggering hit at {hit.point} ");
-			//get terrain generator and update vertex array;
-			var tg = hit.collider.GetComponent<DiggableTerrain>();
-			if (tg != null) tg.Dig(hit, _stateMachine._digDepth);
-			else Debug.Log("Failed to get diggable terrain");
-		}
-		
+		UnableToDig(hit.point);
+
 
 #if UNITY_EDITOR
 		Profiler.EndSample();
 #endif
 	}
+
+	private static void UnableToDig(Vector3 position)
+	{
+		OnCannotDigHere?.Invoke(position);
+		Debug.Log("Failed to get diggable terrain");
+	}
+
+	private string[] GetLayerMask() => new[] {_stateMachine.GROUND_LAYER, NONDIGGABLE_LAYER};
 }

@@ -4,17 +4,19 @@ using System.Collections.Generic;
 using StuartHeathTools;
 using TerrainGeneration;
 using UnityEngine;
-[Serializable]
-public abstract class Prop : ScriptableObject
+
+namespace Props
 {
-    [field: SerializeField] public bool _staticObject;
+	[Serializable]
+	public abstract class Prop : ScriptableObject
+	{
+		[field: SerializeField] public bool _staticObject;
 		[field: SerializeField] public bool Spawn { get; protected set; }
 
 		[field: SerializeField] public GameObject Prefab { get; protected set; }
 		[field: Range(0, 40), SerializeField] public int NumSamplesBeforeRejection { get; protected set; }
-		[field: Range(0, 500), SerializeField] public int MaxQuantityPer100M { get; protected set; }
+		[field: Range(0, 500), SerializeField] public int MaxQuantityPer100M { get; protected set; }=100;
 		
-
 	
 		[field: Range(-1f, 1f), SerializeField]
 		public float FlatnessTolerance { get; protected set; }
@@ -59,8 +61,7 @@ public abstract class Prop : ScriptableObject
 
 			var prng = new System.Random(mapData._seed);
 			points.ShuffleWithPRNG(prng);
-			var numToSpawn = Mathf.Min(points.Count,
-				MaxQuantityPer100M / 100f * (mapData.MapChunkSize * mapData.ChunksPerRow));
+			var numToSpawn = CalculateNumberToSpawn(mapData, points);
 			var tolerance = GetTolerance();
 			for (var i = 0; i < points.Count; i++)
 			{
@@ -79,6 +80,13 @@ public abstract class Prop : ScriptableObject
 			}
 
 			callback?.Invoke(currentAmount, targetAmount);
+		}
+
+		protected virtual int CalculateNumberToSpawn(MapData mapData, List<Vector2> points)
+		{
+			var numToSpawn = Mathf.Min(points.Count,
+				MaxQuantityPer100M / 100f * (mapData.MapChunkSize * mapData.ChunksPerRow));
+			return (int)numToSpawn;
 		}
 
 		protected virtual bool CalculatePlacement(MapData mapData, List<Vector2> points, int i, float tolerance,
@@ -112,10 +120,10 @@ public abstract class Prop : ScriptableObject
 				    LayerMask.GetMask(mapData._terrainLayer))) return Vector3.positiveInfinity;
 
 			position.y = hit.point.y - GetDropIntoTerrainAmount();
-			var normalisedHeight = position.y / mapData._heightMultiplier;
 			return position;
 		}
 
 		protected virtual float GetDropIntoTerrainAmount()=>0f;
 		
+	}
 }

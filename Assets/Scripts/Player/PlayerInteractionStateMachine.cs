@@ -25,6 +25,7 @@ namespace Player
 		public static bool IsDetecting;
 		public static bool IsManualDetecting;
 		public static event Action<bool> OnDetectorManualToggleChanged;
+		[field:Range(0,-20f), SerializeField] public float MaxDigDepth { get; private set; }
 
 		private void Start()
 		{

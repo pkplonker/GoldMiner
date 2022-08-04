@@ -19,7 +19,7 @@ public class DiggableTerrain : MonoBehaviour
 	private float _digAmount;
 	private Dictionary<int, float> digChanges = new Dictionary<int, float>();
 
-	public void Dig(RaycastHit hit, float digAmount = 0.1f)
+	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
 	{
 		if (!_setup) Setup();
 		_digAmount = digAmount;
@@ -30,18 +30,22 @@ public class DiggableTerrain : MonoBehaviour
 			AddToChanges(hit.triangleIndex * 3 + i, _digAmount);
 		}
 
-
+		var pass = false;
 		var verts = UpdateVerts(digAmount, hitVerts, mesh.vertices);
-		var updatedMesh = RegenerateMesh(verts);
-		UpdateCollider(updatedMesh);
-		CheckNeighbours(hit, updatedMesh);
+		if (verts != null)
+		{
+			UpdateCollider(RegenerateMesh(verts));
+		}
+		CheckNeighbours(hit);
+
+		return true;
 	}
 
-	private void CheckNeighbours(RaycastHit hit, Mesh mesh)
+	private void CheckNeighbours(RaycastHit hit)
 	{
 		var changes = new List<Tuple<int, int, int>>();
 		var terrainChunk = GetComponent<TerrainChunk>();
-		var mapdata = terrainChunk.MapData;
+		var mapData = terrainChunk.MapData;
 		var x = terrainChunk.X;
 		var y = terrainChunk.Y;
 		var hitVertsIndexes = new int[3];
@@ -49,10 +53,10 @@ public class DiggableTerrain : MonoBehaviour
 
 		for (var i = 0; i < hitVertsIndexes.Length; i++)
 		{
-			hitVertsIndexes[i] = mesh.triangles[triangleIndex * 3 + i];
+			hitVertsIndexes[i] = _meshFilter.mesh.triangles[triangleIndex * 3 + i];
 		}
 
-		var vertsPerRow = (mapdata.MapChunkSize * mapdata._lod) + 1;
+		var vertsPerRow = (mapData.MapChunkSize * mapData._lod) + 1;
 		var totalVerts = vertsPerRow * vertsPerRow;
 
 
@@ -72,10 +76,10 @@ public class DiggableTerrain : MonoBehaviour
 			if (index == totalVerts - vertsPerRow) changes.Add(new Tuple<int, int, int>(x - 1, y + 1, vertsPerRow - 1));
 		}
 
-		ProcessNeighbourChanges(changes, mesh);
+		ProcessNeighbourChanges(changes);
 	}
 
-	private void ProcessNeighbourChanges(IEnumerable<Tuple<int, int, int>> changesRequested, Mesh mesh)
+	private void ProcessNeighbourChanges(IEnumerable<Tuple<int, int, int>> changesRequested)
 	{
 		var changes = changesRequested.Distinct().ToList();
 		
