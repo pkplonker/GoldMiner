@@ -11,5 +11,8 @@
     
 public class Gold : Target
 {
-	
+	protected virtual void SetColor()
+	{
+		Gizmos.color = Color.blue;
+	}
 }
