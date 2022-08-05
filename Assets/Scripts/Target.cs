@@ -10,7 +10,7 @@ using UnityEngine;
 /// <summary>
 ///Target full description
 /// </summary>
-public class Target : MonoBehaviour, IInteractable
+public class Target : MonoBehaviour, IInteractable, IHighlightable
 {
 	[Range(0.01f, 1)] [SerializeField] private float _signalStrength;
 	public float GetSignalStrength() => _signalStrength;
@@ -35,5 +35,10 @@ public class Target : MonoBehaviour, IInteractable
 	{
 		Debug.Log("Interacted");
 		return true;
+	}
+
+	public virtual void Highlight(PlayerInteractionStateMachine player)
+	{
+		Debug.Log("Highlight");
 	}
 }

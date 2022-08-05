@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6395610491387026724}
   - component: {fileID: 8029388506053579393}
   - component: {fileID: 5227246537699845707}
-  - component: {fileID: -4899038279994859576}
   - component: {fileID: 5271829917593280657}
+  - component: {fileID: -49983277742407532}
   m_Layer: 7
   m_Name: Gold1
   m_TagString: Untagged
@@ -85,20 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-4899038279994859576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6019647456509347742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 148268cc38aae7c47911ecaded3dfb61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _signalStrength: 0.3
-  drawGizmos: 1
 --- !u!65 &5271829917593280657
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -112,3 +98,59 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.15266657, y: 0.13189757, z: 0.1737471}
   m_Center: {x: 0.030877672, y: 0.052987106, z: -0.025528157}
+--- !u!114 &-49983277742407532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6019647456509347742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0f80b3f265f2b4ba1b5e4f50f430ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _signalStrength: 0.5
+  drawGizmos: 1
+  goldChanceAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 6.6666665
+      outSlope: 6.6666665
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3
+      value: 3
+      inSlope: 4.5727086
+      outSlope: 4.5727086
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9
+      value: 10
+      inSlope: 34.748398
+      outSlope: 34.748398
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.23689204
+    - serializedVersion: 3
+      time: 1
+      value: 140
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

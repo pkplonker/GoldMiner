@@ -22,10 +22,8 @@ namespace Player
 				var interactable = hit.collider.GetComponent<IInteractable>();
 				if (interactable!=null)
 				{
-					Debug.Log("Found interactable");
 					if (PlayerInputManager.Instance.GetLeftClick())
 					{
-						Debug.Log("Requesting interaction");
 						if (interactable.Interact(_stateMachine))
 						{
 							Debug.Log("Interaction successful");
@@ -36,12 +34,7 @@ namespace Player
 						}
 					}
 				}
-				else
-				{
-					
-					
-					Debug.Log("Failed to find interactable, hit "+ hit.collider.name);
-				}
+				
 			}
 		}
 	}

@@ -1,18 +1,36 @@
- //
- // Copyright (C) 2022 Stuart Heath. All rights reserved.
- //
+//
+// Copyright (C) 2022 Stuart Heath. All rights reserved.
+//
 
- using System;
- using UnityEngine;
+using Player;
+using StuartHeathTools;
+using UnityEngine;
 
-    /// <summary>
-    ///Gold full description
-    /// </summary>
-    
+/// <summary>
+///Gold full description
+/// </summary>
 public class Gold : Target
 {
-	protected override void SetColor()
+	[SerializeField] private AnimationCurve goldChanceAnimationCurve;
+	public float Weight { get; private set; }
+
+	private void Awake()
 	{
-		Gizmos.color = Color.blue;
+		GoldSpawnManager.Instance.RegisterGold(this);
+		Weight = CreateWeight(goldChanceAnimationCurve);
+	}
+
+	private static float CreateWeight(AnimationCurve goldChanceAnimationCurve)=>goldChanceAnimationCurve.Evaluate(UtilityRandom.RandomFloat01());
+	
+
+	protected override void SetColor()=>Gizmos.color = Color.blue;
+	
+
+	public override bool Interact(PlayerInteractionStateMachine player)
+	{
+		Debug.Log($"Interacted with {Weight}g nugget");
+		GoldSpawnManager.Instance.GoldCollected(this);
+		Destroy(gameObject);
+		return true;
 	}
 }
