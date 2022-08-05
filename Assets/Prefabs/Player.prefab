@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 1
+  m_Weight: 0
   m_Effectors: []
 --- !u!1 &3000511468898715028
 GameObject:
@@ -2248,7 +2248,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.1213872, y: 1}
+    m_SensorSize: {x: 1.6944025, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2447,6 +2447,7 @@ MonoBehaviour:
   _animator: {fileID: 3000511469197723241}
   _rig: {fileID: 3000511468534618582}
   _detectorModel: {fileID: 7586667392685308049}
+  <MaxDigDepth>k__BackingField: 0
 --- !u!1001 &1881947243787532403
 PrefabInstance:
   m_ObjectHideFlags: 0

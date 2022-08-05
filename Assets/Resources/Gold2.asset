@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _staticObject: 1
   <Spawn>k__BackingField: 1
-  <Prefab>k__BackingField: {fileID: 6019647456509347742, guid: b66efe565abbe3541afe77b2e00d6e7e,
+  <Prefab>k__BackingField: {fileID: 3993064214423554663, guid: e34bbbf9284ab4f4d9b1fe15d5a7a667,
     type: 3}
   <NumSamplesBeforeRejection>k__BackingField: 20
   <MaxQuantityPer100M>k__BackingField: 25
