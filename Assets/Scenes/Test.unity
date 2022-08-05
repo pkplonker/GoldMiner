@@ -1866,6 +1866,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 807089747804604966, guid: 37022fba553990c4e99199bb35caa186,
+        type: 3}
+      propertyPath: m_text
+      value: 'Toggle interaction - 1
+
+        Toggle detection- 2
+
+        Toggle
+        Digging - 3
+
+        Toggle Manual detection - M'
+      objectReference: {fileID: 0}
     - target: {fileID: 4419349007873520752, guid: 37022fba553990c4e99199bb35caa186,
         type: 3}
       propertyPath: m_SizeDelta.x

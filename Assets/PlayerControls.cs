@@ -98,6 +98,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Idle"",
+                    ""type"": ""Button"",
+                    ""id"": ""1c41edae-7869-409b-8fde-3064cbb430e4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -192,7 +201,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3d25c81d-e227-451a-b83a-2f689452f2a6"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -203,7 +212,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b8838bd3-a8e0-46b5-af24-9806ad2fd691"",
-                    ""path"": ""<Keyboard>/t"",
+                    ""path"": ""<Keyboard>/m"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -225,11 +234,22 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""062a6f89-9b7e-4f59-ab32-c55062b30b45"",
-                    ""path"": ""<Keyboard>/y"",
+                    ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Digging"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3027ee2-e373-4c36-9894-e4bad1e2394c"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Idle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -248,6 +268,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerMovement_DetectionToggle = m_PlayerMovement.FindAction("DetectionToggle", throwIfNotFound: true);
         m_PlayerMovement_ManualDetectionToggle = m_PlayerMovement.FindAction("ManualDetectionToggle", throwIfNotFound: true);
         m_PlayerMovement_Digging = m_PlayerMovement.FindAction("Digging", throwIfNotFound: true);
+        m_PlayerMovement_Idle = m_PlayerMovement.FindAction("Idle", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +336,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_DetectionToggle;
     private readonly InputAction m_PlayerMovement_ManualDetectionToggle;
     private readonly InputAction m_PlayerMovement_Digging;
+    private readonly InputAction m_PlayerMovement_Idle;
     public struct PlayerMovementActions
     {
         private @PlayerControls m_Wrapper;
@@ -327,6 +349,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @DetectionToggle => m_Wrapper.m_PlayerMovement_DetectionToggle;
         public InputAction @ManualDetectionToggle => m_Wrapper.m_PlayerMovement_ManualDetectionToggle;
         public InputAction @Digging => m_Wrapper.m_PlayerMovement_Digging;
+        public InputAction @Idle => m_Wrapper.m_PlayerMovement_Idle;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -360,6 +383,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Digging.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDigging;
                 @Digging.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDigging;
                 @Digging.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDigging;
+                @Idle.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnIdle;
+                @Idle.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnIdle;
+                @Idle.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnIdle;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -388,6 +414,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Digging.started += instance.OnDigging;
                 @Digging.performed += instance.OnDigging;
                 @Digging.canceled += instance.OnDigging;
+                @Idle.started += instance.OnIdle;
+                @Idle.performed += instance.OnIdle;
+                @Idle.canceled += instance.OnIdle;
             }
         }
     }
@@ -402,5 +431,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnDetectionToggle(InputAction.CallbackContext context);
         void OnManualDetectionToggle(InputAction.CallbackContext context);
         void OnDigging(InputAction.CallbackContext context);
+        void OnIdle(InputAction.CallbackContext context);
     }
 }

@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Player;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -23,7 +20,7 @@ public class Digging : BaseState
 		RaycastHit hit;
 		if (Physics.Raycast(ray, out hit, 20f, LayerMask.GetMask(_stateMachine.GROUND_LAYER)))
 		{
-			if (Vector3.Distance(_stateMachine.transform.position, hit.point) > _stateMachine._maxDigRange)
+			if (Vector3.Distance(_stateMachine.transform.position, hit.point) > _stateMachine.digRange)
 			{
 				_canDig = false;
 				_stateMachine._diggingTarget.color = _cannotDigColor;
@@ -51,7 +48,7 @@ public class Digging : BaseState
 		_stateMachine = sm as PlayerInteractionStateMachine;
 		if (_stateMachine == null)
 		{
-			Debug.LogError("in valid state machine");
+			Debug.LogError("invalid state machine");
 		}
 
 		_isDiggingState = true;
@@ -94,7 +91,7 @@ public class Digging : BaseState
 			{
 				if (hit.collider.TryGetComponent(out DiggableTerrain terrain))
 				{
-					if (terrain.Dig(hit, _stateMachine._digDepth, _stateMachine.MaxDigDepth)) return;
+					if (terrain.Dig(hit, _stateMachine.DigDepth, _stateMachine.MaxDigDepth)) return;
 				}
 			}
 		}

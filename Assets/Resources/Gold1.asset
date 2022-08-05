@@ -22,4 +22,4 @@ MonoBehaviour:
   <Radius>k__BackingField: 1.5
   <OverrideRideRadius>k__BackingField: 1
   _depthMinimum: 0.15
-  _depthMaximum: 0.45
+  _depthMaximum: 0.35

@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Idle",
+                    "type": "Button",
+                    "id": "1c41edae-7869-409b-8fde-3064cbb430e4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -170,7 +179,7 @@
                 {
                     "name": "",
                     "id": "3d25c81d-e227-451a-b83a-2f689452f2a6",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -181,7 +190,7 @@
                 {
                     "name": "",
                     "id": "b8838bd3-a8e0-46b5-af24-9806ad2fd691",
-                    "path": "<Keyboard>/t",
+                    "path": "<Keyboard>/m",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -203,11 +212,22 @@
                 {
                     "name": "",
                     "id": "062a6f89-9b7e-4f59-ab32-c55062b30b45",
-                    "path": "<Keyboard>/y",
+                    "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Digging",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3027ee2-e373-4c36-9894-e4bad1e2394c",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Idle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

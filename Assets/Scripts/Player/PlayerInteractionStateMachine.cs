@@ -2,6 +2,7 @@ using System;
 using DetectorScripts;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.UI;
 
 namespace Player
 {
@@ -10,31 +11,41 @@ namespace Player
 		public static event Action<BaseState> OnStateChanged;
 
 		[HideInInspector] public Camera Camera;
+
 		public readonly BaseState DiggingState = new Digging();
 		public readonly BaseState DetectingState = new DetectorState();
-		public readonly BaseState IdleState = new IdleState();
+		public readonly BaseState InteractState = new InteractState();
 		[Header("Digging")] public SpriteRenderer _diggingTarget;
 		public readonly string GROUND_LAYER = "Ground";
-		public float _maxDigRange = 2f;
-		public float _digDepth = 1f;
-		[Header("Detecting")] public Transform _rigHandTarget;
-		public Transform _handleIKTarget;
-		public Animator _animator;
-		public Rig _rig;
-		public GameObject _detectorModel;
+		[field: SerializeField] public float digRange { get; private set; } = 2f;
+		[field: SerializeField] public float interactionRange { get; private set; } = 2f;
+
+		[field: SerializeField] public float DigDepth { get; private set; } = 1f;
+
+		[field: Header("Detecting"), SerializeField]
+		public Transform RigHandTarget { get; private set; }
+
+		[field: SerializeField] public Transform HandleIKTarget { get; private set; }
+		[field: SerializeField] public Animator Animator { get; private set; }
+		[field: SerializeField] public Rig Rig { get; private set; }
+		[field: SerializeField] public GameObject DetectorModel { get; private set; }
+		[field: SerializeField] public Image Reticle { get; private set; }
+
 		public static bool IsDetecting;
 		public static bool IsManualDetecting;
+
 		public static event Action<bool> OnDetectorManualToggleChanged;
-		[field:Range(0,-20f), SerializeField] public float MaxDigDepth { get; private set; }
+
+		[field: Range(0, -20f), SerializeField]
+		public float MaxDigDepth { get; private set; }
 
 		private void Start()
 		{
-			_animator.SetLayerWeight(_animator.GetLayerIndex("RightHand"), 0);
-			_rig.weight = 0;
+			Animator.SetLayerWeight(Animator.GetLayerIndex("RightHand"), 0);
+			Rig.weight = 0;
 			IsDetecting = false;
 			IsManualDetecting = false;
-			_detectorModel.SetActive(false);
-
+			DetectorModel.SetActive(false);
 		}
 
 		private void OnEnable()
@@ -42,10 +53,15 @@ namespace Player
 			PlayerInputManager.OnDetectionToggle += ToggleDetection;
 			PlayerInputManager.OnManualDetectionToggle += ManualDetectionToggle;
 			PlayerInputManager.OnDiggingToggle += DiggingToggle;
+			PlayerInputManager.OnIdleToggle += InteractionToggle;
 		}
+
+		private void InteractionToggle() => ChangeState(InteractState);
+
 
 		private void ManualDetectionToggle()
 		{
+			if (CurrentState != DetectingState) return;
 			IsManualDetecting = !IsManualDetecting;
 			OnDetectorManualToggleChanged?.Invoke(IsManualDetecting);
 		}
@@ -53,7 +69,7 @@ namespace Player
 		private void ToggleDetection()
 		{
 			IsDetecting = !IsDetecting;
-			ChangeState(IsDetecting ? DetectingState : IdleState);
+			ChangeState(IsDetecting ? DetectingState : InteractState);
 		}
 
 		private void OnDisable()
@@ -61,18 +77,16 @@ namespace Player
 			PlayerInputManager.OnDetectionToggle -= ToggleDetection;
 			PlayerInputManager.OnManualDetectionToggle -= ManualDetectionToggle;
 			PlayerInputManager.OnDiggingToggle -= DiggingToggle;
+			PlayerInputManager.OnIdleToggle -= InteractionToggle;
 		}
 
-		private void DiggingToggle()
-		{
-			ChangeState(DiggingState);
-		}
+		private void DiggingToggle() => ChangeState(DiggingState);
+
 
 		private void Awake()
 		{
 			Camera = Camera.main;
-			ChangeState(IdleState);
-
+			ChangeState(InteractState);
 		}
 
 		protected override void ChangeState(BaseState state)

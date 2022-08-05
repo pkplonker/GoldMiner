@@ -20,12 +20,13 @@ namespace Player
 		public static event Action OnDetectionToggle;
 		public static event Action OnManualDetectionToggle;
 		public static event Action OnDiggingToggle;
+		public static event Action OnIdleToggle;
 
 		private void ManualDetectionToggle(InputAction.CallbackContext obj) => OnManualDetectionToggle?.Invoke();
 		private void Detection(InputAction.CallbackContext obj) => OnDetectionToggle?.Invoke();
 		private void Digging(InputAction.CallbackContext obj) => OnDiggingToggle?.Invoke();
+		private void Idle(InputAction.CallbackContext obj)=> OnIdleToggle?.Invoke();
 
-		private void OnDisable() => _playerControls.Disable();
 		public Vector2 GetPlayerMovement() => _playerControls.PlayerMovement.Move.ReadValue<Vector2>();
 		public Vector2 GetMouseDelta() => _playerControls.PlayerMovement.Look.ReadValue<Vector2>();
 		public Vector2 GetMousePosition() => _playerControls.PlayerMovement.MousePosition.ReadValue<Vector2>();
@@ -47,9 +48,28 @@ namespace Player
 			_playerControls.PlayerMovement.DetectionToggle.performed += Detection;
 			_playerControls.PlayerMovement.ManualDetectionToggle.performed += ManualDetectionToggle;
 			_playerControls.PlayerMovement.Digging.performed += Digging;
-			_playerControls.PlayerMovement.LeftClick.performed += _ => _leftClick = true;
-			_playerControls.PlayerMovement.LeftClick.performed += _ => _rightClick = true;
+			_playerControls.PlayerMovement.Idle.performed += Idle;
+			_playerControls.PlayerMovement.LeftClick.performed += SetLeftClick;
+			_playerControls.PlayerMovement.RightClick.performed += SetRightClick;
 		}
+
+	
+
+		private void OnDisable()
+		{
+			_playerControls.Disable();
+			_playerControls.PlayerMovement.DetectionToggle.performed -= Detection;
+			_playerControls.PlayerMovement.ManualDetectionToggle.performed -= ManualDetectionToggle;
+			_playerControls.PlayerMovement.Digging.performed -= Digging;
+			_playerControls.PlayerMovement.Idle.performed -= Idle;
+			_playerControls.PlayerMovement.LeftClick.performed -= SetLeftClick;
+			_playerControls.PlayerMovement.RightClick.performed -= SetRightClick;
+		}
+
+		private void SetLeftClick(InputAction.CallbackContext obj) => _leftClick = true;
+
+		private void SetRightClick(InputAction.CallbackContext obj) => _rightClick = true;
+
 
 		private void LateUpdate()
 		{

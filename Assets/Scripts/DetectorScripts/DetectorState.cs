@@ -13,7 +13,7 @@ namespace DetectorScripts
 	/// </summary>
 	public class DetectorState : BaseState
 	{
-		private new PlayerInteractionStateMachine _stateMachine;
+		private  PlayerInteractionStateMachine _stateMachine;
 		private static DetectorMovement _detectorMovement;
 
 		public static void RegisterDetector(DetectorMovement d) => _detectorMovement = d;
@@ -26,35 +26,33 @@ namespace DetectorScripts
 		}
 
 
-		private void UpdateHandIK()
-		{
-			_stateMachine._rigHandTarget.position = _stateMachine._handleIKTarget.position;
-		}
+		private void UpdateHandIK()=>_stateMachine.RigHandTarget.position = _stateMachine.HandleIKTarget.position;
+		
 
 		public override void EnterState(StateMachine sm)
 		{
 			_stateMachine = sm as PlayerInteractionStateMachine;
-			_stateMachine._animator.SetLayerWeight(_stateMachine._animator.GetLayerIndex("RightHand"), 1);
-			_stateMachine._rig.weight = 1;
-			_stateMachine._detectorModel.SetActive(true);
+			_stateMachine.Animator.SetLayerWeight(_stateMachine.Animator.GetLayerIndex("RightHand"), 1);
+			_stateMachine.Rig.weight = 1;
+			_stateMachine.DetectorModel.SetActive(true);
 
 		}
 
 		protected override void VirtualStateExit()
 		{
-			_stateMachine._animator.SetLayerWeight(_stateMachine._animator.GetLayerIndex("RightHand"), 0);
-			_stateMachine._rig.weight = 0;
+			_stateMachine.Animator.SetLayerWeight(_stateMachine.Animator.GetLayerIndex("RightHand"), 0);
+			_stateMachine.Rig.weight = 0;
 			PlayerInteractionStateMachine.IsDetecting = false;
 			PlayerInteractionStateMachine.IsManualDetecting = false;
 			_detectorMovement.ResetPosition();
-			_stateMachine._detectorModel.SetActive(false);
+			_stateMachine.DetectorModel.SetActive(false);
 		}
 
 		public override void Tick()
 		{
 			UpdateHandIK();
 			if (_detectorMovement == null) return;
-			_stateMachine._detectorModel.SetActive(true);
+			_stateMachine.DetectorModel.SetActive(true);
 			if (PlayerInteractionStateMachine.IsManualDetecting) _detectorMovement.HandleManualMovement();
 			else _detectorMovement.HandleAutomaticMovement();
 		}
