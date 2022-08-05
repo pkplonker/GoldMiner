@@ -21,7 +21,6 @@ namespace Props
 				? position
 				: Vector3.positiveInfinity;
 		}
-		protected override float GetDropIntoTerrainAmount()=>DropIntoTerrainAmount;
 
 	}
 }

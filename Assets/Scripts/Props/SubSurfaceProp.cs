@@ -3,6 +3,7 @@
  //
 
  using System.Collections.Generic;
+ using StuartHeathTools;
  using TerrainGeneration;
  using UnityEngine;
 
@@ -29,17 +30,12 @@
 			 return result == Vector3.positiveInfinity;
 		 }
 	
-		 protected override Vector3 CalculatePosition(Vector3 position, MapData mapData, float factor = 10)
+		
+
+		 protected override float GetDropIntoTerrainAmount(int seed,Vector3 position)
 		 {
-			 position.y = mapData._heightMultiplier;
-
-			 if (!Physics.Raycast(position, Vector3.down, out var hit, mapData._heightMultiplier + factor,
-				     LayerMask.GetMask(mapData._terrainLayer))) return Vector3.positiveInfinity;
-
-			 position.y = hit.point.y - GetDropIntoTerrainAmount();
-			 return position;
-		 }
-
-		 protected override float GetDropIntoTerrainAmount() => Random.Range(_depthMinimum, _depthMaximum);
+			 Random.InitState(seed + (int)position.x);
+			 return UtilityRandom.RandomRangeFloat( _depthMinimum,  _depthMaximum);
+		 } 
 	 }
  }

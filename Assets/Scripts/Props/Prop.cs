@@ -119,11 +119,11 @@ namespace Props
 			if (!Physics.Raycast(position, Vector3.down, out var hit, mapData._heightMultiplier + factor,
 				    LayerMask.GetMask(mapData._terrainLayer))) return Vector3.positiveInfinity;
 
-			position.y = hit.point.y - GetDropIntoTerrainAmount();
+			position.y = hit.point.y - GetDropIntoTerrainAmount(mapData._seed,position);
 			return position;
 		}
 
-		protected virtual float GetDropIntoTerrainAmount()=>0f;
+		protected virtual float GetDropIntoTerrainAmount(int seed,Vector3 position)=>0f;
 		
 	}
 }
