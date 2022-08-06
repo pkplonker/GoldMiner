@@ -130,3 +130,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e4e059568294348925faf152229231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dugGroundColor: {r: 0.5372549, g: 0.21568628, b: 0.06666667, a: 1}

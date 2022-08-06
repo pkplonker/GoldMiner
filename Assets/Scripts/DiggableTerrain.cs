@@ -14,17 +14,21 @@ using UnityEngine;
 public class DiggableTerrain : MonoBehaviour
 {
 	private MeshCollider _meshCollider;
+	private MeshRenderer _meshRenderer;
+
 	private MeshFilter _meshFilter;
 	private bool _setup = false;
 	private float _digAmount;
 	private Dictionary<int, float> digChanges = new Dictionary<int, float>();
+	[SerializeField] private Color _dugGroundColor;
+	private static readonly int MainTex = Shader.PropertyToID("_MainTex");
 
 	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
 	{
 		if (!_setup) Setup();
 		_digAmount = digAmount;
 		var mesh = _meshFilter.mesh;
-		var hitVerts = GetHitVerts(hit, mesh);
+		var hitVerts = GetHitVerts(hit, mesh, out var hitVertIndexes);
 		for (var i = 0; i < hitVerts.Length; i++)
 		{
 			AddToChanges(hit.triangleIndex * 3 + i, _digAmount);
@@ -36,9 +40,33 @@ public class DiggableTerrain : MonoBehaviour
 		{
 			UpdateCollider(RegenerateMesh(verts));
 		}
-		CheckNeighbours(hit);
 
+		CheckNeighbours(hit);
+		UpdateColor(hitVertIndexes, verts);
 		return true;
+	}
+
+	private void UpdateColor(int[] hitVertIndexes, Vector3[] verts)
+	{
+		var mat = _meshRenderer.material;
+		var texture = mat.mainTexture as Texture2D;
+		if (texture == null) return;
+		var colorMap = texture.GetPixels();
+		
+		
+		
+		if (hitVertIndexes[0] > hitVertIndexes[1] && hitVertIndexes[0] > hitVertIndexes[2])
+		{
+			colorMap[hitVertIndexes[2]] = _dugGroundColor;
+		}
+		else
+		{
+			colorMap[hitVertIndexes[0]] = _dugGroundColor;
+
+		}
+
+		texture.SetPixels(colorMap);
+		texture.Apply();
 	}
 
 	private void CheckNeighbours(RaycastHit hit)
@@ -82,22 +110,20 @@ public class DiggableTerrain : MonoBehaviour
 	private void ProcessNeighbourChanges(IEnumerable<Tuple<int, int, int>> changesRequested)
 	{
 		var changes = changesRequested.Distinct().ToList();
-		
+
 
 		foreach (var change in changes)
 		{
 			if (change.Item1 < 0 || change.Item1 > MapGeneratorTerrain.terrainChunks.GetLength(0)) continue;
 			if (change.Item2 < 0 || change.Item2 > MapGeneratorTerrain.terrainChunks.GetLength(1)) continue;
-			
+
 			MapGeneratorTerrain.terrainChunks[change.Item1, change.Item2].GetComponent<DiggableTerrain>()
-					.DigAtVertIndex(change.Item3, _digAmount);
+				.DigAtVertIndex(change.Item3, _digAmount);
 		}
 	}
 
 	private void DigAtVertIndex(int index, float digAmount)
 	{
-		
-
 		_digAmount = digAmount;
 		if (!_setup) Setup();
 		var verts = _meshFilter.mesh.vertices;
@@ -120,6 +146,7 @@ public class DiggableTerrain : MonoBehaviour
 		{
 			return index + vertsPerRow - 1;
 		}
+
 		return -1;
 	}
 
@@ -129,7 +156,7 @@ public class DiggableTerrain : MonoBehaviour
 		{
 			return index - vertsPerRow + 1;
 		}
-		
+
 		return -1;
 	}
 
@@ -139,6 +166,7 @@ public class DiggableTerrain : MonoBehaviour
 		{
 			return totalVerts - vertsPerRow + index;
 		}
+
 		return -1;
 	}
 
@@ -148,10 +176,11 @@ public class DiggableTerrain : MonoBehaviour
 		{
 			return index % vertsPerRow;
 		}
+
 		return -1;
 	}
 
-	private static Vector3[] UpdateVerts(float digAmount, Vector3[] hitVerts, Vector3[] verts)
+	private Vector3[] UpdateVerts(float digAmount, Vector3[] hitVerts, Vector3[] verts)
 	{
 		for (var i = 0; i < verts.Length; i++)
 		{
@@ -159,6 +188,7 @@ public class DiggableTerrain : MonoBehaviour
 			if (hitVerts.Any(hv => v == hv))
 			{
 				verts[i] = new Vector3(v.x, v.y - digAmount, v.z);
+				
 			}
 		}
 
@@ -194,13 +224,15 @@ public class DiggableTerrain : MonoBehaviour
 		return newMesh;
 	}
 
-	private static Vector3[] GetHitVerts(RaycastHit hit, Mesh mesh)
+	private static Vector3[] GetHitVerts(RaycastHit hit, Mesh mesh, out int[] hitVertIndexes)
 	{
 		var index = hit.triangleIndex;
 		var hitVerts = new Vector3[3];
+		hitVertIndexes = new int[3];
 		for (var i = 0; i < hitVerts.Length; i++)
 		{
-			hitVerts[i] = (mesh.vertices[mesh.triangles[index * 3 + i]]);
+			hitVertIndexes[i] = mesh.triangles[index * 3 + i];
+			hitVerts[i] = (mesh.vertices[hitVertIndexes[i]]);
 		}
 
 		return hitVerts;
@@ -209,6 +241,7 @@ public class DiggableTerrain : MonoBehaviour
 
 	private void Setup()
 	{
+		if (!_meshRenderer) _meshRenderer = GetComponent<MeshRenderer>();
 		if (!_meshCollider) _meshCollider = GetComponent<MeshCollider>();
 		if (!_meshFilter) _meshFilter = GetComponent<MeshFilter>();
 		_setup = _meshCollider && _meshFilter;
