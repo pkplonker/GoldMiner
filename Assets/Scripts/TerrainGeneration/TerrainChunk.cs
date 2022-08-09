@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace TerrainGeneration
 {
@@ -20,7 +21,7 @@ namespace TerrainGeneration
 			GenerateMesh(tcd, _meshFilter);
 			GenerateCollider(_meshCollider, _meshFilter);
 			GenerateMeshRenderer(tcd, _meshRenderer, vertsPerRow, mapData._material);
-			var mesh = _meshFilter.mesh;
+			_meshFilter.mesh.RecalculateNormals();
 			
 
 		}
@@ -51,6 +52,7 @@ namespace TerrainGeneration
 		{
 			mr.material = material;
 			mr.material.mainTexture = MapGeneratorTerrain.TextureFromColourMap(tcd.ColourMap, vertsPerRow);
+			mr.shadowCastingMode = ShadowCastingMode.Off;
 		}
 	}
 }

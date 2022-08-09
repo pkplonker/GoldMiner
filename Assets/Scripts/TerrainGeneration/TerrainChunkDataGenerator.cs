@@ -57,6 +57,7 @@ namespace TerrainGeneration
 
 		public static void CalculateNormals(ref List<Vector3> verts, out Vector3[] normals, ref List<int> triangles)
 		{
+			
 			normals = new Vector3[verts.Count];
 
 			for (var i = 0; i < triangles.Count / 3; i++)
@@ -76,6 +77,7 @@ namespace TerrainGeneration
 			{
 				normals[i].Normalize();
 			}
+			
 		}
 
 		public static Vector3 SurfaceNormalFromIndices(int indexA, int indexB, int indexC, List<Vector3> verts) =>

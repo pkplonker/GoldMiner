@@ -52,9 +52,9 @@ public class DiggableTerrain : MonoBehaviour
 		var texture = mat.mainTexture as Texture2D;
 		if (texture == null) return;
 		var colorMap = texture.GetPixels();
-		
-		
-		
+
+//option 1
+/*
 		if (hitVertIndexes[0] > hitVertIndexes[1] && hitVertIndexes[0] > hitVertIndexes[2])
 		{
 			colorMap[hitVertIndexes[2]] = _dugGroundColor;
@@ -62,9 +62,13 @@ public class DiggableTerrain : MonoBehaviour
 		else
 		{
 			colorMap[hitVertIndexes[0]] = _dugGroundColor;
-
 		}
-
+		*/
+//option 2
+		foreach (var t in hitVertIndexes)
+		{
+			colorMap[t] =_dugGroundColor;
+		}
 		texture.SetPixels(colorMap);
 		texture.Apply();
 	}
@@ -114,11 +118,11 @@ public class DiggableTerrain : MonoBehaviour
 
 		foreach (var change in changes)
 		{
-			if (change.Item1 < 0 || change.Item1 > MapGeneratorTerrain.terrainChunks.GetLength(0)) continue;
-			if (change.Item2 < 0 || change.Item2 > MapGeneratorTerrain.terrainChunks.GetLength(1)) continue;
+			if (change.Item1 < 0 || change.Item1 > MapGeneratorTerrain.terrainChunks.GetLength(0)-1) continue;
+			if (change.Item2 < 0 || change.Item2 > MapGeneratorTerrain.terrainChunks.GetLength(1)-1) continue;
 
-			MapGeneratorTerrain.terrainChunks[change.Item1, change.Item2].GetComponent<DiggableTerrain>()
-				.DigAtVertIndex(change.Item3, _digAmount);
+			var dt = MapGeneratorTerrain.terrainChunks[change.Item1, change.Item2].GetComponent<DiggableTerrain>();
+			if (dt != null) dt.DigAtVertIndex(change.Item3, _digAmount);
 		}
 	}
 
@@ -128,6 +132,7 @@ public class DiggableTerrain : MonoBehaviour
 		if (!_setup) Setup();
 		var verts = _meshFilter.mesh.vertices;
 		verts[index].y -= digAmount;
+		UpdateColor(new []{index}, verts);
 		AddToChanges(index, digAmount);
 		var updatedMesh = RegenerateMesh(verts);
 		UpdateCollider(updatedMesh);
@@ -188,7 +193,10 @@ public class DiggableTerrain : MonoBehaviour
 			if (hitVerts.Any(hv => v == hv))
 			{
 				verts[i] = new Vector3(v.x, v.y - digAmount, v.z);
-				
+				//debug vert pos
+				//	var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+				//go.transform.position = transform.TransformPoint(verts[i]);
+				//go.transform.localScale = Vector3.one * 0.1f;
 			}
 		}
 
@@ -219,6 +227,9 @@ public class DiggableTerrain : MonoBehaviour
 		var tris = newMesh.triangles.ToList();
 		TerrainChunkDataGenerator.CalculateNormals(ref vertList, out var normals, ref tris);
 		newMesh.SetNormals(normals);
+
+		//newMesh.RecalculateNormals();
+
 		newMesh.RecalculateBounds();
 		_meshFilter.mesh = newMesh;
 		return newMesh;

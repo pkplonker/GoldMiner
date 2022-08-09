@@ -129,7 +129,7 @@ namespace TerrainGeneration
 		{
 			var texture = new Texture2D(vertsPerRow, vertsPerRow)
 			{
-				filterMode = FilterMode.Point,
+				filterMode = FilterMode.Bilinear,
 				wrapMode = TextureWrapMode.Clamp
 			};
 			texture.SetPixels(colourMap);
