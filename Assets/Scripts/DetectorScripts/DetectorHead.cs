@@ -16,6 +16,7 @@ namespace DetectorScripts
 		[SerializeField] private float _lowerRad = 0.4f;
 		[SerializeField] private float _upperRad = 0.4f;
 		[SerializeField] private float _distance = 0.4f;
+		[SerializeField] private float _lowerDistanceThreshHoldForMaxOutput=0.3f;
 		private ConeGenerator _coneGenerator;
 		public static float CurrentSignal { get; private set; }
 		[SerializeField] private float _signalDegradeSpeed = 2f;
@@ -69,9 +70,16 @@ namespace DetectorScripts
 			if (hit.collider.gameObject != t.gameObject) return 0;
 			Debug.DrawLine(_coneGenerator.transform.position, hit.point, Color.red, 1f);
 			Debug.Log("distance  = " + hit.distance);
-			Debug.Log(1-(hit.distance/_distance));
-			return 1-(hit.distance/_distance);
+			return CalculateStrength(hit);
+		}
 
+		private float CalculateStrength(RaycastHit hit)
+		{
+			var val = Mathf.Clamp01(1 - (hit.distance / _distance));
+			Debug.Log(val);
+			if(val<=_lowerDistanceThreshHoldForMaxOutput)
+				return 0;
+			return val;
 		}
 
 		public void TargetDetected(Target target)

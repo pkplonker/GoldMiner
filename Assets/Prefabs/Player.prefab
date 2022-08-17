@@ -2350,7 +2350,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6944025, y: 1}
+    m_SensorSize: {x: 2.1213872, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2837,7 +2837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lowFreq: 40
-  _highFreq: 4000
+  _highFreq: 1000
 --- !u!4 &817516919 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1881947244043790596, guid: 97d5982cbcdad064b9026c2228aec95e,
