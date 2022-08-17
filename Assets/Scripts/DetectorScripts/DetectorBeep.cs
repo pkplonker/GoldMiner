@@ -2,7 +2,9 @@
 // Copyright (C) 2022 Stuart Heath. All rights reserved.
 //
 
+using System;
 using Audio;
+using Player;
 using UnityEngine;
 
 namespace DetectorScripts
@@ -17,6 +19,7 @@ namespace DetectorScripts
 		ToneGenerator.ToneClipData _toneClipData;
 		[SerializeField] private float _lowFreq;
 		[SerializeField] private float _highFreq;
+		[SerializeField] private bool isDetecting = false;
 
 		private void Start()
 		{
@@ -24,8 +27,15 @@ namespace DetectorScripts
 			_toneClipData = new ToneGenerator.ToneClipData(0);
 		}
 
+		private void OnEnable() => PlayerInteractionStateMachine.OnStateChanged += OnPlayerStateChanged;
+		private void OnDisable() => PlayerInteractionStateMachine.OnStateChanged -= OnPlayerStateChanged;
+
+		private void OnPlayerStateChanged(BaseState state) => isDetecting = state.GetType() == typeof(DetectorState);
+
+
 		private void Update()
 		{
+			if(isDetecting){
 			var signal = DetectorHead.CurrentSignal;
 			if (signal < 0.1f)
 			{
@@ -44,6 +54,11 @@ namespace DetectorScripts
 			//audioSource.Stop();
 			_audioSource.clip = clipData.clip;
 			_audioSource.Play();
+			}
+			else
+			{
+				_audioSource.Stop();
+			}
 		}
 	}
 }
