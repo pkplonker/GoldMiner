@@ -38,13 +38,13 @@ namespace DetectorScripts
 		{
 			if (_currentTargetIsLeft)
 			{
-				HandleLeftMove();
+				MoveLeft();
 				if (Math.Abs(transform.localEulerAngles.y - _startRotation.eulerAngles.y) < 0.1f)
 					_currentTargetIsLeft = false;
 			}
 			else
 			{
-				HandleRightMove();
+				MoveRight();
 				if (Math.Abs(transform.localEulerAngles.y - _finishRotation.eulerAngles.y) < 0.1f)
 					_currentTargetIsLeft = true;
 			}
@@ -85,11 +85,11 @@ namespace DetectorScripts
 		public void HandleManualMovement()
 		{
 			if (PlayerInputManager.Instance.GetLeftClickHeld() && PlayerInputManager.Instance.GetRightClickHeld()) return;
-			if (PlayerInputManager.Instance.GetLeftClickHeld()) HandleLeftMove();
-			else if (PlayerInputManager.Instance.GetRightClickHeld()) HandleRightMove();
+			if (PlayerInputManager.Instance.GetLeftClickHeld()) MoveLeft();
+			else if (PlayerInputManager.Instance.GetRightClickHeld()) MoveRight();
 		}
 
-		private void HandleLeftMove()
+		private void MoveLeft()
 		{
 			transform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime * -1, Space.Self);
 			var x = _maxYRot * -1;
@@ -99,7 +99,7 @@ namespace DetectorScripts
 			transform.localEulerAngles = eulerAngles;
 		}
 
-		private void HandleRightMove()
+		private void MoveRight()
 		{
 			transform.Rotate(Vector3.down, _rotationSpeed * Time.deltaTime * -1, Space.Self);
 			if (!(transform.localEulerAngles.y > _maxYRot) || !(transform.localEulerAngles.y < 360 - _maxYRot)) return;

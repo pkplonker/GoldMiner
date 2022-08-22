@@ -15,7 +15,6 @@ namespace DetectorScripts
 	{
 		private  PlayerInteractionStateMachine _stateMachine;
 		private static DetectorMovement _detectorMovement;
-
 		public static void RegisterDetector(DetectorMovement d) => _detectorMovement = d;
 
 
@@ -46,6 +45,7 @@ namespace DetectorScripts
 			PlayerInteractionStateMachine.IsManualDetecting = false;
 			_detectorMovement.ResetPosition();
 			_stateMachine.DetectorModel.SetActive(false);
+
 		}
 
 		public override void Tick()

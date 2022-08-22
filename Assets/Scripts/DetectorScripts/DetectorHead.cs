@@ -69,14 +69,14 @@ namespace DetectorScripts
 
 			if (hit.collider.gameObject != t.gameObject) return 0;
 			Debug.DrawLine(_coneGenerator.transform.position, hit.point, Color.red, 1f);
-			Debug.Log("distance  = " + hit.distance);
+		//	Debug.Log("distance  = " + hit.distance);
 			return CalculateStrength(hit);
 		}
 
 		private float CalculateStrength(RaycastHit hit)
 		{
 			var val = Mathf.Clamp01(1 - (hit.distance / _distance));
-			Debug.Log(val);
+			//Debug.Log(val);
 			if(val<=_lowerDistanceThreshHoldForMaxOutput)
 				return 0;
 			return val;
@@ -86,7 +86,7 @@ namespace DetectorScripts
 		{
 			if (!PlayerInteractionStateMachine.IsDetecting) return;
 			CurrentSignal = CalculateSignalStrength(target);
-			Debug.Log("BUZZZZZ");
+			//Debug.Log("BUZZZZZ");
 			OnDetection?.Invoke(CurrentSignal);
 		}
 	}

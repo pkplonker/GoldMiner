@@ -1215,7 +1215,7 @@ GameObject:
   - component: {fileID: 1351785758}
   - component: {fileID: 1351785757}
   m_Layer: 0
-  m_Name: PlayerSpawner
+  m_Name: SingleSpawners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1233,10 +1233,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10964694ec8108f419e23430ba9f21a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 7635256604560604012, guid: 7256dc8a1f156ac42a5bd5f96d43efc9,
-    type: 3}
-  _offset: {x: 0, y: 0, z: 0}
   _groundLayer: Ground
+  _prefabsToSpawn:
+  - Prefab: {fileID: 7230192343605430233, guid: 74272e564b1d4f04b918450630e74811,
+      type: 3}
+    flattnessTolerance: 2
+    incrementAmount: 0.2
+    attempts: 50
+  - Prefab: {fileID: 7635256604560604012, guid: 7256dc8a1f156ac42a5bd5f96d43efc9,
+      type: 3}
+    flattnessTolerance: 2
+    incrementAmount: 0.2
+    attempts: 50
 --- !u!4 &1351785758
 Transform:
   m_ObjectHideFlags: 0
@@ -1736,7 +1744,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 88572496121101408}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7817446e-15, y: 51.622112, z: 0.17416045}
+  m_LocalPosition: {x: 20.93174, y: 1.6221124, z: 20.524385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
