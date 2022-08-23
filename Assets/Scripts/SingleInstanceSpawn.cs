@@ -11,7 +11,7 @@ public class SingleInstanceSpawn
 	public float flattnessTolerance;
 	[SerializeField] private float incrementAmount = 0.2f;
 	[SerializeField] private int attempts = 50;
-
+	[SerializeField] private Vector3 offset = Vector3.zero;
 	public virtual Trans CalculateSpawn(float size, GameObject _currentInstance, string groundLayer)
 	{
 		var t = new Trans
@@ -30,6 +30,7 @@ public class SingleInstanceSpawn
 	private Vector3 CalculatePosition(float size, GameObject _currentInstance, string groundLayer)
 	{
 		var position = new Vector3(size / 2, 50, size / 2);
+		position += offset;
 		_currentInstance.transform.position = Vector3.zero;
 
 		for (var x = 0; x < attempts; x++)
