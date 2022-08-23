@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TerrainGeneration;
 using UnityEngine;
-
-[Serializable]
-public class SingleInstanceSpawn
+[CreateAssetMenu(fileName = "New Single instance spawn", menuName = "Single instance Spawn")]
+public class SingleInstanceSpawn : ScriptableObject
 {
 	public GameObject Prefab;
 	public float flattnessTolerance;
@@ -71,6 +70,11 @@ public class SingleInstanceSpawn
 	{
 		var bounds = _currentInstance.GetComponentInChildren<Renderer>().bounds;
 		return bounds;
+	}
+
+	public virtual void Setup(GameObject obj)
+	{
+		
 	}
 
 	[Serializable]

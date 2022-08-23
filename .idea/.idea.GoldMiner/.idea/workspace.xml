@@ -2,21 +2,49 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/Gold1.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/Gold1.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/Gold2.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/Gold2.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/Gold3.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/Gold3.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/MediumRock.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/MediumRock.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockSmall.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockSmall.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockSmall2.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockSmall2.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/Tree1.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/Tree1.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Single instance spawns.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Single instance spawns/Player.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Single instance spawns/Player.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Single instance spawns/Truck.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Single instance spawns/Truck.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerSingleInstanceSpawn.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerSingleInstanceSpawn.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/HUDUI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/HUDUI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/EdgeGlowTest.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/EdgeGlowTest.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Truck.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Truck.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Gold1.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Gold1.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Gold2.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Gold2.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Gold3.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Gold3.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MediumRock.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MediumRock.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/RockSmall.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/RockSmall.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/RockSmall2.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/RockSmall2.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Tree1.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Tree1.asset.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Digging.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Digging.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/IHighlightable.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/IHighlightable.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/IInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/IInteractable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/InteractState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/InteractState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/SingleItemSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/SingleItemSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Target.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SingleInstanceSpawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SingleInstanceSpawn.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Truck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Truck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/TruckUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/TruckUI.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +64,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4a31731933e0419ca5a995305014ad37157a00/8e/dfa920d4/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4a31731933e0419ca5a995305014ad37157a00/fc/695f7a82/PlayableGraph.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/742de64c05a64e9695a6965e02a5b9932d000/0d/ca7211db/GUIUtility.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8bbd4d4b8506412fa0762e29659a75981aa00/a3/80a4754f/CharacterController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/edef46c9b2db4b878c98495bfdc516fa568ba8/3f/9d37bb7e/Action`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f8fffbf4b82e47fc84a23f3d418bf11016200/ee/91f87453/TerrainData.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Downloads/GizmosExtend.cs" root0="SKIP_HIGHLIGHTING" />
@@ -139,7 +168,7 @@
       <workItem from="1659509453659" duration="2382000" />
       <workItem from="1659515860855" duration="3600000" />
       <workItem from="1659718140870" duration="17112000" />
-      <workItem from="1661283999330" duration="4043000" />
+      <workItem from="1661283999330" duration="5858000" />
     </task>
     <servers />
   </component>

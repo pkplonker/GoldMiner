@@ -3,6 +3,7 @@
 //
 
 using System;
+using Player;
 using StuartHeathTools;
 
 namespace UI
@@ -12,9 +13,24 @@ namespace UI
 	/// </summary>
 	public class TruckUI : CanvasGroupBase
 	{
+		private PlayerInteractionStateMachine _playerInteractionStateMachine;
 		private void Awake() => Hide();
 
-		public void Show() => ShowUI();
-		public void Hide() => HideUI();
+		public void Show(PlayerInteractionStateMachine pism)
+		{
+			_playerInteractionStateMachine = pism;
+			ShowUI();
+		}
+
+		public void Hide()
+		{
+			if (_playerInteractionStateMachine != null)
+			{
+				var pm = _playerInteractionStateMachine.GetComponent<PlayerMovement>();
+				if (pm != null) pm.SetCanMove(true);
+			}
+
+			HideUI();
+		}
 	}
 }

@@ -53,6 +53,21 @@ namespace Player
 			Cursor.lockState = CursorLockMode.Locked;
 		}
 
+		public void SetCanMove(bool cm)
+		{
+			_canMove = cm;
+			if (cm)
+			{
+				Cursor.visible = false;
+				Cursor.lockState = CursorLockMode.Locked;
+			}
+			else
+			{
+				Cursor.visible = true;
+				Cursor.lockState = CursorLockMode.None;
+			}
+		}
+
 		private void Start()
 		{
 			_controller = GetComponent<CharacterController>();
@@ -71,8 +86,7 @@ namespace Player
 			if (CanMove()) CameraRotation();
 		}
 
-		private bool CanMove() => true;
-		public void SetCanMove(bool m) => _canMove = m;
+		private bool CanMove() => _canMove;
 
 		private void GroundedCheck()
 		{

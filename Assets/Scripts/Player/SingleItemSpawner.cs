@@ -60,6 +60,7 @@ namespace Player
 				currentInstance.transform.rotation = spawnTransform.Rotation;
 				currentInstance.SetActive(true);
 				_spawnedPrefabs.Add(currentInstance);
+				sis.Setup(currentInstance);
 			}
 			else HandleFailedSpawn(sis);
 		}

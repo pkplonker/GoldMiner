@@ -16,14 +16,15 @@ public class Truck : MonoBehaviour, IInteractable
 
 	public bool Interact(PlayerInteractionStateMachine player)
 	{
-		OpenTruckUI();
+		OpenTruckUI(player);
+		player.GetComponent<PlayerMovement>().SetCanMove(false);
 		return true;
 	}
 
-	private void OpenTruckUI()
+	private void OpenTruckUI(PlayerInteractionStateMachine player)
 	{
 		if (_truckUI == null) CreateTruckUI();
-		_truckUI.Show();
+		_truckUI.Show(player);
 	}
 
 	private void CreateTruckUI() => _truckUI = Instantiate(_truckUIPrefab).GetComponent<TruckUI>();
