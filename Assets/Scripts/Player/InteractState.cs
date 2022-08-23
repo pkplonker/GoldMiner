@@ -1,4 +1,6 @@
+using UnityEditor;
 using UnityEngine;
+
 namespace Player
 {
 	public class InteractState : BaseState
@@ -15,27 +17,31 @@ namespace Player
 
 		public override void Tick()
 		{
-			//cast ray to get vertex
 			var ray = _stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
-			if (Physics.Raycast(ray, out var hit, _stateMachine.interactionRange))
+			if (!Physics.Raycast(ray, out var hit, _stateMachine.interactionRange))
 			{
-				var interactable = hit.collider.GetComponent<IInteractable>();
-				if (interactable!=null)
-				{
-					if (PlayerInputManager.Instance.GetLeftClick())
-					{
-						if (interactable.Interact(_stateMachine))
-						{
-							Debug.Log("Interaction successful");
-						}
-						else
-						{
-							Debug.Log("Failed interaction");
-						}
-					}
-				}
-				
+				HandleMessage(null);
+				return;
 			}
+			var interactable = hit.collider.GetComponentInChildren<IInteractable>();
+			
+			HandleMessage(interactable);
+			HandleClick(interactable);
+		}
+
+		private void HandleMessage(IInteractable interactable)
+		{
+			if (interactable == null) NotificationBar.Instance.ClearText();
+			else NotificationBar.Instance.RequestText(interactable.GetInteractMessage());
+
+		}
+
+		private void HandleClick(IInteractable interactable)
+		{
+			if (interactable == null) return;
+			if (PlayerInputManager.Instance.GetLeftClick()) interactable.Interact(_stateMachine);
+			
+			
 		}
 	}
 }

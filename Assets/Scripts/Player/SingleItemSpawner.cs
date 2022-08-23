@@ -65,10 +65,8 @@ namespace Player
 		}
 
 
-		private void HandleFailedSpawn(SingleInstanceSpawn sis)
-		{
-			Debug.LogError($"Failed to spawn {sis.Prefab.name}");
-		}
+		private void HandleFailedSpawn(SingleInstanceSpawn sis)=>Debug.LogError($"Failed to spawn {sis.Prefab.name}");
+		
 
 		private void OnDisable() => MapGenerator.OnMapGenerated -= SpawnAll;
 	}

@@ -10,16 +10,17 @@ using UnityEngine;
 /// <summary>
 ///Target full description
 /// </summary>
-public class Target : MonoBehaviour, IInteractable, IHighlightable
+public class Target : MonoBehaviour, IInteractable
 {
 	[Range(0.01f, 1)] [SerializeField] private float _signalStrength;
 	public float GetSignalStrength() => _signalStrength;
-	[SerializeField] private bool drawGizmos = false;
-
+	[SerializeField] private bool _drawGizmos = false;
+	[SerializeField] private string _interactText = "Click to pickup";
+	private bool _isActiveTarget = false;
 
 	protected virtual void OnDrawGizmos()
 	{
-		if (drawGizmos) DrawMarker();
+		if (_drawGizmos) DrawMarker();
 	}
 
 	protected virtual void DrawMarker()
@@ -37,8 +38,5 @@ public class Target : MonoBehaviour, IInteractable, IHighlightable
 		return true;
 	}
 
-	public virtual void Highlight(PlayerInteractionStateMachine player)
-	{
-		Debug.Log("Highlight");
-	}
+	public string GetInteractMessage() => _interactText;
 }

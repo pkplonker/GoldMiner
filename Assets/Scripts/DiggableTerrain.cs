@@ -34,7 +34,6 @@ public class DiggableTerrain : MonoBehaviour
 			AddToChanges(hit.triangleIndex * 3 + i, _digAmount);
 		}
 
-		var pass = false;
 		var verts = UpdateVerts(digAmount, hitVerts, mesh.vertices);
 		if (verts != null)
 		{

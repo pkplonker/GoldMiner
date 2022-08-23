@@ -14,11 +14,11 @@ public class Digging : BaseState
 	private bool _canDig = false;
 	private const string NONDIGGABLE_LAYER = "BlocksDig";
 	public static Action<Vector3> OnCannotDigHere;
+
 	private void UpdateMarkerPosition()
 	{
-		Ray ray = _stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
-		RaycastHit hit;
-		if (Physics.Raycast(ray, out hit, 20f, LayerMask.GetMask(_stateMachine.GROUND_LAYER)))
+		var ray = _stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
+		if (Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(_stateMachine.GROUND_LAYER)))
 		{
 			if (Vector3.Distance(_stateMachine.transform.position, hit.point) > _stateMachine.digRange)
 			{
@@ -37,10 +37,8 @@ public class Digging : BaseState
 		}
 	}
 
-	private void ToggleDigging()
-	{
-		_isDiggingState = !_isDiggingState;
-	}
+	private void ToggleDigging() => _isDiggingState = !_isDiggingState;
+
 
 	public override void EnterState(StateMachine sm)
 	{
@@ -68,12 +66,9 @@ public class Digging : BaseState
 	public override void Tick()
 	{
 		UpdateMarkerPosition();
-		if (PlayerInputManager.Instance.GetLeftClick() && _canDig)
-		{
-			_canDig = false;
-
-			AttemptDig();
-		}
+		if (!PlayerInputManager.Instance.GetLeftClick() || !_canDig) return;
+		_canDig = false;
+		AttemptDig();
 	}
 
 	private void AttemptDig()

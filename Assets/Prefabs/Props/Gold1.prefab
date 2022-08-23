@@ -111,7 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _signalStrength: 0.5
-  drawGizmos: 1
+  _drawGizmos: 1
+  _interactText: Click to pickup
   goldChanceAnimationCurve:
     serializedVersion: 2
     m_Curve:
