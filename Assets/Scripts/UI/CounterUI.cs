@@ -11,7 +11,7 @@ namespace UI
 		[SerializeField] private string _message = "Gold: ";
 		[SerializeField] private string _siUnit = "g";
 		[SerializeField] private bool _postUnit = true;
-		[SerializeField] private float _speed = 5f;
+		[SerializeField] private float _speed = 2.5f;
 		[SerializeField] private TextMeshProUGUI _textMeshProUGUI;
 		private float _targetAmount;
 		private float _currentAmount;
@@ -60,9 +60,11 @@ namespace UI
 
 		private IEnumerator UpdateTextCor()
 		{
+			var delta = _targetAmount - _currentAmount;
 			while (_targetAmount.ToString("n2") != _currentAmount.ToString("n2"))
 			{
-				_currentAmount = Mathf.MoveTowards(_currentAmount, _targetAmount, _speed * Time.deltaTime);
+				
+				_currentAmount = Mathf.MoveTowards(_currentAmount, _targetAmount,_targetAmount>_currentAmount ? delta/ _speed * Time.deltaTime:-delta/ _speed * Time.deltaTime);
 				UpdateText();
 				yield return null;
 			}

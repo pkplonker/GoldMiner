@@ -36,7 +36,8 @@ public class PlayerCurrency : MonoBehaviour
 	public bool RemoveGold(float amount)
 	{
 		if (!ValidateInput(amount)) return false;
-		OnGoldChanged?.Invoke(amount * -1, _currency);
+		_goldAmount -= amount;
+		OnGoldChanged?.Invoke(amount * -1, _goldAmount);
 		return true;
 	}
 
@@ -51,6 +52,7 @@ public class PlayerCurrency : MonoBehaviour
 	public bool RemoveCurrency(float amount)
 	{
 		if (!ValidateInput(amount)) return false;
+		_currency -= amount;
 		OnCurrencyChanged?.Invoke(amount * -1, _currency);
 		return true;
 	}

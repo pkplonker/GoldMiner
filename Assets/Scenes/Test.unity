@@ -2023,7 +2023,7 @@ MonoBehaviour:
   _message: 'Gold: '
   _siUnit: g
   _postUnit: 1
-  _speed: 5
+  _speed: 2.5
   _textMeshProUGUI: {fileID: 807089745979239631}
   _playerReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51, type: 2}
 --- !u!114 &807089745979239631 stripped
@@ -2071,7 +2071,7 @@ MonoBehaviour:
   _message: 
   _siUnit: A$
   _postUnit: 0
-  _speed: 5
+  _speed: 2.5
   _textMeshProUGUI: {fileID: 807089745979239632}
   _playerReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51, type: 2}
 --- !u!1001 &1850082477871765321
