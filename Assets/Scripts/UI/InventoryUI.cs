@@ -1,42 +1,26 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Player;
 using StuartHeathTools;
 using UnityEngine;
 
 namespace UI
 {
-	public class InventoryUI : CanvasGroupBase
+	public class InventoryUI : MonoBehaviour, IFadeUI
 	{
 		[SerializeField] private GameObject _inventorySlotPrefab;
 		private List<InventorySlotUI> _inventorySlots = new();
 		private Inventory _inventory;
 		[SerializeField] private PlayerReference _playerReference;
 		[SerializeField] private Transform _container;
-		private bool isActive;
-		private void Awake()
-		{
-			Hide();
-		}
+		private RectTransform _panelRectTransform;
+		[SerializeField] private CanvasGroup _canvasGroup;
 
-		private void OnEnable()
-		{
-			PlayerReference.OnPlayerChanged += ChangeInventory;
-			PlayerInputManager.OnInvent += ToggleVisability;
-		}
+		private void Awake() => _panelRectTransform = _canvasGroup.GetComponent<RectTransform>();
+		private void OnEnable() => PlayerReference.OnPlayerChanged += ChangeInventory;
+		private void OnDisable() => PlayerReference.OnPlayerChanged -= ChangeInventory;
 
-		private void ToggleVisability()
-		{
-			if(isActive) Hide();
-			else Show();
-		}
-
-		private void OnDisable()
-		{
-			PlayerReference.OnPlayerChanged -= ChangeInventory;
-			PlayerInputManager.OnInvent -= ToggleVisability;
-
-		}
 
 		private void SetupInvent()
 		{
@@ -51,7 +35,6 @@ namespace UI
 				_inventorySlots.Add(Instantiate(_inventorySlotPrefab, _container).GetComponent<InventorySlotUI>());
 				_inventorySlots[i].SetItem(_inventory.GetItem(i));
 			}
-
 			UpdateInventory();
 		}
 
@@ -62,9 +45,7 @@ namespace UI
 			{
 				_inventory.OnInventoryChanged -= UpdateInventory;
 				_inventory.OnInventorySetup -= SetupInvent;
-
 			}
-
 			_inventory = _playerReference.GetPlayer().GetComponent<Inventory>();
 			_inventory.OnInventoryChanged += UpdateInventory;
 			_inventory.OnInventorySetup += SetupInvent;
@@ -80,16 +61,20 @@ namespace UI
 			}
 		}
 
-		public void Show()
+		public void FadeIn(float fadeTime)
 		{
-			isActive = true;
-			ShowUI();
+			_canvasGroup.alpha = 0f;
+			_panelRectTransform.anchoredPosition = new Vector2(_panelRectTransform.rect.width, 0);
+			_panelRectTransform.DOAnchorPosX(0, fadeTime).SetEase(Ease.OutBack);
+			_canvasGroup.DOFade(1, fadeTime);
 		}
 
-		public void Hide()
+		public void FadeOut(float fadeTime)
 		{
-			isActive = false;
-			HideUI();
+			_canvasGroup.alpha = 1f;
+			_panelRectTransform.anchoredPosition = new Vector2(0, 0);
+			_panelRectTransform.DOAnchorPosX(_panelRectTransform.rect.width, fadeTime).SetEase(Ease.InOutQuint);
+			_canvasGroup.DOFade(0, fadeTime);
 		}
 	}
 }
