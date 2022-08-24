@@ -14,11 +14,9 @@ namespace UI
 		[SerializeField] private TextMeshProUGUI _textMeshProUGUI;
 		private float _targetAmount;
 		private float _currentAmount;
-
 		private Coroutine _coroutine;
-		
-
 		private void Awake() => UpdateText();
+		
 
 		private void UpdateText()
 		{

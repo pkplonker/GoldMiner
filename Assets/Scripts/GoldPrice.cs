@@ -9,6 +9,6 @@ using UnityEngine;
     
 public static class GoldPrice
     {
-	    public static float goldPrice { get; private set; } = 47.50f;
+	    public static float goldPrice { get; private set; } = 81f;
 	    public static void SetGoldPrice(float p) => goldPrice = p;
     }

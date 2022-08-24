@@ -15,7 +15,7 @@ using Object = UnityEngine.Object;
 /// </summary>
 public class GoldManagerWindow : EditorWindow
 {
-	private int _columnWidth = 200;
+	private int _columnWidth = 400;
 	private Vector2 _scrollPos;
 	private List<Gold> _currentDisplayedItems;
 	private static GoldSpawnManager _goldSpawnManager;
@@ -55,15 +55,19 @@ public class GoldManagerWindow : EditorWindow
 		GUILayout.BeginHorizontal();
 		if (_goldSpawnManager == null)
 		{
-			EditorGUILayout.LabelField("Gold Manager not yet found", EditorStyles.boldLabel, GUILayout.Width(_columnWidth));
+			EditorGUILayout.LabelField("Gold Manager not yet found", EditorStyles.boldLabel,
+				GUILayout.Width(_columnWidth));
 		}
 		else
 		{
-			if (GUILayout.Button("ShowAll")) _currentDisplayedItems = _goldSpawnManager._goldPiecesSpawned.OrderByDescending(g=>g.Weight).ToList();
-			if (GUILayout.Button("Show Collected")) _currentDisplayedItems = _goldSpawnManager._goldPiecesFound.OrderByDescending(g=>g.Weight).ToList();
+			if (GUILayout.Button("ShowAll"))
+				_currentDisplayedItems = _goldSpawnManager._goldPiecesSpawned.OrderByDescending(g => g.Weight).ToList();
+			if (GUILayout.Button("Show Collected"))
+				_currentDisplayedItems = _goldSpawnManager._goldPiecesFound.OrderByDescending(g => g.Weight).ToList();
 			if (GUILayout.Button("Show Uncollected"))
 				_currentDisplayedItems =
-					_goldSpawnManager._goldPiecesSpawned.Except(_goldSpawnManager._goldPiecesFound).OrderByDescending(g=>g.Weight).ToList();
+					_goldSpawnManager._goldPiecesSpawned.Except(_goldSpawnManager._goldPiecesFound)
+						.OrderByDescending(g => g.Weight).ToList();
 		}
 
 		GUILayout.EndHorizontal();
@@ -71,14 +75,22 @@ public class GoldManagerWindow : EditorWindow
 
 	private void DrawTotals()
 	{
-		
 		GUILayout.BeginHorizontal();
-		EditorGUILayout.LabelField("Total Gold on Map = "+_goldSpawnManager._goldPiecesSpawned.Sum(g => g.Weight), EditorStyles.boldLabel, GUILayout.Width(_columnWidth));
-		EditorGUILayout.LabelField("Total Gold found =" + _goldSpawnManager._goldPiecesFound.Sum(g=>g.Weight), EditorStyles.boldLabel, GUILayout.Width(_columnWidth));
-		EditorGUILayout.LabelField("Total Gold remaining =" + _goldSpawnManager._goldPiecesSpawned.Except(_goldSpawnManager._goldPiecesFound).Sum(g=>g.Weight), EditorStyles.boldLabel, GUILayout.Width(_columnWidth));
+		var c = _goldSpawnManager._goldPiecesSpawned.Sum(g => g.Weight);
+
+		EditorGUILayout.LabelField("Total Gold on Map = " + c + "[ £" + c * GoldPrice.goldPrice + "]",
+			EditorStyles.boldLabel, GUILayout.Width(_columnWidth));
+		c = _goldSpawnManager._goldPiecesFound.Sum(g => g.Weight);
+
+		EditorGUILayout.LabelField("Total Gold found =" + c + "[ £" + c * GoldPrice.goldPrice + "]",
+			EditorStyles.boldLabel, GUILayout.Width(_columnWidth));
+		c = _goldSpawnManager._goldPiecesSpawned.Except(_goldSpawnManager._goldPiecesFound).Sum(g => g.Weight);
+		EditorGUILayout.LabelField("Total Gold remaining =" + c + "[ £" + c * GoldPrice.goldPrice + "]",
+			EditorStyles.boldLabel, GUILayout.Width(_columnWidth));
 
 		GUILayout.EndHorizontal();
 	}
+
 	private void DrawHeaders()
 	{
 		GUILayout.BeginHorizontal();
