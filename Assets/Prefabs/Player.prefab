@@ -2688,6 +2688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6635e37fb77c238469e0d166043aa16f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _capacity: 10
 --- !u!1001 &1881947243787532403
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2696,6 +2697,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7115179166986297814}
     m_Modifications:
+    - target: {fileID: 1986650975, guid: 97d5982cbcdad064b9026c2228aec95e, type: 3}
+      propertyPath: _distance
+      value: 0.65
+      objectReference: {fileID: 0}
     - target: {fileID: 1881947244043790596, guid: 97d5982cbcdad064b9026c2228aec95e,
         type: 3}
       propertyPath: m_RootOrder
@@ -2756,26 +2761,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Detector
       objectReference: {fileID: 0}
-    - target: {fileID: 5829248635142955580, guid: 97d5982cbcdad064b9026c2228aec95e,
-        type: 3}
-      propertyPath: detector
-      value: 
-      objectReference: {fileID: 4812731678767614270}
-    - target: {fileID: 5829248635142955580, guid: 97d5982cbcdad064b9026c2228aec95e,
-        type: 3}
-      propertyPath: targetGroundClearance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5829248635142955580, guid: 97d5982cbcdad064b9026c2228aec95e,
-        type: 3}
-      propertyPath: detectorHeadGroundStartPoint
-      value: 
-      objectReference: {fileID: 6456036646579347244}
-    - target: {fileID: 5829248635142955580, guid: 97d5982cbcdad064b9026c2228aec95e,
-        type: 3}
-      propertyPath: groundDetectionStartingHeight.y
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 97d5982cbcdad064b9026c2228aec95e, type: 3}
@@ -2794,12 +2779,6 @@ Transform:
 --- !u!4 &3000511468845296004 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3728400243578458615, guid: 97d5982cbcdad064b9026c2228aec95e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1881947243787532403}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4812731678767614270 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6400816813479670093, guid: 97d5982cbcdad064b9026c2228aec95e,
     type: 3}
   m_PrefabInstance: {fileID: 1881947243787532403}
   m_PrefabAsset: {fileID: 0}
