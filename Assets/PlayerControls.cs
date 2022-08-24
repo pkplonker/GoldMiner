@@ -82,6 +82,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""ESC"",
+                    ""type"": ""Button"",
+                    ""id"": ""8526ec4b-d6f3-4f1e-90b7-5ded88d893ca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Invent"",
+                    ""type"": ""Button"",
+                    ""id"": ""d8e2a8e6-8758-4a98-b689-2e56fb00ad8e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""ManualDetectionToggle"",
                     ""type"": ""Button"",
                     ""id"": ""bf19ec8c-53fe-40d0-88e0-b4790350b34b"",
@@ -252,6 +270,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Idle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b85876f1-41bd-4066-bf37-edd1f20b7cc6"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ESC"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84464646-ce09-4281-86c5-1aeb7e0439d1"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Invent"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -266,6 +306,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerMovement_LeftClick = m_PlayerMovement.FindAction("LeftClick", throwIfNotFound: true);
         m_PlayerMovement_RightClick = m_PlayerMovement.FindAction("RightClick", throwIfNotFound: true);
         m_PlayerMovement_DetectionToggle = m_PlayerMovement.FindAction("DetectionToggle", throwIfNotFound: true);
+        m_PlayerMovement_ESC = m_PlayerMovement.FindAction("ESC", throwIfNotFound: true);
+        m_PlayerMovement_Invent = m_PlayerMovement.FindAction("Invent", throwIfNotFound: true);
         m_PlayerMovement_ManualDetectionToggle = m_PlayerMovement.FindAction("ManualDetectionToggle", throwIfNotFound: true);
         m_PlayerMovement_Digging = m_PlayerMovement.FindAction("Digging", throwIfNotFound: true);
         m_PlayerMovement_Idle = m_PlayerMovement.FindAction("Idle", throwIfNotFound: true);
@@ -334,6 +376,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_LeftClick;
     private readonly InputAction m_PlayerMovement_RightClick;
     private readonly InputAction m_PlayerMovement_DetectionToggle;
+    private readonly InputAction m_PlayerMovement_ESC;
+    private readonly InputAction m_PlayerMovement_Invent;
     private readonly InputAction m_PlayerMovement_ManualDetectionToggle;
     private readonly InputAction m_PlayerMovement_Digging;
     private readonly InputAction m_PlayerMovement_Idle;
@@ -347,6 +391,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @LeftClick => m_Wrapper.m_PlayerMovement_LeftClick;
         public InputAction @RightClick => m_Wrapper.m_PlayerMovement_RightClick;
         public InputAction @DetectionToggle => m_Wrapper.m_PlayerMovement_DetectionToggle;
+        public InputAction @ESC => m_Wrapper.m_PlayerMovement_ESC;
+        public InputAction @Invent => m_Wrapper.m_PlayerMovement_Invent;
         public InputAction @ManualDetectionToggle => m_Wrapper.m_PlayerMovement_ManualDetectionToggle;
         public InputAction @Digging => m_Wrapper.m_PlayerMovement_Digging;
         public InputAction @Idle => m_Wrapper.m_PlayerMovement_Idle;
@@ -377,6 +423,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @DetectionToggle.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDetectionToggle;
                 @DetectionToggle.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDetectionToggle;
                 @DetectionToggle.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnDetectionToggle;
+                @ESC.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnESC;
+                @ESC.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnESC;
+                @ESC.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnESC;
+                @Invent.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnInvent;
+                @Invent.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnInvent;
+                @Invent.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnInvent;
                 @ManualDetectionToggle.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnManualDetectionToggle;
                 @ManualDetectionToggle.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnManualDetectionToggle;
                 @ManualDetectionToggle.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnManualDetectionToggle;
@@ -408,6 +460,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @DetectionToggle.started += instance.OnDetectionToggle;
                 @DetectionToggle.performed += instance.OnDetectionToggle;
                 @DetectionToggle.canceled += instance.OnDetectionToggle;
+                @ESC.started += instance.OnESC;
+                @ESC.performed += instance.OnESC;
+                @ESC.canceled += instance.OnESC;
+                @Invent.started += instance.OnInvent;
+                @Invent.performed += instance.OnInvent;
+                @Invent.canceled += instance.OnInvent;
                 @ManualDetectionToggle.started += instance.OnManualDetectionToggle;
                 @ManualDetectionToggle.performed += instance.OnManualDetectionToggle;
                 @ManualDetectionToggle.canceled += instance.OnManualDetectionToggle;
@@ -429,6 +487,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnLeftClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
         void OnDetectionToggle(InputAction.CallbackContext context);
+        void OnESC(InputAction.CallbackContext context);
+        void OnInvent(InputAction.CallbackContext context);
         void OnManualDetectionToggle(InputAction.CallbackContext context);
         void OnDigging(InputAction.CallbackContext context);
         void OnIdle(InputAction.CallbackContext context);

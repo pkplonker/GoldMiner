@@ -60,6 +60,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ESC",
+                    "type": "Button",
+                    "id": "8526ec4b-d6f3-4f1e-90b7-5ded88d893ca",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Invent",
+                    "type": "Button",
+                    "id": "d8e2a8e6-8758-4a98-b689-2e56fb00ad8e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ManualDetectionToggle",
                     "type": "Button",
                     "id": "bf19ec8c-53fe-40d0-88e0-b4790350b34b",
@@ -228,6 +246,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Idle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b85876f1-41bd-4066-bf37-edd1f20b7cc6",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ESC",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "84464646-ce09-4281-86c5-1aeb7e0439d1",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Invent",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
