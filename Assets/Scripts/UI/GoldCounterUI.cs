@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Player;
 using TMPro;
 using UnityEngine;
 
@@ -7,7 +8,8 @@ namespace UI
 {
 	public class GoldCounterUI : CounterUI
 	{
-		private void OnEnable() => GoldSpawnManager.OnGoldReceived += Received;
-		private void OnDisable() => GoldSpawnManager.OnGoldReceived -= Received;
+		protected override void UnSubscribe()=>PlayerCurrency.OnGoldChanged -= Received;
+		
+		protected override void Subscribe() => PlayerCurrency.OnGoldChanged += Received;
 	}
 }

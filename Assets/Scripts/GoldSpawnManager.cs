@@ -1,15 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using StuartHeathTools;
 using UnityEngine;
 
 public class GoldSpawnManager : GenericUnitySingleton<GoldSpawnManager>
 {
-	private float _goldOnHand;
-	public List<Gold> _goldPiecesSpawned { get; private set; }= new List<Gold>();
-	public static event Action<float,float, Vector3> OnGoldReceived; 
-	public  List<Gold> _goldPiecesFound { get; private set; }= new List<Gold>();
+	public List<Gold> _goldPiecesSpawned { get; private set; } = new List<Gold>();
+	public List<Gold> _goldPiecesFound { get; private set; } = new List<Gold>();
+	[SerializeField] private PlayerReference _playerReference;
+	private PlayerCurrency _playerCurrency;
 
 	public void RegisterGold(Gold gold)
 	{
@@ -18,6 +19,7 @@ public class GoldSpawnManager : GenericUnitySingleton<GoldSpawnManager>
 			_goldPiecesSpawned.Add(gold);
 		}
 	}
+
 	public void DeregisterGold(Gold gold)
 	{
 		if (_goldPiecesSpawned.Contains(gold))
@@ -29,10 +31,14 @@ public class GoldSpawnManager : GenericUnitySingleton<GoldSpawnManager>
 	public void GoldCollected(Gold gold)
 	{
 		DeregisterGold(gold);
-		_goldPiecesFound.Add(gold);
-		_goldOnHand += gold.Weight;
-		OnGoldReceived?.Invoke(gold.Weight,_goldOnHand, gold.transform.position);
+		if (_playerCurrency != null) AddGold(gold);
+		else if (_playerReference == null) Debug.Log("player reference missing");
+		else
+		{
+			_playerCurrency = _playerReference.GetPlayer().GetComponent<PlayerCurrency>();
+			if (_playerCurrency != null) AddGold(gold);
+		}
 	}
 
-
+	private void AddGold(Gold gold) => _playerCurrency.AddGold(gold);
 }

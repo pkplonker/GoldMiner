@@ -5,16 +5,21 @@
 using System;
 using TerrainGeneration;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Player
 {
 	/// <summary>
 	///PlayerSpawner full description
 	/// </summary>
-	public class PlayerSpawner : SingleItemSpawner
+	public class PlayerSpawner : SingleInstanceSpawn
 	{
-		
+		public static event Action<GameObject> OnPlayerSpawned;
+		public override void Setup(GameObject obj)
+		{
+			OnPlayerSpawned?.Invoke(obj);
+		}
 
-		
+
 	}
 }

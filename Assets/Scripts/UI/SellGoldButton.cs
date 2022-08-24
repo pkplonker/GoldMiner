@@ -1,18 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using Player;
 using UnityEngine;
 
-public class SellGoldButton : MonoBehaviour
+namespace UI
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public class SellGoldButton : MonoBehaviour
+	{
+		[SerializeField] private PlayerReference _playerReference;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		private void Awake() => PlayerReference.OnPlayerChanged += PlayerChanged;
+		private void OnDestroy() => PlayerReference.OnPlayerChanged += PlayerChanged;
+
+
+		private void PlayerChanged()
+		{
+		}
+
+		//ui button
+		public void SellGold()
+		{
+			if (_playerReference == null || _playerReference.GetPlayer() == null)
+			{
+				Debug.Log("no player");
+				return;
+			}
+
+			var playerCurrency = _playerReference.GetPlayer().GetComponent<PlayerCurrency>();
+			ExchangeGold(playerCurrency);
+		}
+
+		private void ExchangeGold(PlayerCurrency playerCurrency)
+		{
+			if (playerCurrency.AddCurrency(playerCurrency.GetGold() * GoldPrice.goldPrice))
+				playerCurrency.RemoveGold(playerCurrency.GetGold());
+		}
+	}
 }

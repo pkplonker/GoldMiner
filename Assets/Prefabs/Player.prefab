@@ -2381,7 +2381,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.1213872, y: 1}
+    m_SensorSize: {x: 2.0385356, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2565,6 +2565,7 @@ GameObject:
   - component: {fileID: 7635256604560604006}
   - component: {fileID: 7115179166986297815}
   - component: {fileID: 161934956}
+  - component: {fileID: 730840486265341367}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -2660,7 +2661,20 @@ MonoBehaviour:
   <Rig>k__BackingField: {fileID: 3000511468534618582}
   <DetectorModel>k__BackingField: {fileID: 7586667392685308049}
   <Reticle>k__BackingField: {fileID: 8161424353797823668}
+  _playerReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51, type: 2}
   <MaxDigDepth>k__BackingField: 0
+--- !u!114 &730840486265341367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7635256604560604012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db47983a91132041b28978882fc1357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1881947243787532403
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -30,10 +30,10 @@ namespace Player
 		[field: SerializeField] public Rig Rig { get; private set; }
 		[field: SerializeField] public GameObject DetectorModel { get; private set; }
 		[field: SerializeField] public Image Reticle { get; private set; }
-
+		[SerializeField] private PlayerReference _playerReference;
 		public static bool IsDetecting;
 		public static bool IsManualDetecting;
-
+		public event Action OnPlayerDestroyed;
 		public static event Action<bool> OnDetectorManualToggleChanged;
 
 		[field: Range(0, -20f), SerializeField]
@@ -50,6 +50,7 @@ namespace Player
 
 		private void OnEnable()
 		{
+			_playerReference.SetPlayer(this); 
 			PlayerInputManager.OnDetectionToggle += ToggleDetection;
 			PlayerInputManager.OnManualDetectionToggle += ManualDetectionToggle;
 			PlayerInputManager.OnDiggingToggle += DiggingToggle;
@@ -57,6 +58,12 @@ namespace Player
 		}
 
 		private void InteractionToggle() => ChangeState(InteractState);
+
+		private void OnDestroy()
+		{
+			_playerReference.SetPlayer(null);
+			OnPlayerDestroyed?.Invoke();
+		}
 
 
 		private void ManualDetectionToggle()

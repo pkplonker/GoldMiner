@@ -48,7 +48,7 @@ namespace Player
 			}
 		}
 
-		private void Spawn(SingleInstanceSpawn sis, float size)
+		protected virtual void Spawn(SingleInstanceSpawn sis, float size)
 		{
 			var currentInstance = Instantiate(sis.Prefab);
 			currentInstance.SetActive(false);
