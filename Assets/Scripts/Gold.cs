@@ -30,7 +30,13 @@ public class Gold : Target
 	{
 		Debug.Log($"Interacted with {Weight}g nugget");
 		GoldSpawnManager.Instance.GoldCollected(this);
-		Destroy(gameObject);
+		DisableObject();
 		return true;
+	}
+
+	private void DisableObject()
+	{
+		GetComponent<Collider>().enabled = false;
+		GetComponent<MeshRenderer>().enabled = false;
 	}
 }

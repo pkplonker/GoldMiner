@@ -16,9 +16,7 @@ namespace UI
 		private float _currentAmount;
 
 		private Coroutine _coroutine;
-
-		private void OnEnable() => GoldSpawnManager.OnGoldReceived += Received;
-		private void OnDisable() => GoldSpawnManager.OnGoldReceived -= Received;
+		
 
 		private void Awake() => UpdateText();
 

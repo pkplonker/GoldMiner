@@ -7,9 +7,9 @@ using UnityEngine;
 public class GoldSpawnManager : GenericUnitySingleton<GoldSpawnManager>
 {
 	private float _goldOnHand;
-	private List<Gold> _goldPiecesSpawned = new List<Gold>();
+	public List<Gold> _goldPiecesSpawned { get; private set; }= new List<Gold>();
 	public static event Action<float,float, Vector3> OnGoldReceived; 
-	private  List<Gold> _goldPiecesFound = new List<Gold>();
+	public  List<Gold> _goldPiecesFound { get; private set; }= new List<Gold>();
 
 	public void RegisterGold(Gold gold)
 	{
