@@ -485,18 +485,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625107508}
   m_CullTransparentMesh: 1
---- !u!114 &746719996 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 746719996, guid: 37022fba553990c4e99199bb35caa186,
-    type: 3}
-  m_PrefabInstance: {fileID: 807089745979239628}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &820504738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,38 +1882,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 251294387, guid: 37022fba553990c4e99199bb35caa186, type: 3}
-      propertyPath: _tmp
-      value: 
-      objectReference: {fileID: 746719996}
-    - target: {fileID: 746719994, guid: 37022fba553990c4e99199bb35caa186, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 746719995, guid: 37022fba553990c4e99199bb35caa186, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 746719996, guid: 37022fba553990c4e99199bb35caa186, type: 3}
-      propertyPath: m_fontSize
-      value: 44.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 746719996, guid: 37022fba553990c4e99199bb35caa186, type: 3}
-      propertyPath: m_fontStyle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 746719996, guid: 37022fba553990c4e99199bb35caa186, type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 746719996, guid: 37022fba553990c4e99199bb35caa186, type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 746719996, guid: 37022fba553990c4e99199bb35caa186, type: 3}
-      propertyPath: m_HorizontalAlignment
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 807089747694999745, guid: 37022fba553990c4e99199bb35caa186,
         type: 3}
       propertyPath: m_Name
