@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Player;
 using StuartHeathTools;
+using Targets;
 using UnityEngine;
 
 public class GoldSpawnManager : GenericUnitySingleton<GoldSpawnManager>

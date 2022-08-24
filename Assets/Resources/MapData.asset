@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MapData
   m_EditorClassIdentifier: 
   <MapChunkSize>k__BackingField: 10
-  <ChunksPerRow>k__BackingField: 5
+  <ChunksPerRow>k__BackingField: 11
   _lod: 4
   _seed: 3
   _octaves: 4

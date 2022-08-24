@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c9faa009921dc9b43a5a7362fd37de4c, type: 2}
+  - {fileID: 2100000, guid: 98f196c135a043b45acfa2f96f833ba4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,7 +111,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _signalStrength: 0.5
-  drawGizmos: 1
+  _drawGizmos: 1
+  _interactText: Click to pickup
+  _gizmoColor: {r: 1, g: 0, b: 0, a: 1}
   goldChanceAnimationCurve:
     serializedVersion: 2
     m_Curve:

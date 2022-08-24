@@ -1,3 +1,4 @@
+using Targets;
 using UnityEngine;
 
 namespace DetectorScripts
