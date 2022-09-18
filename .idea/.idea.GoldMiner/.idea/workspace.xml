@@ -5,30 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/GUI PRO Kit - Fantasy RPG/Scenes/DemoScene_(v2.0)Settings.lighting" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/GUI PRO Kit - Fantasy RPG/Scenes/DemoScene_(v2.0)Settings.lighting.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/NewItemPopup.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/NewItemPopup.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/NewItemPickupUI.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/TweenUIPanel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/TweenUIPanel.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GUI PRO Kit - Fantasy RPG/Scenes/DemoScene_(v2.0).unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GUI PRO Kit - Fantasy RPG/Scenes/DemoScene_(v2.0).unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Coin1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Coin1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Coin2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Coin2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Sovereign .prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Sovereign .prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/IInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/IInteractable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Item.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Targets/Gold.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Targets/Gold.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Targets/JunkTarget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Targets/PickupTarget.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Targets/JunkTarget.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Targets/PickupTarget.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Targets/Target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Targets/Target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Targets/ValuableTarget.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Targets/ValuableTarget.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/NewItemPickupUI.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Truck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Truck.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/NewItemPopup.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/NewItemPopup.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/TruckUI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/TruckUI.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/NewItemPickupUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/NewItemPickupUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/TruckUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/TruckUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/TweenUIPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/TweenUIPanel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +153,7 @@
       <workItem from="1659718140870" duration="17112000" />
       <workItem from="1661283999330" duration="26405000" />
       <workItem from="1661368332906" duration="8678000" />
-      <workItem from="1663517902614" duration="3957000" />
+      <workItem from="1663517902614" duration="5325000" />
     </task>
     <servers />
   </component>

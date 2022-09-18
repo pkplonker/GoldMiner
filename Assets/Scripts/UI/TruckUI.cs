@@ -2,20 +2,17 @@
 // Copyright (C) 2022 Stuart Heath. All rights reserved.
 //
 
-using System;
 using Player;
 using StuartHeathTools;
-using UnityEngine;
 
 namespace UI
 {
 	/// <summary>
 	///TruckUI full description
 	/// </summary>
-	public class TruckUI : CanvasGroupBase
+	public class TruckUI : TweenUIPanel
 	{
 		private PlayerInteractionStateMachine _playerInteractionStateMachine;
-		private void Awake() => Hide();
 
 		public void Show(PlayerInteractionStateMachine pism)
 		{
@@ -23,15 +20,12 @@ namespace UI
 			ShowUI();
 		}
 
-		public void Hide()
+		public void Hide()=>HideUI(CloseCallback);
+		
+		private void CloseCallback()
 		{
-			if (_playerInteractionStateMachine != null)
-			{
-				var pm = _playerInteractionStateMachine.GetComponent<PlayerMovement>();
-				if (pm != null) pm.SetCanMove(true);
-			}
-
-			HideUI();
+			var pm = _playerInteractionStateMachine.GetComponent<PlayerMovement>();
+			if (pm != null) pm.SetCanMove(true);
 		}
 
 		

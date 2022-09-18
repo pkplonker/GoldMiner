@@ -1,3 +1,4 @@
+using System;
 using Player;
 using Targets;
 using TMPro;
@@ -15,6 +16,7 @@ namespace UI
 		private PlayerInteractionStateMachine _playerInteractionStateMachine;
 		private PlayerMovement _playerMovement;
 
+	
 		public void Show(PickupTarget pickupTarget, PlayerInteractionStateMachine playerInteractionStateMachine)
 		{
 			_playerInteractionStateMachine = playerInteractionStateMachine;
@@ -50,11 +52,7 @@ namespace UI
 		//ui
 		public void Pickup()
 		{
-			if (_pickupTarget == null || _playerInteractionStateMachine == null)
-			{
-				Debug.LogError("missing refs");
-			}
-
+			if (_pickupTarget == null || _playerInteractionStateMachine == null) Debug.LogError("missing refs");
 			_pickupTarget.DestroyItem();
 			var inv = _playerInteractionStateMachine.GetComponent<Inventory>();
 			if (inv == null || !inv.Add(_pickupTarget.GetItem())) FailedToAddToInventory();
@@ -66,11 +64,7 @@ namespace UI
 		//ui
 		public void ThrowAway()
 		{
-			if (_pickupTarget == null)
-			{
-				Debug.LogError("missing refs");
-			}
-
+			if (_pickupTarget == null) Debug.LogError("missing refs");
 			_pickupTarget.DestroyItem();
 			Close();
 		}

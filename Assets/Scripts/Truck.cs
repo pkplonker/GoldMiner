@@ -17,12 +17,12 @@ public class Truck : MonoBehaviour, IInteractable
 	public void Interact(PlayerInteractionStateMachine player)
 	{
 		OpenTruckUI(player);
-		player.GetComponent<PlayerMovement>().SetCanMove(false);
 	}
 
 	private void OpenTruckUI(PlayerInteractionStateMachine player)
 	{
 		if (_truckUI == null) CreateTruckUI();
+		player.GetComponent<PlayerMovement>().SetCanMove(false);
 		_truckUI.Show(player);
 	}
 
