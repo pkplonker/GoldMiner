@@ -11,11 +11,7 @@ namespace Targets
 		public Item GetItem() => _item;
 		private NewItemPickupUI _newItemPickupUI;
 
-		private void Start()
-		{
-			_newItemPickupUI = FindObjectOfType<NewItemPickupUI>();
-		}
-
+		
 		public override void Interact(PlayerInteractionStateMachine player)
 		{
 			if (player == null)
@@ -29,8 +25,8 @@ namespace Targets
 				Debug.LogError("Player invent is null");
 				return;
 			}
-
-			CanvasGroupController.Instance.Show(_newItemPickupUI);
+			
+			CanvasGroupController.Instance.Show(CanvasGroupController.Instance.NewItemPickupUI);
 			_newItemPickupUI.Init(this, player);
 		}
 

@@ -18,9 +18,6 @@ namespace UI
 		private PlayerMovement _playerMovement;
 		[SerializeField] private Button _keepButton;
 
-	
-
-
 
 		private void UpdateUI(Item item)
 		{
@@ -36,7 +33,7 @@ namespace UI
 			_pickupTarget.DestroyItem();
 			var inv = _playerInteractionStateMachine.GetComponent<Inventory>();
 			if (inv == null || !inv.Add(_pickupTarget.GetItem())) FailedToAddToInventory();
-			Close();
+			CanvasGroupController.Instance.Hide(this);
 		}
 
 		private void FailedToAddToInventory() => Debug.LogError("Failed to add to inventory");
@@ -46,10 +43,9 @@ namespace UI
 		{
 			if (_pickupTarget == null) Debug.LogError("missing refs");
 			_pickupTarget.DestroyItem();
-			Close();
+			CanvasGroupController.Instance.Hide(this);
 		}
 
-		private void Close()=>HideUI();
 
 		public override void Show()
 		{
@@ -81,8 +77,9 @@ namespace UI
 				Debug.LogError("Cannot inhibit player movement");
 				return;
 			}
-			
+
 			_playerMovement.SetCanMove(false);
-			UpdateUI(item);		}
+			UpdateUI(item);
+		}
 	}
 }

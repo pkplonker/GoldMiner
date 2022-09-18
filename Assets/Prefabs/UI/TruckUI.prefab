@@ -403,6 +403,7 @@ MonoBehaviour:
   _popDuration: 0.5
   _showEase: 34
   _hideEase: 33
+  _firstSelectedGameObject: {fileID: 1973696097993700394}
 --- !u!225 &1386599878950667006
 CanvasGroup:
   m_ObjectHideFlags: 0

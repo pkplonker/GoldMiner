@@ -17,6 +17,7 @@ namespace Player
 		public static event Action<GameObject> OnPlayerSpawned;
 		public override void Setup(GameObject obj)
 		{
+			base.Setup(obj);
 			OnPlayerSpawned?.Invoke(obj);
 		}
 

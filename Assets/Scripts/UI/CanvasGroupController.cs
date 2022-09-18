@@ -9,15 +9,49 @@ namespace UI
 {
 	public class CanvasGroupController : GenericUnitySingleton<CanvasGroupController>
 	{
+		private List<IShowHideUI> uis = new List<IShowHideUI>();
+		public NewItemPickupUI NewItemPickupUI { get; private set; }
+		public TruckUI TruckUI { get; private set; }
+
+		private void Start()
+		{
+			NewItemPickupUI = GetComponentInChildren<NewItemPickupUI>();
+			TruckUI= GetComponentInChildren<TruckUI>();
+		}
 
 		public void Show(IShowHideUI ui)
 		{
+			if (uis.Contains(ui))
+			{
+				uis.RemoveAt(uis.IndexOf(ui));
+				uis.Add(ui);
+			}
+
+			uis.RemoveAll(x => x == null);
 			ui.Show();
+			for (int i = 0; i < uis.Count-1; i++)
+			{
+				ui.Disable();
+			}
 		}
 
 		public void Hide(IShowHideUI ui)
 		{
-			ui.Hide();
+			if (uis.Contains(ui))
+			{
+				if (uis.IndexOf(ui) == uis.Count-1)
+				{
+					uis.Remove(ui);
+					if (uis.Count > 0)
+					{
+						uis[^1].Enable();
+					}
+				}
+			}
+			else
+			{
+				ui.Hide();
+			}
 		}
 	}
 }

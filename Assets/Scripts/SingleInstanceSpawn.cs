@@ -74,7 +74,6 @@ public class SingleInstanceSpawn : ScriptableObject
 
 	public virtual void Setup(GameObject obj)
 	{
-		
 	}
 
 	[Serializable]

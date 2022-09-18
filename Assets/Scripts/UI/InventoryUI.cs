@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 namespace UI
 {
-	public class InventoryUI : MonoBehaviour
+	public class InventoryUI : MonoBehaviour, IShowHideUI
 	{
 		[SerializeField] private GameObject _inventorySlotPrefab;
 		private List<InventorySlotUI> _inventorySlots = new();
@@ -18,12 +18,12 @@ namespace UI
 		private RectTransform _panelRectTransform;
 		[SerializeField] private CanvasGroup _canvasGroup;
 		private bool _inventoryActive = false;
+		[SerializeField] private float _fadeTime = 0.5f;
 
 		[SerializeField] private GameObject _firstSelectedGameObject;
-		public GameObject GetFirstSelectedObject() => _firstSelectedGameObject;
 		private void Awake() => _panelRectTransform = _canvasGroup.GetComponent<RectTransform>();
 
-		private void Start() => Hide();
+		private void Start() => HideImmediate();
 
 		private void OnEnable()
 		{
@@ -40,7 +40,7 @@ namespace UI
 		private void ToggleInventory()
 		{
 			if(_inventoryActive) Hide();
-		else Hide();}
+		else Show();}
 
 
 		private void SetupInvent()
@@ -87,24 +87,44 @@ namespace UI
 			}
 		}
 
-		public void Show(float fadeTime=0.5f)
+		public void Show()
 		{
+			Enable();
 			_inventoryActive = true;
 			_canvasGroup.alpha = 0f;
 			_panelRectTransform.anchoredPosition = new Vector2(_panelRectTransform.rect.width, 0);
-			_panelRectTransform.DOAnchorPosX(0, fadeTime).SetEase(Ease.OutBack);
-			_canvasGroup.DOFade(1, fadeTime);
+			_panelRectTransform.DOAnchorPosX(0, _fadeTime).SetEase(Ease.OutBack);
+			_canvasGroup.DOFade(1, _fadeTime);
 		}
 
-		public void Hide(float fadeTime=0.5f)
+		public void Hide()
 		{
+			Disable();
+			Debug.Log("disabling invent");
 			_inventoryActive = false;
 			_canvasGroup.alpha = 1f;
 			_panelRectTransform.anchoredPosition = new Vector2(0, 0);
-			_panelRectTransform.DOAnchorPosX(_panelRectTransform.rect.width, fadeTime).SetEase(Ease.InOutQuint);
-			_canvasGroup.DOFade(0, fadeTime);
+			_panelRectTransform.DOAnchorPosX(_panelRectTransform.rect.width, _fadeTime).SetEase(Ease.InOutQuint);
+			_canvasGroup.DOFade(0, _fadeTime);
 		}
 
-	
+		private void HideImmediate()
+		{
+			_canvasGroup.alpha = 0f;
+			_canvasGroup.interactable = false;
+			_canvasGroup.blocksRaycasts = false;
+		}
+
+		public void Disable()
+		{
+			_canvasGroup.interactable = false;
+			_canvasGroup.blocksRaycasts = false;
+		}
+
+		public void Enable()
+		{
+			_canvasGroup.interactable = true;
+			_canvasGroup.blocksRaycasts = true;
+		}
 	}
 }
