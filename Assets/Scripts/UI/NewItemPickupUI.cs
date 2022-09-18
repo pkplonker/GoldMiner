@@ -19,28 +19,6 @@ namespace UI
 		[SerializeField] private Button _keepButton;
 
 	
-		public void Show(PickupTarget pickupTarget, PlayerInteractionStateMachine playerInteractionStateMachine)
-		{
-			_playerInteractionStateMachine = playerInteractionStateMachine;
-			_pickupTarget = pickupTarget;
-			var item = _pickupTarget.GetItem();
-			if (item == null)
-			{
-				Debug.LogError("Item is null");
-				return;
-			}
-
-			_playerMovement = playerInteractionStateMachine.GetComponent<PlayerMovement>();
-			if (_playerMovement == null)
-			{
-				Debug.LogError("Cannot inhibit player movement");
-				return;
-			}
-			
-			_playerMovement.SetCanMove(false);
-			UpdateUI(item);
-			ShowUI();
-		}
 
 
 
@@ -71,20 +49,40 @@ namespace UI
 			Close();
 		}
 
-		private void Close()=>HideUI(CloseCallback);
-		
+		private void Close()=>HideUI();
 
-		private void CloseCallback() => _playerMovement.SetCanMove(true);
-		public GameObject GetFirstSelectedObject() => _keepButton.gameObject;
-
-		public void Show(float s = 0)
+		public override void Show()
 		{
-			throw new NotImplementedException();
+			base.Show();
+			EventSystem.current.SetSelectedGameObject(_keepButton.gameObject);
 		}
 
-		public void Hide(float s = 0)
+		public override void Hide()
 		{
-			throw new NotImplementedException();
+			base.Hide();
+			_playerMovement.SetCanMove(true);
 		}
+
+
+		public void Init(PickupTarget pickupTarget, PlayerInteractionStateMachine player)
+		{
+			_playerInteractionStateMachine = player;
+			_pickupTarget = pickupTarget;
+			var item = _pickupTarget.GetItem();
+			if (item == null)
+			{
+				Debug.LogError("Item is null");
+				return;
+			}
+
+			_playerMovement = _playerInteractionStateMachine.GetComponent<PlayerMovement>();
+			if (_playerMovement == null)
+			{
+				Debug.LogError("Cannot inhibit player movement");
+				return;
+			}
+			
+			_playerMovement.SetCanMove(false);
+			UpdateUI(item);		}
 	}
 }

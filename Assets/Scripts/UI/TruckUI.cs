@@ -14,20 +14,18 @@ namespace UI
 	{
 		private PlayerInteractionStateMachine _playerInteractionStateMachine;
 
-		public void Show(PlayerInteractionStateMachine pism)
+		public void Init(PlayerInteractionStateMachine pism)
 		{
+			pism.GetComponent<PlayerMovement>().SetCanMove(false);
 			_playerInteractionStateMachine = pism;
-			ShowUI();
 		}
 
-		public void Hide()=>HideUI(CloseCallback);
-		
-		private void CloseCallback()
+		public override void Hide()
 		{
-			var pm = _playerInteractionStateMachine.GetComponent<PlayerMovement>();
-			if (pm != null) pm.SetCanMove(true);
+			base.Hide();
+			_playerInteractionStateMachine.GetComponent<PlayerMovement>().SetCanMove(true);
 		}
 
-		
+
 	}
 }

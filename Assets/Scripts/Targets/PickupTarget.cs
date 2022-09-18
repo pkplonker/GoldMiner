@@ -9,8 +9,12 @@ namespace Targets
 	{
 		[SerializeField] private Item _item;
 		public Item GetItem() => _item;
+		private NewItemPickupUI _newItemPickupUI;
 
-	
+		private void Start()
+		{
+			_newItemPickupUI = FindObjectOfType<NewItemPickupUI>();
+		}
 
 		public override void Interact(PlayerInteractionStateMachine player)
 		{
@@ -26,7 +30,8 @@ namespace Targets
 				return;
 			}
 
-			CanvasGroupController.Instance.ShowNewItemPickupUI(this, player);
+			CanvasGroupController.Instance.Show(_newItemPickupUI);
+			_newItemPickupUI.Init(this, player);
 		}
 
 		public void DestroyItem()

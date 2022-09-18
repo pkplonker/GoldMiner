@@ -17,12 +17,30 @@ namespace UI
 		[SerializeField] private Transform _container;
 		private RectTransform _panelRectTransform;
 		[SerializeField] private CanvasGroup _canvasGroup;
+		private bool _inventoryActive = false;
 
 		[SerializeField] private GameObject _firstSelectedGameObject;
 		public GameObject GetFirstSelectedObject() => _firstSelectedGameObject;
 		private void Awake() => _panelRectTransform = _canvasGroup.GetComponent<RectTransform>();
-		private void OnEnable() => PlayerReference.OnPlayerChanged += ChangeInventory;
-		private void OnDisable() => PlayerReference.OnPlayerChanged -= ChangeInventory;
+
+		private void Start() => Hide();
+
+		private void OnEnable()
+		{
+			PlayerInputManager.OnInvent += ToggleInventory;
+			PlayerReference.OnPlayerChanged += ChangeInventory;
+		}
+
+		private void OnDisable()
+		{
+			PlayerReference.OnPlayerChanged -= ChangeInventory;
+			PlayerInputManager.OnInvent -= ToggleInventory;
+		}
+
+		private void ToggleInventory()
+		{
+			if(_inventoryActive) Hide();
+		else Hide();}
 
 
 		private void SetupInvent()
@@ -37,6 +55,11 @@ namespace UI
 			{
 				_inventorySlots.Add(Instantiate(_inventorySlotPrefab, _container).GetComponent<InventorySlotUI>());
 				_inventorySlots[i].SetItem(_inventory.GetItem(i));
+			}
+
+			if (_inventorySlots.Count > 0)
+			{
+				_firstSelectedGameObject = _inventorySlots[0].gameObject;
 			}
 			UpdateInventory();
 		}
@@ -66,7 +89,7 @@ namespace UI
 
 		public void Show(float fadeTime=0.5f)
 		{
-
+			_inventoryActive = true;
 			_canvasGroup.alpha = 0f;
 			_panelRectTransform.anchoredPosition = new Vector2(_panelRectTransform.rect.width, 0);
 			_panelRectTransform.DOAnchorPosX(0, fadeTime).SetEase(Ease.OutBack);
@@ -75,6 +98,7 @@ namespace UI
 
 		public void Hide(float fadeTime=0.5f)
 		{
+			_inventoryActive = false;
 			_canvasGroup.alpha = 1f;
 			_panelRectTransform.anchoredPosition = new Vector2(0, 0);
 			_panelRectTransform.DOAnchorPosX(_panelRectTransform.rect.width, fadeTime).SetEase(Ease.InOutQuint);

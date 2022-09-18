@@ -8,6 +8,7 @@ namespace UI
     private void Awake()
     {
       _canvasGroup = GetComponent<CanvasGroup>();
+      Show();
     }
 
     public void Show(float s = 0)
