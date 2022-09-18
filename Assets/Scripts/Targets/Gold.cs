@@ -26,12 +26,11 @@ namespace Targets
 	
 		
 
-		public override bool Interact(PlayerInteractionStateMachine player)
+		public override void Interact(PlayerInteractionStateMachine player)
 		{
 			Debug.Log($"Interacted with {Weight}g nugget");
 			GoldSpawnManager.Instance.GoldCollected(this);
 			DisableObject();
-			return true;
 		}
 
 		

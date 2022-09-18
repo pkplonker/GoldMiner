@@ -14,11 +14,10 @@ public class Truck : MonoBehaviour, IInteractable
 	public string GetInteractMessage() => _interactText;
 
 
-	public bool Interact(PlayerInteractionStateMachine player)
+	public void Interact(PlayerInteractionStateMachine player)
 	{
 		OpenTruckUI(player);
 		player.GetComponent<PlayerMovement>().SetCanMove(false);
-		return true;
 	}
 
 	private void OpenTruckUI(PlayerInteractionStateMachine player)

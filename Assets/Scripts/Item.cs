@@ -11,6 +11,8 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
 	public string _itemName = "New Item";
+	public string _description = "Description";
+
 	[SerializeField] protected float _value = 10f;
 	public Sprite Sprite;
 	public virtual float GetValue() => _value;

@@ -32,11 +32,8 @@ namespace Targets
 		protected virtual void SetColor() => Gizmos.color = _gizmoColor;
 		protected virtual void OnDrawGizmosSelected() => DrawMarker();
 
-		public virtual bool Interact(PlayerInteractionStateMachine player)
-		{
-			Debug.Log("Interacted");
-			return true;
-		}
+		public virtual void Interact(PlayerInteractionStateMachine player)=>Debug.Log("Interacted");
+		
 		protected void DisableObject()
 		{
 			GetComponent<Collider>().enabled = false;

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8801139182289268513}
   - component: {fileID: 5587901581766992004}
   - component: {fileID: 7667591293417051214}
-  - component: {fileID: 1934316983924886544}
   - component: {fileID: -6132582963918510362}
+  - component: {fileID: 4095879078568888157}
   m_Layer: 7
   m_Name: 'Sovereign '
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5587901581766992004
 MeshFilter:
@@ -85,23 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1934316983924886544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8171849522485392795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef3a0c715d3aa734f8a4ebeea9e3481c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _signalStrength: 0.5
-  _drawGizmos: 1
-  _interactText: Click to pickup
-  _gizmoColor: {r: 0.03901863, g: 0, b: 1, a: 1}
-  _item: {fileID: 11400000, guid: b4c06f746ef31ff4bb5b822bc6a466c2, type: 2}
 --- !u!65 &-6132582963918510362
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -115,3 +98,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.19999999, y: 0.024999999, z: 0.19999999}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4095879078568888157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8171849522485392795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393caf28ecb04604e9d84069f1731b9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _signalStrength: 0.8
+  _drawGizmos: 1
+  _interactText: Click to pickup
+  _gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  _item: {fileID: 11400000, guid: b4c06f746ef31ff4bb5b822bc6a466c2, type: 2}
+  _newItemPickupUIPrefab: {fileID: 3329778177181152433, guid: 6620bbae102bf9743b094dc6309bc987,
+    type: 3}
+  _newItemPickupUI: {fileID: 0}

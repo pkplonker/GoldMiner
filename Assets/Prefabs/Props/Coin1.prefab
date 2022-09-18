@@ -101,6 +101,10 @@ MonoBehaviour:
   _drawGizmos: 1
   _interactText: Click to pickup
   _gizmoColor: {r: 0, g: 0.046749115, b: 1, a: 1}
+  _item: {fileID: 11400000, guid: f7206034386a6e74ab87451f1335f19c, type: 2}
+  _newItemPickupUIPrefab: {fileID: 3329778177181152433, guid: 6620bbae102bf9743b094dc6309bc987,
+    type: 3}
+  _newItemPickupUI: {fileID: 0}
 --- !u!65 &-7953347069451125690
 BoxCollider:
   m_ObjectHideFlags: 0

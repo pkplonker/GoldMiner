@@ -2750,6 +2750,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUDUI
       objectReference: {fileID: 0}
+    - target: {fileID: 807089747694999745, guid: 37022fba553990c4e99199bb35caa186,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 807089747694999773, guid: 37022fba553990c4e99199bb35caa186,
         type: 3}
       propertyPath: m_Pivot.x
