@@ -8,14 +8,9 @@ namespace Targets
 	public class PickupTarget : Target
 	{
 		[SerializeField] private Item _item;
-		[SerializeField] private NewItemPickupUI _newItemPickupUIPrefab;
-		private NewItemPickupUI _newItemPickupUI;
 		public Item GetItem() => _item;
 
-		private void OnValidate()
-		{
-			if (_newItemPickupUIPrefab == null) Debug.Log("Missing UI");
-		}
+	
 
 		public override void Interact(PlayerInteractionStateMachine player)
 		{
@@ -31,8 +26,7 @@ namespace Targets
 				return;
 			}
 
-			_newItemPickupUI = Instantiate(_newItemPickupUIPrefab);
-			_newItemPickupUI.Show(this,player);
+			CanvasGroupController.Instance.ShowNewItemPickupUI(this, player);
 		}
 
 		public void DestroyItem()

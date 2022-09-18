@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 namespace UI
 {
-	public class InventoryUI : MonoBehaviour, IFadeUI
+	public class InventoryUI : MonoBehaviour
 	{
 		[SerializeField] private GameObject _inventorySlotPrefab;
 		private List<InventorySlotUI> _inventorySlots = new();
@@ -18,6 +18,8 @@ namespace UI
 		private RectTransform _panelRectTransform;
 		[SerializeField] private CanvasGroup _canvasGroup;
 
+		[SerializeField] private GameObject _firstSelectedGameObject;
+		public GameObject GetFirstSelectedObject() => _firstSelectedGameObject;
 		private void Awake() => _panelRectTransform = _canvasGroup.GetComponent<RectTransform>();
 		private void OnEnable() => PlayerReference.OnPlayerChanged += ChangeInventory;
 		private void OnDisable() => PlayerReference.OnPlayerChanged -= ChangeInventory;
@@ -62,9 +64,8 @@ namespace UI
 			}
 		}
 
-		public void FadeIn(float fadeTime)
+		public void Show(float fadeTime=0.5f)
 		{
-			EventSystem.current.SetSelectedGameObject(_firstSelected.gameObject);
 
 			_canvasGroup.alpha = 0f;
 			_panelRectTransform.anchoredPosition = new Vector2(_panelRectTransform.rect.width, 0);
@@ -72,12 +73,14 @@ namespace UI
 			_canvasGroup.DOFade(1, fadeTime);
 		}
 
-		public void FadeOut(float fadeTime)
+		public void Hide(float fadeTime=0.5f)
 		{
 			_canvasGroup.alpha = 1f;
 			_panelRectTransform.anchoredPosition = new Vector2(0, 0);
 			_panelRectTransform.DOAnchorPosX(_panelRectTransform.rect.width, fadeTime).SetEase(Ease.InOutQuint);
 			_canvasGroup.DOFade(0, fadeTime);
 		}
+
+	
 	}
 }

@@ -14,6 +14,7 @@ namespace UI
 
         protected virtual void Awake()
         {
+            if(_canvasGroup==null) _canvasGroup = GetComponent<CanvasGroup>();
             _panelRectTransform.localScale= Vector3.zero;
         }
 

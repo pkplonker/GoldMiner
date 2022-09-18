@@ -36,9 +36,7 @@ namespace UI
 				Debug.LogError("Cannot inhibit player movement");
 				return;
 			}
-
-			EventSystem.current.SetSelectedGameObject(_keepButton.gameObject);
-
+			
 			_playerMovement.SetCanMove(false);
 			UpdateUI(item);
 			ShowUI();
@@ -77,5 +75,16 @@ namespace UI
 		
 
 		private void CloseCallback() => _playerMovement.SetCanMove(true);
+		public GameObject GetFirstSelectedObject() => _keepButton.gameObject;
+
+		public void Show(float s = 0)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Hide(float s = 0)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

@@ -8,8 +8,6 @@ public class Truck : MonoBehaviour, IInteractable
 {
 	[SerializeField] private string _interactText = "Click to pickup";
 	private bool _isActiveTarget;
-	private TruckUI _truckUI;
-	[SerializeField] private GameObject _truckUIPrefab;
 
 	public string GetInteractMessage() => _interactText;
 
@@ -21,10 +19,10 @@ public class Truck : MonoBehaviour, IInteractable
 
 	private void OpenTruckUI(PlayerInteractionStateMachine player)
 	{
-		if (_truckUI == null) CreateTruckUI();
+		CanvasGroupController.Instance.ShowTruckUI(player);
 		player.GetComponent<PlayerMovement>().SetCanMove(false);
-		_truckUI.Show(player);
 	}
 
-	private void CreateTruckUI() => _truckUI = Instantiate(_truckUIPrefab).GetComponent<TruckUI>();
+	public void Close() => CanvasGroupController.Instance.HideTruckUI();
+
 }
