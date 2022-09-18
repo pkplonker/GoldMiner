@@ -12,8 +12,11 @@ namespace UI
 		private bool _isActive;
 		[SerializeField] private float _fadeTime = 0.5f;
 		[SerializeField] private List<IFadeUI> fadableUIs;
-
-		private void Awake() => fadableUIs = GetComponentsInChildren<IFadeUI>().ToList();
+private play
+		private void Awake()
+		{
+			player.GetComponent<PlayerMovement>()
+		} fadableUIs = GetComponentsInChildren<IFadeUI>().ToList();
 		private void Start() => HideImmediate();
 		private void OnEnable() => PlayerInputManager.OnInvent += ToggleVisibility;
 		private void OnDisable() => PlayerInputManager.OnInvent -= ToggleVisibility;

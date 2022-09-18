@@ -4,6 +4,7 @@ using DG.Tweening;
 using Player;
 using StuartHeathTools;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace UI
 {
@@ -63,6 +64,8 @@ namespace UI
 
 		public void FadeIn(float fadeTime)
 		{
+			EventSystem.current.SetSelectedGameObject(_firstSelected.gameObject);
+
 			_canvasGroup.alpha = 0f;
 			_panelRectTransform.anchoredPosition = new Vector2(_panelRectTransform.rect.width, 0);
 			_panelRectTransform.DOAnchorPosX(0, fadeTime).SetEase(Ease.OutBack);

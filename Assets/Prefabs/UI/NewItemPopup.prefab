@@ -201,6 +201,7 @@ MonoBehaviour:
   _itemNameText: {fileID: 2220067265431220747}
   _valueText: {fileID: 3940293904314325028}
   _itemImage: {fileID: 1503375556684398023}
+  _keepButton: {fileID: 8810615669923576135}
 --- !u!225 &-6852751472423076042
 CanvasGroup:
   m_ObjectHideFlags: 0

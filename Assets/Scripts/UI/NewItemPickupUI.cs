@@ -3,6 +3,7 @@ using Player;
 using Targets;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UI
@@ -15,6 +16,7 @@ namespace UI
 		private PickupTarget _pickupTarget;
 		private PlayerInteractionStateMachine _playerInteractionStateMachine;
 		private PlayerMovement _playerMovement;
+		[SerializeField] private Button _keepButton;
 
 	
 		public void Show(PickupTarget pickupTarget, PlayerInteractionStateMachine playerInteractionStateMachine)
@@ -34,6 +36,8 @@ namespace UI
 				Debug.LogError("Cannot inhibit player movement");
 				return;
 			}
+
+			EventSystem.current.SetSelectedGameObject(_keepButton.gameObject);
 
 			_playerMovement.SetCanMove(false);
 			UpdateUI(item);

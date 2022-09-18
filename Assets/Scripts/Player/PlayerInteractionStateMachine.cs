@@ -51,7 +51,7 @@ namespace Player
 		private void OnEnable()
 		{
 			_playerReference.SetPlayer(this); 
-			PlayerInputManager.OnDetectionToggle += ToggleDetection;
+			PlayerInputManager.OnDetection += Detection;
 			PlayerInputManager.OnManualDetectionToggle += ManualDetectionToggle;
 			PlayerInputManager.OnDiggingToggle += DiggingToggle;
 			PlayerInputManager.OnIdleToggle += InteractionToggle;
@@ -73,7 +73,7 @@ namespace Player
 			OnDetectorManualToggleChanged?.Invoke(IsManualDetecting);
 		}
 
-		private void ToggleDetection()
+		private void Detection()
 		{
 			IsDetecting = !IsDetecting;
 			ChangeState(IsDetecting ? DetectingState : InteractState);
@@ -81,7 +81,7 @@ namespace Player
 
 		private void OnDisable()
 		{
-			PlayerInputManager.OnDetectionToggle -= ToggleDetection;
+			PlayerInputManager.OnDetection -= Detection;
 			PlayerInputManager.OnManualDetectionToggle -= ManualDetectionToggle;
 			PlayerInputManager.OnDiggingToggle -= DiggingToggle;
 			PlayerInputManager.OnIdleToggle -= InteractionToggle;
