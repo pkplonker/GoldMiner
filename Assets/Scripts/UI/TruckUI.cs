@@ -17,9 +17,11 @@ namespace UI
 	{
 		private PlayerInteractionStateMachine _playerInteractionStateMachine;
 		[SerializeField] private Button _firstSelectedGameObject;
+		private PlayerMovement _playerMovement;
 		public void Init(PlayerInteractionStateMachine pism)
 		{
-			pism.GetComponent<PlayerMovement>().SetCanMove(false);
+			_playerMovement = pism.GetComponent<PlayerMovement>();
+			_playerMovement.SetCanMove(false);
 			_playerInteractionStateMachine = pism;
 		}
 
@@ -32,7 +34,7 @@ namespace UI
 		public override void Hide()
 		{
 			base.Hide();
-			_playerInteractionStateMachine.GetComponent<PlayerMovement>().SetCanMove(true);
+			_playerMovement.SetCanMove(true);
 		}
 
 

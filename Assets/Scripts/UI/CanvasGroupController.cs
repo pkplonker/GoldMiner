@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Player;
 using StuartHeathTools;
 using Targets;
@@ -21,37 +22,13 @@ namespace UI
 
 		public void Show(IShowHideUI ui)
 		{
-			if (uis.Contains(ui))
-			{
-				uis.RemoveAt(uis.IndexOf(ui));
-				uis.Add(ui);
-			}
-
-			uis.RemoveAll(x => x == null);
-			ui.Show();
-			for (int i = 0; i < uis.Count-1; i++)
-			{
-				ui.Disable();
-			}
+	
 		}
 
+	
 		public void Hide(IShowHideUI ui)
 		{
-			if (uis.Contains(ui))
-			{
-				if (uis.IndexOf(ui) == uis.Count-1)
-				{
-					uis.Remove(ui);
-					if (uis.Count > 0)
-					{
-						uis[^1].Enable();
-					}
-				}
-			}
-			else
-			{
-				ui.Hide();
-			}
+		
 		}
 	}
 }

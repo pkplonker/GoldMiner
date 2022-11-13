@@ -39,8 +39,9 @@ namespace UI
 
 		private void ToggleInventory()
 		{
-			if(_inventoryActive) Hide();
-		else Show();}
+			if (_inventoryActive) CanvasGroupController.Instance.Hide(this);
+			else CanvasGroupController.Instance.Show(this);
+		}
 
 
 		private void SetupInvent()
