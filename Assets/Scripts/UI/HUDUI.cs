@@ -8,11 +8,19 @@ namespace UI
   public class HUDUI :  MonoBehaviour, IShowHideUI
   {
     private CanvasGroup _canvasGroup;
-    private void Awake()=>_canvasGroup = GetComponent<CanvasGroup>();
-    private void Start()=>CanvasGroupController.Instance.Hide(this);
+    private void Awake()
+    {
+      _canvasGroup = GetComponent<CanvasGroup>();
+      Hide();
+    }
+
     private void OnEnable() => MapGenerator.OnMapGenerated += StartGame;
+
+   
     private void OnDisable()=> MapGenerator.OnMapGenerated  -= StartGame;
-    private void StartGame(float f) =>       CanvasGroupController.Instance.Show(this);
+
+    private void StartGame(float f) => Show();
+
 
     public void Show()
     {
