@@ -14,7 +14,7 @@ namespace TerrainGeneration
 		private readonly ConcurrentQueue<TerrainChunkData> _terrainChunkDatas = new ConcurrentQueue<TerrainChunkData>();
 		private int _chunksGeneratedCount = 0;
 		[SerializeField] private TerrainChunk _chunkPrefab;
-		[SerializeField] private float[,] _noiseMap;
+		private float[,] _noiseMap;
 		public Transform Container { get; private set; }
 		public static event Action OnTerrainGenerated;
 		public static event Action<int, int> OnChunkGenerated;
