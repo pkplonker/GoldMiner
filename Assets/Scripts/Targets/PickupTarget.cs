@@ -25,9 +25,8 @@ namespace Targets
 				Debug.LogError("Player invent is null");
 				return;
 			}
-			
 			CanvasGroupController.Instance.Show(CanvasGroupController.Instance.NewItemPickupUI);
-			_newItemPickupUI.Init(this, player);
+			CanvasGroupController.Instance.NewItemPickupUI.Init(this, player);
 		}
 
 		public void DestroyItem()
