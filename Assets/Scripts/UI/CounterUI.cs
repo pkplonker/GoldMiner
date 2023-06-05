@@ -3,22 +3,23 @@ using System.Collections;
 using Player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UI
 {
 	public class CounterUI : MonoBehaviour
 	{
-		[SerializeField] private string _message = "Gold: ";
-		[SerializeField] private string _siUnit = "g";
-		[SerializeField] private bool _postUnit = true;
-		[SerializeField] private float _speed = 2.5f;
+		[SerializeField] private string message = "Gold: ";
+		[SerializeField] private string siUnit = "g";
+		[SerializeField] private bool postUnit = true;
+		[SerializeField] private float speed = 2.5f;
 		[SerializeField] private TextMeshProUGUI _textMeshProUGUI;
-		private float _targetAmount;
-		private float _currentAmount;
-		private Coroutine _coroutine;
+		private float targetAmount;
+		private float currentAmount;
+		private Coroutine coroutine;
 		private void Awake() => UpdateText();
-		
-		[SerializeField] private PlayerReference _playerReference;
+
+		[SerializeField] private PlayerReference playerReference;
 		private void OnEnable() => PlayerReference.OnPlayerChanged += PlayerChanged;
 
 		private void OnDisable()
@@ -27,32 +28,31 @@ namespace UI
 			UnSubscribe();
 		}
 
-		protected virtual void UnSubscribe(){ }
+		protected virtual void UnSubscribe() { }
 
 		protected virtual void Subscribe() { }
 
 		private void PlayerChanged()
 		{
-			if (_playerReference.GetPlayer() == null)
+			if (playerReference.GetPlayer() == null)
 			{
 				PlayerCurrency.OnGoldChanged -= Received;
 				return;
 			}
+
 			Subscribe();
 		}
 
 		private void UpdateText()
 		{
-			if (_postUnit) _textMeshProUGUI.text = _message + _currentAmount.ToString("n2") + _siUnit;
-			else _textMeshProUGUI.text = _message + _siUnit + _currentAmount.ToString("n2");
+			if (postUnit) _textMeshProUGUI.text = message + currentAmount.ToString("n2") + siUnit;
+			else _textMeshProUGUI.text = message + siUnit + currentAmount.ToString("n2");
 		}
 
 		protected void Received(float weightFound, float total)
 		{
-			Debug.Log("received");
-			_targetAmount = total;
-
-			if (_coroutine == null)
+			targetAmount = total;
+			if (coroutine == null)
 			{
 				StartCoroutine(UpdateTextCor());
 			}
@@ -60,16 +60,16 @@ namespace UI
 
 		private IEnumerator UpdateTextCor()
 		{
-			var delta = _targetAmount - _currentAmount;
-			while (_targetAmount.ToString("n2") != _currentAmount.ToString("n2"))
+			var delta = targetAmount - currentAmount;
+			while (targetAmount.ToString("n2") != currentAmount.ToString("n2"))
 			{
-				
-				_currentAmount = Mathf.MoveTowards(_currentAmount, _targetAmount,_targetAmount>_currentAmount ? delta/ _speed * Time.deltaTime:-delta/ _speed * Time.deltaTime);
+				currentAmount = Mathf.MoveTowards(currentAmount, targetAmount,
+					targetAmount > currentAmount ? delta / speed * Time.deltaTime : -delta / speed * Time.deltaTime);
 				UpdateText();
 				yield return null;
 			}
 
-			_coroutine = null;
+			coroutine = null;
 		}
 	}
 }

@@ -14,8 +14,8 @@ namespace Player
 	/// </summary>
 	public class PlayerInputManager : GenericUnitySingleton<PlayerInputManager>
 	{
-		private PlayerControls _playerControls;
-		private bool _leftClick;
+		private PlayerControls playerControls;
+		private bool leftClick;
 		public static event Action OnDetection;
 		public static event Action OnManualDetectionToggle;
 		public static event Action OnDiggingToggle;
@@ -34,57 +34,54 @@ namespace Player
 		private void ESC(InputAction.CallbackContext obj) => OnESC?.Invoke();
 		private void Invent(InputAction.CallbackContext obj) => OnInvent?.Invoke();
 
-		public Vector2 GetPlayerMovement() => _playerControls.PlayerMovement.Move.ReadValue<Vector2>();
-		public Vector2 GetMouseDelta() => _playerControls.PlayerMovement.Look.ReadValue<Vector2>();
-		public Vector2 GetMousePosition() => _playerControls.PlayerMovement.MousePosition.ReadValue<Vector2>();
+		public Vector2 GetPlayerMovement() => playerControls.PlayerMovement.Move.ReadValue<Vector2>();
+		public Vector2 GetMouseDelta() => playerControls.PlayerMovement.Look.ReadValue<Vector2>();
+		public Vector2 GetMousePosition() => playerControls.PlayerMovement.MousePosition.ReadValue<Vector2>();
 
-		public bool GetLeftClick() => _leftClick;
-		public bool GetLeftClickHeld() => _playerControls.PlayerMovement.LeftClick.inProgress;
-		public bool GetPanLeftHeld() => _playerControls.PlayerMovement.PanLeft.inProgress;
-		public bool GetPanRightHeld() => _playerControls.PlayerMovement.PanRight.inProgress;
+		public bool GetLeftClick() => leftClick;
+		public bool GetLeftClickHeld() => playerControls.PlayerMovement.LeftClick.inProgress;
+		public bool GetPanLeftHeld() => playerControls.PlayerMovement.PanLeft.inProgress;
+		public bool GetPanRightHeld() => playerControls.PlayerMovement.PanRight.inProgress;
 
 		protected override void Awake()
 		{
 			base.Awake();
-			_playerControls = new PlayerControls();
+			playerControls = new PlayerControls();
 		}
 
 		private void OnEnable()
 		{
-			_playerControls.Enable();
-			_playerControls.PlayerMovement.Detection.performed += Detection;
-			_playerControls.PlayerMovement.Jump.performed += Jump;
+			playerControls.Enable();
+			playerControls.PlayerMovement.Detection.performed += Detection;
+			playerControls.PlayerMovement.Jump.performed += Jump;
 
-			_playerControls.PlayerMovement.ManualDetectionToggle.performed += ManualDetectionToggle;
-			_playerControls.PlayerMovement.Digging.performed += Digging;
-			_playerControls.PlayerMovement.Idle.performed += Idle;
-			_playerControls.PlayerMovement.LeftClick.performed += SetLeftClick;
-			_playerControls.PlayerMovement.ESC.performed += ESC;
-			_playerControls.PlayerMovement.Invent.performed += Invent;
+			playerControls.PlayerMovement.ManualDetectionToggle.performed += ManualDetectionToggle;
+			playerControls.PlayerMovement.Digging.performed += Digging;
+			playerControls.PlayerMovement.Idle.performed += Idle;
+			playerControls.PlayerMovement.LeftClick.performed += SetLeftClick;
+			playerControls.PlayerMovement.ESC.performed += ESC;
+			playerControls.PlayerMovement.Invent.performed += Invent;
 		}
-
 
 		private void OnDisable()
 		{
-			_playerControls.Disable();
-			_playerControls.PlayerMovement.Detection.performed -= Detection;
-			_playerControls.PlayerMovement.Jump.performed -= Jump;
+			playerControls.Disable();
+			playerControls.PlayerMovement.Detection.performed -= Detection;
+			playerControls.PlayerMovement.Jump.performed -= Jump;
 
-			_playerControls.PlayerMovement.ManualDetectionToggle.performed -= ManualDetectionToggle;
-			_playerControls.PlayerMovement.Digging.performed -= Digging;
-			_playerControls.PlayerMovement.Idle.performed -= Idle;
-			_playerControls.PlayerMovement.LeftClick.performed -= SetLeftClick;
-			_playerControls.PlayerMovement.ESC.performed -= ESC;
-			_playerControls.PlayerMovement.Invent.performed -= Invent;
+			playerControls.PlayerMovement.ManualDetectionToggle.performed -= ManualDetectionToggle;
+			playerControls.PlayerMovement.Digging.performed -= Digging;
+			playerControls.PlayerMovement.Idle.performed -= Idle;
+			playerControls.PlayerMovement.LeftClick.performed -= SetLeftClick;
+			playerControls.PlayerMovement.ESC.performed -= ESC;
+			playerControls.PlayerMovement.Invent.performed -= Invent;
 		}
 
-		private void SetLeftClick(InputAction.CallbackContext obj) => _leftClick = true;
-
-
+		private void SetLeftClick(InputAction.CallbackContext obj) => leftClick = true;
 
 		private void LateUpdate()
 		{
-			_leftClick = false;
+			leftClick = false;
 		}
 	}
 }

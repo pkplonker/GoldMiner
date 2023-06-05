@@ -150,7 +150,7 @@ Transform:
   m_Children:
   - {fileID: 3728400243578458615}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1881947244043790603
 MonoBehaviour:
@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f64ff851100bde14f98dc1318275644e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxYRot: 35
-  _rotationSpeed: 35
+  maxYRot: 35
+  rotationSpeed: 35
 --- !u!82 &1691519814
 AudioSource:
   m_ObjectHideFlags: 0
@@ -275,8 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b62ea06f65f99c4ca8d9978d5ab97be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lowFreq: 40
-  _highFreq: 1000
+  lowFreq: 500
+  highFreq: 650
   isDetecting: 0
 --- !u!114 &5829248635142955580
 MonoBehaviour:
@@ -419,10 +419,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec25a01964a79440bac8d92e28b77db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lowerRad: 0.4
-  _upperRad: 0.4
-  _distance: 0.4
-  _lowerDistanceThreshHoldForMaxOutput: 0.3
+  lowerRad: 0.4
+  upperRad: 0.4
+  distance: 0.4
+  lowerDistanceThreshHoldForMaxOutput: 0.3
   _signalDegradeSpeed: 2
 --- !u!1 &6400816813479670093
 GameObject:

@@ -6,6 +6,7 @@ using System;
 using Player;
 using Targets;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DetectorScripts
 {
@@ -14,11 +15,12 @@ namespace DetectorScripts
 	/// </summary>
 	public class DetectorHead : MonoBehaviour
 	{
-		[SerializeField] private float _lowerRad = 0.4f;
-		[SerializeField] private float _upperRad = 0.4f;
-		[SerializeField] private float _distance = 0.4f;
-		[SerializeField] private float _lowerDistanceThreshHoldForMaxOutput=0.3f;
-		private ConeGenerator _coneGenerator;
+		[SerializeField] private float lowerRad = 0.4f;
+		[SerializeField] private float upperRad = 0.4f;
+		[SerializeField] private float distance = 0.4f;
+		[SerializeField] private float lowerDistanceThreshHoldForMaxOutput = 0.3f;
+
+		private ConeGenerator coneGenerator;
 		public static float CurrentSignal { get; private set; }
 		[SerializeField] private float _signalDegradeSpeed = 2f;
 		public static event Action<float> OnDetection;
@@ -29,7 +31,6 @@ namespace DetectorScripts
 			GenerateCone();
 			CurrentSignal = 0;
 			OnDetection?.Invoke(CurrentSignal);
-
 		}
 
 		private void GenerateCone()
@@ -39,9 +40,9 @@ namespace DetectorScripts
 			go.transform.localPosition = Vector3.zero;
 			go.transform.localRotation = Quaternion.Euler(-90, 0, 0);
 			go.transform.localScale = transform.localScale;
-			_coneGenerator = go.AddComponent<ConeGenerator>();
-			_coneGenerator.GenerateCone( 12, _distance, _lowerRad, _upperRad);
-			_coneGenerator.enabled = false;
+			coneGenerator = go.AddComponent<ConeGenerator>();
+			coneGenerator.GenerateCone(12, distance, lowerRad, upperRad);
+			coneGenerator.enabled = false;
 			go.AddComponent<DetectorCone>();
 
 			//debug only
@@ -60,25 +61,24 @@ namespace DetectorScripts
 			CurrentSignal = Mathf.Lerp(CurrentSignal, 0, Time.deltaTime * _signalDegradeSpeed);
 		}
 
-
 		private float CalculateSignalStrength(Target t)
 		{
-			var direction = (t.transform.position - _coneGenerator.transform.position).normalized;
+			var direction = (t.transform.position - coneGenerator.transform.position).normalized;
 
-			if (!Physics.Raycast(_coneGenerator.transform.position, direction, out var hit, _distance,
+			if (!Physics.Raycast(coneGenerator.transform.position, direction, out var hit, distance,
 				    LayerMask.GetMask(TARGET_LAYER_MASK))) return 0;
 
 			if (hit.collider.gameObject != t.gameObject) return 0;
-			Debug.DrawLine(_coneGenerator.transform.position, hit.point, Color.red, 1f);
-		//	Debug.Log("distance  = " + hit.distance);
+			Debug.DrawLine(coneGenerator.transform.position, hit.point, Color.red, 1f);
+			//	Debug.Log("distance  = " + hit.distance);
 			return CalculateStrength(hit);
 		}
 
 		private float CalculateStrength(RaycastHit hit)
 		{
-			var val = Mathf.Clamp01(1 - (hit.distance / _distance));
+			var val = Mathf.Clamp01(1 - (hit.distance / distance));
 			//Debug.Log(val);
-			if(val<=_lowerDistanceThreshHoldForMaxOutput)
+			if (val <= lowerDistanceThreshHoldForMaxOutput)
 				return 0;
 			return val;
 		}

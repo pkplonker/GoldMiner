@@ -2381,7 +2381,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.1213872, y: 1}
+    m_SensorSize: {x: 1.9903661, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2625,20 +2625,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3809e4d96ca7eb64eadefe3271fccfe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 12
-  _rotationSpeedX: 12
-  _rotationSpeedY: 12
-  _groundLayers:
+  moveSpeed: 4
+  rotationSpeedX: 12
+  rotationSpeedY: 12
+  groundLayers:
     serializedVersion: 2
     m_Bits: 0
-  _speedChangeRate: 10
-  _gravity: -15
-  _fallTimeout: 0.15
-  _groundedOffset: -0.14
-  _groundedRadius: 0.5
-  _cinemachineCameraTarget: {fileID: 2811365849900761655}
-  _topClamp: 65
-  _bottomClamp: -65
+  speedChangeRate: 10
+  gravity: -15
+  fallTimeout: 0.15
+  groundedOffset: -0.14
+  groundedRadius: 0.5
+  cinemachineCameraTarget: {fileID: 2811365849900761655}
+  topClamp: 89
+  bottomClamp: -89
 --- !u!114 &161934956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2697,6 +2697,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7115179166986297814}
     m_Modifications:
+    - target: {fileID: 1691519813, guid: 97d5982cbcdad064b9026c2228aec95e, type: 3}
+      propertyPath: lowFreq
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1691519813, guid: 97d5982cbcdad064b9026c2228aec95e, type: 3}
+      propertyPath: highFreq
+      value: 750
+      objectReference: {fileID: 0}
     - target: {fileID: 1986650975, guid: 97d5982cbcdad064b9026c2228aec95e, type: 3}
       propertyPath: _distance
       value: 0.65

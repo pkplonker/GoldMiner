@@ -6,19 +6,16 @@ namespace DetectorScripts
 	[RequireComponent(typeof(MeshFilter))]
 	public class ConeGenerator : MonoBehaviour
 	{
-		private List<Vector3> _vertices = new List<Vector3>();
-		private List<int> _triangles = new List<int>();
+		private List<Vector3> vertices = new();
+		private List<int> triangles = new();
 		private const float TAU = 6.283185307179586f;
 
-
-		public void GenerateCone( int sides, float height, float topRadius, float bottomRadius)
+		public void GenerateCone(int sides, float height, float topRadius, float bottomRadius)
 		{
-			var position = transform.position;
-			GenerateVertices(bottomRadius, topRadius, sides, height, _vertices);
-			GenerateTriangles(_triangles, sides, _vertices.Count);
-			GetComponent<MeshFilter>().mesh = GenerateMesh(_vertices, _triangles, "cone");
+			GenerateVertices(bottomRadius, topRadius, sides, height, vertices);
+			GenerateTriangles(triangles, sides, vertices.Count);
+			GetComponent<MeshFilter>().mesh = GenerateMesh(vertices, triangles, "cone");
 		}
-
 
 		private static void GenerateTriangles(List<int> triangles, int sides, int vertexCount)
 		{
@@ -28,7 +25,6 @@ namespace DetectorScripts
 				var rootLeft = root + 1;
 				var rootUpleft = root + sides + 1;
 				var rootUp = root + sides;
-
 
 				triangles.Add(root);
 				triangles.Add(rootUpleft);
@@ -76,7 +72,7 @@ namespace DetectorScripts
 				var angle = TAU * i / sides;
 				var x = Mathf.Cos(angle);
 				var y = Mathf.Sin(angle);
-				vertices.Add(new Vector3( (x * (bottomRadius / 2)),0,  (y * (bottomRadius / 2))));
+				vertices.Add(new Vector3((x * (bottomRadius / 2)), 0, (y * (bottomRadius / 2))));
 			}
 
 			for (var i = 0; i < sides; i++)
@@ -84,14 +80,11 @@ namespace DetectorScripts
 				var angle = TAU * i / sides;
 				var x = Mathf.Cos(angle);
 				var y = Mathf.Sin(angle);
-				vertices.Add(new Vector3( (x * (topRadius / 2)), height, (y * (topRadius / 2)) ));
+				vertices.Add(new Vector3((x * (topRadius / 2)), height, (y * (topRadius / 2))));
 			}
-			vertices.Add( new Vector3(0,height,0));
 
-	
-		
+			vertices.Add(new Vector3(0, height, 0));
 		}
-
 
 		private static Mesh GenerateMesh(List<Vector3> vertices, List<int> triangles, string name)
 		{

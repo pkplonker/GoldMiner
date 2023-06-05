@@ -6,6 +6,7 @@ using System;
 using Audio;
 using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DetectorScripts
 {
@@ -15,16 +16,16 @@ namespace DetectorScripts
 	[RequireComponent(typeof(AudioSource))]
 	public class DetectorBeep : MonoBehaviour
 	{
-		AudioSource _audioSource;
-		ToneGenerator.ToneClipData _toneClipData;
-		[SerializeField] private float _lowFreq;
-		[SerializeField] private float _highFreq;
-		[SerializeField] private bool isDetecting = false;
+		private AudioSource audioSource;
+		ToneGenerator.ToneClipData toneClipData;
+		[SerializeField] private float lowFreq;
+		[SerializeField] private float highFreq;
+		[SerializeField] private bool isDetecting;
 
 		private void Start()
 		{
-			_audioSource = GetComponent<AudioSource>();
-			_toneClipData = new ToneGenerator.ToneClipData(0);
+			audioSource = GetComponent<AudioSource>();
+			toneClipData = new ToneGenerator.ToneClipData(0);
 		}
 
 		private void OnEnable() => PlayerInteractionStateMachine.OnStateChanged += OnPlayerStateChanged;
@@ -32,32 +33,32 @@ namespace DetectorScripts
 
 		private void OnPlayerStateChanged(BaseState state) => isDetecting = state.GetType() == typeof(DetectorState);
 
-
 		private void Update()
 		{
-			if(isDetecting){
-			var signal = DetectorHead.CurrentSignal;
-			if (signal < 0.1f)
+			if (isDetecting)
 			{
-				_audioSource.Stop();
-				return;
-			}
+				var signal = DetectorHead.CurrentSignal;
+				if (signal < 0.1f)
+				{
+					audioSource.Stop();
+					return;
+				}
 
-			//determine frequency
-			var freq = _lowFreq + (_highFreq - _lowFreq) * signal;
-			//generate tone
-			var clipData = new ToneGenerator.ToneClipData(freq);
-			if (_toneClipData == null || _toneClipData.frequency == clipData.frequency) return;
+				//determine frequency
+				var freq = lowFreq + (highFreq - lowFreq) * signal;
+				//generate tone
+				var clipData = new ToneGenerator.ToneClipData(freq);
+				if (toneClipData == null || toneClipData.frequency == clipData.frequency) return;
 
-			_toneClipData = clipData;
-			//play tone
-			//audioSource.Stop();
-			_audioSource.clip = clipData.clip;
-			_audioSource.Play();
+				toneClipData = clipData;
+				//play tone
+				//audioSource.Stop();
+				audioSource.clip = clipData.clip;
+				audioSource.Play();
 			}
 			else
 			{
-				_audioSource.Stop();
+				audioSource.Stop();
 			}
 		}
 	}

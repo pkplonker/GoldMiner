@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using PlasticGui;
 using TerrainGeneration;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -15,10 +16,9 @@ namespace Player
 	/// </summary>
 	public class SingleItemSpawner : MonoBehaviour
 	{
-		[SerializeField] private string _groundLayer = "Ground";
-		[SerializeField] private List<SingleInstanceSpawn> _prefabsToSpawn;
-		private static List<GameObject> _spawnedPrefabs = new List<GameObject>();
-
+		[SerializeField] private string groundLayer = "Ground";
+		[SerializeField] private List<SingleInstanceSpawn> prefabsToSpawn;
+		private static List<GameObject> spawnedPrefabs = new();
 
 		private void OnEnable()
 		{
@@ -28,8 +28,8 @@ namespace Player
 
 		private void DespawnObjects(int notRequired = 0, int notRequired2 = 0)
 		{
-			if (_spawnedPrefabs == null || _spawnedPrefabs.Count == 0) return;
-			foreach (var spawned in _spawnedPrefabs)
+			if (spawnedPrefabs == null || spawnedPrefabs.Count == 0) return;
+			foreach (var spawned in spawnedPrefabs)
 			{
 				DestroyObject(spawned);
 			}
@@ -37,12 +37,11 @@ namespace Player
 
 		private static void DestroyObject(GameObject spawned) => Destroy(spawned);
 
-
 		private void SpawnAll(float size)
 		{
 			DespawnObjects();
 
-			foreach (var p in _prefabsToSpawn)
+			foreach (var p in prefabsToSpawn)
 			{
 				Spawn(p, size);
 			}
@@ -52,22 +51,20 @@ namespace Player
 		{
 			var currentInstance = Instantiate(sis.Prefab);
 			currentInstance.SetActive(false);
-			var spawnTransform = sis.CalculateSpawn(size, currentInstance, _groundLayer);
+			var spawnTransform = sis.CalculateSpawn(size, currentInstance, groundLayer);
 
 			if (spawnTransform.Position.x < size)
 			{
 				currentInstance.transform.position = spawnTransform.Position;
 				currentInstance.transform.rotation = spawnTransform.Rotation;
 				currentInstance.SetActive(true);
-				_spawnedPrefabs.Add(currentInstance);
+				spawnedPrefabs.Add(currentInstance);
 				sis.Setup(currentInstance);
 			}
 			else HandleFailedSpawn(sis);
 		}
 
-
-		private void HandleFailedSpawn(SingleInstanceSpawn sis)=>Debug.LogError($"Failed to spawn {sis.Prefab.name}");
-		
+		private void HandleFailedSpawn(SingleInstanceSpawn sis) => Debug.LogError($"Failed to spawn {sis.Prefab.name}");
 
 		private void OnDisable() => MapGenerator.OnMapGenerated -= SpawnAll;
 	}

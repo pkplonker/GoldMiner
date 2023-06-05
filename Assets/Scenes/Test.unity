@@ -1551,8 +1551,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10964694ec8108f419e23430ba9f21a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundLayer: Ground
-  _prefabsToSpawn:
+  groundLayer: Ground
+  prefabsToSpawn:
   - {fileID: 11400000, guid: efb92ad9e1dc28d43b207894c3b9755e, type: 2}
   - {fileID: 11400000, guid: c4923b9c33f28a74d8aae5a6a33ed9bf, type: 2}
 --- !u!4 &1351785758
@@ -2860,6 +2860,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4397654420222439394, guid: 58aebf8aac327aa4c95e9a111a059eca,
+        type: 3}
+      propertyPath: playerReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51,
+        type: 2}
     - target: {fileID: 4489612354005791696, guid: 58aebf8aac327aa4c95e9a111a059eca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2952,6 +2958,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 9a7076014741d7f4bb579cbcbda45497,
         type: 3}
+    - target: {fileID: 8056057889079198730, guid: 58aebf8aac327aa4c95e9a111a059eca,
+        type: 3}
+      propertyPath: playerReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51,
+        type: 2}
     - target: {fileID: 8056057889875858290, guid: 58aebf8aac327aa4c95e9a111a059eca,
         type: 3}
       propertyPath: m_Pivot.x

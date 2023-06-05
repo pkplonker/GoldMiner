@@ -22,6 +22,6 @@
 		 {
 			 Player = player;
 			 OnPlayerChanged?.Invoke();
-		 } 
+		 }
 	 }
  }

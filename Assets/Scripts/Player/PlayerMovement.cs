@@ -1,52 +1,61 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
 	[RequireComponent(typeof(CharacterController))]
 	public class PlayerMovement : MonoBehaviour
 	{
-		[Header("Player")] [SerializeField] private float _moveSpeed = 4.0f;
-		[SerializeField] private float _rotationSpeedX = 12.0f;
-		[SerializeField] private float _rotationSpeedY = 12.0f;
+		[SerializeField] private float moveSpeed = 4.0f;
+
+		[SerializeField] private float rotationSpeedX = 12.0f;
+
+		[SerializeField] private float rotationSpeedY = 12.0f;
 
 		[Tooltip("What layers the character uses as ground")] [SerializeField]
-		private LayerMask _groundLayers;
+		private LayerMask groundLayers;
 
-		[SerializeField] private float _speedChangeRate = 10.0f;
-		[SerializeField] private float _gravity = -15.0f;
-		[SerializeField] private float _fallTimeout = 0.15f;
-		[SerializeField] private float _groundedOffset = -0.14f;
-		[SerializeField] private float _groundedRadius = 0.5f;
+		[SerializeField] private float speedChangeRate = 10.0f;
+
+		[SerializeField] private float gravity = -15.0f;
+
+		[SerializeField] private float fallTimeout = 0.15f;
+
+		[SerializeField] private float groundedOffset = -0.14f;
+
+		[SerializeField] private float groundedRadius = 0.5f;
+
 		public event Action<Vector2> OnMove;
 		public event Action<Vector2> OnRotate;
 
-		[SerializeField] private GameObject _cinemachineCameraTarget;
-		[SerializeField] private float _topClamp = 89.0f;
-		[SerializeField] private float _bottomClamp = -89.0f;
+		[SerializeField] private GameObject cinemachineCameraTarget;
 
-		private float _cinemachineTargetPitch;
-		private bool _grounded = true;
+		[SerializeField] private float topClamp = 89.0f;
 
-		private float _speed;
-		private float _rotationVelocity;
-		private float _verticalVelocity;
+		[SerializeField] private float bottomClamp = -89.0f;
+
+		private float cinemachineTargetPitch;
+		private bool grounded = true;
+
+		private float speed;
+		private float rotationVelocity;
+		private float verticalVelocity;
 		private const float TERMINAL_VELOCITY = 53.0f;
 
-		private float _fallTimeoutDelta;
+		private float fallTimeoutDelta;
 
-		private CharacterController _controller;
-		private GameObject _mainCamera;
-		private bool _canMove;
+		private CharacterController controller;
+		private GameObject mainCamera;
+		private bool canMove;
 
 		private const float THRESHOLD = 0.01f;
 
-
 		private void Awake()
 		{
-			if (_mainCamera == null)
+			if (mainCamera == null)
 			{
-				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+				mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 			}
 
 			Cursor.visible = false;
@@ -55,7 +64,7 @@ namespace Player
 
 		public void SetCanMove(bool cm)
 		{
-			_canMove = cm;
+			canMove = cm;
 			if (cm)
 			{
 				Cursor.visible = false;
@@ -70,8 +79,8 @@ namespace Player
 
 		private void Start()
 		{
-			_controller = GetComponent<CharacterController>();
-			_fallTimeoutDelta = _fallTimeout;
+			controller = GetComponent<CharacterController>();
+			fallTimeoutDelta = fallTimeout;
 		}
 
 		private void Update()
@@ -86,14 +95,14 @@ namespace Player
 			if (CanMove()) CameraRotation();
 		}
 
-		private bool CanMove() => _canMove;
+		private bool CanMove() => canMove;
 
 		private void GroundedCheck()
 		{
 			var position = transform.position;
-			Vector3 spherePosition = new Vector3(position.x, position.y - _groundedOffset,
+			Vector3 spherePosition = new Vector3(position.x, position.y - groundedOffset,
 				position.z);
-			_grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _groundLayers,
+			grounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers,
 				QueryTriggerInteraction.Ignore);
 		}
 
@@ -101,11 +110,11 @@ namespace Player
 		{
 			var mouseLook = PlayerInputManager.Instance.GetMouseDelta();
 			if (!(mouseLook.sqrMagnitude >= THRESHOLD)) return;
-			_cinemachineTargetPitch -= mouseLook.y * _rotationSpeedY * Time.deltaTime;
-			_rotationVelocity = mouseLook.x * _rotationSpeedX * Time.deltaTime;
-			_cinemachineTargetPitch = ClampCameraPitchAngle(_cinemachineTargetPitch, _bottomClamp, _topClamp);
-			_cinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
-			transform.Rotate(Vector3.up * _rotationVelocity);
+			cinemachineTargetPitch -= mouseLook.y * rotationSpeedY * Time.deltaTime;
+			rotationVelocity = mouseLook.x * rotationSpeedX * Time.deltaTime;
+			cinemachineTargetPitch = ClampCameraPitchAngle(cinemachineTargetPitch, bottomClamp, topClamp);
+			cinemachineCameraTarget.transform.localRotation = Quaternion.Euler(cinemachineTargetPitch, 0.0f, 0.0f);
+			transform.Rotate(Vector3.up * rotationVelocity);
 			OnRotate?.Invoke(mouseLook.normalized);
 		}
 
@@ -113,16 +122,15 @@ namespace Player
 		{
 			var input = PlayerInputManager.Instance.GetPlayerMovement();
 
-			var velocity = _controller.velocity;
+			var velocity = controller.velocity;
 			var currentHorizontalSpeed = new Vector3(velocity.x, 0.0f, velocity.z).magnitude;
 			const float SPEED_OFFSET = 0.1f;
-			if (currentHorizontalSpeed < _moveSpeed - SPEED_OFFSET || currentHorizontalSpeed > _moveSpeed + SPEED_OFFSET)
+			if (currentHorizontalSpeed < moveSpeed - SPEED_OFFSET || currentHorizontalSpeed > moveSpeed + SPEED_OFFSET)
 			{
-				_speed = Mathf.Lerp(currentHorizontalSpeed, _moveSpeed, Time.deltaTime * _speedChangeRate);
-				_speed = Mathf.Round(_speed * 1000f) / 1000f;
+				speed = Mathf.Lerp(currentHorizontalSpeed, moveSpeed, Time.deltaTime * speedChangeRate);
+				speed = Mathf.Round(speed * 1000f) / 1000f;
 			}
-			else _speed = _moveSpeed;
-
+			else speed = moveSpeed;
 
 			var inputDirection = new Vector3(input.x, 0.0f, input.y).normalized;
 			if (input != Vector2.zero)
@@ -131,24 +139,24 @@ namespace Player
 				inputDirection = trans.right * input.x + trans.forward * input.y;
 			}
 
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) +
-			                 new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			controller.Move(inputDirection.normalized * (speed * Time.deltaTime) +
+			                new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
 			OnMove?.Invoke(input.normalized);
 		}
 
 		private void Gravity()
 		{
-			if (_grounded)
+			if (grounded)
 			{
-				_fallTimeoutDelta = _fallTimeout;
-				if (_verticalVelocity < 0.0f) _verticalVelocity = -2f;
+				fallTimeoutDelta = fallTimeout;
+				if (verticalVelocity < 0.0f) verticalVelocity = -2f;
 			}
 			else
 			{
-				if (_fallTimeoutDelta >= 0.0f) _fallTimeoutDelta -= Time.deltaTime;
+				if (fallTimeoutDelta >= 0.0f) fallTimeoutDelta -= Time.deltaTime;
 			}
 
-			if (_verticalVelocity < TERMINAL_VELOCITY) _verticalVelocity += _gravity * Time.deltaTime;
+			if (verticalVelocity < TERMINAL_VELOCITY) verticalVelocity += gravity * Time.deltaTime;
 		}
 
 		private static float ClampCameraPitchAngle(float lfAngle, float lfMin, float lfMax)
@@ -162,11 +170,11 @@ namespace Player
 		{
 			var transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
 			var transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
-			Gizmos.color = _grounded ? transparentGreen : transparentRed;
+			Gizmos.color = grounded ? transparentGreen : transparentRed;
 			var position = transform.position;
 			Gizmos.DrawSphere(
-				new Vector3(position.x, position.y - _groundedOffset, position.z),
-				_groundedRadius);
+				new Vector3(position.x, position.y - groundedOffset, position.z),
+				groundedRadius);
 		}
 	}
 }

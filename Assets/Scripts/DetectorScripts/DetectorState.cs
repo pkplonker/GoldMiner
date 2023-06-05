@@ -13,48 +13,43 @@ namespace DetectorScripts
 	/// </summary>
 	public class DetectorState : BaseState
 	{
-		private  PlayerInteractionStateMachine _stateMachine;
-		private static DetectorMovement _detectorMovement;
-		public static void RegisterDetector(DetectorMovement d) => _detectorMovement = d;
-
+		private PlayerInteractionStateMachine stateMachine;
+		private static DetectorMovement detectorMovement;
+		public static void RegisterDetector(DetectorMovement d) => detectorMovement = d;
 
 		public static void UnregisterDetector(DetectorMovement d)
 		{
-			if (d == _detectorMovement) _detectorMovement = null;
+			if (d == detectorMovement) detectorMovement = null;
 			else Debug.Log("Trying to deregister a detector that is not registered");
 		}
 
-
-		private void UpdateHandIK()=>_stateMachine.RigHandTarget.position = _stateMachine.HandleIKTarget.position;
-		
+		private void UpdateHandIK() => stateMachine.RigHandTarget.position = stateMachine.HandleIKTarget.position;
 
 		public override void EnterState(StateMachine sm)
 		{
-			_stateMachine = sm as PlayerInteractionStateMachine;
-			_stateMachine.Animator.SetLayerWeight(_stateMachine.Animator.GetLayerIndex("RightHand"), 1);
-			_stateMachine.Rig.weight = 1;
-			_stateMachine.DetectorModel.SetActive(true);
-
+			stateMachine = sm as PlayerInteractionStateMachine;
+			stateMachine.Animator.SetLayerWeight(stateMachine.Animator.GetLayerIndex("RightHand"), 1);
+			stateMachine.Rig.weight = 1;
+			stateMachine.DetectorModel.SetActive(true);
 		}
 
 		protected override void VirtualStateExit()
 		{
-			_stateMachine.Animator.SetLayerWeight(_stateMachine.Animator.GetLayerIndex("RightHand"), 0);
-			_stateMachine.Rig.weight = 0;
+			stateMachine.Animator.SetLayerWeight(stateMachine.Animator.GetLayerIndex("RightHand"), 0);
+			stateMachine.Rig.weight = 0;
 			PlayerInteractionStateMachine.IsDetecting = false;
 			PlayerInteractionStateMachine.IsManualDetecting = false;
-			_detectorMovement.ResetPosition();
-			_stateMachine.DetectorModel.SetActive(false);
-
+			detectorMovement.ResetPosition();
+			stateMachine.DetectorModel.SetActive(false);
 		}
 
 		public override void Tick()
 		{
 			UpdateHandIK();
-			if (_detectorMovement == null) return;
-			_stateMachine.DetectorModel.SetActive(true);
-			if (PlayerInteractionStateMachine.IsManualDetecting) _detectorMovement.HandleManualMovement();
-			else _detectorMovement.HandleAutomaticMovement();
+			if (detectorMovement == null) return;
+			stateMachine.DetectorModel.SetActive(true);
+			if (PlayerInteractionStateMachine.IsManualDetecting) detectorMovement.HandleManualMovement();
+			else detectorMovement.HandleAutomaticMovement();
 		}
 	}
 }

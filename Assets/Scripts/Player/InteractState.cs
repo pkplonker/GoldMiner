@@ -5,20 +5,20 @@ namespace Player
 {
 	public class InteractState : BaseState
 	{
-		private PlayerInteractionStateMachine _stateMachine;
+		private PlayerInteractionStateMachine stateMachine;
 
 		public override void EnterState(StateMachine sm)
 		{
-			_stateMachine = sm as PlayerInteractionStateMachine;
-			_stateMachine.Reticle.enabled = true;
+			stateMachine = sm as PlayerInteractionStateMachine;
+			stateMachine.Reticle.enabled = true;
 		}
 
-		protected override void VirtualStateExit() => _stateMachine.Reticle.enabled = false;
+		protected override void VirtualStateExit() => stateMachine.Reticle.enabled = false;
 
 		public override void Tick()
 		{
-			var ray = _stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
-			if (!Physics.Raycast(ray, out var hit, _stateMachine.interactionRange))
+			var ray = stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
+			if (!Physics.Raycast(ray, out var hit, stateMachine.interactionRange))
 			{
 				HandleMessage(null);
 				return;
@@ -39,7 +39,7 @@ namespace Player
 		private void HandleClick(IInteractable interactable)
 		{
 			if (interactable == null) return;
-			if (PlayerInputManager.Instance.GetLeftClick()) interactable.Interact(_stateMachine);
+			if (PlayerInputManager.Instance.GetLeftClick()) interactable.Interact(stateMachine);
 			
 			
 		}
