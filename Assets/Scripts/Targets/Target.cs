@@ -4,6 +4,7 @@
 
 using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Targets
 {
@@ -12,15 +13,20 @@ namespace Targets
 	/// </summary>
 	public class Target : MonoBehaviour, IInteractable
 	{
-		[Range(0.01f, 1)] [SerializeField] private float _signalStrength;
-		public float GetSignalStrength() => _signalStrength;
-		[SerializeField] private bool _drawGizmos = false;
-		[SerializeField] private string _interactText = "Click to pickup";
-		private bool _isActiveTarget = false;
-		[SerializeField] private Color _gizmoColor = Color.red;
+		[field: Range(0.01f, 1)]
+		[field: SerializeField]
+		public float SignalStrength { get; private set; } = 0.8f;
+
+		[SerializeField] private bool drawGizmos;
+		[SerializeField] private string interactText = "Click to pickup";
+		private bool isActiveTarget;
+
+		[FormerlySerializedAs("_gizmoColor")] [SerializeField]
+		private Color gizmoColor = Color.red;
+
 		protected virtual void OnDrawGizmos()
 		{
-			if (_drawGizmos) DrawMarker();
+			if (drawGizmos) DrawMarker();
 		}
 
 		protected virtual void DrawMarker()
@@ -29,16 +35,17 @@ namespace Targets
 			Gizmos.DrawRay(transform.position, Vector3.up);
 		}
 
-		protected virtual void SetColor() => Gizmos.color = _gizmoColor;
+		protected virtual void SetColor() => Gizmos.color = gizmoColor;
 		protected virtual void OnDrawGizmosSelected() => DrawMarker();
 
-		public virtual void Interact(PlayerInteractionStateMachine player)=>Debug.Log("Interacted");
-		
+		public virtual void Interact(PlayerInteractionStateMachine player) => Debug.Log("Interacted");
+
 		protected void DisableObject()
 		{
 			GetComponent<Collider>().enabled = false;
 			GetComponent<MeshRenderer>().enabled = false;
 		}
-		public string GetInteractMessage() => _interactText;
+
+		public string GetInteractMessage() => interactText;
 	}
 }

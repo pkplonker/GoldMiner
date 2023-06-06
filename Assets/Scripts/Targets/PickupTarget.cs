@@ -2,16 +2,15 @@ using System;
 using Player;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Targets
 {
 	public class PickupTarget : Target
 	{
-		[SerializeField] private Item _item;
-		public Item GetItem() => _item;
-		private NewItemPickupUI _newItemPickupUI;
+		[field: SerializeField] public Item Item { get; private set; }
+		private NewItemPickupUI newItemPickupUI;
 
-		
 		public override void Interact(PlayerInteractionStateMachine player)
 		{
 			if (player == null)
@@ -25,6 +24,7 @@ namespace Targets
 				Debug.LogError("Player invent is null");
 				return;
 			}
+
 			CanvasGroupController.Instance.Show(CanvasGroupController.Instance.NewItemPickupUI);
 			CanvasGroupController.Instance.NewItemPickupUI.Init(this, player);
 		}

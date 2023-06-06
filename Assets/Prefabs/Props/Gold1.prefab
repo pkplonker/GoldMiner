@@ -110,9 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0f80b3f265f2b4ba1b5e4f50f430ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _signalStrength: 0.5
-  _drawGizmos: 1
-  _interactText: Click to pickup
+  <SignalStrength>k__BackingField: 0.8
+  drawGizmos: 1
+  interactText: Click to pickup
+  gizmoColor: {r: 1, g: 0, b: 0, a: 1}
   goldChanceAnimationCurve:
     serializedVersion: 2
     m_Curve:

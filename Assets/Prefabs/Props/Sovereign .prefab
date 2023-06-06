@@ -110,11 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393caf28ecb04604e9d84069f1731b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _signalStrength: 0.8
-  _drawGizmos: 1
-  _interactText: Click to pickup
-  _gizmoColor: {r: 1, g: 0, b: 0, a: 1}
-  _item: {fileID: 11400000, guid: b4c06f746ef31ff4bb5b822bc6a466c2, type: 2}
-  _newItemPickupUIPrefab: {fileID: 3329778177181152433, guid: 6620bbae102bf9743b094dc6309bc987,
-    type: 3}
-  _newItemPickupUI: {fileID: 0}
+  <SignalStrength>k__BackingField: 0.8
+  drawGizmos: 1
+  interactText: Click to pickup
+  gizmoColor: {r: 0, g: 0.071448326, b: 1, a: 1}
+  <Item>k__BackingField: {fileID: 11400000, guid: b4c06f746ef31ff4bb5b822bc6a466c2,
+    type: 2}

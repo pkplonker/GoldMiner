@@ -32,7 +32,7 @@ namespace UI
 			if (_pickupTarget == null || _playerInteractionStateMachine == null) Debug.LogError("missing refs");
 			_pickupTarget.DestroyItem();
 			var inv = _playerInteractionStateMachine.GetComponent<Inventory>();
-			if (inv == null || !inv.Add(_pickupTarget.GetItem())) FailedToAddToInventory();
+			if (inv == null || !inv.Add(_pickupTarget.Item)) FailedToAddToInventory();
 			CanvasGroupController.Instance.Hide(this);
 		}
 
@@ -64,7 +64,7 @@ namespace UI
 		{
 			_playerInteractionStateMachine = player;
 			_pickupTarget = pickupTarget;
-			var item = _pickupTarget.GetItem();
+			var item = _pickupTarget.Item;
 			if (item == null)
 			{
 				Debug.LogError("Item is null");

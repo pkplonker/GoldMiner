@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using StuartHeathTools;
 using TerrainGeneration;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Props
 {
 	[Serializable]
 	public abstract class Prop : ScriptableObject
 	{
-		[field: SerializeField] public bool _staticObject;
+		[field: SerializeField] public bool StaticObject = true;
 		[field: SerializeField] public bool Spawn { get; protected set; }
 
 		[field: SerializeField] public GameObject Prefab { get; protected set; }
 		[field: Range(0, 40), SerializeField] public int NumSamplesBeforeRejection { get; protected set; }
-		[field: Range(0, 500), SerializeField] public int MaxQuantityPer100M { get; protected set; }=100;
-		
-	
+		[field: Range(0, 500), SerializeField] public int MaxQuantityPer100M { get; protected set; } = 100;
+
 		[field: Range(-1f, 1f), SerializeField]
 		public float FlatnessTolerance { get; protected set; }
 
@@ -55,7 +55,6 @@ namespace Props
 			if (!Spawn)
 			{
 				callback?.Invoke(currentAmount, targetAmount);
-
 				yield break;
 			}
 
@@ -86,7 +85,7 @@ namespace Props
 		{
 			var numToSpawn = Mathf.Min(points.Count,
 				MaxQuantityPer100M / 100f * (mapData.MapChunkSize * mapData.ChunksPerRow));
-			return (int)numToSpawn;
+			return (int) numToSpawn;
 		}
 
 		protected virtual bool CalculatePlacement(MapData mapData, List<Vector2> points, int i, float tolerance,
@@ -105,7 +104,6 @@ namespace Props
 			return false;
 		}
 
-
 		protected static Quaternion CalculateRotation(int i, int seed)
 		{
 			var prng = new System.Random(seed + i);
@@ -119,11 +117,10 @@ namespace Props
 			if (!Physics.Raycast(position, Vector3.down, out var hit, mapData._heightMultiplier + factor,
 				    LayerMask.GetMask(mapData._terrainLayer))) return Vector3.positiveInfinity;
 
-			position.y = hit.point.y - GetDropIntoTerrainAmount(mapData._seed,position);
+			position.y = hit.point.y - GetDropIntoTerrainAmount(mapData._seed, position);
 			return position;
 		}
 
-		protected virtual float GetDropIntoTerrainAmount(int seed,Vector3 position)=>0f;
-		
+		protected virtual float GetDropIntoTerrainAmount(int seed, Vector3 position) => 0f;
 	}
 }

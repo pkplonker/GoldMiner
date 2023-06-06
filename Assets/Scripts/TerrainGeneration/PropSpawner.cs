@@ -74,7 +74,7 @@ namespace TerrainGeneration
 			var go = Instantiate(_propDatas.Props[index].Prefab, Container);
 			go.transform.localPosition = result;
 			go.transform.localRotation = rotation;
-			go.isStatic = _propDatas.Props[index]._staticObject;
+			go.isStatic = _propDatas.Props[index].StaticObject;
 		}
 
 		private void PropSpawnCompleteCallback(int currentAmount, int targetAmount)

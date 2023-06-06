@@ -7,7 +7,6 @@ namespace Props
 	public class SurfaceProp : Prop
 	{
 		[field: Range(-1f, 1f), SerializeField]
-
 		public float DropIntoTerrainAmount { get; protected set; }
 
 		[field: Range(0, 1f), SerializeField] public float MinHeightNormalised { get; protected set; }
@@ -21,6 +20,5 @@ namespace Props
 				? position
 				: Vector3.positiveInfinity;
 		}
-
 	}
 }
