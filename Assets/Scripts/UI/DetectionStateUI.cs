@@ -7,9 +7,9 @@ namespace UI
 {
 	public class DetectionStateUI : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _text;
+		[SerializeField] private TextMeshProUGUI text;
 		private void OnEnable() => PlayerInteractionStateMachine.OnStateChanged += StateChange;
 		private void OnDisable() => PlayerInteractionStateMachine.OnStateChanged -= StateChange;
-		private void StateChange(BaseState state) => _text.text = "PlayerState = " + state.GetType();
+		private void StateChange(BaseState state) => text.text = "PlayerState = " + state.GetType();
 	}
 }

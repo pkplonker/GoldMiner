@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Player;
 using Targets;
 using TMPro;
@@ -10,29 +11,29 @@ namespace UI
 {
 	public class NewItemPickupUI : TweenUIPanel
 	{
-		[SerializeField] private TextMeshProUGUI _itemNameText;
-		[SerializeField] private TextMeshProUGUI _valueText;
-		[SerializeField] private Image _itemImage;
-		private PickupTarget _pickupTarget;
-		private PlayerInteractionStateMachine _playerInteractionStateMachine;
-		private PlayerMovement _playerMovement;
-		[SerializeField] private Button _keepButton;
+		[SerializeField] private TextMeshProUGUI itemNameText;
+		[SerializeField] private TextMeshProUGUI valueText;
+		[SerializeField] private Image itemImage;
+		private PickupTarget pickupTarget;
+		private PlayerInteractionStateMachine playerInteractionStateMachine;
+		private PlayerMovement playerMovement;
+		[SerializeField] private Button keepButton;
 
 
 		private void UpdateUI(Item item)
 		{
-			_itemNameText.text = item._itemName;
-			_itemImage.sprite = item.Sprite;
-			_valueText.text = item.GetValue().ToString();
+			itemNameText.text = item.ItemName;
+			itemImage.sprite = item.Sprite;
+			valueText.text = item.GetValue().ToString(CultureInfo.InvariantCulture);
 		}
 
 		//ui
 		public void Pickup()
 		{
-			if (_pickupTarget == null || _playerInteractionStateMachine == null) Debug.LogError("missing refs");
-			_pickupTarget.DestroyItem();
-			var inv = _playerInteractionStateMachine.GetComponent<Inventory>();
-			if (inv == null || !inv.Add(_pickupTarget.Item)) FailedToAddToInventory();
+			if (pickupTarget == null || playerInteractionStateMachine == null) Debug.LogError("missing refs");
+			pickupTarget.DestroyItem();
+			var inv = playerInteractionStateMachine.GetComponent<Inventory>();
+			if (inv == null || !inv.Add(pickupTarget.Item)) FailedToAddToInventory();
 			CanvasGroupController.Instance.Hide(this);
 		}
 
@@ -41,8 +42,8 @@ namespace UI
 		//ui
 		public void ThrowAway()
 		{
-			if (_pickupTarget == null) Debug.LogError("missing refs");
-			_pickupTarget.DestroyItem();
+			if (pickupTarget == null) Debug.LogError("missing refs");
+			pickupTarget.DestroyItem();
 			CanvasGroupController.Instance.Hide(this);
 		}
 
@@ -50,35 +51,35 @@ namespace UI
 		public override void Show()
 		{
 			base.Show();
-			EventSystem.current.SetSelectedGameObject(_keepButton.gameObject);
+			EventSystem.current.SetSelectedGameObject(keepButton.gameObject);
 		}
 
 		public override void Hide()
 		{
 			base.Hide();
-			_playerMovement.SetCanMove(true);
+			playerMovement.SetCanMove(true);
 		}
 
 
 		public void Init(PickupTarget pickupTarget, PlayerInteractionStateMachine player)
 		{
-			_playerInteractionStateMachine = player;
-			_pickupTarget = pickupTarget;
-			var item = _pickupTarget.Item;
+			playerInteractionStateMachine = player;
+			this.pickupTarget = pickupTarget;
+			var item = this.pickupTarget.Item;
 			if (item == null)
 			{
 				Debug.LogError("Item is null");
 				return;
 			}
 
-			_playerMovement = _playerInteractionStateMachine.GetComponent<PlayerMovement>();
-			if (_playerMovement == null)
+			playerMovement = playerInteractionStateMachine.GetComponent<PlayerMovement>();
+			if (playerMovement == null)
 			{
 				Debug.LogError("Cannot inhibit player movement");
 				return;
 			}
 
-			_playerMovement.SetCanMove(false);
+			playerMovement.SetCanMove(false);
 			UpdateUI(item);
 		}
 	}

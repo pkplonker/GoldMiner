@@ -6,31 +6,33 @@ namespace UI
 {
     public abstract class TweenUIPanel : MonoBehaviour, IShowHideUI
     {
-        [SerializeField] private RectTransform _panelRectTransform;
-        [SerializeField] protected CanvasGroup _canvasGroup;
-        [SerializeField] private float _popDuration=0.5f;
-        [SerializeField] private Ease _showEase = Ease.OutFlash;
-        [SerializeField] private Ease _hideEase = Ease.InFlash;
+        [SerializeField] private RectTransform panelRectTransform;
+        protected CanvasGroup canvasGroup;
+        [SerializeField] private float popDuration=0.5f;
+        [SerializeField] private Ease showEase = Ease.OutFlash;
+        [SerializeField] private Ease hideEase = Ease.InFlash;
 
-        protected virtual void Awake()
+        protected virtual void Awake()=>panelRectTransform.localScale= Vector3.zero;
+        
+
+        private void OnValidate()
         {
-            if(_canvasGroup==null) _canvasGroup = GetComponent<CanvasGroup>();
-            _panelRectTransform.localScale= Vector3.zero;
+            if(canvasGroup==null) canvasGroup = GetComponent<CanvasGroup>();
         }
 
         protected  void ShowUI()
         {
-            _canvasGroup.alpha = 1f;
-            _panelRectTransform.DOScale(Vector3.one, _popDuration).SetEase(_showEase);
-            _canvasGroup.DOFade(1, _popDuration/2);
+            canvasGroup.alpha = 1f;
+            panelRectTransform.DOScale(Vector3.one, popDuration).SetEase(showEase);
+            canvasGroup.DOFade(1, popDuration/2);
         }
 
         
         protected void HideUI()
         {
-            _canvasGroup.alpha = 1f;
-            _panelRectTransform.DOScale(Vector3.zero, _popDuration).SetEase(_hideEase);
-            _canvasGroup.DOFade(0, _popDuration);
+            canvasGroup.alpha = 1f;
+            panelRectTransform.DOScale(Vector3.zero, popDuration).SetEase(hideEase);
+            canvasGroup.DOFade(0, popDuration);
         }
 
         
@@ -39,14 +41,14 @@ namespace UI
         public virtual void Hide() => HideUI();
         public void Disable()
         {
-            _canvasGroup.interactable = false;
-            _canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
         }
 
         public void Enable()
         {
-            _canvasGroup.interactable = true;
-            _canvasGroup.blocksRaycasts = true;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
         }
     }
 }

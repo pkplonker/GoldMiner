@@ -6,7 +6,7 @@ namespace UI
 {
 	public class SellGoldButton : MonoBehaviour
 	{
-		[SerializeField] private PlayerReference _playerReference;
+		[SerializeField] private PlayerReference playerReference;
 
 		private void Awake() => PlayerReference.OnPlayerChanged += PlayerChanged;
 		private void OnDestroy() => PlayerReference.OnPlayerChanged += PlayerChanged;
@@ -19,13 +19,13 @@ namespace UI
 		//ui button
 		public void SellGold()
 		{
-			if (_playerReference == null || _playerReference.GetPlayer() == null)
+			if (playerReference == null || playerReference.GetPlayer() == null)
 			{
 				Debug.Log("no player");
 				return;
 			}
 
-			var playerCurrency = _playerReference.GetPlayer().GetComponent<PlayerCurrency>();
+			var playerCurrency = playerReference.GetPlayer().GetComponent<PlayerCurrency>();
 			ExchangeGold(playerCurrency);
 		}
 

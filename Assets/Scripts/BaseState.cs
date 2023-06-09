@@ -6,11 +6,8 @@ public abstract class BaseState
 {
 	protected StateMachine StateMachine;
 
-	public virtual void EnterState(StateMachine sm)
-	{
-		StateMachine = sm;
-	}
-	
+	public virtual void EnterState(StateMachine sm) => StateMachine = sm;
+
 	public void ExitState()
 	{
 		VirtualStateExit();

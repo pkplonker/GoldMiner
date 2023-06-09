@@ -150,7 +150,7 @@ Transform:
   m_Children:
   - {fileID: 3728400243578458615}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1881947244043790603
 MonoBehaviour:
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lowFreq: 500
-  highFreq: 650
+  highFreq: 750
   isDetecting: 0
 --- !u!114 &5829248635142955580
 MonoBehaviour:
@@ -421,7 +421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lowerRad: 0.4
   upperRad: 0.4
-  distance: 0.4
+  distance: 0.75
   lowerDistanceThreshHoldForMaxOutput: 0.3
   _signalDegradeSpeed: 2
 --- !u!1 &6400816813479670093

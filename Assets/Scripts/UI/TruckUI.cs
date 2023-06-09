@@ -15,24 +15,24 @@ namespace UI
 	/// </summary>
 	public class TruckUI : TweenUIPanel
 	{
-		private PlayerInteractionStateMachine _playerInteractionStateMachine;
-		[SerializeField] private Button _firstSelectedGameObject;
+		private PlayerInteractionStateMachine playerInteractionStateMachine;
+		[SerializeField] private Button firstSelectedGameObject;
 		public void Init(PlayerInteractionStateMachine pism)
 		{
 			pism.GetComponent<PlayerMovement>().SetCanMove(false);
-			_playerInteractionStateMachine = pism;
+			playerInteractionStateMachine = pism;
 		}
 
 		public override void Show()
 		{
 			base.Show();
-			EventSystem.current.SetSelectedGameObject(_firstSelectedGameObject.gameObject);
+			EventSystem.current.SetSelectedGameObject(firstSelectedGameObject.gameObject);
 		}
 
 		public override void Hide()
 		{
 			base.Hide();
-			_playerInteractionStateMachine.GetComponent<PlayerMovement>().SetCanMove(true);
+			playerInteractionStateMachine.GetComponent<PlayerMovement>().SetCanMove(true);
 		}
 
 

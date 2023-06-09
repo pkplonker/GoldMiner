@@ -15,7 +15,7 @@ namespace Player
 		public readonly BaseState DiggingState = new Digging();
 		public readonly BaseState DetectingState = new DetectorState();
 		public readonly BaseState InteractState = new InteractState();
-		[Header("Digging")] public SpriteRenderer _diggingTarget;
+		[Header("Digging")] public SpriteRenderer diggingTarget;
 		public readonly string GROUND_LAYER = "Ground";
 		[field: SerializeField] public float digRange { get; private set; } = 2f;
 		[field: SerializeField] public float interactionRange { get; private set; } = 2f;
@@ -30,7 +30,7 @@ namespace Player
 		[field: SerializeField] public Rig Rig { get; private set; }
 		[field: SerializeField] public GameObject DetectorModel { get; private set; }
 		[field: SerializeField] public Image Reticle { get; private set; }
-		[SerializeField] private PlayerReference _playerReference;
+		[SerializeField] private PlayerReference playerReference;
 		public static bool IsDetecting;
 		public static bool IsManualDetecting;
 		public event Action OnPlayerDestroyed;
@@ -50,7 +50,7 @@ namespace Player
 
 		private void OnEnable()
 		{
-			_playerReference.SetPlayer(this); 
+			playerReference.SetPlayer(this); 
 			PlayerInputManager.OnDetection += Detection;
 			PlayerInputManager.OnManualDetectionToggle += ManualDetectionToggle;
 			PlayerInputManager.OnDiggingToggle += DiggingToggle;
@@ -61,7 +61,7 @@ namespace Player
 
 		private void OnDestroy()
 		{
-			_playerReference.SetPlayer(null);
+			playerReference.SetPlayer(null);
 			OnPlayerDestroyed?.Invoke();
 		}
 

@@ -11,19 +11,19 @@ using UnityEngine;
 /// </summary>
 public class PlayerCurrency : MonoBehaviour
 {
-	private float _goldAmount;
-	private float _currency;
+	private float goldAmount;
+	private float currency;
 	public static event Action<float, float> OnGoldChanged;
 	public static event Action<float, float> OnCurrencyChanged;
-	public float GetGold() => _goldAmount;
-	public float GetCurrency() => _currency;
+	public float GetGold() => goldAmount;
+	public float GetCurrency() => currency;
 
 	public bool AddGold(Gold gold)
 	{
 		if (gold == null) return false;
 		if (!ValidateInput(gold.Weight)) return false;
-		_goldAmount += gold.Weight;
-		OnGoldChanged?.Invoke(gold.Weight, _goldAmount);
+		goldAmount += gold.Weight;
+		OnGoldChanged?.Invoke(gold.Weight, goldAmount);
 		return true;
 	}
 
@@ -37,24 +37,24 @@ public class PlayerCurrency : MonoBehaviour
 	public bool RemoveGold(float amount)
 	{
 		if (!ValidateInput(amount)) return false;
-		_goldAmount -= amount;
-		OnGoldChanged?.Invoke(amount * -1, _goldAmount);
+		goldAmount -= amount;
+		OnGoldChanged?.Invoke(amount * -1, goldAmount);
 		return true;
 	}
 
 	public bool AddCurrency(float amount)
 	{
 		if (!ValidateInput(amount)) return false;
-		_currency += amount;
-		OnCurrencyChanged?.Invoke(amount, _currency);
+		currency += amount;
+		OnCurrencyChanged?.Invoke(amount, currency);
 		return true;
 	}
 
 	public bool RemoveCurrency(float amount)
 	{
 		if (!ValidateInput(amount)) return false;
-		_currency -= amount;
-		OnCurrencyChanged?.Invoke(amount * -1, _currency);
+		currency -= amount;
+		OnCurrencyChanged?.Invoke(amount * -1, currency);
 		return true;
 	}
 }

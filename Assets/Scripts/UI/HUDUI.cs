@@ -7,10 +7,10 @@ namespace UI
 {
   public class HUDUI :  MonoBehaviour, IShowHideUI
   {
-    private CanvasGroup _canvasGroup;
+    private CanvasGroup canvasGroup;
     private void Awake()
     {
-      _canvasGroup = GetComponent<CanvasGroup>();
+      canvasGroup = GetComponent<CanvasGroup>();
       Hide();
     }
 
@@ -24,28 +24,28 @@ namespace UI
 
     public void Show()
     {
-      _canvasGroup.alpha = 1;
-      _canvasGroup.interactable = true;
-      _canvasGroup.blocksRaycasts = true;
+      canvasGroup.alpha = 1;
+      canvasGroup.interactable = true;
+      canvasGroup.blocksRaycasts = true;
     }
 
     public void Hide()
     {
-      _canvasGroup.alpha = 0;
-      _canvasGroup.interactable = false;
-      _canvasGroup.blocksRaycasts = false;
+      canvasGroup.alpha = 0;
+      canvasGroup.interactable = false;
+      canvasGroup.blocksRaycasts = false;
     }
 
     public void Disable()
     {
-      _canvasGroup.interactable = false;
-      _canvasGroup.blocksRaycasts = false;
+      canvasGroup.interactable = false;
+      canvasGroup.blocksRaycasts = false;
     }
 
     public void Enable()
     {
-      _canvasGroup.interactable = true;
-      _canvasGroup.blocksRaycasts = true;
+      canvasGroup.interactable = true;
+      canvasGroup.blocksRaycasts = true;
     }
   }
 }

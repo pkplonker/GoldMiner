@@ -60,6 +60,9 @@ namespace Player
 
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
+#if UNITY_EDITOR
+			moveSpeed *= 3;
+#endif
 		}
 
 		public void SetCanMove(bool cm)

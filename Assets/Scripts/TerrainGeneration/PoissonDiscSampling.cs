@@ -13,7 +13,7 @@ namespace TerrainGeneration
 			 Action<PoissonData> callback, MapData mapData, int numSamplesBeforeRejection = 30)
 		{
 			Profiler.BeginSample("disc");
-			var prng = new System.Random(mapData._seed+index);
+			var prng = new System.Random(mapData.seed+index);
 			var cellSize = radius / Mathf.Sqrt(2);
 
 			var grid = new int[Mathf.CeilToInt(sampleRegionSize.x / cellSize),

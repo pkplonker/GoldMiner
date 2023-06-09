@@ -11,10 +11,10 @@ namespace TerrainGeneration
 	public class MapGeneratorTerrain : MonoBehaviour
 	{
 		[field: SerializeField] public MapData MapData { get; private set; }
-		private readonly ConcurrentQueue<TerrainChunkData> _terrainChunkDatas = new ConcurrentQueue<TerrainChunkData>();
-		private int _chunksGeneratedCount = 0;
-		[SerializeField] private TerrainChunk _chunkPrefab;
-		private float[,] _noiseMap;
+		private readonly ConcurrentQueue<TerrainChunkData> terrainChunkDatas = new();
+		private int chunksGeneratedCount;
+		[SerializeField] private TerrainChunk chunkPrefab;
+		private float[,] noiseMap;
 		public Transform Container { get; private set; }
 		public static event Action OnTerrainGenerated;
 		public static event Action<int, int> OnChunkGenerated;
@@ -23,8 +23,8 @@ namespace TerrainGeneration
 
 		public float[,] NoiseMap
 		{
-			get => _noiseMap;
-			private set => _noiseMap = value;
+			get => noiseMap;
+			private set => noiseMap = value;
 		}
 #if UNITY_EDITOR
 		public bool Generated { get; set; } = true;
@@ -34,7 +34,7 @@ namespace TerrainGeneration
 
 		public void ClearData()
 		{
-			_terrainChunkDatas.Clear();
+			terrainChunkDatas.Clear();
 			if (Container)
 			{
 				foreach (Transform t in Container.GetComponentInChildren<Transform>())
@@ -44,10 +44,9 @@ namespace TerrainGeneration
 				}
 			}
 
-			_chunksGeneratedCount = 0;
+			chunksGeneratedCount = 0;
 			Generated = false;
 		}
-
 
 		public void Generate()
 		{
@@ -55,20 +54,19 @@ namespace TerrainGeneration
 			var chunksRequired = MapData.ChunksPerRow * MapData.ChunksPerRow;
 			terrainChunks = new TerrainChunk[MapData.ChunksPerRow, MapData.ChunksPerRow];
 
-
 			if (!Container)
 			{
 				Container = new GameObject() {name = "Tile Container"}.transform;
 				Container.SetParent(transform);
 			}
 
-			var vertsPerRow = (MapData.MapChunkSize * MapData._lod) + 1;
+			var vertsPerRow = (MapData.MapChunkSize * MapData.lod) + 1;
 			var mapSize = vertsPerRow * MapData.ChunksPerRow;
-			NoiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, MapData._seed, MapData._noiseScale * MapData._lod,
-				MapData._octaves,
-				MapData._persistance,
-				MapData._lacunarity,
-				new Vector2(MapData._offset.x, MapData._offset.y));
+			NoiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, MapData.seed, MapData.noiseScale * MapData.lod,
+				MapData.octaves,
+				MapData.persistance,
+				MapData.lacunarity,
+				new Vector2(MapData.offset.x, MapData.offset.y));
 			StartCoroutine(AwaitChunkDataCor(chunksRequired));
 			for (var x = 0; x < MapData.ChunksPerRow; x++)
 			{
@@ -86,7 +84,7 @@ namespace TerrainGeneration
 		{
 			var cachedTime = Time.realtimeSinceStartup;
 			var allowedTimePerFrame = 1 / 100f;
-			while (_chunksGeneratedCount != chunksRequired)
+			while (chunksGeneratedCount != chunksRequired)
 			{
 				if (Time.realtimeSinceStartup - cachedTime >= allowedTimePerFrame)
 				{
@@ -94,31 +92,29 @@ namespace TerrainGeneration
 					cachedTime = Time.realtimeSinceStartup;
 				}
 
-				if (!_terrainChunkDatas.TryDequeue(out var terrainChunkData)) continue;
+				if (!terrainChunkDatas.TryDequeue(out var terrainChunkData)) continue;
 				GenerateGameObject(terrainChunkData);
-				_chunksGeneratedCount++;
+				chunksGeneratedCount++;
 
-				OnChunkGenerated?.Invoke(_chunksGeneratedCount, chunksRequired);
+				OnChunkGenerated?.Invoke(chunksGeneratedCount, chunksRequired);
 			}
 
-			_chunksGeneratedCount = 0;
+			chunksGeneratedCount = 0;
 			Generated = true;
 			OnTerrainGenerated?.Invoke();
 		}
 
-
 		private void AddToTerrainChunkQueue(TerrainChunkData terrainChunkData)
 		{
-			lock (_terrainChunkDatas)
+			lock (terrainChunkDatas)
 			{
-				_terrainChunkDatas.Enqueue(terrainChunkData);
+				terrainChunkDatas.Enqueue(terrainChunkData);
 			}
 		}
 
-
 		private void GenerateGameObject(TerrainChunkData tcd)
 		{
-			var ter = Instantiate(_chunkPrefab,
+			var ter = Instantiate(chunkPrefab,
 				new Vector3(tcd.X * MapData.MapChunkSize, 0, tcd.Y * MapData.MapChunkSize),
 				Quaternion.identity, Container);
 			ter.Generate(MapData, tcd);

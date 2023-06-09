@@ -10,11 +10,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item", menuName = "Items/Base Item")]
 public class Item : ScriptableObject
 {
-	public string _itemName = "New Item";
-	public string _description = "Description";
+	public string ItemName = "New Item";
+	public string Description = "Description";
 
-	[SerializeField] protected float _value = 10f;
+	[SerializeField] protected float Value = 10f;
 	public Sprite Sprite;
-	public virtual float GetValue() => _value;
+	public virtual float GetValue() => Value;
 	public virtual bool Use() => false;
 }

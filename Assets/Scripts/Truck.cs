@@ -7,14 +7,14 @@ using UnityEngine;
 
 public class Truck : MonoBehaviour, IInteractable
 {
-	[SerializeField] private string _interactText = "Click to pickup";
-	private bool _isActiveTarget;
-	private TruckUI _truckUI;
-	public string GetInteractMessage() => _interactText;
+	[SerializeField] private string InteractText = "Click to pickup";
+	private bool isActiveTarget;
+	private TruckUI truckUI;
+	public string GetInteractMessage() => InteractText;
 
 	private void Awake()
 	{
-		_truckUI = FindObjectOfType<TruckUI>();
+		truckUI = FindObjectOfType<TruckUI>();
 	}
 
 	public void Interact(PlayerInteractionStateMachine player)
@@ -24,10 +24,10 @@ public class Truck : MonoBehaviour, IInteractable
 
 	private void OpenTruckUI(PlayerInteractionStateMachine player)
 	{
-		CanvasGroupController.Instance.Show(_truckUI);
-		_truckUI.Init(player);
+		CanvasGroupController.Instance.Show(truckUI);
+		truckUI.Init(player);
 	}
 
-	public void Close() => CanvasGroupController.Instance.Hide(_truckUI);
+	public void Close() => CanvasGroupController.Instance.Hide(truckUI);
 
 }

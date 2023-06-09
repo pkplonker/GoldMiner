@@ -7,15 +7,15 @@ using UnityEngine;
 public class SingleInstanceSpawn : ScriptableObject
 {
 	public GameObject Prefab;
-	public float flattnessTolerance;
-	[SerializeField] private float incrementAmount = 0.2f;
-	[SerializeField] private int attempts = 50;
-	[SerializeField] private Vector3 offset = Vector3.zero;
-	public virtual Trans CalculateSpawn(float size, GameObject _currentInstance, string groundLayer)
+	public float FlattnessTolerance;
+	[SerializeField] private float IncrementAmount = 0.2f;
+	[SerializeField] private int Attempts = 50;
+	[SerializeField] private Vector3 Offset = Vector3.zero;
+	public virtual Trans CalculateSpawn(float size, GameObject currentInstance, string groundLayer)
 	{
 		var t = new Trans
 		{
-			Position = CalculatePosition(size, _currentInstance, groundLayer),
+			Position = CalculatePosition(size, currentInstance, groundLayer),
 			Rotation = CalculateRotation()
 		};
 		return t;
@@ -26,27 +26,27 @@ public class SingleInstanceSpawn : ScriptableObject
 		return Quaternion.identity;
 	}
 
-	private Vector3 CalculatePosition(float size, GameObject _currentInstance, string groundLayer)
+	private Vector3 CalculatePosition(float size, GameObject currentInstance, string groundLayer)
 	{
 		var position = new Vector3(size / 2, 50, size / 2);
-		position += offset;
-		_currentInstance.transform.position = Vector3.zero;
+		position += Offset;
+		currentInstance.transform.position = Vector3.zero;
 
-		for (var x = 0; x < attempts; x++)
+		for (var x = 0; x < Attempts; x++)
 		{
-			position.x += x * incrementAmount;
-			position.z += x * incrementAmount;
+			position.x += x * IncrementAmount;
+			position.z += x * IncrementAmount;
 
 			var hits = Physics.RaycastAll(position, Vector3.down, 60);
 			if (hits.Length == 0) continue;
 
 			for (var i = 0; i < hits.Length; i++)
 			{
-				if (hits[i].collider.transform == _currentInstance.transform) continue;
+				if (hits[i].collider.transform == currentInstance.transform) continue;
 				position.y = hits[i].point.y;
 
 
-				var bounds = GetBounds(_currentInstance);
+				var bounds = GetBounds(currentInstance);
 				if (bounds.size == Vector3.zero)
 				{
 					Debug.Log("failed to get bounds");
@@ -55,7 +55,7 @@ public class SingleInstanceSpawn : ScriptableObject
 
 				if (!BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
 					    hits[i].point - new Vector3(0, bounds.extents.y, 0),
-					    bounds, flattnessTolerance,
+					    bounds, FlattnessTolerance,
 					    groundLayer, Quaternion.identity))) continue;
 
 				return position;
@@ -66,9 +66,9 @@ public class SingleInstanceSpawn : ScriptableObject
 		return Vector3.positiveInfinity;
 	}
 
-	private static Bounds GetBounds(GameObject _currentInstance)
+	private static Bounds GetBounds(GameObject currentInstance)
 	{
-		var bounds = _currentInstance.GetComponentInChildren<Renderer>().bounds;
+		var bounds = currentInstance.GetComponentInChildren<Renderer>().bounds;
 		return bounds;
 	}
 

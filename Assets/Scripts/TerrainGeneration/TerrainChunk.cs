@@ -1,29 +1,38 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 namespace TerrainGeneration
 {
+	[RequireComponent(typeof(MeshRenderer))]
+	[RequireComponent(typeof(MeshFilter))]
+	[RequireComponent(typeof(MeshCollider))]
 	public class TerrainChunk : MonoBehaviour
 	{
-		[SerializeField] private MeshFilter _meshFilter;
-		[SerializeField] private MeshCollider _meshCollider;
-		[SerializeField] private MeshRenderer _meshRenderer;
-		[field: SerializeField] public MapData MapData { get; private set; }
+		[SerializeField] private MeshFilter meshFilter;
+		[SerializeField] private MeshCollider meshCollider;
+		[SerializeField] private MeshRenderer meshRenderer;
+		public MapData MapData { get; private set; }
 		[field: SerializeField] public int X { get; private set; }
 		[field: SerializeField] public int Y { get; private set; }
+
+		private void OnValidate()
+		{
+			meshFilter = GetComponent<MeshFilter>();
+			meshCollider = GetComponent<MeshCollider>();
+			meshRenderer = GetComponent<MeshRenderer>();
+		}
 
 		public void Generate(MapData mapData, TerrainChunkData tcd)
 		{
 			X = tcd.X;
 			Y = tcd.Y;
 			MapData = mapData;
-			var vertsPerRow = (mapData.MapChunkSize * mapData._lod) + 1;
-			GenerateMesh(tcd, _meshFilter);
-			GenerateCollider(_meshCollider, _meshFilter);
-			GenerateMeshRenderer(tcd, _meshRenderer, vertsPerRow, mapData._material);
-			_meshFilter.mesh.RecalculateNormals();
-			
-
+			var vertsPerRow = (mapData.MapChunkSize * mapData.lod) + 1;
+			GenerateMesh(tcd, meshFilter);
+			GenerateCollider(meshCollider, meshFilter);
+			GenerateMeshRenderer(tcd, meshRenderer, vertsPerRow, mapData.material);
+			meshFilter.mesh.RecalculateNormals();
 		}
 
 		private static void GenerateMesh(TerrainChunkData tcd, MeshFilter mf)
@@ -38,7 +47,6 @@ namespace TerrainGeneration
 			mesh.SetUVs(0, tcd.Uvs);
 			mesh.RecalculateBounds();
 			mf.mesh = mesh;
-			
 		}
 
 		private static void GenerateCollider(MeshCollider mc, MeshFilter mf)

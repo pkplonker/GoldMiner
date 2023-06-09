@@ -12,11 +12,11 @@ namespace Test
 	/// </summary>
 	public class TerrainTest : MonoBehaviour
 	{
-		[SerializeField] private bool _spawnTerrainOnStart = true;
+		[SerializeField] private bool spawnTerrainOnStart = true;
 
 		private void Start()
 		{
-			if(_spawnTerrainOnStart) Spawn();
+			if(spawnTerrainOnStart) Spawn();
 		}
 
 		private void Spawn()

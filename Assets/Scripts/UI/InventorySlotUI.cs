@@ -6,16 +6,16 @@ namespace UI
 {
 	public class InventorySlotUI : MonoBehaviour
 	{
-		private Item _item;
-		private float _quantity;
-		[SerializeField] private Image _image;
-		[SerializeField] private TextMeshProUGUI _quantityText;
+		private Item item;
+		private float quantity;
+		[SerializeField] private Image image;
+		[SerializeField] private TextMeshProUGUI quantityText;
 
 		public void SetItem(InventorySlot slot)
 		{
 			if (slot == null) return;
-			_item = slot._item;
-			_quantity = slot._quantity;
+			item = slot._item;
+			quantity = slot._quantity;
 			UpdateUI();
 		}
 
@@ -27,31 +27,31 @@ namespace UI
 
 		private void SetQuantity()
 		{
-			if (_quantity == 0) _quantityText.enabled = false;
+			if (quantity == 0) quantityText.enabled = false;
 			else
 			{
-				_quantityText.text = _quantity.ToString();
-				_quantityText.enabled = true;
+				quantityText.text = quantity.ToString();
+				quantityText.enabled = true;
 			}
 		}
 
 		private void SetImage()
 		{
-			if (_item == null)
+			if (item == null)
 			{
-				_image.enabled = false;
+				image.enabled = false;
 				return;
 			}
-			_image.enabled = true;
+			image.enabled = true;
 
-			_image.sprite = _item.Sprite;
+			image.sprite = item.Sprite;
 		}
 
 		public void Use()
 		{
-			if (_item != null)
+			if (item != null)
 			{
-				_item.Use();
+				item.Use();
 			}
 		}
 	}

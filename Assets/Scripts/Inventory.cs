@@ -6,25 +6,25 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-	private List<InventorySlot> _slots ;
-	[SerializeField] private int _capacity = 10;
+	private List<InventorySlot> slots ;
+	[SerializeField] private int capacity = 10;
 
 	public event Action OnInventoryChanged;
 	public event Action OnInventorySetup;
 
-	public int GetCapacity() => _capacity;
+	public int GetCapacity() => capacity;
 
 	private void Start() => FillSlotCapacity();
 
 
 	private void FillSlotCapacity()
 	{
-		_slots ??= new List<InventorySlot>();
-		if (_slots.Capacity > _capacity) _slots.Capacity = _capacity;
-		else if (_slots.Capacity < _capacity) _slots.Capacity = _capacity;
-		while (_slots.Count < _slots.Capacity)
+		slots ??= new List<InventorySlot>();
+		if (slots.Capacity > capacity) slots.Capacity = capacity;
+		else if (slots.Capacity < capacity) slots.Capacity = capacity;
+		while (slots.Count < slots.Capacity)
 		{
-			_slots.Add(new InventorySlot(null, 0));
+			slots.Add(new InventorySlot(null, 0));
 		}
 		OnInventorySetup?.Invoke();
 	}
@@ -32,18 +32,18 @@ public class Inventory : MonoBehaviour
 	public bool Add(Item item, int quantity = 1)
 	{
 		if (item == null) return false;
-		if (_slots.Any(t => t._item == item))
+		if (slots.Any(t => t._item == item))
 		{
-			var slot = _slots.First(t => t._item == item);
+			var slot = slots.First(t => t._item == item);
 			slot.Add(item, quantity);
 			OnInventoryChanged?.Invoke();
 			return true;
 		}
 
 		//check for empty space
-		if (_slots.Any(t => t._item == null))
+		if (slots.Any(t => t._item == null))
 		{
-			var slot = _slots.FirstOrDefault(t => t._item == null);
+			var slot = slots.FirstOrDefault(t => t._item == null);
 			slot.Add(item, quantity);
 			OnInventoryChanged?.Invoke();
 			return true;
@@ -54,9 +54,9 @@ public class Inventory : MonoBehaviour
 
 	public bool Remove(Item item, int quantity = 1)
 	{
-		if (_slots.Any(t => t._item == item))
+		if (slots.Any(t => t._item == item))
 		{
-			var slot = _slots.First(t => t._item == item);
+			var slot = slots.First(t => t._item == item);
 			slot.Remove(quantity);
 			OnInventoryChanged?.Invoke();
 			return true;
@@ -67,11 +67,11 @@ public class Inventory : MonoBehaviour
 
 	public InventorySlot GetItem(int i)
 	{
-		if (_slots == null) return null;
-		return i > _slots.Count ? null : _slots[i];
+		if (slots == null) return null;
+		return i > slots.Count ? null : slots[i];
 	}
 
-	public bool RemoveAtSlot(int quantity, int index) => _slots[index].Remove(quantity);
+	public bool RemoveAtSlot(int quantity, int index) => slots[index].Remove(quantity);
 }
 
 [Serializable]

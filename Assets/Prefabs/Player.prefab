@@ -2652,7 +2652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 0}
-  _diggingTarget: {fileID: 568684302760893886}
+  diggingTarget: {fileID: 0}
   <digRange>k__BackingField: 2
   <interactionRange>k__BackingField: 3.5
   <DigDepth>k__BackingField: 0.1
@@ -2662,8 +2662,8 @@ MonoBehaviour:
   <Rig>k__BackingField: {fileID: 3000511468534618582}
   <DetectorModel>k__BackingField: {fileID: 7586667392685308049}
   <Reticle>k__BackingField: {fileID: 8161424353797823668}
-  _playerReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51, type: 2}
-  <MaxDigDepth>k__BackingField: 0
+  playerReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51, type: 2}
+  <MaxDigDepth>k__BackingField: -1
 --- !u!114 &730840486265341367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2688,7 +2688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6635e37fb77c238469e0d166043aa16f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _capacity: 10
+  capacity: 10
 --- !u!1001 &1881947243787532403
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2697,18 +2697,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7115179166986297814}
     m_Modifications:
-    - target: {fileID: 1691519813, guid: 97d5982cbcdad064b9026c2228aec95e, type: 3}
-      propertyPath: lowFreq
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 1691519813, guid: 97d5982cbcdad064b9026c2228aec95e, type: 3}
-      propertyPath: highFreq
-      value: 750
-      objectReference: {fileID: 0}
-    - target: {fileID: 1986650975, guid: 97d5982cbcdad064b9026c2228aec95e, type: 3}
-      propertyPath: _distance
-      value: 0.65
-      objectReference: {fileID: 0}
     - target: {fileID: 1881947244043790596, guid: 97d5982cbcdad064b9026c2228aec95e,
         type: 3}
       propertyPath: m_RootOrder
@@ -2867,12 +2855,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 93d427a2029512447843673a92a95ce3, type: 3}
---- !u!212 &568684302760893886 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1850082478683022729, guid: 93d427a2029512447843673a92a95ce3,
-    type: 3}
-  m_PrefabInstance: {fileID: 2182151706709866551}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &568684303251936359 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1850082478108716112, guid: 93d427a2029512447843673a92a95ce3,

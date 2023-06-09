@@ -112,10 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a583d1363c178b842aae49773b4e55bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meshFilter: {fileID: 51959433323081976}
-  _meshCollider: {fileID: 51959433323081975}
-  _meshRenderer: {fileID: 51959433323081977}
-  <MapData>k__BackingField: {fileID: 0}
+  meshFilter: {fileID: 51959433323081976}
+  meshCollider: {fileID: 51959433323081975}
+  meshRenderer: {fileID: 51959433323081977}
   <X>k__BackingField: 0
   <Y>k__BackingField: 0
 --- !u!114 &2639233252708079568

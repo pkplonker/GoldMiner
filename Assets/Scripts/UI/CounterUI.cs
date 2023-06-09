@@ -13,7 +13,7 @@ namespace UI
 		[SerializeField] private string siUnit = "g";
 		[SerializeField] private bool postUnit = true;
 		[SerializeField] private float speed = 2.5f;
-		[SerializeField] private TextMeshProUGUI _textMeshProUGUI;
+		[SerializeField] private TextMeshProUGUI textMeshProUGUI;
 		private float targetAmount;
 		private float currentAmount;
 		private Coroutine coroutine;
@@ -45,8 +45,8 @@ namespace UI
 
 		private void UpdateText()
 		{
-			if (postUnit) _textMeshProUGUI.text = message + currentAmount.ToString("n2") + siUnit;
-			else _textMeshProUGUI.text = message + siUnit + currentAmount.ToString("n2");
+			if (postUnit) textMeshProUGUI.text = message + currentAmount.ToString("n2") + siUnit;
+			else textMeshProUGUI.text = message + siUnit + currentAmount.ToString("n2");
 		}
 
 		protected void Received(float weightFound, float total)

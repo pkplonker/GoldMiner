@@ -24,7 +24,7 @@ namespace Props
 			out Quaternion rotation)
 		{
 			result = CalculatePosition(new Vector3(points[i].x, 0, points[i].y), mapData);
-			rotation = CalculateRotation(i, mapData._seed);
+			rotation = CalculateRotation(i, mapData.seed);
 			return result == Vector3.positiveInfinity;
 		}
 

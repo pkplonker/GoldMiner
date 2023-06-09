@@ -58,7 +58,7 @@ namespace Props
 				yield break;
 			}
 
-			var prng = new System.Random(mapData._seed);
+			var prng = new System.Random(mapData.seed);
 			points.ShuffleWithPRNG(prng);
 			var numToSpawn = CalculateNumberToSpawn(mapData, points);
 			var tolerance = GetTolerance();
@@ -94,13 +94,13 @@ namespace Props
 		{
 			result = CalculatePosition(new Vector3(points[i].x, 0, points[i].y),
 				mapData);
-			rotation = CalculateRotation(i, mapData._seed);
+			rotation = CalculateRotation(i, mapData.seed);
 
 			if (result == Vector3.positiveInfinity) return true;
 			var bounds = BoundDrawer.GetBounds(Prefab);
 			if (!BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
 				    result - new Vector3(0, bounds.extents.y, 0),
-				    bounds, tolerance, mapData._terrainLayer, rotation))) return true;
+				    bounds, tolerance, mapData.terrainLayer, rotation))) return true;
 			return false;
 		}
 
@@ -112,12 +112,12 @@ namespace Props
 
 		protected virtual Vector3 CalculatePosition(Vector3 position, MapData mapData, float factor = 10)
 		{
-			position.y = mapData._heightMultiplier;
+			position.y = mapData.heightMultiplier;
 
-			if (!Physics.Raycast(position, Vector3.down, out var hit, mapData._heightMultiplier + factor,
-				    LayerMask.GetMask(mapData._terrainLayer))) return Vector3.positiveInfinity;
+			if (!Physics.Raycast(position, Vector3.down, out var hit, mapData.heightMultiplier + factor,
+				    LayerMask.GetMask(mapData.terrainLayer))) return Vector3.positiveInfinity;
 
-			position.y = hit.point.y - GetDropIntoTerrainAmount(mapData._seed, position);
+			position.y = hit.point.y - GetDropIntoTerrainAmount(mapData.seed, position);
 			return position;
 		}
 

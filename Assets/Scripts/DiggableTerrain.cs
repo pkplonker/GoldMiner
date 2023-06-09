@@ -13,25 +13,24 @@ using UnityEngine;
 /// </summary>
 public class DiggableTerrain : MonoBehaviour
 {
-	private MeshCollider _meshCollider;
-	private MeshRenderer _meshRenderer;
+	private MeshCollider meshCollider;
+	private MeshRenderer meshRenderer;
 
-	private MeshFilter _meshFilter;
-	private bool _setup = false;
-	private float _digAmount;
-	private Dictionary<int, float> digChanges = new Dictionary<int, float>();
-	[SerializeField] private Color _dugGroundColor;
-	private static readonly int MainTex = Shader.PropertyToID("_MainTex");
+	private MeshFilter meshFilter;
+	private bool setup;
+	private float digAmount;
+	private Dictionary<int, float> digChanges = new();
+	[SerializeField] private Color dugGroundColor;
 
 	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
 	{
-		if (!_setup) Setup();
-		_digAmount = digAmount;
-		var mesh = _meshFilter.mesh;
+		if (!setup) Setup();
+		this.digAmount = digAmount;
+		var mesh = meshFilter.mesh;
 		var hitVerts = GetHitVerts(hit, mesh, out var hitVertIndexes);
 		for (var i = 0; i < hitVerts.Length; i++)
 		{
-			AddToChanges(hit.triangleIndex * 3 + i, _digAmount);
+			AddToChanges(hit.triangleIndex * 3 + i, this.digAmount);
 		}
 
 		var verts = UpdateVerts(digAmount, hitVerts, mesh.vertices);
@@ -47,7 +46,7 @@ public class DiggableTerrain : MonoBehaviour
 
 	private void UpdateColor(int[] hitVertIndexes, Vector3[] verts)
 	{
-		var mat = _meshRenderer.material;
+		var mat = meshRenderer.material;
 		var texture = mat.mainTexture as Texture2D;
 		if (texture == null) return;
 		var colorMap = texture.GetPixels();
@@ -66,8 +65,9 @@ public class DiggableTerrain : MonoBehaviour
 //option 2
 		foreach (var t in hitVertIndexes)
 		{
-			colorMap[t] =_dugGroundColor;
+			colorMap[t] = dugGroundColor;
 		}
+
 		texture.SetPixels(colorMap);
 		texture.Apply();
 	}
@@ -84,12 +84,11 @@ public class DiggableTerrain : MonoBehaviour
 
 		for (var i = 0; i < hitVertsIndexes.Length; i++)
 		{
-			hitVertsIndexes[i] = _meshFilter.mesh.triangles[triangleIndex * 3 + i];
+			hitVertsIndexes[i] = meshFilter.mesh.triangles[triangleIndex * 3 + i];
 		}
 
-		var vertsPerRow = (mapData.MapChunkSize * mapData._lod) + 1;
+		var vertsPerRow = (mapData.MapChunkSize * mapData.lod) + 1;
 		var totalVerts = vertsPerRow * vertsPerRow;
-
 
 		foreach (var index in hitVertsIndexes)
 		{
@@ -114,24 +113,23 @@ public class DiggableTerrain : MonoBehaviour
 	{
 		var changes = changesRequested.Distinct().ToList();
 
-
 		foreach (var change in changes)
 		{
-			if (change.Item1 < 0 || change.Item1 > MapGeneratorTerrain.terrainChunks.GetLength(0)-1) continue;
-			if (change.Item2 < 0 || change.Item2 > MapGeneratorTerrain.terrainChunks.GetLength(1)-1) continue;
+			if (change.Item1 < 0 || change.Item1 > MapGeneratorTerrain.terrainChunks.GetLength(0) - 1) continue;
+			if (change.Item2 < 0 || change.Item2 > MapGeneratorTerrain.terrainChunks.GetLength(1) - 1) continue;
 
 			var dt = MapGeneratorTerrain.terrainChunks[change.Item1, change.Item2].GetComponent<DiggableTerrain>();
-			if (dt != null) dt.DigAtVertIndex(change.Item3, _digAmount);
+			if (dt != null) dt.DigAtVertIndex(change.Item3, digAmount);
 		}
 	}
 
 	private void DigAtVertIndex(int index, float digAmount)
 	{
-		_digAmount = digAmount;
-		if (!_setup) Setup();
-		var verts = _meshFilter.mesh.vertices;
+		this.digAmount = digAmount;
+		if (!setup) Setup();
+		var verts = meshFilter.mesh.vertices;
 		verts[index].y -= digAmount;
-		UpdateColor(new []{index}, verts);
+		UpdateColor(new[] {index}, verts);
 		AddToChanges(index, digAmount);
 		var updatedMesh = RegenerateMesh(verts);
 		UpdateCollider(updatedMesh);
@@ -143,46 +141,13 @@ public class DiggableTerrain : MonoBehaviour
 		else digChanges.TryAdd(index, digAmount);
 	}
 
+	private int CheckLeft(int index, int vertsPerRow) => (index % vertsPerRow == 0) ? index + vertsPerRow - 1 : -1;
 
-	private int CheckLeft(int index, int vertsPerRow)
-	{
-		if (index % vertsPerRow == 0)
-		{
-			return index + vertsPerRow - 1;
-		}
+	private int CheckRight(int index, int vertsPerRow) =>((index + 1) % vertsPerRow == 0) ? index - vertsPerRow + 1 : -1;
 
-		return -1;
-	}
+	private int CheckBottom(int index, int vertsPerRow, int totalVerts) => index < vertsPerRow ?totalVerts - vertsPerRow + index: -1;
 
-	private int CheckRight(int index, int vertsPerRow)
-	{
-		if ((index + 1) % vertsPerRow == 0)
-		{
-			return index - vertsPerRow + 1;
-		}
-
-		return -1;
-	}
-
-	private int CheckBottom(int index, int vertsPerRow, int totalVerts)
-	{
-		if (index < vertsPerRow)
-		{
-			return totalVerts - vertsPerRow + index;
-		}
-
-		return -1;
-	}
-
-	private int CheckTop(int index, int vertsPerRow, int totalVerts)
-	{
-		if (index >= totalVerts - vertsPerRow)
-		{
-			return index % vertsPerRow;
-		}
-
-		return -1;
-	}
+	private int CheckTop(int index, int vertsPerRow, int totalVerts) => index >= totalVerts - vertsPerRow ? index % vertsPerRow : -1;
 
 	private Vector3[] UpdateVerts(float digAmount, Vector3[] hitVerts, Vector3[] verts)
 	{
@@ -204,14 +169,14 @@ public class DiggableTerrain : MonoBehaviour
 
 	private void UpdateCollider(Mesh newMesh)
 	{
-		if (_meshCollider.sharedMesh) _meshCollider.sharedMesh.Clear();
-		_meshCollider.sharedMesh = newMesh;
-		_meshCollider.cookingOptions = MeshColliderCookingOptions.EnableMeshCleaning;
+		if (meshCollider.sharedMesh) meshCollider.sharedMesh.Clear();
+		meshCollider.sharedMesh = newMesh;
+		meshCollider.cookingOptions = MeshColliderCookingOptions.EnableMeshCleaning;
 	}
 
 	private Mesh RegenerateMesh(Vector3[] verts)
 	{
-		var oldMesh = _meshFilter.mesh;
+		var oldMesh = meshFilter.mesh;
 		var newMesh = new Mesh
 		{
 			name = oldMesh.name
@@ -230,7 +195,7 @@ public class DiggableTerrain : MonoBehaviour
 		//newMesh.RecalculateNormals();
 
 		newMesh.RecalculateBounds();
-		_meshFilter.mesh = newMesh;
+		meshFilter.mesh = newMesh;
 		return newMesh;
 	}
 
@@ -248,12 +213,11 @@ public class DiggableTerrain : MonoBehaviour
 		return hitVerts;
 	}
 
-
 	private void Setup()
 	{
-		if (!_meshRenderer) _meshRenderer = GetComponent<MeshRenderer>();
-		if (!_meshCollider) _meshCollider = GetComponent<MeshCollider>();
-		if (!_meshFilter) _meshFilter = GetComponent<MeshFilter>();
-		_setup = _meshCollider && _meshFilter;
+		if (!meshRenderer) meshRenderer = GetComponent<MeshRenderer>();
+		if (!meshCollider) meshCollider = GetComponent<MeshCollider>();
+		if (!meshFilter) meshFilter = GetComponent<MeshFilter>();
+		setup = meshCollider && meshFilter;
 	}
 }

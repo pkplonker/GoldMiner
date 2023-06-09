@@ -61,12 +61,12 @@ public class GoldManagerWindow : EditorWindow
 		else
 		{
 			if (GUILayout.Button("ShowAll"))
-				currentDisplayedItems = goldSpawnManager._goldPiecesSpawned.OrderByDescending(g => g.Weight).ToList();
+				currentDisplayedItems = goldSpawnManager.goldPiecesSpawned.OrderByDescending(g => g.Weight).ToList();
 			if (GUILayout.Button("Show Collected"))
-				currentDisplayedItems = goldSpawnManager._goldPiecesFound.OrderByDescending(g => g.Weight).ToList();
+				currentDisplayedItems = goldSpawnManager.goldPiecesFound.OrderByDescending(g => g.Weight).ToList();
 			if (GUILayout.Button("Show Uncollected"))
 				currentDisplayedItems =
-					goldSpawnManager._goldPiecesSpawned.Except(goldSpawnManager._goldPiecesFound)
+					goldSpawnManager.goldPiecesSpawned.Except(goldSpawnManager.goldPiecesFound)
 						.OrderByDescending(g => g.Weight).ToList();
 		}
 
@@ -76,15 +76,15 @@ public class GoldManagerWindow : EditorWindow
 	private void DrawTotals()
 	{
 		GUILayout.BeginHorizontal();
-		var c = goldSpawnManager._goldPiecesSpawned.Sum(g => g.Weight);
+		var c = goldSpawnManager.goldPiecesSpawned.Sum(g => g.Weight);
 
 		EditorGUILayout.LabelField("Total Gold on Map = " + c + "[ £" + c * GoldPrice.goldPrice + "]",
 			EditorStyles.boldLabel, GUILayout.Width(columnWidth));
-		c = goldSpawnManager._goldPiecesFound.Sum(g => g.Weight);
+		c = goldSpawnManager.goldPiecesFound.Sum(g => g.Weight);
 
 		EditorGUILayout.LabelField("Total Gold found =" + c + "[ £" + c * GoldPrice.goldPrice + "]",
 			EditorStyles.boldLabel, GUILayout.Width(columnWidth));
-		c = goldSpawnManager._goldPiecesSpawned.Except(goldSpawnManager._goldPiecesFound).Sum(g => g.Weight);
+		c = goldSpawnManager.goldPiecesSpawned.Except(goldSpawnManager.goldPiecesFound).Sum(g => g.Weight);
 		EditorGUILayout.LabelField("Total Gold remaining =" + c + "[ £" + c * GoldPrice.goldPrice + "]",
 			EditorStyles.boldLabel, GUILayout.Width(columnWidth));
 

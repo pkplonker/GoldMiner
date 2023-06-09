@@ -9,7 +9,7 @@ namespace UI
 {
 	public class CanvasGroupController : GenericUnitySingleton<CanvasGroupController>
 	{
-		private List<IShowHideUI> uis = new List<IShowHideUI>();
+		private List<IShowHideUI> uis = new ();
 		public NewItemPickupUI NewItemPickupUI { get; private set; }
 		public TruckUI TruckUI { get; private set; }
 
@@ -29,7 +29,7 @@ namespace UI
 
 			uis.RemoveAll(x => x == null);
 			ui.Show();
-			for (int i = 0; i < uis.Count-1; i++)
+			for (var i = 0; i < uis.Count-1; i++)
 			{
 				ui.Disable();
 			}
@@ -39,13 +39,11 @@ namespace UI
 		{
 			if (uis.Contains(ui))
 			{
-				if (uis.IndexOf(ui) == uis.Count-1)
+				if (uis.IndexOf(ui) != uis.Count - 1) return;
+				uis.Remove(ui);
+				if (uis.Count > 0)
 				{
-					uis.Remove(ui);
-					if (uis.Count > 0)
-					{
-						uis[^1].Enable();
-					}
+					uis[^1].Enable();
 				}
 			}
 			else

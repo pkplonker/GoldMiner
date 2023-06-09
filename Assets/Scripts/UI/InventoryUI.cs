@@ -8,20 +8,23 @@ using UnityEngine.EventSystems;
 
 namespace UI
 {
+	[RequireComponent(typeof(CanvasGroup))]
 	public class InventoryUI : MonoBehaviour, IShowHideUI
 	{
-		[SerializeField] private GameObject _inventorySlotPrefab;
-		private List<InventorySlotUI> _inventorySlots = new();
-		private Inventory _inventory;
-		[SerializeField] private PlayerReference _playerReference;
-		[SerializeField] private Transform _container;
-		private RectTransform _panelRectTransform;
-		[SerializeField] private CanvasGroup _canvasGroup;
-		private bool _inventoryActive = false;
-		[SerializeField] private float _fadeTime = 0.5f;
+		[SerializeField] private GameObject InventorySlotPrefab;
+		private List<InventorySlotUI> inventorySlots = new();
+		private Inventory inventory;
+		[SerializeField] private PlayerReference PlayerReference;
+		[SerializeField] private Transform Container;
+		[SerializeField] private RectTransform PanelRectTransform;
+		private CanvasGroup canvasGroup;
+		private bool inventoryActive ;
+		[SerializeField] private float FadeTime = 0.5f;
 
-		[SerializeField] private GameObject _firstSelectedGameObject;
-		private void Awake() => _panelRectTransform = _canvasGroup.GetComponent<RectTransform>();
+		[SerializeField] private GameObject FirstSelectedGameObject;
+		private void Awake() => PanelRectTransform = canvasGroup.GetComponent<RectTransform>();
+
+		private void OnValidate() =>canvasGroup= GetComponent<CanvasGroup>();
 
 		private void Start() => HideImmediate();
 
@@ -39,92 +42,92 @@ namespace UI
 
 		private void ToggleInventory()
 		{
-			if(_inventoryActive) Hide();
+			if(inventoryActive) Hide();
 		else Show();}
 
 
 		private void SetupInvent()
 		{
-			foreach (var slot in _inventorySlots)
+			foreach (var slot in inventorySlots)
 			{
 				Destroy(slot.gameObject);
 			}
 
-			_inventorySlots.Clear();
-			for (var i = 0; i < _inventory.GetCapacity(); i++)
+			inventorySlots.Clear();
+			for (var i = 0; i < inventory.GetCapacity(); i++)
 			{
-				_inventorySlots.Add(Instantiate(_inventorySlotPrefab, _container).GetComponent<InventorySlotUI>());
-				_inventorySlots[i].SetItem(_inventory.GetItem(i));
+				inventorySlots.Add(Instantiate(InventorySlotPrefab, Container).GetComponent<InventorySlotUI>());
+				inventorySlots[i].SetItem(inventory.GetItem(i));
 			}
 
-			if (_inventorySlots.Count > 0)
+			if (inventorySlots.Count > 0)
 			{
-				_firstSelectedGameObject = _inventorySlots[0].gameObject;
+				EventSystem.current.SetSelectedGameObject(inventorySlots[0].gameObject);
 			}
 			UpdateInventory();
 		}
 
 		private void ChangeInventory()
 		{
-			if (_playerReference.GetPlayer() == null) return;
-			if (_inventory != null)
+			if (PlayerReference.GetPlayer() == null) return;
+			if (inventory != null)
 			{
-				_inventory.OnInventoryChanged -= UpdateInventory;
-				_inventory.OnInventorySetup -= SetupInvent;
+				inventory.OnInventoryChanged -= UpdateInventory;
+				inventory.OnInventorySetup -= SetupInvent;
 			}
-			_inventory = _playerReference.GetPlayer().GetComponent<Inventory>();
-			_inventory.OnInventoryChanged += UpdateInventory;
-			_inventory.OnInventorySetup += SetupInvent;
+			inventory = PlayerReference.GetPlayer().GetComponent<Inventory>();
+			inventory.OnInventoryChanged += UpdateInventory;
+			inventory.OnInventorySetup += SetupInvent;
 
 			SetupInvent();
 		}
 
 		private void UpdateInventory()
 		{
-			for (var i = 0; i < _inventorySlots.Count; i++)
+			for (var i = 0; i < inventorySlots.Count; i++)
 			{
-				_inventorySlots[i].SetItem(_inventory.GetItem(i));
+				inventorySlots[i].SetItem(inventory.GetItem(i));
 			}
 		}
 
 		public void Show()
 		{
 			Enable();
-			_inventoryActive = true;
-			_canvasGroup.alpha = 0f;
-			_panelRectTransform.anchoredPosition = new Vector2(_panelRectTransform.rect.width, 0);
-			_panelRectTransform.DOAnchorPosX(0, _fadeTime).SetEase(Ease.OutBack);
-			_canvasGroup.DOFade(1, _fadeTime);
+			inventoryActive = true;
+			canvasGroup.alpha = 0f;
+			PanelRectTransform.anchoredPosition = new Vector2(PanelRectTransform.rect.width, 0);
+			PanelRectTransform.DOAnchorPosX(0, FadeTime).SetEase(Ease.OutBack);
+			canvasGroup.DOFade(1, FadeTime);
 		}
 
 		public void Hide()
 		{
 			Disable();
 			Debug.Log("disabling invent");
-			_inventoryActive = false;
-			_canvasGroup.alpha = 1f;
-			_panelRectTransform.anchoredPosition = new Vector2(0, 0);
-			_panelRectTransform.DOAnchorPosX(_panelRectTransform.rect.width, _fadeTime).SetEase(Ease.InOutQuint);
-			_canvasGroup.DOFade(0, _fadeTime);
+			inventoryActive = false;
+			canvasGroup.alpha = 1f;
+			PanelRectTransform.anchoredPosition = new Vector2(0, 0);
+			PanelRectTransform.DOAnchorPosX(PanelRectTransform.rect.width, FadeTime).SetEase(Ease.InOutQuint);
+			canvasGroup.DOFade(0, FadeTime);
 		}
 
 		private void HideImmediate()
 		{
-			_canvasGroup.alpha = 0f;
-			_canvasGroup.interactable = false;
-			_canvasGroup.blocksRaycasts = false;
+			canvasGroup.alpha = 0f;
+			canvasGroup.interactable = false;
+			canvasGroup.blocksRaycasts = false;
 		}
 
 		public void Disable()
 		{
-			_canvasGroup.interactable = false;
-			_canvasGroup.blocksRaycasts = false;
+			canvasGroup.interactable = false;
+			canvasGroup.blocksRaycasts = false;
 		}
 
 		public void Enable()
 		{
-			_canvasGroup.interactable = true;
-			_canvasGroup.blocksRaycasts = true;
+			canvasGroup.interactable = true;
+			canvasGroup.blocksRaycasts = true;
 		}
 	}
 }

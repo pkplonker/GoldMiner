@@ -8,42 +8,42 @@ namespace UI
 {
 	public class NotificationUI : MonoBehaviour
 	{
-		[SerializeField] private TextMeshProUGUI _tmp;
-		private Coroutine _disableCor;
-		[SerializeField] private float _waitTime = 3f;
-		private WaitForSeconds _waitForSeconds;
-		private string _currentText;
+		[SerializeField] private TextMeshProUGUI tmp;
+		private Coroutine disableCor;
+		[SerializeField] private float waitTime = 3f;
+		private WaitForSeconds waitForSeconds;
+		private string currentText;
 
 		private void Awake()
 		{
-			_waitForSeconds = new WaitForSeconds(_waitTime);
-			_tmp.gameObject.SetActive(false);
+			waitForSeconds = new WaitForSeconds(waitTime);
+			tmp.gameObject.SetActive(false);
 		}
 
 		public void UpdateText(string text)
 		{
-			if (_disableCor != null) StopCoroutine(_disableCor);
+			if (disableCor != null) StopCoroutine(disableCor);
 
-			if (string.IsNullOrEmpty(text)) _tmp.gameObject.SetActive(false);
+			if (string.IsNullOrEmpty(text)) tmp.gameObject.SetActive(false);
 			else
 			{
-				_tmp.gameObject.SetActive(true);
+				tmp.gameObject.SetActive(true);
 				SetText(text);
-				_disableCor = StartCoroutine(DisableText());
+				disableCor = StartCoroutine(DisableText());
 			}
 		}
 
 
 		private void SetText(string text)
 		{
-			if (text == _currentText) return;
-			_tmp.text = text;
+			if (text == currentText) return;
+			tmp.text = text;
 		}
 
 		private IEnumerator DisableText()
 		{
-			yield return _waitForSeconds;
-			_tmp.gameObject.SetActive(false);
+			yield return waitForSeconds;
+			tmp.gameObject.SetActive(false);
 		}
 	}
 }

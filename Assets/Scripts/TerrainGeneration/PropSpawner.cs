@@ -15,14 +15,14 @@ namespace TerrainGeneration
 		public static event Action<int> OnPropsGenerationStarted;
 
 		public static event Action OnPropsGenerated;
-		private List<Vector2> _points;
-		private Queue<PoissonData> _poissonDataQueue;
-		private MapData _mapData;
+		private List<Vector2> points;
+		private Queue<PoissonData> poissonDataQueue;
+		private MapData mapData;
 
 		public void SpawnObjects(int spawnArea, MapData mapData)
 		{
 			OnPropsGenerationStarted?.Invoke(_propDatas.Props.Count);
-			this._mapData = mapData;
+			this.mapData = mapData;
 			if (Container == null)
 			{
 				Container = new GameObject
@@ -33,7 +33,7 @@ namespace TerrainGeneration
 				Container.localPosition = transform.position;
 			}
 
-			_poissonDataQueue = new Queue<PoissonData>();
+			poissonDataQueue = new Queue<PoissonData>();
 			StartCoroutine(SpawnObjectsCor(spawnArea));
 		}
 
@@ -45,7 +45,7 @@ namespace TerrainGeneration
 				var radius = _propDatas.Props[j].GetRadius();
 				var j1 = j;
 				Task.Run(() => PoissonDiscSampling.GeneratePointsCor(j1, radius,
-					new Vector2(spawnArea, spawnArea), PoissonCallback, _mapData,
+					new Vector2(spawnArea, spawnArea), PoissonCallback, mapData,
 					_propDatas.Props[j1].NumSamplesBeforeRejection));
 			}
 
@@ -54,15 +54,15 @@ namespace TerrainGeneration
 
 			while (currentAmount != targetAmount)
 			{
-				while (_poissonDataQueue.Count == 0)
+				while (poissonDataQueue.Count == 0)
 				{
 					yield return null;
 				}
-				var data = _poissonDataQueue.Dequeue();
+				var data = poissonDataQueue.Dequeue();
 
 				currentAmount++;
 				StartCoroutine(_propDatas.Props[data.Index].ProcessPointDataCor(data, currentAmount, targetAmount,
-					PropSpawnCompleteCallback, this, _mapData));
+					PropSpawnCompleteCallback, this, mapData));
 				yield return null;
 			}
 
@@ -86,9 +86,9 @@ namespace TerrainGeneration
 
 		private void PoissonCallback(PoissonData data)
 		{
-			lock (_poissonDataQueue)
+			lock (poissonDataQueue)
 			{
-				_poissonDataQueue.Enqueue(data);
+				poissonDataQueue.Enqueue(data);
 			}
 		}
 

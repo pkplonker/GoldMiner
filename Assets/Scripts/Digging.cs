@@ -7,67 +7,65 @@ using UnityEngine.Profiling;
 
 public class Digging : BaseState
 {
-	private bool _isDiggingState = false;
-	private PlayerInteractionStateMachine _stateMachine;
-	private readonly Color _canDigColor = Color.white;
-	private readonly Color _cannotDigColor = Color.red;
-	private bool _canDig = false;
+	private bool isDiggingState = false;
+	private PlayerInteractionStateMachine stateMachine;
+	private readonly Color canDigColor = Color.white;
+	private readonly Color cannotDigColor = Color.red;
+	private bool canDig;
 	private const string NONDIGGABLE_LAYER = "BlocksDig";
 	public static Action<Vector3> OnCannotDigHere;
 
 	private void UpdateMarkerPosition()
 	{
-		var ray = _stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
-		if (Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(_stateMachine.GROUND_LAYER)))
+		var ray = stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
+		if (!Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(stateMachine.GROUND_LAYER))) return;
+		if (Vector3.Distance(stateMachine.transform.position, hit.point) > stateMachine.digRange)
 		{
-			if (Vector3.Distance(_stateMachine.transform.position, hit.point) > _stateMachine.digRange)
-			{
-				_canDig = false;
-				_stateMachine._diggingTarget.color = _cannotDigColor;
-			}
-			else
-			{
-				_canDig = true;
-				_stateMachine._diggingTarget.color = _canDigColor;
-			}
-
-			_stateMachine._diggingTarget.transform.position = hit.point;
-			_stateMachine._diggingTarget.transform.position += (hit.normal * 0.1f);
-			_stateMachine._diggingTarget.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+			canDig = false;
+			stateMachine.diggingTarget.color = cannotDigColor;
 		}
+		else
+		{
+			canDig = true;
+			stateMachine.diggingTarget.color = canDigColor;
+		}
+
+		stateMachine.diggingTarget.transform.position = hit.point;
+		stateMachine.diggingTarget.transform.position += (hit.normal * 0.1f);
+		stateMachine.diggingTarget.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
 	}
 
-	private void ToggleDigging() => _isDiggingState = !_isDiggingState;
+	private void ToggleDigging() => isDiggingState = !isDiggingState;
 
 
 	public override void EnterState(StateMachine sm)
 	{
-		_canDig = false;
-		_stateMachine = sm as PlayerInteractionStateMachine;
-		if (_stateMachine == null)
+		canDig = false;
+		stateMachine = sm as PlayerInteractionStateMachine;
+		if (stateMachine == null)
 		{
 			Debug.LogError("invalid state machine");
 		}
 
-		_isDiggingState = true;
-		_stateMachine._diggingTarget.enabled = true;
+		isDiggingState = true;
+		stateMachine.diggingTarget.enabled = true;
 		PlayerInputManager.OnDiggingToggle += ToggleDigging;
 	}
 
 
 	protected override void VirtualStateExit()
 	{
-		_canDig = false;
-		_isDiggingState = false;
-		_stateMachine._diggingTarget.enabled = false;
+		canDig = false;
+		isDiggingState = false;
+		stateMachine.diggingTarget.enabled = false;
 		PlayerInputManager.OnDiggingToggle -= ToggleDigging;
 	}
 
 	public override void Tick()
 	{
 		UpdateMarkerPosition();
-		if (!PlayerInputManager.Instance.GetLeftClick() || !_canDig) return;
-		_canDig = false;
+		if (!PlayerInputManager.Instance.GetLeftClick() || !canDig) return;
+		canDig = false;
 		AttemptDig();
 	}
 
@@ -78,7 +76,7 @@ public class Digging : BaseState
 		Profiler.BeginSample("Digging");
 #endif
 		//cast ray to get vertex
-		var ray = _stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
+		var ray = stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
 		if (Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(GetLayerMask())))
 		{
 			if (hit.point == Vector3.negativeInfinity) Debug.Log("Failed to get hit point");
@@ -86,7 +84,7 @@ public class Digging : BaseState
 			{
 				if (hit.collider.TryGetComponent(out DiggableTerrain terrain))
 				{
-					if (terrain.Dig(hit, _stateMachine.DigDepth, _stateMachine.MaxDigDepth)) return;
+					if (terrain.Dig(hit, stateMachine.DigDepth, stateMachine.MaxDigDepth)) return;
 				}
 			}
 		}
@@ -105,5 +103,5 @@ public class Digging : BaseState
 		Debug.Log("Failed to get diggable terrain");
 	}
 
-	private string[] GetLayerMask() => new[] {_stateMachine.GROUND_LAYER, NONDIGGABLE_LAYER};
+	private string[] GetLayerMask() => new[] {stateMachine.GROUND_LAYER, NONDIGGABLE_LAYER};
 }
