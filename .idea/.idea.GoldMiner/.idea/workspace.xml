@@ -6,24 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Coin1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Coin1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Coin2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Coin2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold3.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Sovereign .prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Sovereign .prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Items/JunkCoin1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Items/JunkCoin1.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Items/JunkCoin2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Items/JunkCoin2.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Items/Sovereign.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Items/Sovereign.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/Coin1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/Coin1.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/Coin2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/Coin2.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/SubSurfaceProp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/SubSurfaceProp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/SurfaceProp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/SurfaceProp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Targets/PickupTarget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Targets/PickupTarget.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Targets/Target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Targets/Target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PropSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PropSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/NewItemPickupUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/NewItemPickupUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Single instance spawns/Player.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Single instance spawns/Player.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Single instance spawns/Truck.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Single instance spawns/Truck.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SingleInstanceSpawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SingleInstanceSpawn.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +91,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
+    "settings.editor.selected.configurable": "preferences.build.unityPlugin",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -150,10 +137,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="13356">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="7344">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="13356" />
+      <option name="pid" value="7344" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -190,7 +177,7 @@
       <workItem from="1661283999330" duration="26405000" />
       <workItem from="1661368332906" duration="8678000" />
       <workItem from="1663517902614" duration="20831000" />
-      <workItem from="1685990205868" duration="3719000" />
+      <workItem from="1685990205868" duration="9985000" />
     </task>
     <servers />
   </component>
@@ -236,6 +223,45 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Player/SingleItemSpawner.cs</url>
+          <line>63</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\Player\SingleItemSpawner.cs" initialLine="63" containingFunctionPresentation="Method 'Spawn'">
+            <startOffsets>
+              <option value="1651" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1674" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/SingleInstanceSpawn.cs</url>
+          <line>28</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\SingleInstanceSpawn.cs" initialLine="28" containingFunctionPresentation="Method 'CalculatePosition'">
+            <startOffsets>
+              <option value="898" />
+            </startOffsets>
+            <endOffsets>
+              <option value="949" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/BoundDrawer.cs</url>
+          <line>51</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\TerrainGeneration\BoundDrawer.cs" initialLine="51" containingFunctionPresentation="Method 'DetermineIfGeometryIsFlat'">
+            <startOffsets>
+              <option value="1510" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1578" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Prefab: {fileID: 7635256604560604012, guid: 7256dc8a1f156ac42a5bd5f96d43efc9, type: 3}
-  flattnessTolerance: 2
-  incrementAmount: 0.2
-  attempts: 150
-  offset: {x: 2, y: 2, z: 2}
+  FlattnessTolerance: 0.5
+  IncrementAmount: 0.2
+  Attempts: 50
+  Offset: {x: 0, y: 0, z: 0}

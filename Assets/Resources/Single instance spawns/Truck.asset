@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Truck
   m_EditorClassIdentifier: 
   Prefab: {fileID: 7230192343605430233, guid: 74272e564b1d4f04b918450630e74811, type: 3}
-  flattnessTolerance: 2
-  incrementAmount: 0.2
-  attempts: 50
-  offset: {x: 0, y: 0, z: 0}
+  FlattnessTolerance: 0.5
+  IncrementAmount: 0.2
+  Attempts: 50
+  Offset: {x: 0, y: 0, z: 0}

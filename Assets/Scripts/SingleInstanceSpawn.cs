@@ -21,10 +21,8 @@ public class SingleInstanceSpawn : ScriptableObject
 		return t;
 	}
 
-	private Quaternion CalculateRotation()
-	{
-		return Quaternion.identity;
-	}
+	private Quaternion CalculateRotation()=>Quaternion.identity;
+	
 
 	private Vector3 CalculatePosition(float size, GameObject currentInstance, string groundLayer)
 	{

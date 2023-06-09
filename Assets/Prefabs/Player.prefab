@@ -2652,7 +2652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 0}
-  diggingTarget: {fileID: 0}
+  diggingTarget: {fileID: 568684302760893886}
   <digRange>k__BackingField: 2
   <interactionRange>k__BackingField: 3.5
   <DigDepth>k__BackingField: 0.1
@@ -2855,6 +2855,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 93d427a2029512447843673a92a95ce3, type: 3}
+--- !u!212 &568684302760893886 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1850082478683022729, guid: 93d427a2029512447843673a92a95ce3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2182151706709866551}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &568684303251936359 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1850082478108716112, guid: 93d427a2029512447843673a92a95ce3,
