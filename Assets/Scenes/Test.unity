@@ -966,6 +966,17 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 5354c8450c98ed94bad39bf6d1c172bb, type: 2}
     - {fileID: 11400000, guid: 87e3290a5c6e1e94abbdc7e97d925a57, type: 2}
     - {fileID: 11400000, guid: 4c8ed7c6c18eae94384283a1df1d1841, type: 2}
+    - {fileID: 11400000, guid: 2bf3e77f4572c2245bf06b39c73787fe, type: 2}
+    - {fileID: 11400000, guid: 8130d17c0781bf546af4aa728ed43017, type: 2}
+    - {fileID: 11400000, guid: 33a16fef3360c794b8e336d84349a7be, type: 2}
+    - {fileID: 11400000, guid: 2f4a02579152fb74eb081779dc672d13, type: 2}
+    - {fileID: 11400000, guid: 8376e71605e19614b8f8c94b1bde00c6, type: 2}
+    - {fileID: 11400000, guid: 988f736ac7cf7dc4388fa2f534f5c94b, type: 2}
+    - {fileID: 11400000, guid: 61cfafcfc663d5846a359f347c1905cb, type: 2}
+    - {fileID: 11400000, guid: 5d916d4f6c5937b4a8902e4ee96c6ca7, type: 2}
+    - {fileID: 11400000, guid: 59ed54de6292ff6468da4477dea65865, type: 2}
+    - {fileID: 11400000, guid: 555dd68475aeb1c4aa2592d77d488d60, type: 2}
+    - {fileID: 11400000, guid: 9a32c24d312418545b47ff2dc4e0626c, type: 2}
 --- !u!1 &883963960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1963,7 +1974,8 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7897678238669422201, guid: c8863c3d9db9a524995c8e8b92c1a43a, type: 3}
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: c8863c3d9db9a524995c8e8b92c1a43a, type: 3}
 --- !u!224 &1383954497 stripped
@@ -1972,6 +1984,24 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1383954496}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1383954498 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6482170213484919113, guid: c8863c3d9db9a524995c8e8b92c1a43a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1383954496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &1383954499
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383954498}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1385705382
 GameObject:
   m_ObjectHideFlags: 0

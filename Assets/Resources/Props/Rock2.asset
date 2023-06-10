@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a74456593b20754e8e55d2b6cc0e255, type: 3}
-  m_Name: MediumRock
+  m_Name: Rock2
   m_EditorClassIdentifier: 
   StaticObject: 1
   <Spawn>k__BackingField: 1
-  <Prefab>k__BackingField: {fileID: 5046198083466561727, guid: 871195904a48bc240adb00eb4a225f5f,
+  <Prefab>k__BackingField: {fileID: 2023517905, guid: 6878a157ea49d294e9ff31640140b3f3,
     type: 3}
   <NumSamplesBeforeRejection>k__BackingField: 10
   <MaxQuantityPer100M>k__BackingField: 6
   <FlatnessTolerance>k__BackingField: 0.4
   <Radius>k__BackingField: 0.1
-  <OverrideRideRadius>k__BackingField: 0
+  <OverrideRideRadius>k__BackingField: 1
   <DropIntoTerrainAmount>k__BackingField: 0.1
   <MinHeightNormalised>k__BackingField: 0
   <MaxHeightNormalised>k__BackingField: 0.4

@@ -63,6 +63,7 @@ namespace TerrainGeneration
 				currentAmount++;
 				StartCoroutine(_propDatas.Props[data.Index].ProcessPointDataCor(data, currentAmount, targetAmount,
 					PropSpawnCompleteCallback, this, mapData));
+				Debug.Log($"Placing {_propDatas.Props[data.Index].Prefab.name}");
 				yield return null;
 			}
 

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a74456593b20754e8e55d2b6cc0e255, type: 3}
   m_Name: RockSmall2
   m_EditorClassIdentifier: 
-  _staticObject: 1
+  StaticObject: 1
   <Spawn>k__BackingField: 1
   <Prefab>k__BackingField: {fileID: 5947408727813328650, guid: 559a5aa2e121b774da1b194cde4b7937,
     type: 3}
   <NumSamplesBeforeRejection>k__BackingField: 10
-  <MaxQuantityPer100M>k__BackingField: 300
+  <MaxQuantityPer100M>k__BackingField: 50
   <FlatnessTolerance>k__BackingField: 0.1
   <Radius>k__BackingField: 1
   <OverrideRideRadius>k__BackingField: 1
