@@ -47,16 +47,16 @@ namespace Props
 		public IEnumerator ProcessPointDataCor(PoissonData poissonData, int currentAmount, int targetAmount,
 			Action<int, int> callback, PropSpawner propSpawner, MapData mapData)
 		{
-			var points = poissonData.Points;
-
-			var cachedTime = Time.realtimeSinceStartup;
-			const float ALLOWED_TIME_PER_FRAME = 1 / 45f;
-			var index = poissonData.Index;
 			if (!Spawn)
 			{
 				callback?.Invoke(currentAmount, targetAmount);
 				yield break;
 			}
+			var points = poissonData.Points;
+			var cachedTime = Time.realtimeSinceStartup;
+			const float ALLOWED_TIME_PER_FRAME = 1 / 45f;
+			var index = poissonData.Index;
+			
 
 			var prng = new System.Random(mapData.seed);
 			points.ShuffleWithPRNG(prng);
@@ -71,21 +71,22 @@ namespace Props
 				}
 
 				if (numToSpawn <= 0) break;
-				if (CalculatePlacement(mapData, points, i, tolerance, out var result, out var rotation)) continue;
+				if (!CalculatePlacement(mapData, points, i, tolerance, out var result, out var rotation)) continue;
 
 				propSpawner.SpawnProp(index, result, rotation);
 				numToSpawn--;
 			}
 
+			if (numToSpawn > 0)
+			{
+				Debug.LogWarning($"spawned {targetAmount-numToSpawn}/{targetAmount} {name} from {points.Count}");
+			}
 			callback?.Invoke(currentAmount, targetAmount);
 		}
 
-		protected virtual int CalculateNumberToSpawn(MapData mapData, List<Vector2> points)
-		{
-			var numToSpawn = Mathf.Min(points.Count,
+		protected virtual int CalculateNumberToSpawn(MapData mapData, List<Vector2> points) =>
+			(int) Mathf.Min(points.Count,
 				MaxQuantityPer100M / 100f * (mapData.MapChunkSize * mapData.ChunksPerRow));
-			return (int) numToSpawn;
-		}
 
 		protected virtual bool CalculatePlacement(MapData mapData, List<Vector2> points, int i, float tolerance,
 			out Vector3 result,
@@ -97,9 +98,11 @@ namespace Props
 
 			if (result == Vector3.positiveInfinity) return true;
 			var bounds = BoundDrawer.GetBounds(Prefab);
-			return !BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
+			var isFlat = BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
 				result - new Vector3(0, bounds.extents.y, 0),
 				bounds, tolerance, mapData.terrainLayer, rotation));
+			Debug.Log($"isFlat: {isFlat}");
+			return isFlat;
 		}
 
 		protected static Quaternion CalculateRotation(int i, int seed)

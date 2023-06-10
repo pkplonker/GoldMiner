@@ -52,9 +52,9 @@ namespace TerrainGeneration
 			}
 
 			var targetAmount = PropDatas.Props.Count;
-			var currentAmount = 0;
+			var index = 0;
 
-			while (currentAmount != targetAmount)
+			while (index != targetAmount)
 			{
 				while (poissonDataQueue.Count == 0)
 				{
@@ -68,8 +68,8 @@ namespace TerrainGeneration
 				}
 				var data = poissonDataQueue.Dequeue();
 
-				currentAmount++;
-				StartCoroutine(PropDatas.Props[data.Index].ProcessPointDataCor(data, currentAmount, targetAmount,
+				index++;
+				StartCoroutine(PropDatas.Props[data.Index].ProcessPointDataCor(data, index, targetAmount,
 					PropSpawnCompleteCallback, this, mapData));
 				Debug.Log($"Placing {PropDatas.Props[data.Index].Prefab.name}");
 				yield return null;

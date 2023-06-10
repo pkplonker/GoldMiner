@@ -55,18 +55,12 @@ namespace TerrainGeneration
 			for (var i = 0; i < rayStartPoints.Count; i++)
 			{
 				rayStartPoints[i] = g.Rotation * rayStartPoints[i];
-
-
 				Physics.Raycast((g.BoundsCentreInWorldSpace + rayStartPoints[i] + new Vector3(0, g.Tolerance / 2, 0)),
 					Vector3.down,
 					out var hit, g.Tolerance);
-
 				if (!hit.collider) return false;
-
-
 				if (hit.collider.gameObject.layer != groundMask) return false;
 			}
-
 
 			return true;
 		}
@@ -79,7 +73,8 @@ namespace TerrainGeneration
 			public readonly string GroundLayer;
 			public Quaternion Rotation;
 
-			public GeometryFlatData(Vector3 boundsCentreInWorldSpace, Bounds bounds, float tolerance, string groundLayer,
+			public GeometryFlatData(Vector3 boundsCentreInWorldSpace, Bounds bounds, float tolerance,
+				string groundLayer,
 				Quaternion rotation)
 			{
 				BoundsCentreInWorldSpace = boundsCentreInWorldSpace;

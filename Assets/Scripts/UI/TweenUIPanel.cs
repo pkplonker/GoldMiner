@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace UI
 {
+	[RequireComponent(typeof(CanvasGroup))]
 	public abstract class TweenUIPanel : MonoBehaviour, IShowHideUI
 	{
 		[SerializeField] private RectTransform panelRectTransform;
@@ -17,7 +18,7 @@ namespace UI
 		private void OnValidate()
 		{
 			if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
-			if (canvasGroup == null) Debug.Log($"Missing canvas group on {gameObject.name}");
+			if (canvasGroup == null) Debug.Log($"Missing canvas group on {gameObject.name}", gameObject);
 		}
 
 		protected void ShowUI()

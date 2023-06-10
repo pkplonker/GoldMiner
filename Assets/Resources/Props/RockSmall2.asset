@@ -18,8 +18,8 @@ MonoBehaviour:
     type: 3}
   <NumSamplesBeforeRejection>k__BackingField: 10
   <MaxQuantityPer100M>k__BackingField: 50
-  <FlatnessTolerance>k__BackingField: 0.1
-  <Radius>k__BackingField: 1
+  <FlatnessTolerance>k__BackingField: 0.15
+  <Radius>k__BackingField: 0.5
   <OverrideRideRadius>k__BackingField: 1
   <DropIntoTerrainAmount>k__BackingField: 0.01
   <MinHeightNormalised>k__BackingField: 0
