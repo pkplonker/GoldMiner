@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using StuartHeathTools;
 using TerrainGeneration;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public class DiggableTerrain : MonoBehaviour
 	private bool setup;
 	private float digAmount;
 	private Dictionary<int, float> digChanges = new();
-	[SerializeField] private Color dugGroundColor;
+	[SerializeField] private Color dugGroundColorOffet;
 
 	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
 	{
@@ -65,7 +66,8 @@ public class DiggableTerrain : MonoBehaviour
 //option 2
 		foreach (var t in hitVertIndexes)
 		{
-			colorMap[t] = dugGroundColor;
+			colorMap[t] -= dugGroundColorOffet;
+			colorMap[t] = colorMap[t].Clamp(new Color(0, 0, 0, 0), new Color(1, 1, 1, 1));
 		}
 
 		texture.SetPixels(colorMap);
@@ -143,11 +145,14 @@ public class DiggableTerrain : MonoBehaviour
 
 	private int CheckLeft(int index, int vertsPerRow) => (index % vertsPerRow == 0) ? index + vertsPerRow - 1 : -1;
 
-	private int CheckRight(int index, int vertsPerRow) =>((index + 1) % vertsPerRow == 0) ? index - vertsPerRow + 1 : -1;
+	private int CheckRight(int index, int vertsPerRow) =>
+		((index + 1) % vertsPerRow == 0) ? index - vertsPerRow + 1 : -1;
 
-	private int CheckBottom(int index, int vertsPerRow, int totalVerts) => index < vertsPerRow ?totalVerts - vertsPerRow + index: -1;
+	private int CheckBottom(int index, int vertsPerRow, int totalVerts) =>
+		index < vertsPerRow ? totalVerts - vertsPerRow + index : -1;
 
-	private int CheckTop(int index, int vertsPerRow, int totalVerts) => index >= totalVerts - vertsPerRow ? index % vertsPerRow : -1;
+	private int CheckTop(int index, int vertsPerRow, int totalVerts) =>
+		index >= totalVerts - vertsPerRow ? index % vertsPerRow : -1;
 
 	private Vector3[] UpdateVerts(float digAmount, Vector3[] hitVerts, Vector3[] verts)
 	{

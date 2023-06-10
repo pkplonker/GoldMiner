@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Targets;
 using UnityEngine;
@@ -24,7 +25,11 @@ public class GoldManagerWindow : EditorWindow
 	[MenuItem("GoldMiner/Gold Status Window")]
 	public static void GoldStatusWindow()
 	{
-		if (!Application.isPlaying) return;
+		if (!Application.isPlaying)
+		{
+			Debug.Log("Can't open window in edit mode");
+			return;
+		}
 		GetWindow<GoldManagerWindow>();
 		goldSpawnManager = GoldSpawnManager.Instance;
 	}
@@ -114,7 +119,7 @@ public class GoldManagerWindow : EditorWindow
 
 		EditorGUILayout.LabelField(gold.transform.position.ToString(), EditorStyles.boldLabel,
 			GUILayout.Width(columnWidth));
-		EditorGUILayout.LabelField(gold.Weight.ToString(), EditorStyles.boldLabel, GUILayout.Width(columnWidth));
+		EditorGUILayout.LabelField(gold.Weight.ToString(CultureInfo.InvariantCulture), EditorStyles.boldLabel, GUILayout.Width(columnWidth));
 		GUILayout.EndHorizontal();
 	}
 }

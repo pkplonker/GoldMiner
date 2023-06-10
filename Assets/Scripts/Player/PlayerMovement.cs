@@ -107,7 +107,7 @@ namespace Player
 		private void GroundedCheck()
 		{
 			var position = transform.position;
-			Vector3 spherePosition = new Vector3(position.x, position.y - groundedOffset,
+			var spherePosition = new Vector3(position.x, position.y - groundedOffset,
 				position.z);
 			grounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayers,
 				QueryTriggerInteraction.Ignore);
@@ -137,7 +137,10 @@ namespace Player
 				speed = Mathf.Lerp(currentHorizontalSpeed, moveSpeed, Time.deltaTime * speedChangeRate);
 				speed = Mathf.Round(speed * 1000f) / 1000f;
 			}
-			else speed = moveSpeed;
+			else
+			{
+				speed = moveSpeed;
+			}
 
 			var inputDirection = new Vector3(input.x, 0.0f, input.y).normalized;
 			if (input != Vector2.zero)
