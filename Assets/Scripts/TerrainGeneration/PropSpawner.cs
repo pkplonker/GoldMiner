@@ -9,7 +9,7 @@ namespace TerrainGeneration
 {
 	public class PropSpawner : MonoBehaviour
 	{
-		[SerializeField] private PropData _propDatas;
+		[SerializeField] private PropData PropDatas;
 		public Transform Container { get; private set; }
 		public static event Action<int, int> OnPropGenerated;
 		public static event Action<int> OnPropsGenerationStarted;
@@ -21,7 +21,7 @@ namespace TerrainGeneration
 
 		public void SpawnObjects(int spawnArea, MapData mapData)
 		{
-			OnPropsGenerationStarted?.Invoke(_propDatas.Props.Count);
+			OnPropsGenerationStarted?.Invoke(PropDatas.Props.Count);
 			this.mapData = mapData;
 			if (Container == null)
 			{
@@ -33,37 +33,45 @@ namespace TerrainGeneration
 				Container.localPosition = transform.position;
 			}
 
-			poissonDataQueue = new Queue<PoissonData>();
+			poissonDataQueue = new Queue<PoissonData>(PropDatas.Props.Count);
+			OnPropsGenerationStarted?.Invoke(PropDatas.Props.Count);
 			StartCoroutine(SpawnObjectsCor(spawnArea));
 		}
 
 
 		private IEnumerator SpawnObjectsCor(int spawnArea)
 		{
-			for (var j = 0; j < _propDatas.Props.Count; j++)
+			var tasks = new List<Task>();
+			for (var j = 0; j < PropDatas.Props.Count; j++)
 			{
-				var radius = _propDatas.Props[j].GetRadius();
 				var j1 = j;
-				Task.Run(() => PoissonDiscSampling.GeneratePointsCor(j1, radius,
+				var task =Task.Run(() => PoissonDiscSampling.GeneratePointsCor(j1, PropDatas.Props[j1].GetRadius(),
 					new Vector2(spawnArea, spawnArea), PoissonCallback, mapData,
-					_propDatas.Props[j1].NumSamplesBeforeRejection));
+					PropDatas.Props[j1].NumSamplesBeforeRejection));
+				tasks.Add(task);
 			}
 
-			var targetAmount = _propDatas.Props.Count;
+			var targetAmount = PropDatas.Props.Count;
 			var currentAmount = 0;
 
 			while (currentAmount != targetAmount)
 			{
 				while (poissonDataQueue.Count == 0)
 				{
+					foreach (var task in tasks.Where(task => task.IsFaulted))
+					{
+						Debug.LogError(task.Exception);
+						Debug.LogError("Task failed");
+					}
+
 					yield return null;
 				}
 				var data = poissonDataQueue.Dequeue();
 
 				currentAmount++;
-				StartCoroutine(_propDatas.Props[data.Index].ProcessPointDataCor(data, currentAmount, targetAmount,
+				StartCoroutine(PropDatas.Props[data.Index].ProcessPointDataCor(data, currentAmount, targetAmount,
 					PropSpawnCompleteCallback, this, mapData));
-				Debug.Log($"Placing {_propDatas.Props[data.Index].Prefab.name}");
+				Debug.Log($"Placing {PropDatas.Props[data.Index].Prefab.name}");
 				yield return null;
 			}
 
@@ -72,10 +80,10 @@ namespace TerrainGeneration
 
 		public void SpawnProp(int index, Vector3 result, Quaternion rotation)
 		{
-			var go = Instantiate(_propDatas.Props[index].Prefab, Container);
+			var go = Instantiate(PropDatas.Props[index].Prefab, Container);
 			go.transform.localPosition = result;
 			go.transform.localRotation = rotation;
-			go.isStatic = _propDatas.Props[index].StaticObject;
+			go.isStatic = PropDatas.Props[index].StaticObject;
 		}
 
 		private void PropSpawnCompleteCallback(int currentAmount, int targetAmount)
@@ -93,7 +101,7 @@ namespace TerrainGeneration
 			}
 		}
 
-		public int GetPropsRequired() => _propDatas.Props.Count(p => p.Spawn);
+		public int GetPropsRequired() => PropDatas.Props.Count(p => p.Spawn);
 	}
 }
 

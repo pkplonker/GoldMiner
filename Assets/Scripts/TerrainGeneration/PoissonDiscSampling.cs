@@ -21,7 +21,8 @@ namespace TerrainGeneration
 			var points = new List<Vector2>();
 
 			var spawnPoints = new List<Vector2> {sampleRegionSize / 2};
-			while (spawnPoints.Count > 0)
+			int safety = 0;
+			while (spawnPoints.Count > 0|| safety++>1000)
 			{
 				var spawnIndex = (int) prng.NextSingle(0, spawnPoints.Count - 1);
 				var spawnCentre = spawnPoints[spawnIndex];

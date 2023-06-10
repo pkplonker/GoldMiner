@@ -70,8 +70,7 @@ namespace Props
 					cachedTime = Time.realtimeSinceStartup;
 				}
 
-				if (numToSpawn <= 0)
-					break;
+				if (numToSpawn <= 0) break;
 				if (CalculatePlacement(mapData, points, i, tolerance, out var result, out var rotation)) continue;
 
 				propSpawner.SpawnProp(index, result, rotation);
@@ -98,10 +97,9 @@ namespace Props
 
 			if (result == Vector3.positiveInfinity) return true;
 			var bounds = BoundDrawer.GetBounds(Prefab);
-			if (!BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
-				    result - new Vector3(0, bounds.extents.y, 0),
-				    bounds, tolerance, mapData.terrainLayer, rotation))) return true;
-			return false;
+			return !BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
+				result - new Vector3(0, bounds.extents.y, 0),
+				bounds, tolerance, mapData.terrainLayer, rotation));
 		}
 
 		protected static Quaternion CalculateRotation(int i, int seed)
@@ -113,7 +111,6 @@ namespace Props
 		protected virtual Vector3 CalculatePosition(Vector3 position, MapData mapData, float factor = 10)
 		{
 			position.y = mapData.heightMultiplier;
-
 			if (!Physics.Raycast(position, Vector3.down, out var hit, mapData.heightMultiplier + factor,
 				    LayerMask.GetMask(mapData.terrainLayer))) return Vector3.positiveInfinity;
 

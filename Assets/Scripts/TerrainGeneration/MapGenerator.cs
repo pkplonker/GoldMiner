@@ -34,8 +34,8 @@ namespace TerrainGeneration
 
 		private void OnDisable()
 		{
-			MapGeneratorTerrain.OnTerrainGenerated += OnTerrainGenerated;
-			PropSpawner.OnPropsGenerated += OnPropsGenerated;
+			MapGeneratorTerrain.OnTerrainGenerated -= OnTerrainGenerated;
+			PropSpawner.OnPropsGenerated -= OnPropsGenerated;
 		}
 
 		private void OnTerrainGenerated()
@@ -46,6 +46,7 @@ namespace TerrainGeneration
 			propsTimer = new Stopwatch();
 
 			propsTimer.Start();
+			if(PropSpawner.GetPropsRequired()==0)OnPropsGenerated();
 		}
 
 		private void OnPropsGenerated()
@@ -56,7 +57,7 @@ namespace TerrainGeneration
 			          "ms . Frames taken = " +
 			          (Time.frameCount - startFrame));
 			OnMapGenerated?.Invoke(MapGeneratorTerrain.MapData.GetSize());
-		} 
+		}
 
 
 		public void SpawnTerrain()
@@ -66,7 +67,6 @@ namespace TerrainGeneration
 			mapTimer.Start();
 			startFrame = Time.frameCount;
 #endif
-			
 			spawnedProps = false;
 			var chunksRequired = MapGeneratorTerrain.MapData.ChunksPerRow * MapGeneratorTerrain.MapData.ChunksPerRow;
 			OnMapGenerationStarted?.Invoke(chunksRequired,PropSpawner.GetPropsRequired());

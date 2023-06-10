@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StaticObject: 1
   <Spawn>k__BackingField: 1
-  <Prefab>k__BackingField: {fileID: 945401805, guid: 4d8a34b8d93c13940abe9ec018ff7cd9,
+  <Prefab>k__BackingField: {fileID: 785666640, guid: 46386968f6701334a937b15c449da24c,
     type: 3}
   <NumSamplesBeforeRejection>k__BackingField: 10
   <MaxQuantityPer100M>k__BackingField: 6
   <FlatnessTolerance>k__BackingField: 0.4
-  <Radius>k__BackingField: 0.1
+  <Radius>k__BackingField: 1
   <OverrideRideRadius>k__BackingField: 1
   <DropIntoTerrainAmount>k__BackingField: 0.1
   <MinHeightNormalised>k__BackingField: 0
