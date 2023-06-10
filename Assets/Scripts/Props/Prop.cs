@@ -101,7 +101,6 @@ namespace Props
 			var isFlat = BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
 				result - new Vector3(0, bounds.extents.y, 0),
 				bounds, tolerance, mapData.terrainLayer, rotation));
-			Debug.Log($"isFlat: {isFlat}");
 			return isFlat;
 		}
 

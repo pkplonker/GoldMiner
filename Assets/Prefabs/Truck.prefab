@@ -142,6 +142,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a449fa7a2f5d29a45a99ebe788da5b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactText: Interact with your truck
-  _truckUIPrefab: {fileID: 1247464760195607925, guid: 55e721729d17716449ec4a62cb9dc30d,
-    type: 3}
+  InteractText: Click to use truck
