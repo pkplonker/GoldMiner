@@ -28,6 +28,7 @@ namespace Player
 
 		public event Action<Vector2> OnMove;
 		public event Action<Vector2> OnRotate;
+		public event Action<bool> OnCanMoveChanged;
 
 		[SerializeField] private GameObject cinemachineCameraTarget;
 
@@ -78,6 +79,7 @@ namespace Player
 				Cursor.visible = true;
 				Cursor.lockState = CursorLockMode.None;
 			}
+			OnCanMoveChanged?.Invoke(cm);
 		}
 
 		private void Start()
@@ -88,9 +90,11 @@ namespace Player
 
 		private void Update()
 		{
+			if (!CanMove()) return;
 			Gravity();
 			GroundedCheck();
-			if (CanMove()) Move();
+			Move();
+
 		}
 
 		private void LateUpdate()
@@ -179,5 +183,6 @@ namespace Player
 				new Vector3(position.x, position.y - groundedOffset, position.z),
 				groundedRadius);
 		}
+
 	}
 }

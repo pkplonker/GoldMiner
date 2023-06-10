@@ -14,6 +14,8 @@
 	 {
 		 private Animator animator;
 		 private PlayerMovement playerMovement;
+		 private bool canMove;
+
 		 private void Awake()
 		 {
 			 playerMovement=GetComponentInParent<PlayerMovement>();
@@ -29,7 +31,7 @@
 		 {
 			 playerMovement.OnMove += Move;
 			 playerMovement.OnRotate += Rotate;
-
+			 playerMovement.OnCanMoveChanged += (val) => canMove = val;
 		 }
 
 		 private void OnDisable()
@@ -46,10 +48,7 @@
 
 		 private void Move(Vector2 v)
 		 {
-			 if (!animator)
-			 {
-				 GetAnimator();
-			 }
+			 if(!canMove) return;
 			 animator.SetFloat("MoveX",v.x);
 			 animator.SetFloat("MoveY",v.y);
 		 }
