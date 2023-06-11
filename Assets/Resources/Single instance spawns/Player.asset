@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 7635256604560604012, guid: 7256dc8a1f156ac42a5bd5f96d43efc9, type: 3}
   FlattnessTolerance: 0.5
-  IncrementAmount: 0.2
-  Attempts: 50
+  IncrementAmount: 0.1
+  Attempts: 150
   Offset: {x: 0, y: 0.1, z: 0}

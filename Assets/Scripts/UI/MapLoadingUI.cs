@@ -30,9 +30,9 @@ namespace UI
 		private void OnEnable()
 		{
 			MapGeneratorTerrain.OnChunkGenerated += NewChunk;
-			MapGenerator.OnMapGenerationStarted += ProgressStarted;
+			MapGenerator.MapGenerationStarted += ProgressStarted;
 			PropSpawner.OnPropGenerated += NewProp;
-			MapGenerator.OnMapGenerated += MapGenerated;
+			MapGenerator.MapGenerated += MapGenerated;
 		}
 
 		private void MapGenerated(float obj)

@@ -22,8 +22,14 @@ namespace Player
 
 		private void OnEnable()
 		{
-			MapGenerator.OnMapGenerated += SpawnAll;
-			MapGenerator.OnMapGenerationStarted += DespawnObjects;
+			MapGenerator.TerrainGenerated += SpawnAll;
+			MapGenerator.MapGenerationStarted += DespawnObjects;
+		}
+
+		private void OnDisable()
+		{
+			MapGenerator.TerrainGenerated -= SpawnAll;
+			MapGenerator.MapGenerationStarted -= DespawnObjects;
 		}
 
 		private void DespawnObjects(int notRequired = 0, int notRequired2 = 0)
@@ -61,11 +67,12 @@ namespace Player
 				spawnedPrefabs.Add(currentInstance);
 				sis.Setup(currentInstance);
 			}
-			else HandleFailedSpawn(sis);
+			else
+			{
+				HandleFailedSpawn(sis);
+			}
 		}
 
 		private void HandleFailedSpawn(SingleInstanceSpawn sis) => Debug.LogError($"Failed to spawn {sis.Prefab.name}");
-
-		private void OnDisable() => MapGenerator.OnMapGenerated -= SpawnAll;
 	}
 }

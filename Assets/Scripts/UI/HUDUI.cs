@@ -14,10 +14,10 @@ namespace UI
       Hide();
     }
 
-    private void OnEnable() => MapGenerator.OnMapGenerated += StartGame;
+    private void OnEnable() => MapGenerator.MapGenerated += StartGame;
 
    
-    private void OnDisable()=> MapGenerator.OnMapGenerated  -= StartGame;
+    private void OnDisable()=> MapGenerator.MapGenerated  -= StartGame;
 
     private void StartGame(float f) => Show();
 
