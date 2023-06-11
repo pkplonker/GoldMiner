@@ -7,8 +7,8 @@ using UnityEngine;
 
 namespace TerrainGeneration
 {
-	[Serializable]
-	public class PropData
+	[CreateAssetMenu(fileName = "Prop Data", menuName = "Props/Prop Data")]
+	public class PropCollection : ScriptableObject
 	{
 		[field: SerializeField] public List<Prop> Props;
 	}

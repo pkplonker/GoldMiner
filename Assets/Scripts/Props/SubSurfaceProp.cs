@@ -25,7 +25,7 @@ namespace Props
 		{
 			result = CalculatePosition(new Vector3(points[i].x, 0, points[i].y), mapData);
 			rotation = CalculateRotation(i, mapData.seed);
-			return result == Vector3.positiveInfinity;
+			return result != Vector3.positiveInfinity;
 		}
 
 		protected override float GetDropIntoTerrainAmount(int seed, Vector3 position)

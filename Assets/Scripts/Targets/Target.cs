@@ -15,7 +15,7 @@ namespace Targets
 	{
 		[field: Range(0.01f, 1)]
 		[field: SerializeField]
-		public float SignalStrength { get; private set; } = 0.8f;
+		public float SignalStrength { get; set; } = 0.6f;
 
 		[SerializeField] private bool drawGizmos;
 		[SerializeField] private string interactText = "Click to pickup";

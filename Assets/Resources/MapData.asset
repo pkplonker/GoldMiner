@@ -15,7 +15,7 @@ MonoBehaviour:
   <MapChunkSize>k__BackingField: 10
   <ChunksPerRow>k__BackingField: 11
   lod: 4
-  seed: 3
+  seed: 12345
   octaves: 4
   persistance: 0.8
   lacunarity: 0.8

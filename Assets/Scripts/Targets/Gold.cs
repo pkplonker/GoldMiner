@@ -19,12 +19,13 @@ namespace Targets
 		private void Awake()
 		{
 			GoldSpawnManager.Instance.RegisterGold(this);
-			Weight = CreateWeight(goldChanceAnimationCurve);
+			var value = UtilityRandom.RandomFloat01();
+			Weight = CreateWeight(goldChanceAnimationCurve, value);
+			SignalStrength +=value;
+			SignalStrength = Mathf.Clamp01(SignalStrength);
 		}
 
-		private static float CreateWeight(AnimationCurve goldChanceAnimationCurve)=>goldChanceAnimationCurve.Evaluate(UtilityRandom.RandomFloat01());
-	
-		
+		private static float CreateWeight(AnimationCurve goldChanceAnimationCurve, float value)=>goldChanceAnimationCurve.Evaluate(value);
 
 		public override void Interact(PlayerInteractionStateMachine player)
 		{
@@ -32,7 +33,5 @@ namespace Targets
 			GoldSpawnManager.Instance.GoldCollected(this);
 			DisableObject();
 		}
-
-		
 	}
 }
