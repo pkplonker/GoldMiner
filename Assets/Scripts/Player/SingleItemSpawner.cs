@@ -2,12 +2,9 @@
 // Copyright (C) 2022 Stuart Heath. All rights reserved.
 //
 
-using System;
 using System.Collections.Generic;
-using PlasticGui;
 using TerrainGeneration;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player
 {
