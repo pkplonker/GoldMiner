@@ -96,6 +96,7 @@ namespace TerrainGeneration
 		{
 			lock (poissonDataQueue)
 			{
+				Debug.Log($"Poisson data generated for {data.Points.Count} points");
 				poissonDataQueue.Enqueue(data);
 			}
 		}

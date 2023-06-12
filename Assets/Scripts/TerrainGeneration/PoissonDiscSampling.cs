@@ -44,6 +44,7 @@ namespace TerrainGeneration
 					break;
 				}
 
+				if (points.Count > 1000) break;
 				if (!candidateAccepted) spawnPoints.RemoveAt(spawnIndex);
 			}
 
