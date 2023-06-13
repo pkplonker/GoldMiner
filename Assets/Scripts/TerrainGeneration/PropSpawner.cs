@@ -11,7 +11,7 @@ namespace TerrainGeneration
 	{
 		[SerializeField] private PropCollection PropCollections;
 		public Transform Container { get; private set; }
-		public static event Action<int, int> OnPropGenerated;
+		public static event Action<int> OnPropGenerated;
 		public static event Action<int> OnPropsGenerationStarted;
 
 		public static event Action OnPropsGenerated;
@@ -51,10 +51,10 @@ namespace TerrainGeneration
 				tasks.Add(task);
 			}
 
-			var targetAmount = PropCollections.Props.Count;
+			var numberOfDifferentPropsToSpawn = PropCollections.Props.Count;
 			var index = 0;
 
-			while (index != targetAmount)
+			while (index != numberOfDifferentPropsToSpawn)
 			{
 				while (poissonDataQueue.Count == 0)
 				{
@@ -69,7 +69,7 @@ namespace TerrainGeneration
 				var data = poissonDataQueue.Dequeue();
 
 				index++;
-				StartCoroutine(PropCollections.Props[data.Index].ProcessPointDataCor(data, index, targetAmount,
+				StartCoroutine(PropCollections.Props[data.Index].ProcessPointDataCor(data, numberOfDifferentPropsToSpawn,
 					PropSpawnCompleteCallback, this, mapData));
 				yield return null;
 			}
@@ -85,10 +85,13 @@ namespace TerrainGeneration
 			go.isStatic = PropCollections.Props[index].StaticObject;
 		}
 
-		private void PropSpawnCompleteCallback(int currentAmount, int targetAmount)
+		private int count;
+		private void PropSpawnCompleteCallback()
 		{
-			OnPropGenerated?.Invoke(currentAmount, targetAmount);
-			if (currentAmount == targetAmount)
+			Debug.Log("prop spawn complete callback");
+			count++;
+			OnPropGenerated?.Invoke(count);
+			if (count == PropCollections.Props.Count-1)
 				OnPropsGenerated?.Invoke();
 		}
 

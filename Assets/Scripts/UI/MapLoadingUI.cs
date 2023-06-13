@@ -42,9 +42,9 @@ namespace UI
 			HideUI(fadeTime);
 		}
 
-		private void NewProp(int current, int target)
+		private void NewProp(int count)
 		{
-			currentPropProgress = current;
+			currentPropProgress = count;
 			UpdateTotals();
 		}
 

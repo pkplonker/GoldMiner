@@ -44,24 +44,27 @@ namespace Props
 
 		protected float GetTolerance() => FlatnessTolerance + FlatnessTolerance;
 
-		public IEnumerator ProcessPointDataCor(PoissonData poissonData, int currentAmount, int targetAmount,
-			Action<int, int> callback, PropSpawner propSpawner, MapData mapData)
+		public IEnumerator ProcessPointDataCor(PoissonData poissonData, int numberOfDifferentPropsToSpawn,
+			Action callback, PropSpawner propSpawner, MapData mapData)
 		{
+			var index = poissonData.Index;
+
 			if (!Spawn)
 			{
-				callback?.Invoke(currentAmount, targetAmount);
+				callback?.Invoke();
 				yield break;
 			}
 			var points = poissonData.Points;
 			var cachedTime = Time.realtimeSinceStartup;
 			const float ALLOWED_TIME_PER_FRAME = 1 / 45f;
-			var index = poissonData.Index;
 			
 
 			var prng = new System.Random(mapData.seed);
 			points.ShuffleWithPRNG(prng);
 			var numToSpawn = CalculateNumberToSpawn(mapData, points);
+			var cachedNumberToSpawn = numToSpawn;
 			var tolerance = GetTolerance();
+			int spawnedPointsThisCycle = 0;
 			for (var i = 0; i < points.Count; i++)
 			{
 				if (Time.realtimeSinceStartup - cachedTime >= ALLOWED_TIME_PER_FRAME)
@@ -79,14 +82,19 @@ namespace Props
 
 			if (numToSpawn > 0)
 			{
-				Debug.LogWarning($"spawned {targetAmount-numToSpawn}/{targetAmount} {name} from {points.Count}");
+				Debug.LogWarning($"spawned {cachedNumberToSpawn-numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
 			}
-			callback?.Invoke(currentAmount, targetAmount);
+			Debug.Log($"calling callback {Prefab.name}");
+			callback?.Invoke();
 		}
 
-		protected virtual int CalculateNumberToSpawn(MapData mapData, List<Vector2> points) =>
-			(int) Mathf.Min(points.Count,
+		protected virtual int CalculateNumberToSpawn(MapData mapData, List<Vector2> points)
+		{
+			var result = (int) Mathf.Min(points.Count,
 				MaxQuantityPer100M / 100f * (mapData.MapChunkSize * mapData.ChunksPerRow));
+			return result;
+		}
+			
 
 		protected virtual bool CalculatePlacement(MapData mapData, List<Vector2> points, int i, float tolerance,
 			out Vector3 result,
