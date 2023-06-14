@@ -17,7 +17,7 @@ MonoBehaviour:
   <Prefab>k__BackingField: {fileID: 108507113624723981, guid: 3b70b2899a0114c4f8a0eaea9dfad5fd,
     type: 3}
   <NumSamplesBeforeRejection>k__BackingField: 10
-  <MaxQuantityPer100M>k__BackingField: 6
+  <MaxQuantityPer100M>k__BackingField: 12
   <FlatnessTolerance>k__BackingField: 0.4
   <Radius>k__BackingField: 1.5
   <OverrideRideRadius>k__BackingField: 1

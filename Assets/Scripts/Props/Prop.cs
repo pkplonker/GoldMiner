@@ -25,6 +25,7 @@ namespace Props
 		public float Radius { get; protected set; }
 
 		[field: SerializeField] public bool OverrideRideRadius { get; protected set; }
+		private const float THRESHOLD = 100f;
 
 		public virtual float GetRadius()
 		{
@@ -54,10 +55,9 @@ namespace Props
 				callback?.Invoke();
 				yield break;
 			}
+
 			var points = poissonData.Points;
 			var cachedTime = Time.realtimeSinceStartup;
-			const float ALLOWED_TIME_PER_FRAME = 1 / 45f;
-			
 
 			var prng = new System.Random(mapData.seed);
 			points.ShuffleWithPRNG(prng);
@@ -67,10 +67,10 @@ namespace Props
 			int spawnedPointsThisCycle = 0;
 			for (var i = 0; i < points.Count; i++)
 			{
-				if (Time.realtimeSinceStartup - cachedTime >= ALLOWED_TIME_PER_FRAME)
+				if (spawnedPointsThisCycle > THRESHOLD)
 				{
 					yield return 0;
-					cachedTime = Time.realtimeSinceStartup;
+					spawnedPointsThisCycle = 0;
 				}
 
 				if (numToSpawn <= 0) break;
@@ -82,8 +82,10 @@ namespace Props
 
 			if (numToSpawn > 0)
 			{
-				Debug.LogWarning($"spawned {cachedNumberToSpawn-numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
+				Debug.LogWarning(
+					$"spawned {cachedNumberToSpawn - numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
 			}
+		
 			Debug.Log($"calling callback {Prefab.name}");
 			callback?.Invoke();
 		}
@@ -94,7 +96,6 @@ namespace Props
 				MaxQuantityPer100M / 100f * (mapData.MapChunkSize * mapData.ChunksPerRow));
 			return result;
 		}
-			
 
 		protected virtual bool CalculatePlacement(MapData mapData, List<Vector2> points, int i, float tolerance,
 			out Vector3 result,

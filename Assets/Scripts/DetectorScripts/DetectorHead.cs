@@ -24,7 +24,7 @@ namespace DetectorScripts
 		public static float CurrentSignal { get; private set; }
 		[SerializeField] private float _signalDegradeSpeed = 2f;
 		public static event Action<float> OnDetection;
-		private const string TARGET_LAYER_MASK = "Target";
+		private const string TARGET_LAYER_MASK = "StaticProp";
 
 		private void Start()
 		{
@@ -87,7 +87,7 @@ namespace DetectorScripts
 		{
 			if (!PlayerInteractionStateMachine.IsDetecting) return;
 			CurrentSignal = CalculateSignalStrength(target);
-			//Debug.Log("BUZZZZZ");
+			Debug.Log("BUZZZZZ");
 			OnDetection?.Invoke(CurrentSignal);
 		}
 	}

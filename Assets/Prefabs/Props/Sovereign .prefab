@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 7667591293417051214}
   - component: {fileID: -6132582963918510362}
   - component: {fileID: 4095879078568888157}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: 'Sovereign '
-  m_TagString: Untagged
+  m_TagString: StaticProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5227246537699845707}
   - component: {fileID: 5271829917593280657}
   - component: {fileID: -49983277742407532}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Gold1
-  m_TagString: Untagged
+  m_TagString: StaticProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,8 +136,17 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.9
-      value: 10
+      time: 0.70911664
+      value: 3.3767362
+      inSlope: 5.4617953
+      outSlope: 5.4617953
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9914917
+      value: 8.502869
       inSlope: 34.748398
       outSlope: 34.748398
       tangentMode: 0
@@ -145,8 +154,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.23689204
     - serializedVersion: 3
-      time: 1
-      value: 140
+      time: 0.99902344
+      value: 59.904198
       inSlope: 0
       outSlope: 0
       tangentMode: 136

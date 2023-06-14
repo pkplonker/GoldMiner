@@ -17,7 +17,7 @@ using Object = UnityEngine.Object;
 /// </summary>
 public class GoldManagerWindow : EditorWindow
 {
-	private int columnWidth = 400;
+	private int columnWidth = 350;
 	private Vector2 scrollPos;
 	private List<Gold> currentDisplayedItems;
 	private static GoldSpawnManager goldSpawnManager;
@@ -120,6 +120,7 @@ public class GoldManagerWindow : EditorWindow
 		EditorGUILayout.LabelField(gold.transform.position.ToString(), EditorStyles.boldLabel,
 			GUILayout.Width(columnWidth));
 		EditorGUILayout.LabelField(gold.Weight.ToString(CultureInfo.InvariantCulture), EditorStyles.boldLabel, GUILayout.Width(columnWidth));
+		
 		GUILayout.EndHorizontal();
 	}
 }

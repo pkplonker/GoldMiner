@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2023517908}
   - component: {fileID: 2023517907}
   - component: {fileID: 859372208}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P_Rock2
-  m_TagString: Untagged
+  m_TagString: StaticProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

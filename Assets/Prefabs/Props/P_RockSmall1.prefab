@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5380243799779422456}
   - component: {fileID: 9008796500143554397}
   - component: {fileID: 6548616377761418135}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P_RockSmall1
-  m_TagString: Untagged
+  m_TagString: StaticProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
