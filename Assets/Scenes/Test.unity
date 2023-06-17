@@ -527,6 +527,7 @@ GameObject:
   - component: {fileID: 821097373}
   - component: {fileID: 821097372}
   - component: {fileID: 821097375}
+  - component: {fileID: 821097376}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -592,6 +593,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PropCollections: {fileID: 11400000, guid: 2e5a8c3a5124bed4fa2c8bd2032330c9, type: 2}
+--- !u!114 &821097376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821097371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f119d45a164b0a4994a27a0a7be37b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewDistance: 200
+  playerReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51, type: 2}
+  refreshRate: 0.1
 --- !u!1 &883963960
 GameObject:
   m_ObjectHideFlags: 0

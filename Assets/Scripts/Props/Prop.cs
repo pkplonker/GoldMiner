@@ -75,7 +75,7 @@ namespace Props
 
 				if (numToSpawn <= 0) break;
 				if (!CalculatePlacement(mapData, points, i, tolerance, out var result, out var rotation)) continue;
-
+				if (result.IsInfinity()) continue;
 				propSpawner.SpawnProp(index, result, rotation);
 				numToSpawn--;
 			}
@@ -86,7 +86,7 @@ namespace Props
 					$"spawned {cachedNumberToSpawn - numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
 			}
 		
-			Debug.Log($"calling callback {Prefab.name}");
+			//Debug.Log($"calling callback {Prefab.name}");
 			callback?.Invoke();
 		}
 
@@ -104,8 +104,7 @@ namespace Props
 			result = CalculatePosition(new Vector3(points[i].x, 0, points[i].y),
 				mapData);
 			rotation = CalculateRotation(i, mapData.seed);
-
-			if (result == Vector3.positiveInfinity) return true;
+			if (result.IsInfinity()) return false;
 			var bounds = BoundDrawer.GetBounds(Prefab);
 			var isFlat = BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
 				result - new Vector3(0, bounds.extents.y, 0),

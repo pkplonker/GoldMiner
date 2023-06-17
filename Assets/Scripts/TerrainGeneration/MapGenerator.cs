@@ -79,8 +79,7 @@ namespace TerrainGeneration
 		{
 			if (MapGeneratorTerrain.Generated && !spawnedProps)
 			{
-				PropSpawner.SpawnObjects(MapGeneratorTerrain.MapData.GetSize(),
-					MapGeneratorTerrain.MapData);
+				PropSpawner.SpawnObjects(MapGeneratorTerrain);
 				spawnedProps = true;
 			}
 		}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 572be5186946e2d49be13399c8d7cc62, type: 3}
-  m_Name: FullPropData
+  m_Name: TestPropCollection
   m_EditorClassIdentifier: 
   Props:
   - {fileID: 11400000, guid: 4c8ed7c6c18eae94384283a1df1d1841, type: 2}

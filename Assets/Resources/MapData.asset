@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa6cdd56bafef64cb5f9033de9fb655, type: 3}
   m_Name: MapData
   m_EditorClassIdentifier: 
-  <MapChunkSize>k__BackingField: 5
-  <ChunksPerRow>k__BackingField: 50
+  <MapChunkSize>k__BackingField: 16
+  <ChunksPerRow>k__BackingField: 25
   lod: 4
   seed: 12345
   octaves: 4

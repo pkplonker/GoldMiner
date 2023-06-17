@@ -132,6 +132,23 @@ namespace TerrainGeneration
 			texture.Apply();
 			return texture;
 		}
+		public TerrainChunk GetChunkFromPosition(Vector3 position)
+		{
+			var xCoord = (int) position.x / MapData.MapChunkSize;
+			var zCoord = (int) position.z / MapData.MapChunkSize;
+			xCoord = Mathf.Clamp(xCoord, 0, terrainChunks.Length-1);
+			zCoord = Mathf.Clamp(zCoord, 0, terrainChunks.Length-1);
+			var terrain = terrainChunks[xCoord, zCoord];
+			return terrain;
+		}
+		public Vector2Int GetChunkIndexFromPosition(Vector3 position)
+		{
+			var xCoord = (int) position.x / MapData.MapChunkSize;
+			var zCoord = (int) position.z / MapData.MapChunkSize;
+			xCoord = Mathf.Clamp(xCoord, 0, terrainChunks.Length-1);
+			zCoord = Mathf.Clamp(zCoord, 0, terrainChunks.Length-1);
+			return new Vector2Int(xCoord,zCoord);
+		}
 	}
 
 	[Serializable]
