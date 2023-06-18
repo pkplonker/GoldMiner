@@ -11,7 +11,7 @@ namespace TerrainGeneration
 	public class MapGeneratorTerrain : MonoBehaviour
 	{
 		[field: SerializeField] public MapData MapData { get; private set; }
-		private readonly ConcurrentQueue<TerrainChunkData> terrainChunkDatas = new();
+		private TerrainChunkData[,] terrainChunkDatas;
 		private int chunksGeneratedCount;
 		[SerializeField] private TerrainChunk chunkPrefab;
 		private float[,] noiseMap;
@@ -34,7 +34,7 @@ namespace TerrainGeneration
 
 		public void ClearData()
 		{
-			terrainChunkDatas.Clear();
+			//terrainChunkDatas.Clear();
 			if (Container)
 			{
 				foreach (Transform t in Container.GetComponentInChildren<Transform>())
@@ -51,6 +51,7 @@ namespace TerrainGeneration
 		public void Generate()
 		{
 			ClearData();
+			terrainChunkDatas = new TerrainChunkData[MapData.ChunksPerRow,MapData.ChunksPerRow];
 			var chunksRequired = MapData.ChunksPerRow * MapData.ChunksPerRow;
 			terrainChunks = new TerrainChunk[MapData.ChunksPerRow, MapData.ChunksPerRow];
 
