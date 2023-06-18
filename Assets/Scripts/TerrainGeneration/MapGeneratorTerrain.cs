@@ -29,7 +29,7 @@ namespace TerrainGeneration
 #if UNITY_EDITOR
 		public bool Generated { get; set; } = true;
 #else
-		public bool generated { get; private set; }
+		public bool Generated { get; private set; }
 #endif
 
 		public void ClearData()
