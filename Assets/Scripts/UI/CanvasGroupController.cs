@@ -28,7 +28,7 @@ namespace UI
 			}
 
 			uis.RemoveAll(x => x == null);
-			ui.Show();
+			ui.Toggle();
 			for (var i = 0; i < uis.Count-1; i++)
 			{
 				ui.Disable();

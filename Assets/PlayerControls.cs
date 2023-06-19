@@ -91,6 +91,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Map"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e9f0f6c-126c-4aac-89da-5790c4d406db"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""ManualDetectionToggle"",
                     ""type"": ""Button"",
                     ""id"": ""bf19ec8c-53fe-40d0-88e0-b4790350b34b"",
@@ -552,6 +561,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""PanRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c47b8e10-0401-46f5-80cb-006ffdbe0eb8"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9a3095b-59e0-47e9-90f9-c2a92c478256"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -567,6 +598,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerMovement_Detection = m_PlayerMovement.FindAction("Detection", throwIfNotFound: true);
         m_PlayerMovement_ESC = m_PlayerMovement.FindAction("ESC", throwIfNotFound: true);
         m_PlayerMovement_Invent = m_PlayerMovement.FindAction("Invent", throwIfNotFound: true);
+        m_PlayerMovement_Map = m_PlayerMovement.FindAction("Map", throwIfNotFound: true);
         m_PlayerMovement_ManualDetectionToggle = m_PlayerMovement.FindAction("ManualDetectionToggle", throwIfNotFound: true);
         m_PlayerMovement_Digging = m_PlayerMovement.FindAction("Digging", throwIfNotFound: true);
         m_PlayerMovement_Idle = m_PlayerMovement.FindAction("Idle", throwIfNotFound: true);
@@ -641,6 +673,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_Detection;
     private readonly InputAction m_PlayerMovement_ESC;
     private readonly InputAction m_PlayerMovement_Invent;
+    private readonly InputAction m_PlayerMovement_Map;
     private readonly InputAction m_PlayerMovement_ManualDetectionToggle;
     private readonly InputAction m_PlayerMovement_Digging;
     private readonly InputAction m_PlayerMovement_Idle;
@@ -658,6 +691,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Detection => m_Wrapper.m_PlayerMovement_Detection;
         public InputAction @ESC => m_Wrapper.m_PlayerMovement_ESC;
         public InputAction @Invent => m_Wrapper.m_PlayerMovement_Invent;
+        public InputAction @Map => m_Wrapper.m_PlayerMovement_Map;
         public InputAction @ManualDetectionToggle => m_Wrapper.m_PlayerMovement_ManualDetectionToggle;
         public InputAction @Digging => m_Wrapper.m_PlayerMovement_Digging;
         public InputAction @Idle => m_Wrapper.m_PlayerMovement_Idle;
@@ -694,6 +728,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Invent.started += instance.OnInvent;
             @Invent.performed += instance.OnInvent;
             @Invent.canceled += instance.OnInvent;
+            @Map.started += instance.OnMap;
+            @Map.performed += instance.OnMap;
+            @Map.canceled += instance.OnMap;
             @ManualDetectionToggle.started += instance.OnManualDetectionToggle;
             @ManualDetectionToggle.performed += instance.OnManualDetectionToggle;
             @ManualDetectionToggle.canceled += instance.OnManualDetectionToggle;
@@ -737,6 +774,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Invent.started -= instance.OnInvent;
             @Invent.performed -= instance.OnInvent;
             @Invent.canceled -= instance.OnInvent;
+            @Map.started -= instance.OnMap;
+            @Map.performed -= instance.OnMap;
+            @Map.canceled -= instance.OnMap;
             @ManualDetectionToggle.started -= instance.OnManualDetectionToggle;
             @ManualDetectionToggle.performed -= instance.OnManualDetectionToggle;
             @ManualDetectionToggle.canceled -= instance.OnManualDetectionToggle;
@@ -781,6 +821,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnDetection(InputAction.CallbackContext context);
         void OnESC(InputAction.CallbackContext context);
         void OnInvent(InputAction.CallbackContext context);
+        void OnMap(InputAction.CallbackContext context);
         void OnManualDetectionToggle(InputAction.CallbackContext context);
         void OnDigging(InputAction.CallbackContext context);
         void OnIdle(InputAction.CallbackContext context);

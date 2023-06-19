@@ -83,7 +83,7 @@ namespace TerrainGeneration
 		private int count;
 		private void PropSpawnCompleteCallback()
 		{
-			Debug.Log("prop spawn complete callback");
+			//Debug.Log("prop spawn complete callback");
 			count++;
 			OnPropGenerated?.Invoke(count);
 			if (count == PropCollections.Props.Count-1)

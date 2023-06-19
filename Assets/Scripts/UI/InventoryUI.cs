@@ -43,7 +43,8 @@ namespace UI
 		private void ToggleInventory()
 		{
 			if(inventoryActive) Hide();
-		else Show();}
+			else Toggle();
+		}
 
 
 		private void SetupInvent()
@@ -90,7 +91,7 @@ namespace UI
 			}
 		}
 
-		public void Show()
+		public void Toggle()
 		{
 			Enable();
 			inventoryActive = true;

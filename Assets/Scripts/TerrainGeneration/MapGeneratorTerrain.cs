@@ -11,7 +11,7 @@ namespace TerrainGeneration
 	public class MapGeneratorTerrain : MonoBehaviour
 	{
 		[field: SerializeField] public MapData MapData { get; private set; }
-		private TerrainChunkData[,] terrainChunkDatas;
+		private readonly ConcurrentQueue<TerrainChunkData> terrainChunkDatasQueue = new();
 		private int chunksGeneratedCount;
 		[SerializeField] private TerrainChunk chunkPrefab;
 		private float[,] noiseMap;
@@ -20,6 +20,7 @@ namespace TerrainGeneration
 		public static event Action<int, int> OnChunkGenerated;
 
 		public static TerrainChunk[,] terrainChunks;
+		public static TerrainChunkData[,] terrainChunkData;
 
 		public float[,] NoiseMap
 		{
@@ -34,7 +35,7 @@ namespace TerrainGeneration
 
 		public void ClearData()
 		{
-			//terrainChunkDatas.Clear();
+			terrainChunkDatasQueue.Clear();
 			if (Container)
 			{
 				foreach (Transform t in Container.GetComponentInChildren<Transform>())
@@ -51,10 +52,9 @@ namespace TerrainGeneration
 		public void Generate()
 		{
 			ClearData();
-			terrainChunkDatas = new TerrainChunkData[MapData.ChunksPerRow,MapData.ChunksPerRow];
 			var chunksRequired = MapData.ChunksPerRow * MapData.ChunksPerRow;
 			terrainChunks = new TerrainChunk[MapData.ChunksPerRow, MapData.ChunksPerRow];
-
+			terrainChunkData = new TerrainChunkData[MapData.ChunksPerRow, MapData.ChunksPerRow];
 			if (!Container)
 			{
 				Container = new GameObject() {name = "Tile Container"}.transform;
@@ -93,7 +93,8 @@ namespace TerrainGeneration
 					cachedTime = Time.realtimeSinceStartup;
 				}
 
-				if (!terrainChunkDatas.TryDequeue(out var terrainChunkData)) continue;
+				if (!terrainChunkDatasQueue.TryDequeue(out var terrainChunkData)) continue;
+				MapGeneratorTerrain.terrainChunkData[terrainChunkData.X, terrainChunkData.Y] = terrainChunkData;
 				GenerateGameObject(terrainChunkData);
 				chunksGeneratedCount++;
 
@@ -107,9 +108,9 @@ namespace TerrainGeneration
 
 		private void AddToTerrainChunkQueue(TerrainChunkData terrainChunkData)
 		{
-			lock (terrainChunkDatas)
+			lock (terrainChunkDatasQueue)
 			{
-				terrainChunkDatas.Enqueue(terrainChunkData);
+				terrainChunkDatasQueue.Enqueue(terrainChunkData);
 			}
 		}
 
