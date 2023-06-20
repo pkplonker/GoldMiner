@@ -18,14 +18,19 @@ public class DiggableTerrain : MonoBehaviour
 	private MeshRenderer meshRenderer;
 
 	private MeshFilter meshFilter;
-	private bool setup;
 	private float digAmount;
 	private Dictionary<int, float> digChanges = new();
 	[SerializeField] private Color dugGroundColorOffet;
+	private TerrainChunk terrainChunk;
+	private int terrainChunkLength;
+	private List<Tuple<int, int, int>> changes = new (100);
+	private Mesh oldMesh;
+
+	private void OnEnable()=>Setup();
+	
 
 	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
 	{
-		if (!setup) Setup();
 		this.digAmount = digAmount;
 		var mesh = meshFilter.mesh;
 		var hitVerts = GetHitVerts(hit, mesh, out var hitVertIndexes);
@@ -76,8 +81,7 @@ public class DiggableTerrain : MonoBehaviour
 
 	private void CheckNeighbours(RaycastHit hit)
 	{
-		var changes = new List<Tuple<int, int, int>>();
-		var terrainChunk = GetComponent<TerrainChunk>();
+		changes.Clear();
 		var mapData = terrainChunk.MapData;
 		var x = terrainChunk.X;
 		var y = terrainChunk.Y;
@@ -113,12 +117,12 @@ public class DiggableTerrain : MonoBehaviour
 
 	private void ProcessNeighbourChanges(IEnumerable<Tuple<int, int, int>> changesRequested)
 	{
-		var changes = changesRequested.Distinct().ToList();
+		changes = changesRequested.Distinct().ToList();
 
 		foreach (var change in changes)
 		{
-			if (change.Item1 < 0 || change.Item1 > MapGeneratorTerrain.terrainChunks.GetLength(0) - 1) continue;
-			if (change.Item2 < 0 || change.Item2 > MapGeneratorTerrain.terrainChunks.GetLength(1) - 1) continue;
+			if (change.Item1 < 0 || change.Item1 > terrainChunkLength) continue;
+			if (change.Item2 < 0 || change.Item2 > terrainChunkLength) continue;
 
 			var dt = MapGeneratorTerrain.terrainChunks[change.Item1, change.Item2].GetComponent<DiggableTerrain>();
 			if (dt != null) dt.DigAtVertIndex(change.Item3, digAmount);
@@ -128,7 +132,6 @@ public class DiggableTerrain : MonoBehaviour
 	private void DigAtVertIndex(int index, float digAmount)
 	{
 		this.digAmount = digAmount;
-		if (!setup) Setup();
 		var verts = meshFilter.mesh.vertices;
 		verts[index].y -= digAmount;
 		UpdateColor(new[] {index}, verts);
@@ -181,7 +184,7 @@ public class DiggableTerrain : MonoBehaviour
 
 	private Mesh RegenerateMesh(Vector3[] verts)
 	{
-		var oldMesh = meshFilter.mesh;
+		oldMesh = meshFilter.mesh;
 		var newMesh = new Mesh
 		{
 			name = oldMesh.name
@@ -201,6 +204,7 @@ public class DiggableTerrain : MonoBehaviour
 
 		newMesh.RecalculateBounds();
 		meshFilter.mesh = newMesh;
+		oldMesh = newMesh;
 		return newMesh;
 	}
 
@@ -223,6 +227,8 @@ public class DiggableTerrain : MonoBehaviour
 		if (!meshRenderer) meshRenderer = GetComponent<MeshRenderer>();
 		if (!meshCollider) meshCollider = GetComponent<MeshCollider>();
 		if (!meshFilter) meshFilter = GetComponent<MeshFilter>();
-		setup = meshCollider && meshFilter;
+		terrainChunk = GetComponent<TerrainChunk>();
+		terrainChunkLength = MapGeneratorTerrain.terrainChunks.GetLength(0) - 1;
+
 	}
 }
