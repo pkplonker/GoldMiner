@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MapChunkSize>k__BackingField: 16
   <ChunksPerRow>k__BackingField: 5
-  lod: 1
+  lod: 4
   seed: 12345
   octaves: 4
   persistance: 0.8

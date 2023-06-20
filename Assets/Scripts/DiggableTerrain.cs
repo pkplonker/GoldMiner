@@ -207,10 +207,7 @@ public class DiggableTerrain : MonoBehaviour
 		tris.Clear();
 		tris.AddRange(newMesh.triangles);
 
-		TerrainChunkDataGenerator.CalculateNormals(ref vertList, out normals, ref tris);
-		newMesh.SetNormals(normals);
-
-		newMesh.RecalculateBounds();
+		newMesh.SetNormals(oldMesh.normals);
 		meshFilter.mesh = newMesh;
 		oldMesh = newMesh;
 		return newMesh;
