@@ -29,6 +29,7 @@ namespace UI
 
 		public override void Toggle()
 		{
+			if (playerMovement == null) playerMovement = playerReference.GetPlayer().GetComponent<PlayerMovement>();
 			enabled = !enabled;
 			if (enabled)
 			{
@@ -53,7 +54,6 @@ namespace UI
 
 		private void MapGenerated(Texture2D obj)
 		{
-			playerMovement = playerReference.GetPlayer().GetComponent<PlayerMovement>();
 			mapImage.texture = obj;
 		}
 	}

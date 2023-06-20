@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Profiling;
 #endif
 
-public class Digging : BaseState
+public class DiggingState : BaseState
 {
 	private bool isDiggingState = false;
 	private PlayerInteractionStateMachine stateMachine;
@@ -17,6 +17,7 @@ public class Digging : BaseState
 
 	private void UpdateMarkerPosition()
 	{
+		stateMachine.diggingTarget.enabled = true;
 		var ray = stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
 		if (!Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(stateMachine.GROUND_LAYER))) return;
 		if (Vector3.Distance(stateMachine.transform.position, hit.point) > stateMachine.digRange)
@@ -37,7 +38,6 @@ public class Digging : BaseState
 
 	private void ToggleDigging() => isDiggingState = !isDiggingState;
 
-
 	public override void EnterState(StateMachine sm)
 	{
 		canDig = false;
@@ -51,7 +51,6 @@ public class Digging : BaseState
 		stateMachine.diggingTarget.enabled = true;
 		PlayerInputManager.OnDiggingToggle += ToggleDigging;
 	}
-
 
 	protected override void VirtualStateExit()
 	{
@@ -90,7 +89,6 @@ public class Digging : BaseState
 		}
 
 		UnableToDig(hit.point);
-
 
 #if UNITY_EDITOR
 		Profiler.EndSample();

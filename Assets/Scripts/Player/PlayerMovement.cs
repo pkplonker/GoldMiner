@@ -197,5 +197,7 @@ namespace Player
 				new Vector3(position.x, position.y - groundedOffset, position.z),
 				groundedRadius);
 		}
+
+		public bool GetCanMove() => canMove;
 	}
 }

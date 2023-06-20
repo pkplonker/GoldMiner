@@ -9,7 +9,7 @@ public abstract class StateMachine : MonoBehaviour
 		CurrentState.Tick();
 	}
 
-	protected virtual void ChangeState(BaseState state)
+	public virtual void ChangeState(BaseState state)
 	{
 		CurrentState?.ExitState();
 		CurrentState = state;
