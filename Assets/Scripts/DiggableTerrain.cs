@@ -23,9 +23,12 @@ public class DiggableTerrain : MonoBehaviour
 	[SerializeField] private Color dugGroundColorOffet;
 	private TerrainChunk terrainChunk;
 	private int terrainChunkLength;
-	private List<Tuple<int, int, int>> changes = new (100);
+	private HashSet<Tuple<int, int, int>> changes = new (100);
 	private Mesh oldMesh;
-
+	private List<Vector3> vertList = new ();
+	private List<int> tris = new ();
+	private List<Vector2> oldUvs = new ();
+	private Vector3[] normals;
 	private void OnEnable()=>Setup();
 	
 
@@ -98,26 +101,26 @@ public class DiggableTerrain : MonoBehaviour
 
 		foreach (var index in hitVertsIndexes)
 		{
-			var val = CheckTop(index, vertsPerRow, totalVerts);
-			if (val != -1) changes.Add(new Tuple<int, int, int>(x, y + 1, val));
-			val = CheckBottom(index, vertsPerRow, totalVerts);
-			if (val != -1) changes.Add(new Tuple<int, int, int>(x, y - 1, val));
-			val = CheckLeft(index, vertsPerRow);
-			if (val != -1) changes.Add(new Tuple<int, int, int>(x - 1, y, val));
-			val = CheckRight(index, vertsPerRow);
-			if (val != -1) changes.Add(new Tuple<int, int, int>(x + 1, y, val));
-			if (index == 0) changes.Add(new Tuple<int, int, int>(x - 1, y - 1, totalVerts - 1));
-			if (index == totalVerts - 1) changes.Add(new Tuple<int, int, int>(x + 1, y + 1, 0));
-			if (index == vertsPerRow - 1) changes.Add(new Tuple<int, int, int>(x + 1, y - 1, totalVerts - vertsPerRow));
-			if (index == totalVerts - vertsPerRow) changes.Add(new Tuple<int, int, int>(x - 1, y + 1, vertsPerRow - 1));
+			AddChange(changes, CheckTop(index, vertsPerRow, totalVerts), x, y + 1);
+			AddChange(changes, CheckBottom(index, vertsPerRow, totalVerts), x, y - 1);
+			AddChange(changes, CheckLeft(index, vertsPerRow), x - 1, y);
+			AddChange(changes, CheckRight(index, vertsPerRow), x + 1, y);
+			if (index == 0) AddChange(changes, totalVerts - 1, x - 1, y - 1);
+			if (index == totalVerts - 1) AddChange(changes, 0, x + 1, y + 1);
+			if (index == vertsPerRow - 1) AddChange(changes, totalVerts - vertsPerRow, x + 1, y - 1);
+			if (index == totalVerts - vertsPerRow) AddChange(changes, vertsPerRow - 1, x - 1, y + 1);
 		}
 
-		ProcessNeighbourChanges(changes);
+		ProcessNeighbourChanges();
 	}
 
-	private void ProcessNeighbourChanges(IEnumerable<Tuple<int, int, int>> changesRequested)
+	private void AddChange(HashSet<Tuple<int, int, int>> changes, int val, int x, int y)
 	{
-		changes = changesRequested.Distinct().ToList();
+		if (val != -1)
+			changes.Add(new Tuple<int, int, int>(x, y, val));
+	}
+	private void ProcessNeighbourChanges()
+	{
 
 		foreach (var change in changes)
 		{
@@ -159,19 +162,17 @@ public class DiggableTerrain : MonoBehaviour
 
 	private Vector3[] UpdateVerts(float digAmount, Vector3[] hitVerts, Vector3[] verts)
 	{
+		// Using a HashSet for constant time lookup
+		HashSet<Vector3> hitVertsSet = new HashSet<Vector3>(hitVerts);
+
 		for (var i = 0; i < verts.Length; i++)
 		{
 			var v = verts[i];
-			if (hitVerts.Any(hv => v == hv))
+			if (hitVertsSet.Contains(v))
 			{
 				verts[i] = new Vector3(v.x, v.y - digAmount, v.z);
-				//debug vert pos
-				//	var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-				//go.transform.position = transform.TransformPoint(verts[i]);
-				//go.transform.localScale = Vector3.one * 0.1f;
 			}
 		}
-
 		return verts;
 	}
 
@@ -182,6 +183,8 @@ public class DiggableTerrain : MonoBehaviour
 		meshCollider.cookingOptions = MeshColliderCookingOptions.EnableMeshCleaning;
 	}
 
+	
+
 	private Mesh RegenerateMesh(Vector3[] verts)
 	{
 		oldMesh = meshFilter.mesh;
@@ -189,18 +192,23 @@ public class DiggableTerrain : MonoBehaviour
 		{
 			name = oldMesh.name
 		};
-		var vertList = verts.ToList();
-		newMesh.SetVertices(verts);
-		newMesh.triangles = oldMesh.GetTriangles(0);
-		var oldUvs = new List<Vector2>();
+
+		vertList.Clear();
+		vertList.AddRange(verts);
+		newMesh.SetVertices(vertList);
+
+		oldMesh.GetTriangles(tris, 0);
+		newMesh.SetTriangles(tris, 0);
+
+		oldUvs.Clear();
 		oldMesh.GetUVs(0, oldUvs);
 		newMesh.SetUVs(0, oldUvs);
-		//newMesh.SetNormals(oldMesh.normals);
-		var tris = newMesh.triangles.ToList();
-		TerrainChunkDataGenerator.CalculateNormals(ref vertList, out var normals, ref tris);
-		newMesh.SetNormals(normals);
 
-		//newMesh.RecalculateNormals();
+		tris.Clear();
+		tris.AddRange(newMesh.triangles);
+
+		TerrainChunkDataGenerator.CalculateNormals(ref vertList, out normals, ref tris);
+		newMesh.SetNormals(normals);
 
 		newMesh.RecalculateBounds();
 		meshFilter.mesh = newMesh;
