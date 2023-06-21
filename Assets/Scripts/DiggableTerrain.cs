@@ -23,7 +23,7 @@ public class DiggableTerrain : MonoBehaviour
 	[SerializeField] private Color dugGroundColorOffet;
 	private TerrainChunk terrainChunk;
 	private int terrainChunkLength;
-	private HashSet<Tuple<int, int, int>> changes = new (100);
+	private HashSet<TerrainChange> changes = new (100);
 	private Mesh oldMesh;
 	private List<Vector3> vertList = new ();
 	private List<int> tris = new ();
@@ -52,7 +52,7 @@ public class DiggableTerrain : MonoBehaviour
 		UpdateColor(hitVertIndexes, verts);
 		return true;
 	}
-
+	
 	private void UpdateColor(int[] hitVertIndexes, Vector3[] verts)
 	{
 		var mat = meshRenderer.material;
@@ -114,21 +114,20 @@ public class DiggableTerrain : MonoBehaviour
 		ProcessNeighbourChanges();
 	}
 
-	private void AddChange(HashSet<Tuple<int, int, int>> changes, int val, int x, int y)
+	private void AddChange(HashSet<TerrainChange> changes, int val, int x, int y)
 	{
 		if (val != -1)
-			changes.Add(new Tuple<int, int, int>(x, y, val));
+			changes.Add(new TerrainChange(x, y, val));
 	}
 	private void ProcessNeighbourChanges()
 	{
-
 		foreach (var change in changes)
 		{
-			if (change.Item1 < 0 || change.Item1 > terrainChunkLength) continue;
-			if (change.Item2 < 0 || change.Item2 > terrainChunkLength) continue;
+			if (change.X < 0 || change.X > terrainChunkLength) continue;
+			if (change.Y < 0 || change.Y > terrainChunkLength) continue;
 
-			var dt = MapGeneratorTerrain.terrainChunks[change.Item1, change.Item2].GetComponent<DiggableTerrain>();
-			if (dt != null) dt.DigAtVertIndex(change.Item3, digAmount);
+			var dt = MapGeneratorTerrain.terrainChunks[change.X, change.Y].GetComponent<DiggableTerrain>();
+			if (dt != null) dt.DigAtVertIndex(change.Index, digAmount);
 		}
 	}
 
@@ -235,5 +234,19 @@ public class DiggableTerrain : MonoBehaviour
 		terrainChunk = GetComponent<TerrainChunk>();
 		terrainChunkLength = MapGeneratorTerrain.terrainChunks.GetLength(0) - 1;
 
+	}
+	
+	public struct TerrainChange
+	{
+		public int X;
+		public int Y;
+		public int Index;
+
+		public TerrainChange(int x, int y, int index)
+		{
+			X = x;
+			Y = y;
+			Index = index;
+		}
 	}
 }
