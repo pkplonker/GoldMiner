@@ -2,11 +2,11 @@
 // Copyright (C) 2022 Stuart Heath. All rights reserved.
 //
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using StuartHeathTools;
 using TerrainGeneration;
+using Unity.Collections;
+using Unity.Jobs;
 using UnityEngine;
 
 /// <summary>
@@ -23,20 +23,23 @@ public class DiggableTerrain : MonoBehaviour
 	[SerializeField] private Color dugGroundColorOffet;
 	private TerrainChunk terrainChunk;
 	private int terrainChunkLength;
-	private HashSet<TerrainChange> changes = new (100);
+	private HashSet<TerrainChange> changes = new(100);
 	private Mesh oldMesh;
-	private List<Vector3> vertList = new ();
-	private List<int> tris = new ();
-	private List<Vector2> oldUvs = new ();
+	private List<Vector3> vertList = new();
+	private List<int> tris = new();
+	private List<Vector2> oldUvs = new();
 	private Vector3[] normals;
-	private void OnEnable()=>Setup();
-	
+	private Vector3[] hitVerts = new Vector3[3];
+	private int[] hitVertIndexes = new int[3];
+	private Material material;
+
+	private void OnEnable() => Setup();
 
 	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
 	{
 		this.digAmount = digAmount;
 		var mesh = meshFilter.mesh;
-		var hitVerts = GetHitVerts(hit, mesh, out var hitVertIndexes);
+		GetHitVerts(hit, mesh);
 		for (var i = 0; i < hitVerts.Length; i++)
 		{
 			AddToChanges(hit.triangleIndex * 3 + i, this.digAmount);
@@ -49,14 +52,14 @@ public class DiggableTerrain : MonoBehaviour
 		}
 
 		CheckNeighbours(hit);
-		UpdateColor(hitVertIndexes, verts);
+		UpdateColor(hitVertIndexes);
 		return true;
 	}
-	
-	private void UpdateColor(int[] hitVertIndexes, Vector3[] verts)
+
+	private void UpdateColor(int[] hitVertIndexes)
 	{
-		var mat = meshRenderer.material;
-		var texture = mat.mainTexture as Texture2D;
+		material = meshRenderer.material;
+		var texture = material.mainTexture as Texture2D;
 		if (texture == null) return;
 		var colorMap = texture.GetPixels();
 
@@ -119,6 +122,7 @@ public class DiggableTerrain : MonoBehaviour
 		if (val != -1)
 			changes.Add(new TerrainChange(x, y, val));
 	}
+
 	private void ProcessNeighbourChanges()
 	{
 		foreach (var change in changes)
@@ -136,7 +140,7 @@ public class DiggableTerrain : MonoBehaviour
 		this.digAmount = digAmount;
 		var verts = meshFilter.mesh.vertices;
 		verts[index].y -= digAmount;
-		UpdateColor(new[] {index}, verts);
+		UpdateColor(new[] {index});
 		AddToChanges(index, digAmount);
 		var updatedMesh = RegenerateMesh(verts);
 		UpdateCollider(updatedMesh);
@@ -161,28 +165,33 @@ public class DiggableTerrain : MonoBehaviour
 
 	private Vector3[] UpdateVerts(float digAmount, Vector3[] hitVerts, Vector3[] verts)
 	{
-		// Using a HashSet for constant time lookup
-		HashSet<Vector3> hitVertsSet = new HashSet<Vector3>(hitVerts);
+		var hitVertsNative = new NativeArray<Vector3>(hitVerts, Allocator.TempJob);
+		var vertsNative = new NativeArray<Vector3>(verts, Allocator.TempJob);
 
-		for (var i = 0; i < verts.Length; i++)
+		var job = new UpdateVertsJob
 		{
-			var v = verts[i];
-			if (hitVertsSet.Contains(v))
-			{
-				verts[i] = new Vector3(v.x, v.y - digAmount, v.z);
-			}
-		}
+			hitVerts = hitVertsNative,
+			digAmount = digAmount,
+			verts = vertsNative
+		};
+
+		var jobHandle = job.Schedule(vertsNative.Length, 64);
+		jobHandle.Complete();
+
+		vertsNative.CopyTo(verts);
+
+		hitVertsNative.Dispose();
+		vertsNative.Dispose();
+
 		return verts;
 	}
 
 	private void UpdateCollider(Mesh newMesh)
 	{
-		if (meshCollider.sharedMesh) meshCollider.sharedMesh.Clear();
+		//if (meshCollider.sharedMesh) meshCollider.sharedMesh.Clear();
 		meshCollider.sharedMesh = newMesh;
-		meshCollider.cookingOptions = MeshColliderCookingOptions.EnableMeshCleaning;
+		meshCollider.cookingOptions = MeshColliderCookingOptions.UseFastMidphase;
 	}
-
-	
 
 	private Mesh RegenerateMesh(Vector3[] verts)
 	{
@@ -212,18 +221,14 @@ public class DiggableTerrain : MonoBehaviour
 		return newMesh;
 	}
 
-	private static Vector3[] GetHitVerts(RaycastHit hit, Mesh mesh, out int[] hitVertIndexes)
+	private void GetHitVerts(RaycastHit hit, Mesh mesh)
 	{
 		var index = hit.triangleIndex;
-		var hitVerts = new Vector3[3];
-		hitVertIndexes = new int[3];
 		for (var i = 0; i < hitVerts.Length; i++)
 		{
 			hitVertIndexes[i] = mesh.triangles[index * 3 + i];
-			hitVerts[i] = (mesh.vertices[hitVertIndexes[i]]);
+			hitVerts[i] = mesh.vertices[hitVertIndexes[i]];
 		}
-
-		return hitVerts;
 	}
 
 	private void Setup()
@@ -233,9 +238,9 @@ public class DiggableTerrain : MonoBehaviour
 		if (!meshFilter) meshFilter = GetComponent<MeshFilter>();
 		terrainChunk = GetComponent<TerrainChunk>();
 		terrainChunkLength = MapGeneratorTerrain.terrainChunks.GetLength(0) - 1;
-
+		material = meshRenderer.material;
 	}
-	
+
 	public struct TerrainChange
 	{
 		public int X;
