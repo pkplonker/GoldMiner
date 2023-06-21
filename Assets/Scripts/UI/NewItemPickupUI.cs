@@ -48,9 +48,9 @@ namespace UI
 		}
 
 
-		public override void Show()
+		public override void Toggle()
 		{
-			base.Show();
+			base.Toggle();
 			EventSystem.current.SetSelectedGameObject(keepButton.gameObject);
 		}
 

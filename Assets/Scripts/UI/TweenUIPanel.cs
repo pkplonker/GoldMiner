@@ -35,7 +35,7 @@ namespace UI
 			canvasGroup.DOFade(0, popDuration);
 		}
 
-		public virtual void Show() => ShowUI();
+		public virtual void Toggle() => ShowUI();
 
 		public virtual void Hide() => HideUI();
 

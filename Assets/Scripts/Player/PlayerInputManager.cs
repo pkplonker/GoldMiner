@@ -24,6 +24,7 @@ namespace Player
 		public static event Action OnIdleToggle;
 		public static event Action OnESC;
 		public static event Action OnInvent;
+		public static event Action OnMap;
 
 		private void ManualDetectionToggle(InputAction.CallbackContext obj) => OnManualDetectionToggle?.Invoke();
 		private void Detection(InputAction.CallbackContext obj) => OnDetection?.Invoke();
@@ -33,6 +34,7 @@ namespace Player
 		private void Idle(InputAction.CallbackContext obj) => OnIdleToggle?.Invoke();
 		private void ESC(InputAction.CallbackContext obj) => OnESC?.Invoke();
 		private void Invent(InputAction.CallbackContext obj) => OnInvent?.Invoke();
+		private void Map(InputAction.CallbackContext obj) => OnMap?.Invoke();
 
 		public Vector2 GetPlayerMovement() => playerControls.PlayerMovement.Move.ReadValue<Vector2>();
 		public Vector2 GetMouseDelta() => playerControls.PlayerMovement.Look.ReadValue<Vector2>();
@@ -61,6 +63,8 @@ namespace Player
 			playerControls.PlayerMovement.LeftClick.performed += SetLeftClick;
 			playerControls.PlayerMovement.ESC.performed += ESC;
 			playerControls.PlayerMovement.Invent.performed += Invent;
+			playerControls.PlayerMovement.Map.performed += Map;
+
 		}
 
 		private void OnDisable()
@@ -75,6 +79,8 @@ namespace Player
 			playerControls.PlayerMovement.LeftClick.performed -= SetLeftClick;
 			playerControls.PlayerMovement.ESC.performed -= ESC;
 			playerControls.PlayerMovement.Invent.performed -= Invent;
+			playerControls.PlayerMovement.Map.performed -= Map;
+
 		}
 
 		private void SetLeftClick(InputAction.CallbackContext obj) => leftClick = true;

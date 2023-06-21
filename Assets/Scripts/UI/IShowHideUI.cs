@@ -12,7 +12,7 @@ namespace UI
 	/// </summary>
 	public interface IShowHideUI
 	{
-		public abstract void Show();
+		public abstract void Toggle();
 		public abstract void Hide();
 
 		public abstract void Disable();

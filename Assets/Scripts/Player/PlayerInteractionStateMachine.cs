@@ -6,15 +6,17 @@ using UnityEngine.UI;
 
 namespace Player
 {
+	[RequireComponent(typeof(PlayerMovement))]
 	public class PlayerInteractionStateMachine : StateMachine
 	{
 		public static event Action<BaseState> OnStateChanged;
 
 		[HideInInspector] public Camera Camera;
-
-		public readonly BaseState DiggingState = new Digging();
+		public readonly BaseState UiState = new UIState();
+		public readonly BaseState DiggingState = new DiggingState();
 		public readonly BaseState DetectingState = new DetectorState();
 		public readonly BaseState InteractState = new InteractState();
+		public BaseState PreviousState;
 		[Header("Digging")] public SpriteRenderer diggingTarget;
 		public readonly string GROUND_LAYER = "Ground";
 		[field: SerializeField] public float digRange { get; private set; } = 2f;
@@ -33,6 +35,8 @@ namespace Player
 		[SerializeField] private PlayerReference playerReference;
 		public static bool IsDetecting;
 		public static bool IsManualDetecting;
+		public bool CanMove;
+		private PlayerMovement playerMovement;
 		public event Action OnPlayerDestroyed;
 		public static event Action<bool> OnDetectorManualToggleChanged;
 
@@ -46,15 +50,29 @@ namespace Player
 			IsDetecting = false;
 			IsManualDetecting = false;
 			DetectorModel.SetActive(false);
+			ChangeState(InteractState);
+		}
+
+		private void OnValidate()
+		{
+			playerMovement = GetComponent<PlayerMovement>();
 		}
 
 		private void OnEnable()
 		{
-			playerReference.SetPlayer(this); 
+			playerReference.SetPlayer(this);
 			PlayerInputManager.OnDetection += Detection;
 			PlayerInputManager.OnManualDetectionToggle += ManualDetectionToggle;
 			PlayerInputManager.OnDiggingToggle += DiggingToggle;
 			PlayerInputManager.OnIdleToggle += InteractionToggle;
+			if (playerMovement == null)
+			{
+				Debug.Log("Failed to set playermovement");
+				playerMovement = GetComponent<PlayerMovement>();
+			}
+
+			playerMovement.OnCanMoveChanged += OnPlayerMovementChanged;
+			CanMove = playerMovement.GetCanMove();
 		}
 
 		private void InteractionToggle() => ChangeState(InteractState);
@@ -64,7 +82,6 @@ namespace Player
 			playerReference.SetPlayer(null);
 			OnPlayerDestroyed?.Invoke();
 		}
-
 
 		private void ManualDetectionToggle()
 		{
@@ -85,10 +102,17 @@ namespace Player
 			PlayerInputManager.OnManualDetectionToggle -= ManualDetectionToggle;
 			PlayerInputManager.OnDiggingToggle -= DiggingToggle;
 			PlayerInputManager.OnIdleToggle -= InteractionToggle;
+			if (playerMovement != null) playerMovement.OnCanMoveChanged -= OnPlayerMovementChanged;
+		}
+
+		private void OnPlayerMovementChanged(bool v)
+		{
+			CanMove = v;
+			if (CanMove && CurrentState.GetType() == typeof(UIState)) ChangeState(PreviousState ?? InteractState);
+			else ChangeState(UiState);
 		}
 
 		private void DiggingToggle() => ChangeState(DiggingState);
-
 
 		private void Awake()
 		{
@@ -96,9 +120,11 @@ namespace Player
 			ChangeState(InteractState);
 		}
 
-		protected override void ChangeState(BaseState state)
+		public override void ChangeState(BaseState state)
 		{
+			PreviousState = CurrentState;
 			base.ChangeState(state);
+			Debug.Log($"Setting state {state.GetType().Name}");
 			OnStateChanged?.Invoke(CurrentState);
 		}
 	}

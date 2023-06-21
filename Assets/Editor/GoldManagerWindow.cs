@@ -9,8 +9,6 @@ using System.Linq;
 using Targets;
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.PackageManager.UI;
-using Object = UnityEngine.Object;
 
 /// <summary>
 ///GoldManager full description
@@ -112,7 +110,7 @@ public class GoldManagerWindow : EditorWindow
 		GUILayout.BeginHorizontal();
 		if (EditorGUILayout.LinkButton(gold.name, GUILayout.Width(columnWidth)))
 		{
-			Selection.objects = new Object[] {gold.gameObject};
+			Selection.objects = new UnityEngine.Object[] {gold.gameObject};
 			Selection.activeTransform = gold.transform;
 			SceneView.lastActiveSceneView.FrameSelected();
 		}

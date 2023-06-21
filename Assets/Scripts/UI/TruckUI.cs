@@ -23,9 +23,9 @@ namespace UI
 			playerInteractionStateMachine = pism;
 		}
 
-		public override void Show()
+		public override void Toggle()
 		{
-			base.Show();
+			base.Toggle();
 			EventSystem.current.SetSelectedGameObject(firstSelectedGameObject.gameObject);
 		}
 

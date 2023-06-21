@@ -19,10 +19,10 @@ namespace UI
    
     private void OnDisable()=> MapGenerator.MapGenerated  -= StartGame;
 
-    private void StartGame(float f) => Show();
+    private void StartGame(float f) => Toggle();
 
 
-    public void Show()
+    public void Toggle()
     {
       canvasGroup.alpha = 1;
       canvasGroup.interactable = true;

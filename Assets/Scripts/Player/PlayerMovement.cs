@@ -1,4 +1,5 @@
 using System;
+using TerrainGeneration;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -79,6 +80,7 @@ namespace Player
 				Cursor.visible = true;
 				Cursor.lockState = CursorLockMode.None;
 			}
+
 			OnCanMoveChanged?.Invoke(cm);
 		}
 
@@ -86,6 +88,16 @@ namespace Player
 		{
 			controller = GetComponent<CharacterController>();
 			fallTimeoutDelta = fallTimeout;
+			SetCanMove(false);
+		}
+
+		private void OnEnable() => MapGenerator.MapGenerated += MapGeneratorOnMapGenerated;
+
+		private void OnDisable() => MapGenerator.MapGenerated += MapGeneratorOnMapGenerated;
+
+		private void MapGeneratorOnMapGenerated(float obj)
+		{
+			SetCanMove(true);
 		}
 
 		private void Update()
@@ -94,7 +106,6 @@ namespace Player
 			Gravity();
 			GroundedCheck();
 			Move();
-
 		}
 
 		private void LateUpdate()
@@ -187,5 +198,6 @@ namespace Player
 				groundedRadius);
 		}
 
+		public bool GetCanMove() => canMove;
 	}
 }

@@ -10,32 +10,20 @@ namespace TerrainGeneration
 	public class PropSpawner : MonoBehaviour
 	{
 		[SerializeField] private PropCollection PropCollections;
-		public Transform Container { get; private set; }
 		public static event Action<int> OnPropGenerated;
 		public static event Action<int> OnPropsGenerationStarted;
 
 		public static event Action OnPropsGenerated;
 		private List<Vector2> points;
 		private Queue<PoissonData> poissonDataQueue;
-		private MapData mapData;
-
-		public void SpawnObjects(int spawnArea, MapData mapData)
+		private MapGeneratorTerrain mapGeneratorTerrain;
+		public void SpawnObjects(MapGeneratorTerrain mapGeneratorTerrain)
 		{
+			this.mapGeneratorTerrain = mapGeneratorTerrain;
 			OnPropsGenerationStarted?.Invoke(PropCollections.Props.Count);
-			this.mapData = mapData;
-			if (Container == null)
-			{
-				Container = new GameObject
-				{
-					name = "PropContainer"
-				}.transform;
-				Container.SetParent(transform);
-				Container.localPosition = transform.position;
-			}
-
 			poissonDataQueue = new Queue<PoissonData>(PropCollections.Props.Count);
 			OnPropsGenerationStarted?.Invoke(PropCollections.Props.Count);
-			StartCoroutine(SpawnObjectsCor(spawnArea));
+			StartCoroutine(SpawnObjectsCor(mapGeneratorTerrain.MapData.GetSize()));
 		}
 
 
@@ -46,7 +34,7 @@ namespace TerrainGeneration
 			{
 				var j1 = j;
 				var task =Task.Run(() => PoissonDiscSampling.GeneratePointsCor(j1, PropCollections.Props[j1].GetRadius(),
-					new Vector2(spawnArea, spawnArea), PoissonCallback, mapData,
+					new Vector2(spawnArea, spawnArea), PoissonCallback, mapGeneratorTerrain.MapData,
 					PropCollections.Props[j1].NumSamplesBeforeRejection));
 				tasks.Add(task);
 			}
@@ -70,25 +58,32 @@ namespace TerrainGeneration
 
 				index++;
 				StartCoroutine(PropCollections.Props[data.Index].ProcessPointDataCor(data, numberOfDifferentPropsToSpawn,
-					PropSpawnCompleteCallback, this, mapData));
+					PropSpawnCompleteCallback, this, mapGeneratorTerrain.MapData));
 				yield return null;
 			}
 
-			StaticBatchingUtility.Combine(Container.gameObject);
+			for (var i = 0; i < MapGeneratorTerrain.terrainChunks.GetLength(0); i++)
+			{
+				for (var j = 0; j < MapGeneratorTerrain.terrainChunks.GetLength(1); j++)
+				{
+					StaticBatchingUtility.Combine(MapGeneratorTerrain.terrainChunks[i,j].gameObject);
+				}
+			}
 		}
 
 		public void SpawnProp(int index, Vector3 result, Quaternion rotation)
 		{
-			var go = Instantiate(PropCollections.Props[index].Prefab, Container);
-			go.transform.localPosition = result;
-			go.transform.localRotation = rotation;
+			var parent = mapGeneratorTerrain.GetChunkFromPosition(result).transform;
+			var go = Instantiate(PropCollections.Props[index].Prefab, parent != null ? parent : transform);
+			go.transform.position = result;
+			go.transform.rotation = rotation;
 			go.isStatic = PropCollections.Props[index].StaticObject;
 		}
 
 		private int count;
 		private void PropSpawnCompleteCallback()
 		{
-			Debug.Log("prop spawn complete callback");
+			//Debug.Log("prop spawn complete callback");
 			count++;
 			OnPropGenerated?.Invoke(count);
 			if (count == PropCollections.Props.Count-1)
@@ -99,12 +94,13 @@ namespace TerrainGeneration
 		{
 			lock (poissonDataQueue)
 			{
-				Debug.Log($"Poisson data generated for {data.Points.Count} points");
+				//Debug.Log($"Poisson data generated for {data.Points.Count} points");
 				poissonDataQueue.Enqueue(data);
 			}
 		}
 
 		public int GetPropsRequired() => PropCollections.Props.Count(p => p.Spawn);
+		
 	}
 }
 

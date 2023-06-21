@@ -42,11 +42,13 @@ namespace TerrainGeneration
 
 		private void OnTerrainGenerated()
 		{
+#if UNITY_EDITOR
 			Debug.Log("Terrain generated in " + mapTimer.ElapsedMilliseconds + "ms. Frames taken = " +
 			          (Time.frameCount - startFrame));
 			startFrame = Time.frameCount;
 			propsTimer = new Stopwatch();
 			propsTimer.Start();
+#endif
 			TerrainGenerated?.Invoke(MapGeneratorTerrain.MapData.GetSize());
 			if(PropSpawner.GetPropsRequired()==0)OnPropsGenerated();
 		}
@@ -54,10 +56,11 @@ namespace TerrainGeneration
 		private void OnPropsGenerated()
 		{
 			spawnedProps = true;
-			
+#if UNITY_EDITOR
 			Debug.Log("Props Spawned in " + propsTimer.ElapsedMilliseconds +
 			          "ms . Frames taken = " +
 			          (Time.frameCount - startFrame));
+#endif
 			MapGenerated?.Invoke(MapGeneratorTerrain.MapData.GetSize());
 		}
 
@@ -79,8 +82,7 @@ namespace TerrainGeneration
 		{
 			if (MapGeneratorTerrain.Generated && !spawnedProps)
 			{
-				PropSpawner.SpawnObjects(MapGeneratorTerrain.MapData.GetSize(),
-					MapGeneratorTerrain.MapData);
+				PropSpawner.SpawnObjects(MapGeneratorTerrain);
 				spawnedProps = true;
 			}
 		}

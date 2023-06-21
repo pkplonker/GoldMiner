@@ -12,7 +12,8 @@ public class GoldSpawnManager : GenericUnitySingleton<GoldSpawnManager>
 	public List<Gold> goldPiecesFound { get; private set; } = new();
 	[SerializeField] private PlayerReference playerReference;
 	private PlayerCurrency playerCurrency;
-	
+	public event Action<Transform> GoldDeregistered;
+
 
 	public void RegisterGold(Gold gold)
 	{
@@ -21,7 +22,11 @@ public class GoldSpawnManager : GenericUnitySingleton<GoldSpawnManager>
 
 	public void DeregisterGold(Gold gold)
 	{
-		if (goldPiecesSpawned.Contains(gold)) goldPiecesSpawned.Remove(gold);
+		if (goldPiecesSpawned.Contains(gold))
+		{
+			goldPiecesSpawned.Remove(gold);
+			GoldDeregistered?.Invoke(gold.transform);
+		}
 	}
 
 	public void GoldCollected(Gold gold)

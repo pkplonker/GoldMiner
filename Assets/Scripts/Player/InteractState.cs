@@ -23,7 +23,7 @@ namespace Player
 				HandleMessage(null);
 				return;
 			}
-			var interactable = hit.collider.GetComponentInChildren<IInteractable>();
+			var interactable = hit.collider.GetComponent<IInteractable>();
 			
 			HandleMessage(interactable);
 			HandleClick(interactable);
