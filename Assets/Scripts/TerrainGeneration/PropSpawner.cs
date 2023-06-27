@@ -33,7 +33,7 @@ namespace TerrainGeneration
 			for (var j = 0; j < PropCollections.Props.Count; j++)
 			{
 				var j1 = j;
-				var maxPointsPerProp = spawnArea * spawnArea / PropCollections.Props[j1].MaxQuantityPer100M;
+				int maxPointsPerProp = (int)((spawnArea * spawnArea * PropCollections.Props[j1].MaxQuantityPer100M / 10000)*1.1f);
 				var task = Task.Run(() => PoissonDiscSampling.GeneratePointsCor(index: j1,  maxPointsPerProp,
 					new Vector2(spawnArea, spawnArea), PoissonCallback, mapGeneratorTerrain.MapData,
 					PropCollections.Props[j1].NumSamplesBeforeRejection));
