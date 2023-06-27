@@ -9,11 +9,14 @@ namespace TerrainGeneration
 	public static class PoissonDiscSampling
 	{
 		//Credit to Sebastian Lague for the original algorithm.
-		public static void GeneratePointsCor(int index,float radius, Vector2 sampleRegionSize,
-			 Action<PoissonData> callback, MapData mapData, int numSamplesBeforeRejection = 30)
+		public static void GeneratePointsCor(int index, int maxPoints, Vector2 sampleRegionSize,
+			Action<PoissonData> callback, MapData mapData, int numSamplesBeforeRejection = 30)
 		{
 			Profiler.BeginSample("disc");
-			var prng = new System.Random(mapData.seed+index);
+			var prng = new System.Random(mapData.seed + index);
+    
+			float area = sampleRegionSize.x * sampleRegionSize.y;
+			float radius = Mathf.Sqrt(area / maxPoints);
 			var cellSize = radius / Mathf.Sqrt(2);
 
 			var grid = new int[Mathf.CeilToInt(sampleRegionSize.x / cellSize),
@@ -26,7 +29,6 @@ namespace TerrainGeneration
 				var spawnIndex = (int) prng.NextSingle(0, spawnPoints.Count - 1);
 				var spawnCentre = spawnPoints[spawnIndex];
 				var candidateAccepted = false;
-
 
 				for (var i = 0; i < numSamplesBeforeRejection; i++)
 				{
@@ -43,13 +45,15 @@ namespace TerrainGeneration
 					break;
 				}
 
-				//if (points.Count > 1000) break;
+				if (points.Count >= maxPoints) break;
 				if (!candidateAccepted) spawnPoints.RemoveAt(spawnIndex);
 			}
 
 			callback?.Invoke(new PoissonData(index,points));
 			Profiler.EndSample();
 		}
+
+
 
 		static bool IsValid(Vector2 candidate, Vector2 sampleRegionSize, float cellSize, float radius,
 			IReadOnlyList<Vector2> points, int[,] grid)

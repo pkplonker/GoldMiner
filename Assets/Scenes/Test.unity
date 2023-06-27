@@ -668,7 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830c299a728098448af3599ae14fbca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PropCollections: {fileID: 11400000, guid: 2e5a8c3a5124bed4fa2c8bd2032330c9, type: 2}
+  PropCollections: {fileID: 11400000, guid: baeb76e7e0d690e418658baa4b276127, type: 2}
 --- !u!114 &821097376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1388,6 +1388,11 @@ PrefabInstance:
       propertyPath: keepButton
       value: 
       objectReference: {fileID: 1322360593}
+    - target: {fileID: -1075631404303217048, guid: c8863c3d9db9a524995c8e8b92c1a43a,
+        type: 3}
+      propertyPath: canvasGroup
+      value: 
+      objectReference: {fileID: 1383954499}
     - target: {fileID: -1075631404303217048, guid: c8863c3d9db9a524995c8e8b92c1a43a,
         type: 3}
       propertyPath: itemNameText

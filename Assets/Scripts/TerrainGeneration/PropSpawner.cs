@@ -33,7 +33,8 @@ namespace TerrainGeneration
 			for (var j = 0; j < PropCollections.Props.Count; j++)
 			{
 				var j1 = j;
-				var task =Task.Run(() => PoissonDiscSampling.GeneratePointsCor(j1, PropCollections.Props[j1].GetRadius(),
+				var maxPointsPerProp = spawnArea * spawnArea / PropCollections.Props[j1].MaxQuantityPer100M;
+				var task = Task.Run(() => PoissonDiscSampling.GeneratePointsCor(index: j1,  maxPointsPerProp,
 					new Vector2(spawnArea, spawnArea), PoissonCallback, mapGeneratorTerrain.MapData,
 					PropCollections.Props[j1].NumSamplesBeforeRejection));
 				tasks.Add(task);
@@ -57,6 +58,7 @@ namespace TerrainGeneration
 				var data = poissonDataQueue.Dequeue();
 
 				index++;
+				//Debug.Log($"{data.Points.Count} found for {PropCollections.Props[data.Index].Prefab.name} ");
 				StartCoroutine(PropCollections.Props[data.Index].ProcessPointDataCor(data, numberOfDifferentPropsToSpawn,
 					PropSpawnCompleteCallback, this, mapGeneratorTerrain.MapData));
 				yield return null;
@@ -70,6 +72,7 @@ namespace TerrainGeneration
 				}
 			}
 		}
+
 
 		public void SpawnProp(int index, Vector3 result, Quaternion rotation)
 		{

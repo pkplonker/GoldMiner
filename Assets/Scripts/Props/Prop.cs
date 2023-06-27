@@ -85,7 +85,8 @@ namespace Props
 				Debug.LogWarning(
 					$"spawned {cachedNumberToSpawn - numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
 			}
-		
+			Debug.Log(
+				$"spawned {cachedNumberToSpawn - numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
 			//Debug.Log($"calling callback {Prefab.name}");
 			callback?.Invoke();
 		}

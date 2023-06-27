@@ -144,10 +144,6 @@ public class DiggableTerrain : MonoBehaviour
 			if (hitVerts.Any(hv => v == hv))
 			{
 				verts[i] = new Vector3(v.x, v.y - digAmount, v.z);
-				//debug vert pos
-				//	var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-				//go.transform.position = transform.TransformPoint(verts[i]);
-				//go.transform.localScale = Vector3.one * 0.1f;
 			}
 		}
 
