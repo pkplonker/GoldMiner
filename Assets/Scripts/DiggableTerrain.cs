@@ -29,10 +29,6 @@ public class DiggableTerrain : MonoBehaviour
 		this.digAmount = digAmount;
 		var mesh = meshFilter.mesh;
 		var hitVerts = GetHitVerts(hit, mesh, out var hitVertIndexes);
-		for (var i = 0; i < hitVerts.Length; i++)
-		{
-			AddToChanges(hit.triangleIndex * 3 + i, this.digAmount);
-		}
 
 		var verts = UpdateVerts(digAmount, hitVerts, mesh.vertices);
 		if (verts != null)
@@ -138,15 +134,8 @@ public class DiggableTerrain : MonoBehaviour
 		var verts = meshFilter.mesh.vertices;
 		verts[index].y -= digAmount;
 		UpdateColor(new[] {index}, verts);
-		AddToChanges(index, digAmount);
 		var updatedMesh = RegenerateMesh(verts);
 		UpdateCollider(updatedMesh);
-	}
-
-	private void AddToChanges(int index, float digAmount)
-	{
-		if (digChanges.ContainsKey(index)) digChanges[index] += digAmount;
-		else digChanges.TryAdd(index, digAmount);
 	}
 
 	private int CheckLeft(int index, int vertsPerRow) => (index % vertsPerRow == 0) ? index + vertsPerRow - 1 : -1;
