@@ -48,18 +48,6 @@ public class DiggableTerrain : MonoBehaviour
 		if (texture == null) return;
 		var colorMap = texture.GetPixels();
 
-//option 1
-/*
-		if (hitVertIndexes[0] > hitVertIndexes[1] && hitVertIndexes[0] > hitVertIndexes[2])
-		{
-			colorMap[hitVertIndexes[2]] = _dugGroundColor;
-		}
-		else
-		{
-			colorMap[hitVertIndexes[0]] = _dugGroundColor;
-		}
-		*/
-//option 2
 		foreach (var t in hitVertIndexes)
 		{
 			colorMap[t] -= dugGroundColorOffet;
@@ -123,7 +111,6 @@ public class DiggableTerrain : MonoBehaviour
 				var verts = dt.meshFilter.mesh.vertices;
 				dt.UpdateColor(new[] {change.Index}, verts);
 			}
-
 		}
 	}
 
