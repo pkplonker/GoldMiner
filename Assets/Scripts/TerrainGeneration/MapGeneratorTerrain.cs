@@ -63,11 +63,19 @@ namespace TerrainGeneration
 
 			var vertsPerRow = (MapData.MapChunkSize * MapData.lod) + 1;
 			var mapSize = vertsPerRow * MapData.ChunksPerRow;
-			NoiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, MapData.seed, MapData.noiseScale * MapData.lod,
+			//var falloffMap = FalloffGeneration.GenerateFalloffMap(mapSize);
+			NoiseMap = Noise.GenerateNoiseMap(mapSize,mapSize,MapData.seed,MapData.noiseScale * MapData.lod,
 				MapData.octaves,
 				MapData.persistance,
 				MapData.lacunarity,
 				new Vector2(MapData.offset.x, MapData.offset.y));
+			// for (var i = 0; i < NoiseMap.GetLength(0); i++)
+			// {
+			// 	for (var j = 0; j < NoiseMap.GetLength(1); j++)
+			// 	{
+			// 		NoiseMap[i, j] -= falloffMap[i, j];
+			// 	}
+			// }
 			StartCoroutine(AwaitChunkDataCor(chunksRequired));
 			for (var x = 0; x < MapData.ChunksPerRow; x++)
 			{
