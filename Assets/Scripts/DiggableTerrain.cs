@@ -76,7 +76,7 @@ public class DiggableTerrain : MonoBehaviour
 
 	private void CheckNeighbours(RaycastHit hit)
 	{
-		var changes = new List<Tuple<int, int, int>>();
+		var changes = new List<TerrainChange>();
 		var terrainChunk = GetComponent<TerrainChunk>();
 		var mapData = terrainChunk.MapData;
 		var x = terrainChunk.X;
@@ -95,33 +95,39 @@ public class DiggableTerrain : MonoBehaviour
 		foreach (var index in hitVertsIndexes)
 		{
 			var val = CheckTop(index, vertsPerRow, totalVerts);
-			if (val != -1) changes.Add(new Tuple<int, int, int>(x, y + 1, val));
+			if (val != -1) changes.Add(new TerrainChange(x, y + 1, val));
 			val = CheckBottom(index, vertsPerRow, totalVerts);
-			if (val != -1) changes.Add(new Tuple<int, int, int>(x, y - 1, val));
+			if (val != -1) changes.Add(new TerrainChange(x, y - 1, val));
 			val = CheckLeft(index, vertsPerRow);
-			if (val != -1) changes.Add(new Tuple<int, int, int>(x - 1, y, val));
+			if (val != -1) changes.Add(new TerrainChange(x - 1, y, val));
 			val = CheckRight(index, vertsPerRow);
-			if (val != -1) changes.Add(new Tuple<int, int, int>(x + 1, y, val));
-			if (index == 0) changes.Add(new Tuple<int, int, int>(x - 1, y - 1, totalVerts - 1));
-			if (index == totalVerts - 1) changes.Add(new Tuple<int, int, int>(x + 1, y + 1, 0));
-			if (index == vertsPerRow - 1) changes.Add(new Tuple<int, int, int>(x + 1, y - 1, totalVerts - vertsPerRow));
-			if (index == totalVerts - vertsPerRow) changes.Add(new Tuple<int, int, int>(x - 1, y + 1, vertsPerRow - 1));
+			if (val != -1) changes.Add(new TerrainChange(x + 1, y, val));
+			if (index == 0) changes.Add(new TerrainChange(x - 1, y - 1, totalVerts - 1));
+			if (index == totalVerts - 1) changes.Add(new TerrainChange(x + 1, y + 1, 0));
+			if (index == vertsPerRow - 1) changes.Add(new TerrainChange(x + 1, y - 1, totalVerts - vertsPerRow));
+			if (index == totalVerts - vertsPerRow) changes.Add(new TerrainChange(x - 1, y + 1, vertsPerRow - 1));
 		}
 
 		ProcessNeighbourChanges(changes);
 	}
 
-	private void ProcessNeighbourChanges(IEnumerable<Tuple<int, int, int>> changesRequested)
+	private void ProcessNeighbourChanges(IEnumerable<TerrainChange> changesRequested)
 	{
 		var changes = changesRequested.Distinct().ToList();
 
 		foreach (var change in changes)
 		{
-			if (change.Item1 < 0 || change.Item1 > MapGeneratorTerrain.terrainChunks.GetLength(0) - 1) continue;
-			if (change.Item2 < 0 || change.Item2 > MapGeneratorTerrain.terrainChunks.GetLength(1) - 1) continue;
+			if (change.X < 0 || change.X > MapGeneratorTerrain.terrainChunks.GetLength(0) - 1) continue;
+			if (change.Y < 0 || change.Y > MapGeneratorTerrain.terrainChunks.GetLength(1) - 1) continue;
 
-			var dt = MapGeneratorTerrain.terrainChunks[change.Item1, change.Item2].GetComponent<DiggableTerrain>();
-			if (dt != null) dt.DigAtVertIndex(change.Item3, digAmount);
+			var dt = MapGeneratorTerrain.terrainChunks[change.X, change.Y].GetComponent<DiggableTerrain>();
+			if (dt != null)
+			{
+				dt.DigAtVertIndex(change.Index, digAmount);
+				var verts = dt.meshFilter.mesh.vertices;
+				dt.UpdateColor(new[] {change.Index}, verts);
+			}
+
 		}
 	}
 
@@ -225,4 +231,33 @@ public class DiggableTerrain : MonoBehaviour
 		if (!meshFilter) meshFilter = GetComponent<MeshFilter>();
 		setup = meshCollider && meshFilter;
 	}
+	public struct TerrainChange
+	{
+		public int X { get; set; }
+		public int Y { get; set; }
+		public int Index { get; set; }
+
+		public TerrainChange(int x, int y, int index)
+		{
+			X = x;
+			Y = y;
+			Index = index;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj is TerrainChange other)
+			{
+				return X == other.X && Y == other.Y && Index == other.Index;
+			}
+
+			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(X, Y, Index);
+		}
+	}
+
 }
