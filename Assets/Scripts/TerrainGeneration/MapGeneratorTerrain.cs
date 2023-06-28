@@ -63,19 +63,21 @@ namespace TerrainGeneration
 
 			var vertsPerRow = (MapData.MapChunkSize * MapData.lod) + 1;
 			var mapSize = vertsPerRow * MapData.ChunksPerRow;
-			//var falloffMap = FalloffGeneration.GenerateFalloffMap(mapSize);
-			NoiseMap = Noise.GenerateNoiseMap(mapSize,mapSize,MapData.seed,MapData.noiseScale * MapData.lod,
+			NoiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, MapData.seed, MapData.noiseScale * MapData.lod,
 				MapData.octaves,
 				MapData.persistance,
 				MapData.lacunarity,
 				new Vector2(MapData.offset.x, MapData.offset.y));
-			// for (var i = 0; i < NoiseMap.GetLength(0); i++)
-			// {
-			// 	for (var j = 0; j < NoiseMap.GetLength(1); j++)
-			// 	{
-			// 		NoiseMap[i, j] -= falloffMap[i, j];
-			// 	}
-			// }
+			var falloffMap = FalloffGeneration.GenerateFalloffMap(mapSize, MapData.BorderSize * MapData.lod,
+				MapData.BorderChangeDistance * MapData.lod, MapData.BorderDistance * MapData.lod);
+			for (var i = 0; i < NoiseMap.GetLength(0); i++)
+			{
+				for (var j = 0; j < NoiseMap.GetLength(1); j++)
+				{
+					NoiseMap[i, j] -= falloffMap[i, j];
+				}
+			}
+
 			StartCoroutine(AwaitChunkDataCor(chunksRequired));
 			for (var x = 0; x < MapData.ChunksPerRow; x++)
 			{
@@ -142,22 +144,24 @@ namespace TerrainGeneration
 			texture.Apply();
 			return texture;
 		}
+
 		public TerrainChunk GetChunkFromPosition(Vector3 position)
 		{
 			var xCoord = (int) position.x / MapData.MapChunkSize;
 			var zCoord = (int) position.z / MapData.MapChunkSize;
-			xCoord = Mathf.Clamp(xCoord, 0, terrainChunks.Length-1);
-			zCoord = Mathf.Clamp(zCoord, 0, terrainChunks.Length-1);
+			xCoord = Mathf.Clamp(xCoord, 0, terrainChunks.Length - 1);
+			zCoord = Mathf.Clamp(zCoord, 0, terrainChunks.Length - 1);
 			var terrain = terrainChunks[xCoord, zCoord];
 			return terrain;
 		}
+
 		public Vector2Int GetChunkIndexFromPosition(Vector3 position)
 		{
 			var xCoord = (int) position.x / MapData.MapChunkSize;
 			var zCoord = (int) position.z / MapData.MapChunkSize;
-			xCoord = Mathf.Clamp(xCoord, 0, terrainChunks.Length-1);
-			zCoord = Mathf.Clamp(zCoord, 0, terrainChunks.Length-1);
-			return new Vector2Int(xCoord,zCoord);
+			xCoord = Mathf.Clamp(xCoord, 0, terrainChunks.Length - 1);
+			zCoord = Mathf.Clamp(zCoord, 0, terrainChunks.Length - 1);
+			return new Vector2Int(xCoord, zCoord);
 		}
 	}
 

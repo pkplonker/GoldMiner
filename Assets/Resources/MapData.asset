@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MapChunkSize>k__BackingField: 16
   <ChunksPerRow>k__BackingField: 10
+  <BorderChangeDistance>k__BackingField: 10
+  <BorderSize>k__BackingField: 3
+  <BorderDistance>k__BackingField: 10
   lod: 4
   seed: 12345
   octaves: 4
@@ -86,3 +89,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   terrainLayer: Ground
+  variation: 20

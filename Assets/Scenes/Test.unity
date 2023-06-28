@@ -668,7 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830c299a728098448af3599ae14fbca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PropCollections: {fileID: 11400000, guid: baeb76e7e0d690e418658baa4b276127, type: 2}
+  PropCollections: {fileID: 11400000, guid: 6868a51e68e3f8040b3b5cc88ec38a06, type: 2}
 --- !u!114 &821097376
 MonoBehaviour:
   m_ObjectHideFlags: 0
