@@ -15,17 +15,27 @@ namespace TerrainGeneration
 		private int chunksGeneratedCount;
 		[SerializeField] private TerrainChunk chunkPrefab;
 		private float[,] noiseMap;
+		private float[,] falloffMap;
+
 		public Transform Container { get; private set; }
 		public static event Action OnTerrainGenerated;
 		public static event Action<int, int> OnChunkGenerated;
 
 		public static TerrainChunk[,] terrainChunks;
 		public static TerrainChunkData[,] terrainChunkData;
+		public static event Action<float[,]> OnNoiseMapGenerated;
+		public static event Action<float[,]> OnFallOffMapGenerated;
+		public static event Action<float[,]> OnCombinedMapGenerated;
 
 		public float[,] NoiseMap
 		{
 			get => noiseMap;
 			private set => noiseMap = value;
+		}
+		public float[,] FalloffMap
+		{
+			get => falloffMap;
+			private set => falloffMap = value;
 		}
 #if UNITY_EDITOR
 		public bool Generated { get; set; } = true;
@@ -68,15 +78,18 @@ namespace TerrainGeneration
 				MapData.persistance,
 				MapData.lacunarity,
 				new Vector2(MapData.offset.x, MapData.offset.y));
-			var falloffMap = FalloffGeneration.GenerateFalloffMap(mapSize, MapData.BorderSize * MapData.lod,
+			OnNoiseMapGenerated?.Invoke(NoiseMap);
+			FalloffMap = FalloffGeneration.GenerateFalloffMap(mapSize, MapData.BorderSize * MapData.lod,
 				MapData.BorderChangeDistance * MapData.lod, MapData.BorderDistance * MapData.lod);
+			OnFallOffMapGenerated?.Invoke(FalloffMap);
 			for (var i = 0; i < NoiseMap.GetLength(0); i++)
 			{
 				for (var j = 0; j < NoiseMap.GetLength(1); j++)
 				{
-					NoiseMap[i, j] -= falloffMap[i, j];
+					NoiseMap[i, j] -= FalloffMap[i, j];
 				}
 			}
+			OnCombinedMapGenerated?.Invoke(NoiseMap);
 
 			StartCoroutine(AwaitChunkDataCor(chunksRequired));
 			for (var x = 0; x < MapData.ChunksPerRow; x++)

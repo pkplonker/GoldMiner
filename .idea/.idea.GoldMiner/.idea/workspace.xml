@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/EmptyPropCollection.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/EmptyPropCollection.asset.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MapData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MapData.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/FalloffGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/FalloffGeneration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CombinedTexture.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CombinedTexture.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InGameMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InGameMap.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,10 +161,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="38348">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="16044">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="38348" />
+      <option name="pid" value="16044" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -209,6 +206,7 @@
       <workItem from="1686684906237" duration="2542000" />
       <workItem from="1687110381823" duration="7714000" />
       <workItem from="1687197910344" duration="6548000" />
+      <workItem from="1688058799727" duration="4552000" />
     </task>
     <servers />
   </component>
@@ -254,19 +252,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/UI/MapUI.cs</url>
-          <line>37</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapUI.cs" initialLine="37" containingFunctionPresentation="Method 'Toggle'">
-            <startOffsets>
-              <option value="862" />
-            </startOffsets>
-            <endOffsets>
-              <option value="895" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerInteractionStateMachine.cs</url>

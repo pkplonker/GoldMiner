@@ -10,13 +10,13 @@ public class InGameMap : MonoBehaviour
 	private MapGeneratorTerrain mapGeneratorTerrain;
 	public static event Action<Texture2D> OnMapGenerated;
 
-	// private static void WriteToFile(Texture2D combinedTexture)
-	// {
-	// 	var pngData = combinedTexture.EncodeToPNG();
-	// 	var savePath = Path.Combine(Application.persistentDataPath, "CombinedTexture.png");
-	// 	File.WriteAllBytes(savePath, pngData);
-	// 	//Debug.Log("Combined texture saved as PNG: " + savePath);
-	// }
+	private static void WriteToFile(Texture2D combinedTexture)
+	{
+		var pngData = combinedTexture.EncodeToPNG();
+		var savePath = Path.Combine(Application.persistentDataPath, "CombinedTexture.png");
+		File.WriteAllBytes(savePath, pngData);
+		Debug.Log("Combined texture saved as PNG: " + savePath);
+	}
 
 	private int originalSize = 0;
 
@@ -57,12 +57,12 @@ public class InGameMap : MonoBehaviour
 			}
 		}
 
-		CombinedTexture = new Texture2D(originalSize, originalSize);
+		CombinedTexture = new Texture2D(originalSize, originalSize, TextureFormat.RGB24, false);
 		CombinedTexture.SetPixels(combinedColorMap);
 		originalSize /= (mapGeneratorTerrain.MapData.lod);
 		CombinedTexture.Apply();
 		CombinedTexture = ResizeTexture(CombinedTexture, 1024, 1024);
-		//WriteToFile(CombinedTexture);
+		WriteToFile(CombinedTexture);
 		OnMapGenerated?.Invoke(CombinedTexture);
 	}
 
@@ -70,7 +70,7 @@ public class InGameMap : MonoBehaviour
 	{
 		var rt = RenderTexture.GetTemporary(targetWidth, targetHeight);
 		Graphics.Blit(sourceTexture, rt);
-		var resizedTexture = new Texture2D(targetWidth, targetHeight);
+		var resizedTexture = new Texture2D(targetWidth, targetHeight, TextureFormat.RGB24, false);
 		resizedTexture.ReadPixels(new Rect(0, 0, targetWidth, targetHeight), 0, 0);
 		resizedTexture.Apply();
 		RenderTexture.ReleaseTemporary(rt);
