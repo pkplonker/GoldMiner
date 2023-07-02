@@ -16,10 +16,10 @@ MonoBehaviour:
     type: 3}
   BarPrefab: {fileID: 3963662280008750198, guid: 92eea62af05eca945b0a0da6cb6a4977,
     type: 3}
-  BarLength: 6.5
+  BarLength: 2.75
   barRaycastOffset: {x: 0, y: 0.2, z: 0}
   postInsertionDepth: 0.2
   Heights:
-  - 2.6
-  - 1
+  - 0.85
+  - 0.35
   fencePositionOffsetFromEdge: 10

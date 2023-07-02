@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using TerrainGeneration;
 using UnityEngine;
 [CreateAssetMenu(fileName = "Fence instance spawn", menuName = "Props/Spawns/Fence instance spawn")]
 
@@ -32,7 +30,7 @@ public class FenceSpawner : SingleInstanceSpawn
 			var quantity = Mathf.CeilToInt(distance / BarLength);
 			var remainder = distance % BarLength;
 
-			Vector3 previousPost = Vector3.zero;
+			var previousPost = Vector3.zero;
 			for (var j = 0; j <= quantity; j++)
 			{
 				var positionVector = direction * (j * BarLength);
@@ -72,19 +70,11 @@ public class FenceSpawner : SingleInstanceSpawn
 					var bar = Instantiate(BarPrefab, barPosition, barRotation, fenceParent.transform);
 					var barScale = bar.transform.localScale;
 
-					if (j != quantity)
-					{
-						barScale.z *= barLength / BarLength;
-					}
-					else
-					{
-						barScale.z *= remainder / BarLength;
-					}
-
+					if (j != quantity) barScale.z *= barLength / BarLength;
+					else barScale.z *= remainder / BarLength;
+					
 					bar.transform.localScale = barScale;
-
 					if (j != quantity) continue;
-
 					bar.transform.position = ((position - previousPost) / 2) + previousPost + new Vector3(0, height, 0);
 				}
 
@@ -94,6 +84,7 @@ public class FenceSpawner : SingleInstanceSpawn
 
 		SpawnCollider();
 		currentInstance = fenceParent;
+		StaticBatchingUtility.Combine(fenceParent);
 		return true;
 	}
 
