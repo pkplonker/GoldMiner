@@ -88,7 +88,7 @@ namespace Player
 		{
 			controller = GetComponent<CharacterController>();
 			fallTimeoutDelta = fallTimeout;
-			SetCanMove(false);
+			SetCanMove(true);
 		}
 
 		private void OnEnable() => MapGenerator.MapGenerated += MapGeneratorOnMapGenerated;

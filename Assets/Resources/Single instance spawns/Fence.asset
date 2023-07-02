@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79a819511864bcb4d99123bf8d84fe24, type: 3}
+  m_Name: Fence
+  m_EditorClassIdentifier: 
+  PostPrefab: {fileID: 4352813543754122079, guid: 7caa4b8f17decb3419305dda1859fd7e,
+    type: 3}
+  BarPrefab: {fileID: 3963662280008750198, guid: 92eea62af05eca945b0a0da6cb6a4977,
+    type: 3}
+  BarLength: 6.5
+  barRaycastOffset: {x: 0, y: 0.2, z: 0}
+  postInsertionDepth: 0.2
+  Heights:
+  - 2.6
+  - 1
+  fencePositionOffsetFromEdge: 10

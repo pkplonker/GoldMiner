@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using TerrainGeneration;
 using UnityEngine;
 
-namespace Player
+namespace Props
 {
 	/// <summary>
 	///PlayerSpawner full description
@@ -52,17 +52,10 @@ namespace Player
 
 		protected virtual void Spawn(SingleInstanceSpawn sis, float size)
 		{
-			var currentInstance = Instantiate(sis.Prefab);
-			currentInstance.SetActive(false);
-			var spawnTransform = sis.CalculateSpawn(size, currentInstance, groundLayer);
-
-			if (spawnTransform.Position.x < size)
+			if (sis.Spawn(size,groundLayer, out GameObject obj))
 			{
-				currentInstance.transform.position = spawnTransform.Position;
-				currentInstance.transform.rotation = spawnTransform.Rotation;
-				currentInstance.SetActive(true);
-				spawnedPrefabs.Add(currentInstance);
-				sis.Setup(currentInstance);
+				obj.transform.SetParent(transform);
+				spawnedPrefabs.Add(obj);
 			}
 			else
 			{
@@ -70,6 +63,6 @@ namespace Player
 			}
 		}
 
-		private void HandleFailedSpawn(SingleInstanceSpawn sis) => Debug.LogError($"Failed to spawn {sis.Prefab.name}");
+		private void HandleFailedSpawn(SingleInstanceSpawn sis) => Debug.LogError($"Failed to spawn {sis.GetName()}");
 	}
 }

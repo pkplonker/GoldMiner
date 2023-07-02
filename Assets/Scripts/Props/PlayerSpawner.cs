@@ -3,19 +3,19 @@
 //
 
 using System;
-using TerrainGeneration;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-namespace Player
+namespace Props
 {
 	/// <summary>
 	///PlayerSpawner full description
 	/// </summary>
-	public class PlayerSpawner : SingleInstanceSpawn
+	[CreateAssetMenu(fileName = "New player instance spawn", menuName = "Props/Spawns/New player instance spawn")]
+
+	public class PlayerSpawner : MultiAttemptSingleInstanceSpawn
 	{
 		public static event Action<GameObject> OnPlayerSpawned;
-		public override void Setup(GameObject obj)
+		protected override void Setup(GameObject obj)
 		{
 			base.Setup(obj);
 			OnPlayerSpawned?.Invoke(obj);

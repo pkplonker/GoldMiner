@@ -67,7 +67,6 @@ namespace Player
 			PlayerInputManager.OnIdleToggle += InteractionToggle;
 			if (playerMovement == null)
 			{
-				Debug.Log("Failed to set playermovement");
 				playerMovement = GetComponent<PlayerMovement>();
 			}
 
@@ -124,7 +123,7 @@ namespace Player
 		{
 			PreviousState = CurrentState;
 			base.ChangeState(state);
-			Debug.Log($"Setting state {state.GetType().Name}");
+			//Debug.Log($"Setting state {state.GetType().Name}");
 			OnStateChanged?.Invoke(CurrentState);
 		}
 	}

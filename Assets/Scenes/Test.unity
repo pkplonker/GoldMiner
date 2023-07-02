@@ -373,6 +373,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &424805859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 424805861}
+  - component: {fileID: 424805860}
+  m_Layer: 0
+  m_Name: MapStore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &424805860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424805859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6155b7d136bdd4844ae3ca26e78a9bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &424805861
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424805859}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &512644919 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9065263140822230608, guid: f116c7c21cd16e9449602ec4a637e2d6,
@@ -1350,6 +1394,7 @@ MonoBehaviour:
   prefabsToSpawn:
   - {fileID: 11400000, guid: efb92ad9e1dc28d43b207894c3b9755e, type: 2}
   - {fileID: 11400000, guid: c4923b9c33f28a74d8aae5a6a33ed9bf, type: 2}
+  - {fileID: 11400000, guid: f1d07c405f4ba0c48aaba3d4f2457d2e, type: 2}
 --- !u!4 &1351785758
 Transform:
   m_ObjectHideFlags: 0

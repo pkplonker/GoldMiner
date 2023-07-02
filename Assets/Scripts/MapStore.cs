@@ -44,7 +44,7 @@ public class MapStore : GenericUnitySingleton<MapStore>
 		}
 		var savePath = Path.Combine(Application.persistentDataPath, name + ".png");
 		File.WriteAllBytes(savePath, pngData);
-		Debug.Log("Combined texture saved as PNG: " + savePath);
+		//Debug.Log("Combined texture saved as PNG: " + savePath);
 	}
 
 	private void OnDisable()

@@ -15,7 +15,7 @@ public class InGameMap : MonoBehaviour
 		var pngData = combinedTexture.EncodeToPNG();
 		var savePath = Path.Combine(Application.persistentDataPath, "CombinedTexture.png");
 		File.WriteAllBytes(savePath, pngData);
-		Debug.Log("Combined texture saved as PNG: " + savePath);
+		//Debug.Log("Combined texture saved as PNG: " + savePath);
 	}
 
 	private int originalSize = 0;
