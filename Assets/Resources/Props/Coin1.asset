@@ -21,5 +21,6 @@ MonoBehaviour:
   <FlatnessTolerance>k__BackingField: 0
   <Radius>k__BackingField: 1
   <OverrideRideRadius>k__BackingField: 1
+  InBoundryOnly: 1
   depthMinimum: 0.15
   depthMaximum: 0.2

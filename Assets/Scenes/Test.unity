@@ -1390,7 +1390,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10964694ec8108f419e23430ba9f21a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundLayer: Ground
   prefabsToSpawn:
   - {fileID: 11400000, guid: efb92ad9e1dc28d43b207894c3b9755e, type: 2}
   - {fileID: 11400000, guid: c4923b9c33f28a74d8aae5a6a33ed9bf, type: 2}

@@ -23,19 +23,20 @@ namespace TerrainGeneration
 			OnPropsGenerationStarted?.Invoke(PropCollections.Props.Count);
 			poissonDataQueue = new Queue<PoissonData>(PropCollections.Props.Count);
 			OnPropsGenerationStarted?.Invoke(PropCollections.Props.Count);
-			StartCoroutine(SpawnObjectsCor(mapGeneratorTerrain.MapData.GetSize()));
+			StartCoroutine(SpawnObjectsCor(mapGeneratorTerrain.MapData));
 		}
 
 
-		private IEnumerator SpawnObjectsCor(int spawnArea)
+		private IEnumerator SpawnObjectsCor(MapData mapData)
 		{
 			var tasks = new List<Task>();
 			for (var j = 0; j < PropCollections.Props.Count; j++)
 			{
 				var j1 = j;
+				var spawnArea = PropCollections.Props[j].GetSpawnSize(mapData);
 				int maxPointsPerProp = (int)((spawnArea * spawnArea * PropCollections.Props[j1].MaxQuantityPer100M / 10000)*1.1f);
 				var task = Task.Run(() => PoissonDiscSampling.GeneratePointsCor(index: j1,  maxPointsPerProp,
-					new Vector2(spawnArea, spawnArea), PoissonCallback, mapGeneratorTerrain.MapData,
+					new Vector2(spawnArea,spawnArea), PoissonCallback, mapGeneratorTerrain.MapData,
 					PropCollections.Props[j1].NumSamplesBeforeRejection));
 				tasks.Add(task);
 			}
@@ -59,7 +60,7 @@ namespace TerrainGeneration
 
 				index++;
 				//Debug.Log($"{data.Points.Count} found for {PropCollections.Props[data.Index].Prefab.name} ");
-				StartCoroutine(PropCollections.Props[data.Index].ProcessPointDataCor(data, numberOfDifferentPropsToSpawn,
+				StartCoroutine(PropCollections.Props[data.Index].ProcessPointDataCor(data,
 					PropSpawnCompleteCallback, this, mapGeneratorTerrain.MapData));
 				yield return null;
 			}

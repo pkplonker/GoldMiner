@@ -23,10 +23,10 @@ namespace Props
 
 		[field: Range(0.1f, 10f), SerializeField]
 		public float Radius { get; protected set; }
-
+		
 		[field: SerializeField] public bool OverrideRideRadius { get; protected set; }
 		private const float THRESHOLD = 100f;
-
+		[field: SerializeField] public bool InBoundryOnly = false;
 		public virtual float GetRadius()
 		{
 			if (OverrideRideRadius) return Radius;
@@ -45,7 +45,7 @@ namespace Props
 
 		protected float GetTolerance() => FlatnessTolerance + FlatnessTolerance;
 
-		public IEnumerator ProcessPointDataCor(PoissonData poissonData, int numberOfDifferentPropsToSpawn,
+		public IEnumerator ProcessPointDataCor(PoissonData poissonData,
 			Action callback, PropSpawner propSpawner, MapData mapData)
 		{
 			var index = poissonData.Index;
@@ -130,5 +130,8 @@ namespace Props
 		}
 
 		protected virtual float GetDropIntoTerrainAmount(int seed, Vector3 position) => 0f;
+
+
+		public virtual float GetSpawnSize(MapData mapData) => InBoundryOnly ? mapData.GetSize()-(mapData.boundryInstep*2) : mapData.GetSize();
 	}
 }

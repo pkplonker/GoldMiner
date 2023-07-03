@@ -23,7 +23,7 @@ namespace Props
 			out Vector3 result,
 			out Quaternion rotation)
 		{
-			result = CalculatePosition(new Vector3(points[i].x, 0, points[i].y), mapData);
+			result = CalculatePosition(new Vector3(points[i].x+mapData.boundryInstep, 0, points[i].y+mapData.boundryInstep), mapData);
 			rotation = CalculateRotation(i, mapData.seed);
 			return result != Vector3.positiveInfinity;
 		}
@@ -33,5 +33,6 @@ namespace Props
 			Random.InitState(seed + (int) position.x);
 			return UtilityRandom.RandomRangeFloat(depthMinimum, depthMaximum);
 		}
+
 	}
 }
