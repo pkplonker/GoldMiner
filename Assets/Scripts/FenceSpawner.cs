@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TerrainGeneration;
 using UnityEngine;
 [CreateAssetMenu(fileName = "Fence instance spawn", menuName = "Props/Spawns/Fence instance spawn")]
 
@@ -15,9 +16,9 @@ public class FenceSpawner : SingleInstanceSpawn
 	[SerializeField] private float fencePositionOffsetFromEdge = 50f;
 	private GameObject fenceParent;
 
-	public override bool Spawn(float size, string groundLayer, out GameObject currentInstance)
+	public override bool Spawn(MapData mapData, out GameObject currentInstance)
 	{
-		CalculatePoints(size);
+		CalculatePoints(mapData.GetSize());
 		if (Points.Count == 0 || Heights.Count == 0) throw new ArgumentNullException();
 		fenceParent = new GameObject("FenceParent");
 		var postInsertion = new Vector3(0, postInsertionDepth, 0);

@@ -2,6 +2,7 @@
 // Copyright (C) 2023 Stuart Heath. All rights reserved.
 //
 
+using TerrainGeneration;
 using UnityEngine;
 
 /// <summary>
@@ -11,6 +12,6 @@ using UnityEngine;
 
 public abstract class SingleInstanceSpawn : ScriptableObject
 {
-	public abstract bool Spawn(float size, string groundLayer, out GameObject gameObject);
+	public abstract bool Spawn(MapData mapData, out GameObject gameObject);
 	public abstract string GetName();
 }

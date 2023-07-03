@@ -81,13 +81,13 @@ namespace Props
 			public Quaternion Rotation;
 		}
 
-		public override bool Spawn(float size, string groundLayer, out GameObject currentInstance)
+		public override bool Spawn(MapData mapData, out GameObject currentInstance)
 		{
 			currentInstance = Instantiate(Prefab);
 			currentInstance.SetActive(false);
-			var spawnTransform = CalculateSpawn(size, currentInstance, groundLayer);
+			var spawnTransform = CalculateSpawn(mapData.GetSize(), currentInstance, mapData.groundLayer);
 
-			if (spawnTransform.Position.x < size)
+			if (spawnTransform.Position.x < mapData.GetSize())
 			{
 				currentInstance.transform.position = spawnTransform.Position;
 				currentInstance.transform.rotation = spawnTransform.Rotation;

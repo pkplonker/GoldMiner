@@ -109,7 +109,7 @@ namespace Props
 			var bounds = BoundDrawer.GetBounds(Prefab);
 			var isFlat = BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
 				result - new Vector3(0, bounds.extents.y, 0),
-				bounds, tolerance, mapData.terrainLayer, rotation));
+				bounds, tolerance, mapData.groundLayer, rotation));
 			return isFlat;
 		}
 
@@ -123,7 +123,7 @@ namespace Props
 		{
 			position.y = mapData.heightMultiplier;
 			if (!Physics.Raycast(position, Vector3.down, out var hit, mapData.heightMultiplier + factor,
-				    LayerMask.GetMask(mapData.terrainLayer))) return Vector3.positiveInfinity;
+				    LayerMask.GetMask(mapData.groundLayer))) return Vector3.positiveInfinity;
 
 			position.y = hit.point.y - GetDropIntoTerrainAmount(mapData.seed, position);
 			return position;

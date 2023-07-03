@@ -12,7 +12,7 @@ namespace TerrainGeneration
 		[field: SerializeField] public PropSpawner PropSpawner { get; private set; }
 		public static event Action<float> MapGenerated;
 
-		public static event Action<float> TerrainGenerated;
+		public static event Action<MapData> TerrainGenerated;
 		public static event Action<int,int> MapGenerationStarted;
 
 
@@ -49,7 +49,7 @@ namespace TerrainGeneration
 			propsTimer = new Stopwatch();
 			propsTimer.Start();
 #endif
-			TerrainGenerated?.Invoke(MapGeneratorTerrain.MapData.GetSize());
+			TerrainGenerated?.Invoke(MapGeneratorTerrain.MapData);
 			if(PropSpawner.GetPropsRequired()==0)OnPropsGenerated();
 		}
 

@@ -39,8 +39,9 @@ namespace TerrainGeneration
 		public float heightMultiplier;
 
 		[field: SerializeField] public AnimationCurve heightCurve;
-		[field: SerializeField] public string terrainLayer;
 		public int GetSize() => MapChunkSize * ChunksPerRow;
-		[field: SerializeField] public float variation;
+		[field: SerializeField] public string groundLayer { get; private set; } = "Ground";
+		[field: SerializeField] public float boundryInstep { get; private set; } = 50f;
+
 	}
 }

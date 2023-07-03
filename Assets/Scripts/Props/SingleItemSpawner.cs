@@ -13,10 +13,8 @@ namespace Props
 	/// </summary>
 	public class SingleItemSpawner : MonoBehaviour
 	{
-		[SerializeField] private string groundLayer = "Ground";
 		[SerializeField] private List<SingleInstanceSpawn> prefabsToSpawn;
 		private static List<GameObject> spawnedPrefabs = new();
-
 		private void OnEnable()
 		{
 			MapGenerator.TerrainGenerated += SpawnAll;
@@ -40,19 +38,19 @@ namespace Props
 
 		private static void DestroyObject(GameObject spawned) => Destroy(spawned);
 
-		private void SpawnAll(float size)
+		private void SpawnAll(MapData mapData)
 		{
 			DespawnObjects();
 
 			foreach (var p in prefabsToSpawn)
 			{
-				Spawn(p, size);
+				Spawn(p, mapData);
 			}
 		}
 
-		protected virtual void Spawn(SingleInstanceSpawn sis, float size)
+		protected virtual void Spawn(SingleInstanceSpawn sis, MapData mapData)
 		{
-			if (sis.Spawn(size,groundLayer, out GameObject obj))
+			if (sis.Spawn(mapData, out GameObject obj))
 			{
 				obj.transform.SetParent(transform);
 				spawnedPrefabs.Add(obj);
