@@ -13,12 +13,11 @@ public class FenceSpawner : SingleInstanceSpawn
 	[SerializeField] private Vector3 barRaycastOffset;
 	[SerializeField] private float postInsertionDepth = 0.2f;
 	[SerializeField] private List<float> Heights;
-	[SerializeField] private float fencePositionOffsetFromEdge = 50f;
 	private GameObject fenceParent;
 
 	public override bool Spawn(MapData mapData, out GameObject currentInstance)
 	{
-		CalculatePoints(mapData.GetSize());
+		CalculatePoints(mapData);
 		if (Points.Count == 0 || Heights.Count == 0) throw new ArgumentNullException();
 		fenceParent = new GameObject("FenceParent");
 		var postInsertion = new Vector3(0, postInsertionDepth, 0);
@@ -91,29 +90,23 @@ public class FenceSpawner : SingleInstanceSpawn
 
 	public override string GetName() => "Fence";
 
-	private void CalculatePoints(float size)
+	private void CalculatePoints(MapData mapData)
 	{
 		Points ??= new();
 		Points.Clear();
-		var pos = size - fencePositionOffsetFromEdge;
-		Points.Add(new Vector3(fencePositionOffsetFromEdge, 0, pos));
-		Points.Add(new Vector3(pos, 0, pos));
-		Points.Add(new Vector3(pos, 0, fencePositionOffsetFromEdge));
-		Points.Add(new Vector3(fencePositionOffsetFromEdge, 0, fencePositionOffsetFromEdge));
+		var small = mapData.boundryInstep;
+		var large = mapData.GetSize() - small;
+		Points.Add(new Vector3(small, 0, large));
+		Points.Add(new Vector3(large, 0, large));
+		Points.Add(new Vector3(large, 0, small));
+		Points.Add(new Vector3(small, 0, small));
 	}
 
 	private void SpawnCollider() { }
 
 	private float GetTerrainHeight(Vector3 position)
 	{
-		Ray ray = new Ray(position + Vector3.up * 1000f, Vector3.down);
-		if (Physics.Raycast(ray, out RaycastHit hitInfo))
-		{
-			return hitInfo.point.y;
-		}
-		else
-		{
-			return position.y;
-		}
+		var ray = new Ray(position + Vector3.up * 1000f, Vector3.down);
+		return Physics.Raycast(ray, out RaycastHit hitInfo) ? hitInfo.point.y : position.y;
 	}
 }

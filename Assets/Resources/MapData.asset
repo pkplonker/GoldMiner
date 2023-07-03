@@ -14,17 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MapChunkSize>k__BackingField: 16
   <ChunksPerRow>k__BackingField: 10
-  <BorderChangeDistance>k__BackingField: 10
-  <BorderSize>k__BackingField: 3
-  <BorderDistance>k__BackingField: 10
   lod: 4
   seed: 12345
   octaves: 4
-  persistance: 0.8
+  Persistance: 0.8
   lacunarity: 0.8
   offset: {x: 0, y: 0}
   material: {fileID: 2100000, guid: 8a1ad397b447ca643951705bb09f5075, type: 2}
-  noiseScale: 16
+  PoiseScale: 0
   terrains:
   - _color: {r: 0.6509434, g: 0.47361162, b: 0.16273585, a: 0}
     _height: 0.1
@@ -88,5 +85,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  terrainLayer: Ground
-  variation: 20
+  <groundLayer>k__BackingField: Ground
+  <boundryInstep>k__BackingField: 50

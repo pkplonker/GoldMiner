@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MapData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MapData.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/FenceSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FenceSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/MultiAttemptSingleInstanceSpawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/MultiAttemptSingleInstanceSpawn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/SingleInstanceSpawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/SingleInstanceSpawn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/SingleItemSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/SingleItemSpawner.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +205,7 @@
       <workItem from="1686684906237" duration="2542000" />
       <workItem from="1687110381823" duration="7714000" />
       <workItem from="1687197910344" duration="6548000" />
-      <workItem from="1688058799727" duration="10978000" />
+      <workItem from="1688058799727" duration="12398000" />
     </task>
     <servers />
   </component>
@@ -241,19 +238,6 @@
           <line>66</line>
           <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\Cone.cs" initialLine="66" containingFunctionPresentation="method 'GenerateTriangles'" />
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Props/MultiAttemptSingleInstanceSpawn.cs</url>
-          <line>87</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\Props\MultiAttemptSingleInstanceSpawn.cs" initialLine="87" containingFunctionPresentation="Method 'Spawn'">
-            <startOffsets>
-              <option value="2583" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2676" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
