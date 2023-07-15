@@ -10,7 +10,9 @@ namespace TerrainGeneration
 {
 	public class MapGeneratorTerrain : MonoBehaviour
 	{
-		[SerializeField] private float exponent = 1f;
+		// [SerializeField] private float exponent = 1f;
+		// [SerializeField] private float noiseScale = 0.1f;
+		// [SerializeField] private float noiseWeight = 0.1f;
 
 		[field: SerializeField] public MapData MapData { get; private set; }
 		private readonly ConcurrentQueue<TerrainChunkData> terrainChunkDatasQueue = new();
@@ -81,15 +83,15 @@ namespace TerrainGeneration
 				MapData.lacunarity,
 				new Vector2(MapData.offset.x, MapData.offset.y));
 			OnNoiseMapGenerated?.Invoke(NoiseMap);
-			FalloffMap = FalloffGeneration.GenerateFalloffMap(mapSize, MapData.boundryInstep* MapData.lod, exponent);
-			OnFallOffMapGenerated?.Invoke(FalloffMap);
-			for (var i = 0; i < NoiseMap.GetLength(0); i++)
-			{
-				for (var j = 0; j < NoiseMap.GetLength(1); j++)
-				{
-					NoiseMap[i, j]+=  FalloffMap[i, j];
-				}
-			}
+			//FalloffMap = FalloffGeneration.GenerateFalloffMap(mapSize, MapData.boundryInstep* MapData.lod, exponent,noiseScale, noiseWeight);
+			//OnFallOffMapGenerated?.Invoke(FalloffMap);
+			// for (var i = 0; i < NoiseMap.GetLength(0); i++)
+			// {
+			// 	for (var j = 0; j < NoiseMap.GetLength(1); j++)
+			// 	{
+			// 		NoiseMap[i, j]+=  FalloffMap[i, j];
+			// 	}
+			// }
 			OnCombinedMapGenerated?.Invoke(NoiseMap);
 
 			StartCoroutine(AwaitChunkDataCor(chunksRequired));
