@@ -1,230 +1,51 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public static class FalloffGeneration
 {
-	//best so far
+    public static float[,] GenerateFalloffMap(int size, float inset, float exponent = 1f, float noiseScale = 0.01f, float noiseWeight = 0.1f)
+    {
+        var map = new float[size, size];
 
-	// public static float[,] GenerateFalloffMap(int size, int borderSize, int borderChangeDistance, int borderDistance)
-	// {
-	// 	if (borderSize + borderDistance + borderChangeDistance > (size / 2))
-	// 	{
-	// 		Debug.LogError("Invalid parameters");
-	// 		throw new ArgumentOutOfRangeException("Invalid parameters");
-	// 	}
-	//
-	// 	float[,] map = new float[size, size];
-	//
-	// 	for (int i = 0; i < size; i++)
-	// 	{
-	// 		for (int j = 0; j < size; j++)
-	// 		{
-	// 			float x = i;
-	// 			float y = j;
-	//
-	// 			// Compute the distances to the edges
-	// 			float xDistance = Mathf.Min(x, size - x);
-	// 			float yDistance = Mathf.Min(y, size - y);
-	// 			float minDistance = Mathf.Min(xDistance, yDistance);
-	//
-	// 			if (minDistance <= borderDistance) //outside
-	// 			{
-	// 				map[i, j] = 0;
-	// 			}
-	// 			else if (minDistance <= borderDistance + borderChangeDistance / 2) // going down
-	// 			{
-	// 				float t = Mathf.InverseLerp(borderDistance, borderDistance + borderChangeDistance / 2, minDistance);
-	// 				map[i, j] = t;
-	// 			}
-	// 			else if (minDistance <= borderDistance + borderChangeDistance / 2 + borderSize) // flat
-	// 			{
-	// 				map[i, j] = 1.0f;
-	// 			}
-	// 			else if (minDistance <= borderDistance + borderChangeDistance + borderSize) //going up
-	// 			{
-	// 				float t = Mathf.InverseLerp(borderDistance + borderChangeDistance / 2 + borderSize,
-	// 					borderDistance + borderChangeDistance + borderSize, minDistance);
-	// 				map[i, j] = 1 - t;
-	// 			}
-	// 			else //normal
-	// 			{
-	// 				map[i, j] = 0;
-	// 			}
-	// 		}
-	// 	}
-	//
-	// 	return map;
-	// }
+        var maxDistance = size / 2f;
 
-	//better
-	// public static float[,] GenerateFalloffMap(int size, int borderSize, int borderChangeDistance, int borderDistance)
-	// {
-	// 	if (borderSize + borderDistance + borderChangeDistance > (size / 2))
-	// 	{
-	// 		Debug.LogError("Invalid parameters");
-	// 		throw new ArgumentOutOfRangeException("Invalid parameters");
-	// 	}
-	//
-	// 	float[,] map = new float[size, size];
-	//
-	// 	for (int i = 0; i < size; i++)
-	// 	{
-	// 		for (int j = 0; j < size; j++)
-	// 		{
-	// 			float x = i;
-	// 			float y = j;
-	//
-	// 			// Compute the distances to the edges
-	// 			float xDistance = Mathf.Min(x, size - x);
-	// 			float yDistance = Mathf.Min(y, size - y);
-	// 			float minDistance = Mathf.Min(xDistance, yDistance);
-	//
-	// 			if (minDistance <= borderDistance) //outside
-	// 			{
-	// 				map[i, j] = 0;
-	// 			}
-	// 			else if (minDistance <= borderDistance + borderChangeDistance / 2) // going down
-	// 			{
-	// 				// Interpolate from 0 to the average
-	// 				float t = Mathf.InverseLerp(borderDistance, borderDistance + borderChangeDistance / 2, minDistance);
-	// 				map[i, j] = t / 2f; // Adjusted to match the average height at the start of "flat"
-	// 			}
-	// 			else if (minDistance <= borderDistance + borderChangeDistance / 2 + borderSize) // flat
-	// 			{
-	// 				map[i, j] = 0.5f; // Flat area, average falloff
-	// 			}
-	// 			else if (minDistance <= borderDistance + borderChangeDistance + borderSize) //going up
-	// 			{
-	// 				// Interpolate from the average to 0
-	// 				float t = Mathf.InverseLerp(borderDistance + borderChangeDistance / 2 + borderSize, borderDistance + borderChangeDistance + borderSize, minDistance);
-	// 				map[i, j] = 0.5f * (1 - t); // Adjusted to match the average height at the end of "flat"
-	// 			}
-	// 			else //normal
-	// 			{
-	// 				map[i, j] = 0; // Normal terrain, no falloff
-	// 			}
-	// 		}
-	// 	}
-	//
-	// 	return map;
-	// }
+        var ratioMultiplier = size / inset;
 
-	//backup
-	// public static float[,] GenerateFalloffMap(int size, int borderSize, int borderChangeDistance, int borderDistance)
-	// {
-	// 	if (borderSize + borderDistance + borderChangeDistance > (size / 2))
-	// 	{
-	// 		Debug.LogError("Invalid parameters");
-	// 		throw new ArgumentOutOfRangeException("Invalid parameters");
-	// 	}
-	//
-	// 	float[,] map = new float[size, size];
-	//
-	// 	for (int i = 0; i < size; i++)
-	// 	{
-	// 		for (int j = 0; j < size; j++)
-	// 		{
-	// 			float x = i;
-	// 			float y = j;
-	//
-	// 			// Compute the distances to the edges
-	// 			float xDistance = Mathf.Min(x, size - x);
-	// 			float yDistance = Mathf.Min(y, size - y);
-	// 			float minDistance = Mathf.Min(xDistance, yDistance);
-	//
-	// 			if (minDistance <= borderDistance) //outside
-	// 			{
-	// 				map[i, j] = 0;
-	// 			}
-	// 			else if (minDistance <= borderDistance + borderChangeDistance / 2) // going down
-	// 			{
-	// 				// Interpolate from 0 to 0.5 (Average of 0 and 1)
-	// 				float t = Mathf.InverseLerp(borderDistance, borderDistance + borderChangeDistance / 2, minDistance);
-	// 				map[i, j] = t * 0.5f;
-	// 			}
-	// 			else if (minDistance <= borderDistance + borderChangeDistance / 2 + borderSize) // flat
-	// 			{
-	// 				map[i, j] = 0.5f; // Flat area, average falloff
-	// 			}
-	// 			else if (minDistance <= borderDistance + borderChangeDistance + borderSize) //going up
-	// 			{
-	// 				// Interpolate from 0.5 (Average of 0 and 1) to 0
-	// 				float t = Mathf.InverseLerp(borderDistance + borderChangeDistance / 2 + borderSize,
-	// 					borderDistance + borderChangeDistance + borderSize, minDistance);
-	// 				map[i, j] = 0.5f * (1 - t);
-	// 			}
-	// 			else //normal
-	// 			{
-	// 				map[i, j] = 0; // Normal terrain, no falloff
-	// 			}
-	// 		}
-	// 	}
-	//
-	// 	return map;
-	// }
+        var offsetX = UnityEngine.Random.value * 1000;
+        var offsetY = UnityEngine.Random.value * 1000;
 
-	public static float[,] GenerateFalloffMap(int size, int borderSize, int borderChangeDistance, int borderDistance)
-	{
-		if (borderSize + borderDistance + borderChangeDistance > (size / 2))
-		{
-			Debug.LogError("Invalid parameters");
-			throw new ArgumentOutOfRangeException("Invalid parameters");
-		}
+        for (var y = 0; y < size; y++)
+        {
+            for (var x = 0; x < size; x++)
+            {
+                var distanceX = maxDistance - Math.Abs(x - maxDistance);
+                var distanceY = maxDistance - Math.Abs(y - maxDistance);
 
-		float[,] map = new float[size, size];
-		float average = 0;
-		for (int i = 0; i < size; i++)
-		{
-			for (int j = 0; j < size; j++)
-			{
-				average += map[i, j];
-			}
-		}
+                var distanceFromEdge = Math.Min(distanceX, distanceY) - inset;
 
-		average /= map.Length;
+                if (distanceFromEdge < 0)
+                {
+                    var normalizedDistanceFromEdge = Mathf.Clamp01(-distanceFromEdge / inset);
 
-		for (int i = 0; i < size; i++)
-		{
-			for (int j = 0; j < size; j++)
-			{
-				float x = i;
-				float y = j;
+                    var noise = Mathf.PerlinNoise(x * noiseScale + offsetX, y * noiseScale + offsetY) * noiseWeight;
 
-				// Compute the distances to the edges
-				float xDistance = Mathf.Min(x, size - x);
-				float yDistance = Mathf.Min(y, size - y);
-				float minDistance = Mathf.Min(xDistance, yDistance);
+                    var distanceWithNoise = Mathf.Clamp01(normalizedDistanceFromEdge + noise);
 
-				if (minDistance <= borderDistance) //outside
-				{
-					map[i, j] = 0;
-				}
-				else if (minDistance <= borderDistance + borderChangeDistance / 2) // going down
-				{
-					// Interpolate from 0 to 0.5 (Average of 0 and 1)
-					float t = Mathf.InverseLerp(borderDistance, borderDistance + borderChangeDistance / 2, minDistance);
-					map[i, j] = t * 0.5f;
-				}
-				else if (minDistance <= borderDistance + borderChangeDistance / 2 + borderSize) // flat
-				{
-					map[i, j] = 0.5f; // Flat area, average falloff
-				}
-				else if (minDistance <= borderDistance + borderChangeDistance + borderSize) //going up
-				{
-					// Interpolate from 0.5 (Average of 0 and 1) to 0
-					float t = Mathf.InverseLerp(borderDistance + borderChangeDistance / 2 + borderSize,
-						borderDistance + borderChangeDistance + borderSize, minDistance);
-					map[i, j] = 0.5f * (1 - t);
-				}
-				else //normal
-				{
-					map[i, j] = 0; // Normal terrain, no falloff
-				}
-			}
-		}
+                    map[x, y] = Evaluate(distanceWithNoise, ratioMultiplier * exponent);
+                }
+                else
+                {
+                    map[x, y] = 0;
+                }
+            }
+        }
 
-		return map;
-	}
+        return map;
+    }
+
+    private static float Evaluate(float x, float exponent)
+    {
+        var smootherStep = x * x * x * (x * (x * 6 - 15) + 10);
+        return Mathf.Pow(smootherStep, exponent);
+    }
 }

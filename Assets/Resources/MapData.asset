@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MapData
   m_EditorClassIdentifier: 
   <MapChunkSize>k__BackingField: 16
-  <ChunksPerRow>k__BackingField: 10
+  <ChunksPerRow>k__BackingField: 25
   lod: 4
   seed: 12345
   octaves: 4
@@ -86,4 +86,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   <groundLayer>k__BackingField: Ground
-  <boundryInstep>k__BackingField: 15
+  <boundryInstep>k__BackingField: 55

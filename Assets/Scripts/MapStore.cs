@@ -71,6 +71,7 @@ public class MapStore : GenericUnitySingleton<MapStore>
 
 	private Texture2D GenerateTexture(float[,] map)
 	{
+		if (map == null) return null;
 		var colorMap = new Color[map.GetLength(0) * map.GetLength(1)];
 
 		for (var y = 0; y < map.GetLength(1); y++)

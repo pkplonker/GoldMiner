@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/SubSurfaceProp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/SubSurfaceProp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PropSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PropSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MapData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MapData.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MapStore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MapStore.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/FalloffGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/FalloffGeneration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,10 +161,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="32740">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="16844">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="32740" />
+      <option name="pid" value="16844" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -205,6 +207,7 @@
       <workItem from="1687110381823" duration="7714000" />
       <workItem from="1687197910344" duration="6548000" />
       <workItem from="1688058799727" duration="12954000" />
+      <workItem from="1689425339696" duration="2037000" />
     </task>
     <servers />
   </component>
@@ -243,13 +246,26 @@
           <line>35</line>
           <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\Props\SubSurfaceProp.cs" initialLine="35" containingFunctionPresentation="Method 'GetSpawnSize'">
             <startOffsets>
-              <option value="1129" />
+              <option value="-1" />
             </startOffsets>
             <endOffsets>
-              <option value="1172" />
+              <option value="-1" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs</url>
+          <line>91</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\TerrainGeneration\MapGeneratorTerrain.cs" initialLine="87" containingFunctionPresentation="Method 'Generate'">
+            <startOffsets>
+              <option value="2914" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2949" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
