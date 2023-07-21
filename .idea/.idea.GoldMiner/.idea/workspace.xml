@@ -5,11 +5,187 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Art/DayNightCycle.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/DayNightCycle.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/SkyProfile.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/SkyProfile.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core/JCompileLogger.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core/JCompileLogger.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core/JEditorCommon.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core/JEditorCommon.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core/JEditorMenus.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core/JEditorMenus.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core/JPackageInitializer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core/JPackageInitializer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core/JSkyInspector.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core/JSkyInspector.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core/JSkyProfileInspector.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Core/JSkyProfileInspector.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/DayNightCycle.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/DayNightCycle/JDayNightCycleInspector.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/DayNightCycle/JDayNightCycleInspector.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/DayNightCycle/JDayNightCycleProfileInspector.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/DayNightCycle/JDayNightCycleProfileInspector.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Utilities.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Utilities/JCubemapCreatorWindow.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Utilities/JCubemapCreatorWindow.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Utilities/JTwoPaneWindow.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Editor/Scripts/Utilities/JTwoPaneWindow.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Jupiter - User Guide.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Jupiter - User Guide.pdf.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/DefaultProfiles.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/DefaultProfiles/DefaulDNC.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/DefaultProfiles/DefaulDNC.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/DefaultProfiles/StarryNight.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/DefaultProfiles/StarryNight.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/DefaultProfiles/SunnyDay.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/DefaultProfiles/SunnyDay.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Resources.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Resources/JupiterSettings.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Resources/JupiterSettings.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JCommon.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JCommon.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JDetailOverlayLayer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JDetailOverlayLayer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JFogSyncOption.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JFogSyncOption.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JJupiterSettings.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JJupiterSettings.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JMat.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JMat.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JSky.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JSky.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JSkyProfile.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Core/JSkyProfile.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/DayNightCycle.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/DayNightCycle/JAnimatableAttribute.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/DayNightCycle/JAnimatableAttribute.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/DayNightCycle/JAnimatedProperty.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/DayNightCycle/JAnimatedProperty.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/DayNightCycle/JCurveOrGradient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/DayNightCycle/JCurveOrGradient.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/DayNightCycle/JDayNightCycle.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/DayNightCycle/JDayNightCycle.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/DayNightCycle/JDayNightCycleProfile.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/DayNightCycle/JDayNightCycleProfile.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JCubemapRenderer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JCubemapRenderer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JCubemapRendererArgs.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JCubemapRendererArgs.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JDisplayNameAttribute.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JDisplayNameAttribute.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JInternalMaterials.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JInternalMaterials.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JInternalShaderSettings.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JInternalShaderSettings.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JProgressCancelledException.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JProgressCancelledException.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JRenderPipelineType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JRenderPipelineType.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JUtilities.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JUtilities.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JVersionInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Scripts/Utilities/JVersionInfo.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/CGIncludeTemplate.cginc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/CGIncludeTemplate.cginc.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JCommon.cginc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JCommon.cginc.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JDetailOverlay.cginc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JDetailOverlay.cginc.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JHorizonCloud.cginc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JHorizonCloud.cginc.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JOverheadCloud.cginc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JOverheadCloud.cginc.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JSkyGradient.cginc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JSkyGradient.cginc.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JStars.cginc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JStars.cginc.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JSunMoon.cginc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/CGIncludes/JSunMoon.cginc.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/Internal.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/Internal/CopyTexture.shader" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/Internal/CopyTexture.shader.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/Internal/SolidColor.shader" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/Internal/SolidColor.shader.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/JupiterSky.shader" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/JupiterSky.shader.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/JupiterSkyShadow.shader" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Shaders/JupiterSkyShadow.shader.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Textures.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Textures/CloudNoise.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Textures/CloudNoise.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Textures/PerlinNoise.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Runtime/Textures/PerlinNoise.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Cubemaps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Cubemaps/Cubemap-Moon.cubemap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Cubemaps/Cubemap-Moon.cubemap.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Cubemaps/Cubemap-Stars.cubemap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Cubemaps/Cubemap-Stars.cubemap.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Cubemaps/Cubemap-Sun.cubemap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Cubemaps/Cubemap-Sun.cubemap.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Cubemaps/StrokeOverlay.cubemap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Cubemaps/StrokeOverlay.cubemap.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Materials.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Materials/Reflective.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Materials/Reflective.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Models.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Models/Icosphere.fbx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Models/Icosphere.fbx.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Models/Icosphere_Displaced.fbx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Models/Icosphere_Displaced.fbx.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/DayNightCycle.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/DayNightCycle.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/DayNightCycle.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/DayNightCycle/DayNightCycleProfile.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/DayNightCycle/DayNightCycleProfile.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/DayNightCycle/SkyProfile-741169173868421736.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/DayNightCycle/SkyProfile-741169173868421736.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/StarryNight-Baked.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/StarryNight-Baked.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/StarryNight-Baked.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/StarryNight-Baked/SkyProfile-951463904131721736.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/StarryNight-Baked/SkyProfile-951463904131721736.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/StarryNight.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/StarryNight.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/StarryNight.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/StarryNight/SkyProfile-328763143758421736.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/StarryNight/SkyProfile-328763143758421736.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/SunnyDay.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/SunnyDay.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/SunnyDay.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/SunnyDay/SkyProfile-064293594558421736.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scenes/SunnyDay/SkyProfile-064293594558421736.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scripts.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scripts/JTakeScreenshot.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Scripts/JTakeScreenshot.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Textures.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Textures/CloudTexture0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Textures/CloudTexture0.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Textures/Stroke.psd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Textures/Stroke.psd.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Textures/TransparentTexture.psd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/Sample/Textures/TransparentTexture.psd.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/changelog.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Polaris - Low Poly Ecosystem/Jupiter - Procedural Sky/changelog.txt.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MapData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MapData.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MapStore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MapStore.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/FalloffGeneration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/FalloffGeneration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/URP-Performant.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/URP-Performant.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +296,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/../Builds\GoldMiner.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../Builds/GoldMiner.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="S:\Users\pkplo\OneDrive\Documents\UnityProjects\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -161,10 +337,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="16844">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="16844" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -207,7 +383,8 @@
       <workItem from="1687110381823" duration="7714000" />
       <workItem from="1687197910344" duration="6548000" />
       <workItem from="1688058799727" duration="12954000" />
-      <workItem from="1689425339696" duration="2037000" />
+      <workItem from="1689425339696" duration="2624000" />
+      <workItem from="1689886689280" duration="69000" />
     </task>
     <servers />
   </component>
