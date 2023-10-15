@@ -59,23 +59,23 @@ namespace TerrainGeneration
 		{
 			
 			normals = new Vector3[verts.Count];
-
+		
 			for (var i = 0; i < triangles.Count / 3; i++)
 			{
 				var normalTriangleIndex = i * 3;
 				var vertexIndexA = triangles[normalTriangleIndex];
 				var vertexIndexB = triangles[normalTriangleIndex + 1];
 				var vertexIndexC = triangles[normalTriangleIndex + 2];
-
-				var triangleNormal = SurfaceNormalFromIndices(vertexIndexA, vertexIndexB, vertexIndexC, verts);
+		
+				var triangleNormal = Vector3.up;
 				normals[vertexIndexA] += triangleNormal;
 				normals[vertexIndexB] += triangleNormal;
 				normals[vertexIndexC] += triangleNormal;
 			}
-
+		
 			for (var i = 0; i < normals.Length; i++)
 			{
-				normals[i].Normalize();
+				//normals[i].Normalize();
 			}
 			
 		}

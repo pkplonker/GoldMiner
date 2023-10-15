@@ -43,7 +43,10 @@ namespace TerrainGeneration
 			};
 			mesh.SetVertices(tcd.Verts);
 			mesh.SetTriangles(tcd.Triangles, 0);
-			mesh.SetNormals(tcd.Normals);
+			//mesh.SetNormals(tcd.Normals);
+			mesh.RecalculateTangents();
+			//mesh.RecalculateNormals();
+			
 			mesh.SetUVs(0, tcd.Uvs);
 			mesh.RecalculateBounds();
 			mf.mesh = mesh;
@@ -59,7 +62,7 @@ namespace TerrainGeneration
 		private void GenerateMeshRenderer(TerrainChunkData tcd, MeshRenderer mr, int vertsPerRow, Material material)
 		{
 			mr.material = material;
-			mr.material.mainTexture = MapGeneratorTerrain.TextureFromColourMap(tcd.ColourMap, vertsPerRow);
+			//mr.material.mainTexture = MapGeneratorTerrain.TextureFromColourMap(tcd.ColourMap, vertsPerRow);
 			mr.shadowCastingMode = ShadowCastingMode.Off;
 		}
 	}

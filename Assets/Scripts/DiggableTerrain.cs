@@ -21,7 +21,6 @@ public class DiggableTerrain : MonoBehaviour
 	private bool setup;
 	private float digAmount;
 	private Dictionary<int, float> digChanges = new();
-	[SerializeField] private Color dugGroundColorOffet;
 
 	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
 	{
@@ -37,25 +36,25 @@ public class DiggableTerrain : MonoBehaviour
 		}
 
 		CheckNeighbours(hit);
-		UpdateColor(hitVertIndexes, verts);
+		//UpdateColor(hitVertIndexes, verts);
 		return true;
 	}
 
 	private void UpdateColor(int[] hitVertIndexes, Vector3[] verts)
 	{
-		var mat = meshRenderer.material;
-		var texture = mat.mainTexture as Texture2D;
-		if (texture == null) return;
-		var colorMap = texture.GetPixels();
-
-		foreach (var t in hitVertIndexes)
-		{
-			colorMap[t] -= dugGroundColorOffet;
-			colorMap[t] = colorMap[t].Clamp(new Color(0, 0, 0, 0), new Color(1, 1, 1, 1));
-		}
-
-		texture.SetPixels(colorMap);
-		texture.Apply();
+		// var mat = meshRenderer.material;
+		// var texture = mat.mainTexture as Texture2D;
+		// if (texture == null) return;
+		// var colorMap = texture.GetPixels();
+		//
+		// foreach (var t in hitVertIndexes)
+		// {
+		// 	colorMap[t] -= dugGroundColorOffet;
+		// 	colorMap[t] = colorMap[t].Clamp(new Color(0, 0, 0, 0), new Color(1, 1, 1, 1));
+		// }
+		//
+		// texture.SetPixels(colorMap);
+		// texture.Apply();
 	}
 
 	private void CheckNeighbours(RaycastHit hit)
@@ -141,10 +140,7 @@ public class DiggableTerrain : MonoBehaviour
 		for (var i = 0; i < verts.Length; i++)
 		{
 			var v = verts[i];
-			if (hitVerts.Any(hv => v == hv))
-			{
-				verts[i] = new Vector3(v.x, v.y - digAmount, v.z);
-			}
+			if (hitVerts.Any(hv => v == hv)) verts[i] = new Vector3(v.x, v.y - digAmount, v.z);
 		}
 
 		return verts;
@@ -164,17 +160,15 @@ public class DiggableTerrain : MonoBehaviour
 		{
 			name = oldMesh.name
 		};
-		var vertList = verts.ToList();
+		//var vertList = verts.ToList();
 		newMesh.SetVertices(verts);
 		newMesh.triangles = oldMesh.GetTriangles(0);
 		var oldUvs = new List<Vector2>();
 		oldMesh.GetUVs(0, oldUvs);
 		newMesh.SetUVs(0, oldUvs);
-		//newMesh.SetNormals(oldMesh.normals);
-		var tris = newMesh.triangles.ToList();
-		TerrainChunkDataGenerator.CalculateNormals(ref vertList, out var normals, ref tris);
-		newMesh.SetNormals(normals);
-
+		//var tris = newMesh.triangles.ToList();
+		//TerrainChunkDataGenerator.CalculateNormals(ref vertList, out var normals, ref tris);
+		newMesh.normals = oldMesh.normals;
 		//newMesh.RecalculateNormals();
 
 		newMesh.RecalculateBounds();
@@ -203,7 +197,8 @@ public class DiggableTerrain : MonoBehaviour
 		if (!meshFilter) meshFilter = GetComponent<MeshFilter>();
 		setup = meshCollider && meshFilter;
 	}
-	public struct TerrainChange
+
+	private struct TerrainChange
 	{
 		public int X { get; set; }
 		public int Y { get; set; }
@@ -231,5 +226,4 @@ public class DiggableTerrain : MonoBehaviour
 			return HashCode.Combine(X, Y, Index);
 		}
 	}
-
 }

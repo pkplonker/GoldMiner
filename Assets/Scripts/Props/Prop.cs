@@ -79,15 +79,9 @@ namespace Props
 				propSpawner.SpawnProp(index, result, rotation);
 				numToSpawn--;
 			}
-
-			if (numToSpawn > 0)
-			{
-				Debug.LogWarning(
-					$"spawned {cachedNumberToSpawn - numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
-			}
-			Debug.Log(
-				$"spawned {cachedNumberToSpawn - numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
-			//Debug.Log($"calling callback {Prefab.name}");
+			
+			// Debug.Log(
+			// 	$"spawned {cachedNumberToSpawn - numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
 			callback?.Invoke();
 		}
 
