@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 namespace TerrainGeneration
 {
