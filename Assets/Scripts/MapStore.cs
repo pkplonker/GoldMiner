@@ -17,9 +17,6 @@ public class MapStore : GenericUnitySingleton<MapStore>
 	{
 		allMaps.Clear();
 		InGameMap.OnMapGenerated += OnColorMapGenerated;
-		MapGeneratorTerrain.OnCombinedMapGenerated += OnCombinedMapGenerated;
-		MapGeneratorTerrain.OnNoiseMapGenerated += OnNoiseMapGenerated;
-		MapGeneratorTerrain.OnFallOffMapGenerated += OnFallOffMapGenerated;
 		allMaps.CollectionChanged += MapCollectionChanged;
 	}
 
@@ -50,9 +47,7 @@ public class MapStore : GenericUnitySingleton<MapStore>
 	private void OnDisable()
 	{
 		InGameMap.OnMapGenerated -= OnColorMapGenerated;
-		MapGeneratorTerrain.OnCombinedMapGenerated -= OnCombinedMapGenerated;
 		MapGeneratorTerrain.OnNoiseMapGenerated -= OnNoiseMapGenerated;
-		MapGeneratorTerrain.OnFallOffMapGenerated -= OnFallOffMapGenerated;
 	}
 
 	private void OnColorMapGenerated(Texture2D obj) =>

@@ -5,9 +5,64 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Materials/MapDisplay.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Materials/MapDisplay.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Materials/MapShaderBackup.shadergraph" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Materials/MapShaderBackup.shadergraph.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Materials/MapShaderTest.shadergraph" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Materials/MapShaderTest.shadergraph.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Materials/Testmat.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Materials/Testmat.mat.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Materials/MapMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Materials/MapMaterial.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Materials/MapShader.shadergraph" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Materials/MapShader.shadergraph.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Downloads/SimpleNaturePack/Materials/SimpleNaturePack_Texture_01.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Downloads/SimpleNaturePack/Materials/SimpleNaturePack_Texture_01.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/MapDisplay.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/MapDisplay.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Testmat.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Testmat.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Coin1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Coin1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Coin2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Coin2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Gold3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Branch1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Branch1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Bush1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Bush1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Grass1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Grass1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Grass2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Grass2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock10.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock10.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock11.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock11.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock4.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock4.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock5.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock5.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock6.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock6.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock7.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock7.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock8.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock8.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock9.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock9.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_RockMedium1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_RockMedium1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_RockSmall1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_RockSmall1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_RockSmall2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_RockSmall2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Stump1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Stump1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Tree1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Tree1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/Sovereign .prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/Sovereign .prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MapData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MapData.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/Grass.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/Grass.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/Grass1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/Grass1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InGameMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InGameMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MapStore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MapStore.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PropSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PropSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunk.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunkDataGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunkDataGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,7 +262,7 @@
       <workItem from="1688058799727" duration="12954000" />
       <workItem from="1689425339696" duration="2624000" />
       <workItem from="1689886689280" duration="69000" />
-      <workItem from="1697320959670" duration="6234000" />
+      <workItem from="1697320959670" duration="16182000" />
     </task>
     <servers />
   </component>
@@ -253,6 +308,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PropSpawner.cs</url>
+          <line>82</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\TerrainGeneration\PropSpawner.cs" initialLine="82" containingFunctionPresentation="Method 'SpawnObjectsCor'">
+            <startOffsets>
+              <option value="2766" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2824" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

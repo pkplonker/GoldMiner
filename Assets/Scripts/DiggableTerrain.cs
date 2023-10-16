@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using StuartHeathTools;
 using TerrainGeneration;
 using UnityEngine;
 
@@ -21,6 +20,7 @@ public class DiggableTerrain : MonoBehaviour
 	private bool setup;
 	private float digAmount;
 	private Dictionary<int, float> digChanges = new();
+	[SerializeField] private Color dugGroundColorOffet = Color.black;
 
 	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
 	{
@@ -36,25 +36,48 @@ public class DiggableTerrain : MonoBehaviour
 		}
 
 		CheckNeighbours(hit);
-		//UpdateColor(hitVertIndexes, verts);
+		UpdateColor(hitVertIndexes, verts);
 		return true;
 	}
 
-	private void UpdateColor(int[] hitVertIndexes, Vector3[] verts)
+	private void UpdateColor(int[] hitVertIndexes, Vector3[] verts, bool modifyNeighbours = true)
 	{
-		// var mat = meshRenderer.material;
-		// var texture = mat.mainTexture as Texture2D;
-		// if (texture == null) return;
-		// var colorMap = texture.GetPixels();
-		//
-		// foreach (var t in hitVertIndexes)
-		// {
-		// 	colorMap[t] -= dugGroundColorOffet;
-		// 	colorMap[t] = colorMap[t].Clamp(new Color(0, 0, 0, 0), new Color(1, 1, 1, 1));
-		// }
-		//
-		// texture.SetPixels(colorMap);
-		// texture.Apply();
+		var mat = meshRenderer.material;
+		var originalTexture = mat.mainTexture as Texture2D;
+		if (originalTexture == null) return;
+
+		int textureWidth = originalTexture.width;
+		Color halfStrengthColor = dugGroundColorOffet * 0.5f;
+
+		foreach (var t in hitVertIndexes)
+		{
+			int x = t % textureWidth;
+			int y = t / textureWidth;
+
+			int xMin = Mathf.Max(x - 1, 0);
+			int xMax = Mathf.Min(x + 1, textureWidth - 1);
+			int yMin = Mathf.Max(y - 1, 0);
+			int yMax = Mathf.Min(y + 1, originalTexture.height - 1);
+
+			Color[] regionPixels = originalTexture.GetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
+
+			regionPixels[(y - yMin) * (xMax - xMin + 1) + (x - xMin)] = dugGroundColorOffet;
+
+			if (modifyNeighbours)
+			{
+				if (x > xMin) regionPixels[(y - yMin) * (xMax - xMin + 1) + (x - xMin - 1)] = halfStrengthColor; // Left
+				if (x < xMax)
+					regionPixels[(y - yMin) * (xMax - xMin + 1) + (x - xMin + 1)] = halfStrengthColor; // Right
+				if (y > yMin)
+					regionPixels[(y - yMin - 1) * (xMax - xMin + 1) + (x - xMin)] = halfStrengthColor; // Below
+				if (y < yMax)
+					regionPixels[(y - yMin + 1) * (xMax - xMin + 1) + (x - xMin)] = halfStrengthColor; // Above
+			}
+
+			originalTexture.SetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1, regionPixels);
+		}
+
+		originalTexture.Apply();
 	}
 
 	private void CheckNeighbours(RaycastHit hit)
@@ -98,30 +121,61 @@ public class DiggableTerrain : MonoBehaviour
 	{
 		var changes = changesRequested.Distinct().ToList();
 
+		Dictionary<DiggableTerrain, List<int>> batchedChanges = new Dictionary<DiggableTerrain, List<int>>();
+
 		foreach (var change in changes)
 		{
 			if (change.X < 0 || change.X > MapGeneratorTerrain.terrainChunks.GetLength(0) - 1) continue;
 			if (change.Y < 0 || change.Y > MapGeneratorTerrain.terrainChunks.GetLength(1) - 1) continue;
 
 			var dt = MapGeneratorTerrain.terrainChunks[change.X, change.Y].GetComponent<DiggableTerrain>();
-			if (dt != null)
-			{
-				dt.DigAtVertIndex(change.Index, digAmount);
-				var verts = dt.meshFilter.mesh.vertices;
-				dt.UpdateColor(new[] {change.Index}, verts);
-			}
+			if (dt == null) continue;
+			if (!batchedChanges.ContainsKey(dt)) batchedChanges[dt] = new List<int>();
+
+			batchedChanges[dt].Add(change.Index);
+		}
+
+		foreach (var kvp in batchedChanges)
+		{
+			var dt = kvp.Key;
+			var indices = kvp.Value.ToArray();
+			dt.DigAtVertIndices(indices, digAmount);
 		}
 	}
 
-	private void DigAtVertIndex(int index, float digAmount)
+	private void DigAtVertIndices(int[] indices, float digAmount)
 	{
 		this.digAmount = digAmount;
 		if (!setup) Setup();
 		var verts = meshFilter.mesh.vertices;
-		verts[index].y -= digAmount;
-		UpdateColor(new[] {index}, verts);
+
+		foreach (var index in indices)
+		{
+			verts[index].y -= digAmount;
+		}
+
+		UpdateColor(indices, verts);
 		var updatedMesh = RegenerateMesh(verts);
 		UpdateCollider(updatedMesh);
+	}
+
+	private Mesh RegenerateMesh(Vector3[] verts)
+	{
+		var oldMesh = meshFilter.mesh;
+		var newMesh = new Mesh
+		{
+			name = oldMesh.name
+		};
+		newMesh.SetVertices(verts);
+		newMesh.triangles = oldMesh.GetTriangles(0);
+		var oldUvs = new List<Vector2>();
+		oldMesh.GetUVs(0, oldUvs);
+		newMesh.SetUVs(0, oldUvs);
+		//newMesh.normals = oldMesh.normals;
+		newMesh.RecalculateNormals();
+		newMesh.RecalculateBounds();
+		meshFilter.mesh = newMesh;
+		return newMesh;
 	}
 
 	private int CheckLeft(int index, int vertsPerRow) => (index % vertsPerRow == 0) ? index + vertsPerRow - 1 : -1;
@@ -151,29 +205,6 @@ public class DiggableTerrain : MonoBehaviour
 		if (meshCollider.sharedMesh) meshCollider.sharedMesh.Clear();
 		meshCollider.sharedMesh = newMesh;
 		meshCollider.cookingOptions = MeshColliderCookingOptions.EnableMeshCleaning;
-	}
-
-	private Mesh RegenerateMesh(Vector3[] verts)
-	{
-		var oldMesh = meshFilter.mesh;
-		var newMesh = new Mesh
-		{
-			name = oldMesh.name
-		};
-		//var vertList = verts.ToList();
-		newMesh.SetVertices(verts);
-		newMesh.triangles = oldMesh.GetTriangles(0);
-		var oldUvs = new List<Vector2>();
-		oldMesh.GetUVs(0, oldUvs);
-		newMesh.SetUVs(0, oldUvs);
-		//var tris = newMesh.triangles.ToList();
-		//TerrainChunkDataGenerator.CalculateNormals(ref vertList, out var normals, ref tris);
-		newMesh.normals = oldMesh.normals;
-		//newMesh.RecalculateNormals();
-
-		newMesh.RecalculateBounds();
-		meshFilter.mesh = newMesh;
-		return newMesh;
 	}
 
 	private static Vector3[] GetHitVerts(RaycastHit hit, Mesh mesh, out int[] hitVertIndexes)
@@ -221,9 +252,6 @@ public class DiggableTerrain : MonoBehaviour
 			return false;
 		}
 
-		public override int GetHashCode()
-		{
-			return HashCode.Combine(X, Y, Index);
-		}
+		public override int GetHashCode() => HashCode.Combine(X, Y, Index);
 	}
 }

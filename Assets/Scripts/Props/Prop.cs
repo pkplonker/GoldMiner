@@ -16,7 +16,7 @@ namespace Props
 
 		[field: SerializeField] public GameObject Prefab { get; protected set; }
 		[field: Range(0, 40), SerializeField] public int NumSamplesBeforeRejection { get; protected set; }
-		[field: Range(0, 500), SerializeField] public int MaxQuantityPer100M { get; protected set; } = 100;
+		[field: Range(0, 2500), SerializeField] public int MaxQuantityPer100M { get; protected set; } = 100;
 
 		[field: Range(-1f, 1f), SerializeField]
 		public float FlatnessTolerance { get; protected set; }
@@ -57,12 +57,10 @@ namespace Props
 			}
 
 			var points = poissonData.Points;
-			var cachedTime = Time.realtimeSinceStartup;
 
 			var prng = new System.Random(mapData.seed);
 			points.ShuffleWithPRNG(prng);
 			var numToSpawn = CalculateNumberToSpawn(mapData, points);
-			var cachedNumberToSpawn = numToSpawn;
 			var tolerance = GetTolerance();
 			int spawnedPointsThisCycle = 0;
 			for (var i = 0; i < points.Count; i++)

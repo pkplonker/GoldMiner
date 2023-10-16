@@ -35,35 +35,35 @@ public class InGameMap : MonoBehaviour
 
 	private void MapGeneratorOnMapGenerated(float obj)
 	{
-		var size = MapGeneratorTerrain.terrainChunks.GetLength(0);
-		var colorMapSize = (int) Mathf.Sqrt(MapGeneratorTerrain.terrainChunkData[0, 0].ColourMap.Length);
-		originalSize = size * colorMapSize;
-		var combinedColorMap = new Color[originalSize * originalSize];
-		for (var x = 0; x < size; x++)
-		{
-			for (var y = 0; y < size; y++)
-			{
-				var chunkData = MapGeneratorTerrain.terrainChunkData[x, y];
-				var offsetX = x * colorMapSize;
-				var offsetY = y * colorMapSize;
-				for (var i = 0; i < colorMapSize; i++)
-				{
-					for (var j = 0; j < colorMapSize; j++)
-					{
-						combinedColorMap[(offsetY + j) * originalSize + offsetX + i] =
-							chunkData.ColourMap[j * colorMapSize + i];
-					}
-				}
-			}
-		}
-
-		CombinedTexture = new Texture2D(originalSize, originalSize, TextureFormat.RGB24, false);
-		CombinedTexture.SetPixels(combinedColorMap);
-		originalSize /= (mapGeneratorTerrain.MapData.lod);
-		CombinedTexture.Apply();
-		CombinedTexture = ResizeTexture(CombinedTexture, 1024, 1024);
-		WriteToFile(CombinedTexture);
-		OnMapGenerated?.Invoke(CombinedTexture);
+		// var size = MapGeneratorTerrain.terrainChunks.GetLength(0);
+		// var colorMapSize = (int) Mathf.Sqrt(MapGeneratorTerrain.terrainChunkData[0, 0].ColourMap.Length);
+		// originalSize = size * colorMapSize;
+		// var combinedColorMap = new Color[originalSize * originalSize];
+		// for (var x = 0; x < size; x++)
+		// {
+		// 	for (var y = 0; y < size; y++)
+		// 	{
+		// 		var chunkData = MapGeneratorTerrain.terrainChunkData[x, y];
+		// 		var offsetX = x * colorMapSize;
+		// 		var offsetY = y * colorMapSize;
+		// 		for (var i = 0; i < colorMapSize; i++)
+		// 		{
+		// 			for (var j = 0; j < colorMapSize; j++)
+		// 			{
+		// 				combinedColorMap[(offsetY + j) * originalSize + offsetX + i] =
+		// 					chunkData.ColourMap[j * colorMapSize + i];
+		// 			}
+		// 		}
+		// 	}
+		// }
+		//
+		// CombinedTexture = new Texture2D(originalSize, originalSize, TextureFormat.RGB24, false);
+		// CombinedTexture.SetPixels(combinedColorMap);
+		// originalSize /= (mapGeneratorTerrain.MapData.lod);
+		// CombinedTexture.Apply();
+		// CombinedTexture = ResizeTexture(CombinedTexture, 1024, 1024);
+		// WriteToFile(CombinedTexture);
+		// OnMapGenerated?.Invoke(CombinedTexture);
 	}
 
 	private Texture2D ResizeTexture(Texture2D sourceTexture, int targetWidth, int targetHeight)
