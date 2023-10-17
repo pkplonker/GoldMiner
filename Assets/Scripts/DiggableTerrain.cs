@@ -178,17 +178,6 @@ public class DiggableTerrain : MonoBehaviour
 		return newMesh;
 	}
 
-	private int CheckLeft(int index, int vertsPerRow) => (index % vertsPerRow == 0) ? index + vertsPerRow - 1 : -1;
-
-	private int CheckRight(int index, int vertsPerRow) =>
-		((index + 1) % vertsPerRow == 0) ? index - vertsPerRow + 1 : -1;
-
-	private int CheckBottom(int index, int vertsPerRow, int totalVerts) =>
-		index < vertsPerRow ? totalVerts - vertsPerRow + index : -1;
-
-	private int CheckTop(int index, int vertsPerRow, int totalVerts) =>
-		index >= totalVerts - vertsPerRow ? index % vertsPerRow : -1;
-
 	private Vector3[] UpdateVerts(float digAmount, Vector3[] hitVerts, Vector3[] verts)
 	{
 		for (var i = 0; i < verts.Length; i++)
@@ -220,6 +209,17 @@ public class DiggableTerrain : MonoBehaviour
 
 		return hitVerts;
 	}
+
+	private int CheckLeft(int index, int vertsPerRow) => (index % vertsPerRow == 0) ? index + vertsPerRow - 1 : -1;
+
+	private int CheckRight(int index, int vertsPerRow) =>
+		((index + 1) % vertsPerRow == 0) ? index - vertsPerRow + 1 : -1;
+
+	private int CheckBottom(int index, int vertsPerRow, int totalVerts) =>
+		index < vertsPerRow ? totalVerts - vertsPerRow + index : -1;
+
+	private int CheckTop(int index, int vertsPerRow, int totalVerts) =>
+		index >= totalVerts - vertsPerRow ? index % vertsPerRow : -1;
 
 	private void Setup()
 	{
