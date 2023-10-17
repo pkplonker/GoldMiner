@@ -40,38 +40,39 @@ public class DiggableTerrain : MonoBehaviour
 		return true;
 	}
 
-	private void UpdateColor(int[] hitVertIndexes, Vector3[] verts, bool modifyNeighbours = true)
+	private void UpdateColor(int[] hitVertIndexes, Vector3[] verts)
 	{
 		var mat = meshRenderer.material;
 		var originalTexture = mat.mainTexture as Texture2D;
 		if (originalTexture == null) return;
 
 		int textureWidth = originalTexture.width;
-		Color halfStrengthColor = dugGroundColorOffet * 0.5f;
 
 		foreach (var t in hitVertIndexes)
 		{
 			int x = t % textureWidth;
 			int y = t / textureWidth;
 
-			int xMin = Mathf.Max(x - 1, 0);
-			int xMax = Mathf.Min(x + 1, textureWidth - 1);
-			int yMin = Mathf.Max(y - 1, 0);
-			int yMax = Mathf.Min(y + 1, originalTexture.height - 1);
+			int radius = 2; // Define the radius
+
+			int xMin = Mathf.Max(x - radius, 0);
+			int xMax = Mathf.Min(x + radius, textureWidth - 1);
+			int yMin = Mathf.Max(y - radius, 0);
+			int yMax = Mathf.Min(y + radius, originalTexture.height - 1);
 
 			Color[] regionPixels = originalTexture.GetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
 
-			regionPixels[(y - yMin) * (xMax - xMin + 1) + (x - xMin)] = dugGroundColorOffet;
-
-			if (modifyNeighbours)
+			for (int i = xMin; i <= xMax; i++)
 			{
-				if (x > xMin) regionPixels[(y - yMin) * (xMax - xMin + 1) + (x - xMin - 1)] = halfStrengthColor; // Left
-				if (x < xMax)
-					regionPixels[(y - yMin) * (xMax - xMin + 1) + (x - xMin + 1)] = halfStrengthColor; // Right
-				if (y > yMin)
-					regionPixels[(y - yMin - 1) * (xMax - xMin + 1) + (x - xMin)] = halfStrengthColor; // Below
-				if (y < yMax)
-					regionPixels[(y - yMin + 1) * (xMax - xMin + 1) + (x - xMin)] = halfStrengthColor; // Above
+				for (int j = yMin; j <= yMax; j++)
+				{
+					// Calculate distance from the center
+					float distance = Mathf.Sqrt((i - x) * (i - x) + (j - y) * (j - y));
+					if (distance <= radius)
+					{
+						regionPixels[(j - yMin) * (xMax - xMin + 1) + (i - xMin)] = dugGroundColorOffet;
+					}
+				}
 			}
 
 			originalTexture.SetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1, regionPixels);
@@ -102,12 +103,16 @@ public class DiggableTerrain : MonoBehaviour
 		{
 			var val = CheckTop(index, vertsPerRow, totalVerts);
 			if (val != -1) changes.Add(new TerrainChange(x, y + 1, val));
+			
 			val = CheckBottom(index, vertsPerRow, totalVerts);
 			if (val != -1) changes.Add(new TerrainChange(x, y - 1, val));
+			
 			val = CheckLeft(index, vertsPerRow);
 			if (val != -1) changes.Add(new TerrainChange(x - 1, y, val));
+			
 			val = CheckRight(index, vertsPerRow);
 			if (val != -1) changes.Add(new TerrainChange(x + 1, y, val));
+			
 			if (index == 0) changes.Add(new TerrainChange(x - 1, y - 1, totalVerts - 1));
 			if (index == totalVerts - 1) changes.Add(new TerrainChange(x + 1, y + 1, 0));
 			if (index == vertsPerRow - 1) changes.Add(new TerrainChange(x + 1, y - 1, totalVerts - vertsPerRow));
@@ -158,6 +163,17 @@ public class DiggableTerrain : MonoBehaviour
 		var updatedMesh = RegenerateMesh(verts);
 		UpdateCollider(updatedMesh);
 	}
+	
+	private int CheckLeft(int index, int vertsPerRow) => (index % vertsPerRow == 0) ? index + vertsPerRow - 1 : -1;
+
+	private int CheckRight(int index, int vertsPerRow) =>
+		((index + 1) % vertsPerRow == 0) ? index - vertsPerRow + 1 : -1;
+
+	private int CheckBottom(int index, int vertsPerRow, int totalVerts) =>
+		index < vertsPerRow ? totalVerts - vertsPerRow + index : -1;
+
+	private int CheckTop(int index, int vertsPerRow, int totalVerts) =>
+		index >= totalVerts - vertsPerRow ? index % vertsPerRow : -1;
 
 	private Mesh RegenerateMesh(Vector3[] verts)
 	{
@@ -210,16 +226,7 @@ public class DiggableTerrain : MonoBehaviour
 		return hitVerts;
 	}
 
-	private int CheckLeft(int index, int vertsPerRow) => (index % vertsPerRow == 0) ? index + vertsPerRow - 1 : -1;
-
-	private int CheckRight(int index, int vertsPerRow) =>
-		((index + 1) % vertsPerRow == 0) ? index - vertsPerRow + 1 : -1;
-
-	private int CheckBottom(int index, int vertsPerRow, int totalVerts) =>
-		index < vertsPerRow ? totalVerts - vertsPerRow + index : -1;
-
-	private int CheckTop(int index, int vertsPerRow, int totalVerts) =>
-		index >= totalVerts - vertsPerRow ? index % vertsPerRow : -1;
+	
 
 	private void Setup()
 	{
