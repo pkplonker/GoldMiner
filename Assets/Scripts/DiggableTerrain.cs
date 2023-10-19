@@ -37,11 +37,11 @@ public class DiggableTerrain : MonoBehaviour
 		}
 
 		CheckNeighbours(hit);
-		UpdateColor(hitVertIndexes, verts);
+		UpdateColor(hitVertIndexes);
 		return true;
 	}
 
-	private void UpdateColor(int[] hitVertIndexes, Vector3[] verts)
+	private void UpdateColor(int[] hitVertIndexes)
 	{
 		var mat = meshRenderer.material;
 		var originalTexture = mat.mainTexture as Texture2D;
@@ -216,7 +216,7 @@ public class DiggableTerrain : MonoBehaviour
 			verts[index].y -= digAmount;
 		}
 
-		UpdateColor(indices, verts);
+		UpdateColor(indices);
 		var updatedMesh = RegenerateMesh(verts);
 		UpdateCollider(updatedMesh);
 	}
