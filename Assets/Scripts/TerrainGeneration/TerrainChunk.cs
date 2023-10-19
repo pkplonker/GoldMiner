@@ -36,6 +36,7 @@ namespace TerrainGeneration
 
 		private static void GenerateMesh(TerrainChunkData tcd, MeshFilter mf)
 		{
+			Debug.Log($"{tcd.X}:{tcd.Y}");
 			var mesh = new Mesh
 			{
 				name = $"X{tcd.X}:Y{tcd.Y}"

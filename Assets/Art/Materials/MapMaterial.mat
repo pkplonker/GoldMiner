@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MapMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 543ebf60734c06648aba673ab111b0bb,
+  m_Shader: {fileID: -6465566751694194690, guid: c35c5cb27fc9a8e498ff59c8802a1318,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -135,7 +135,7 @@ Material:
     - _Color4: {r: 0.6431373, g: 0.38431376, b: 0.19607845, a: 1}
     - _Color5: {r: 0.6509804, g: 0.47450984, b: 0.16078432, a: 1}
     - _DigColor: {r: 0.55, g: 0.55, b: 0.55, a: 1}
-    - _DigSmoothStep: {r: 0.4, g: 0.6, b: 0, a: 0}
+    - _DigSmoothStep: {r: 0.1, g: 0.9, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TopColor: {r: 1, g: 0, b: 0, a: 0}
