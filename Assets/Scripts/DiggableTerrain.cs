@@ -20,7 +20,7 @@ public class DiggableTerrain : MonoBehaviour
 	private bool setup;
 	private float digAmount;
 	private Dictionary<int, float> digChanges = new();
-	[SerializeField] private Color dugGroundColorOffet = Color.black;
+	[SerializeField] private Color dugGroundColorOffet = Color.blue;
 	private TerrainChunk terrainChunk;
 
 	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
@@ -288,7 +288,7 @@ public class DiggableTerrain : MonoBehaviour
 		if (!meshRenderer) meshRenderer = GetComponent<MeshRenderer>();
 		if (!meshCollider) meshCollider = GetComponent<MeshCollider>();
 		if (!meshFilter) meshFilter = GetComponent<MeshFilter>();
-		setup = meshCollider && meshFilter;
+		setup = meshRenderer && meshCollider && meshFilter;
 	}
 
 	private struct TerrainChange

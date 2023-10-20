@@ -48,6 +48,8 @@ namespace TerrainGeneration
 			mesh.RecalculateNormals();
 			mesh.RecalculateBounds();
 			mf.mesh = mesh;
+			mesh.SetUVs(3,mesh.vertices);
+
 		}
 
 		private static void GenerateCollider(MeshCollider mc, MeshFilter mf)
@@ -56,11 +58,23 @@ namespace TerrainGeneration
 			mc.sharedMesh = mf.mesh;
 		}
 
-		private void GenerateMeshRenderer( MeshRenderer mr, int vertsPerRow, Material material)
+		private void GenerateMeshRenderer(MeshRenderer mr, int vertsPerRow, Material material)
 		{
 			mr.material = new Material(material);
 			mr.shadowCastingMode = ShadowCastingMode.Off;
-			material.mainTexture = new Texture2D(vertsPerRow,vertsPerRow);
+
+			Texture2D texture = new Texture2D(vertsPerRow, vertsPerRow);
+			Color[] pixels = new Color[vertsPerRow * vertsPerRow];
+
+			for (int i = 0; i < pixels.Length; i++)
+			{
+				pixels[i] = new Color(0, 0, 0, 0);
+			}
+
+			texture.SetPixels(pixels);
+			texture.Apply();
+
+			material.mainTexture = texture;
 		}
 	}
 }

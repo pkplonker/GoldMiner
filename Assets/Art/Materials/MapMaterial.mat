@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MapMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: c35c5cb27fc9a8e498ff59c8802a1318,
+  m_Shader: {fileID: -6465566751694194690, guid: 389bd82d5685e7940a0b9333e94ea921,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -102,10 +102,10 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _Height: 4.7
-    - _Height_1: 2
-    - _Height_2: 1.33
-    - _Height_3: 1
+    - _Height: 5
+    - _Height_1: 2.5
+    - _Height_2: 2
+    - _Height_3: 1.37
     - _Height_4: 0.8
     - _Metallic: 0
     - _Mode: 0
@@ -114,7 +114,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.3
+    - _Smoothness: 1.75
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
