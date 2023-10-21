@@ -48,14 +48,13 @@ namespace TerrainGeneration
 			mesh.SetUVs(0, tcd.Uvs);
 			mesh.RecalculateNormals();
 			
-			
 			mesh.RecalculateBounds();
-
+			//
 			// Vector4[] tangents = new Vector4[tcd.Verts.Count];
 			// for (int i = 0; i < tangents.Length; i++)
 			// {
 			// 	var vert = tcd.Verts[i];
-			// 	tangents[i] = new Vector4(0f, vert.y, 0f, 0f);
+			// 	tangents[i] = new Vector4(0f, 0f, 0f, 0f);
 			// }
 			//
 			// mesh.SetTangents(tangents);

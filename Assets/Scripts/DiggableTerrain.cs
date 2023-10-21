@@ -247,14 +247,14 @@ public class DiggableTerrain : MonoBehaviour
 		var oldUvs = new List<Vector2>();
 		oldMesh.GetUVs(0, oldUvs);
 		newMesh.SetUVs(0, oldUvs);
-
+		newMesh.SetNormals(oldMesh.normals);
 		var tangents = new List<Vector4>();
 		oldMesh.GetTangents(tangents);
 
 		for (int i = 0; i < oldVerts.Length; i++)
 		{
 			float yDifference = oldVerts[i].y - newVerts[i].y;
-			tangents[i] = new Vector4(tangents[i].x, yDifference>0 ?1f : tangents[i].y, tangents[i].z, tangents[i].w);
+			tangents[i] = new Vector4(tangents[i].x, tangents[i].y + yDifference, tangents[i].z, tangents[i].w);
 		}
 
 		newMesh.SetTangents(tangents);

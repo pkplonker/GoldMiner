@@ -9,9 +9,6 @@
       <change beforePath="$PROJECT_DIR$/Assets/Art/Materials/MapShaderTest 1.shadergraph" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Materials/MapShaderTest 1.shadergraph" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunk.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunkDataGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunkDataGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +210,7 @@
       <workItem from="1689886689280" duration="69000" />
       <workItem from="1697320959670" duration="24746000" />
       <workItem from="1697836826009" duration="5679000" />
-      <workItem from="1697899223759" duration="2199000" />
+      <workItem from="1697899223759" duration="3171000" />
     </task>
     <servers />
   </component>
