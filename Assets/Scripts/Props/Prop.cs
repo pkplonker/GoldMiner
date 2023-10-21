@@ -11,22 +11,21 @@ namespace Props
 	[Serializable]
 	public abstract class Prop : ScriptableObject
 	{
-		[field: SerializeField] public bool StaticObject = true;
-		[field: SerializeField] public bool Spawn { get; protected set; }
+		[SerializeField] public bool StaticObject = true;
+		[SerializeField] public bool Spawn;
 
-		[field: SerializeField] public GameObject Prefab { get; protected set; }
-		[field: Range(0, 40), SerializeField] public int NumSamplesBeforeRejection { get; protected set; }
-		[field: Range(0, 500), SerializeField] public int MaxQuantityPer100M { get; protected set; } = 100;
+		[SerializeField] public GameObject Prefab;
+		[Range(0, 40), SerializeField] public int NumSamplesBeforeRejection;
+		[Range(0, 2500), SerializeField] public int MaxQuantityPer100M = 100;
 
-		[field: Range(-1f, 1f), SerializeField]
-		public float FlatnessTolerance { get; protected set; }
+		[Range(-1f, 1f), SerializeField] public float FlatnessTolerance;
 
-		[field: Range(0.1f, 10f), SerializeField]
-		public float Radius { get; protected set; }
-		
-		[field: SerializeField] public bool OverrideRideRadius { get; protected set; }
+		[Range(0.1f, 10f), SerializeField] public float Radius;
+
+		[SerializeField] public bool OverrideRideRadius;
 		private const float THRESHOLD = 100f;
-		[field: SerializeField] public bool InBoundryOnly = false;
+		[SerializeField] public bool InBoundryOnly = false;
+
 		public virtual float GetRadius()
 		{
 			if (OverrideRideRadius) return Radius;
@@ -57,12 +56,10 @@ namespace Props
 			}
 
 			var points = poissonData.Points;
-			var cachedTime = Time.realtimeSinceStartup;
 
 			var prng = new System.Random(mapData.seed);
 			points.ShuffleWithPRNG(prng);
 			var numToSpawn = CalculateNumberToSpawn(mapData, points);
-			var cachedNumberToSpawn = numToSpawn;
 			var tolerance = GetTolerance();
 			int spawnedPointsThisCycle = 0;
 			for (var i = 0; i < points.Count; i++)
@@ -80,14 +77,8 @@ namespace Props
 				numToSpawn--;
 			}
 
-			if (numToSpawn > 0)
-			{
-				Debug.LogWarning(
-					$"spawned {cachedNumberToSpawn - numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
-			}
-			Debug.Log(
-				$"spawned {cachedNumberToSpawn - numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
-			//Debug.Log($"calling callback {Prefab.name}");
+			// Debug.Log(
+			// 	$"spawned {cachedNumberToSpawn - numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
 			callback?.Invoke();
 		}
 
@@ -131,7 +122,7 @@ namespace Props
 
 		protected virtual float GetDropIntoTerrainAmount(int seed, Vector3 position) => 0f;
 
-
-		public virtual float GetSpawnSize(MapData mapData) => InBoundryOnly ? mapData.GetSize()-(mapData.boundryInstep*2) : mapData.GetSize();
+		public virtual float GetSpawnSize(MapData mapData) =>
+			InBoundryOnly ? mapData.GetSize() - (mapData.boundryInstep * 2) : mapData.GetSize();
 	}
 }

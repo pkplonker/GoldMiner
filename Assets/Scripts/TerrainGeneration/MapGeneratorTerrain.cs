@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 namespace TerrainGeneration
 {
@@ -28,7 +26,6 @@ namespace TerrainGeneration
 		public static TerrainChunk[,] terrainChunks;
 		public static TerrainChunkData[,] terrainChunkData;
 		public static event Action<float[,]> OnNoiseMapGenerated;
-		public static event Action<float[,]> OnFallOffMapGenerated;
 		public static event Action<float[,]> OnCombinedMapGenerated;
 
 		public float[,] NoiseMap
@@ -36,11 +33,7 @@ namespace TerrainGeneration
 			get => noiseMap;
 			private set => noiseMap = value;
 		}
-		public float[,] FalloffMap
-		{
-			get => falloffMap;
-			private set => falloffMap = value;
-		}
+
 #if UNITY_EDITOR
 		public bool Generated { get; set; } = true;
 #else
@@ -83,15 +76,6 @@ namespace TerrainGeneration
 				MapData.lacunarity,
 				new Vector2(MapData.offset.x, MapData.offset.y));
 			OnNoiseMapGenerated?.Invoke(NoiseMap);
-			//FalloffMap = FalloffGeneration.GenerateFalloffMap(mapSize, MapData.boundryInstep* MapData.lod, exponent,noiseScale, noiseWeight);
-			//OnFallOffMapGenerated?.Invoke(FalloffMap);
-			// for (var i = 0; i < NoiseMap.GetLength(0); i++)
-			// {
-			// 	for (var j = 0; j < NoiseMap.GetLength(1); j++)
-			// 	{
-			// 		NoiseMap[i, j]+=  FalloffMap[i, j];
-			// 	}
-			// }
 			OnCombinedMapGenerated?.Invoke(NoiseMap);
 
 			StartCoroutine(AwaitChunkDataCor(chunksRequired));

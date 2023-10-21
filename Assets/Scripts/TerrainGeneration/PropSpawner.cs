@@ -17,6 +17,7 @@ namespace TerrainGeneration
 		private List<Vector2> points;
 		private Queue<PoissonData> poissonDataQueue;
 		private MapGeneratorTerrain mapGeneratorTerrain;
+
 		public void SpawnObjects(MapGeneratorTerrain mapGeneratorTerrain)
 		{
 			this.mapGeneratorTerrain = mapGeneratorTerrain;
@@ -26,7 +27,6 @@ namespace TerrainGeneration
 			StartCoroutine(SpawnObjectsCor(mapGeneratorTerrain.MapData));
 		}
 
-
 		private IEnumerator SpawnObjectsCor(MapData mapData)
 		{
 			var tasks = new List<Task>();
@@ -34,9 +34,10 @@ namespace TerrainGeneration
 			{
 				var j1 = j;
 				var spawnArea = PropCollections.Props[j].GetSpawnSize(mapData);
-				int maxPointsPerProp = (int)((spawnArea * spawnArea * PropCollections.Props[j1].MaxQuantityPer100M / 10000)*1.1f);
-				var task = Task.Run(() => PoissonDiscSampling.GeneratePointsCor(index: j1,  maxPointsPerProp,
-					new Vector2(spawnArea,spawnArea), PoissonCallback, mapGeneratorTerrain.MapData,
+				int maxPointsPerProp =
+					(int) ((spawnArea * spawnArea * PropCollections.Props[j1].MaxQuantityPer100M / 10000) * 1.1f);
+				var task = Task.Run(() => PoissonDiscSampling.GeneratePointsCor(index: j1, maxPointsPerProp,
+					new Vector2(spawnArea, spawnArea), PoissonCallback, mapGeneratorTerrain.MapData,
 					PropCollections.Props[j1].NumSamplesBeforeRejection));
 				tasks.Add(task);
 			}
@@ -56,6 +57,7 @@ namespace TerrainGeneration
 
 					yield return null;
 				}
+
 				var data = poissonDataQueue.Dequeue();
 
 				index++;
@@ -69,11 +71,20 @@ namespace TerrainGeneration
 			{
 				for (var j = 0; j < MapGeneratorTerrain.terrainChunks.GetLength(1); j++)
 				{
-					StaticBatchingUtility.Combine(MapGeneratorTerrain.terrainChunks[i,j].gameObject);
+					GameObject terrainChunk = MapGeneratorTerrain.terrainChunks[i, j].gameObject;
+
+					var childObjects = terrainChunk.GetComponentsInChildren<Transform>()
+						.Select(x => x.gameObject)
+						.Where(x => x != terrainChunk)
+						.ToArray();
+
+					if (childObjects.Length > 0)
+					{
+						StaticBatchingUtility.Combine(childObjects, terrainChunk);
+					}
 				}
 			}
 		}
-
 
 		public void SpawnProp(int index, Vector3 result, Quaternion rotation)
 		{
@@ -85,12 +96,13 @@ namespace TerrainGeneration
 		}
 
 		private int count;
+
 		private void PropSpawnCompleteCallback()
 		{
 			//Debug.Log("prop spawn complete callback");
 			count++;
 			OnPropGenerated?.Invoke(count);
-			if (count == PropCollections.Props.Count-1)
+			if (count == PropCollections.Props.Count - 1)
 				OnPropsGenerated?.Invoke();
 		}
 
@@ -104,7 +116,6 @@ namespace TerrainGeneration
 		}
 
 		public int GetPropsRequired() => PropCollections.Props.Count(p => p.Spawn);
-		
 	}
 }
 
@@ -119,5 +130,3 @@ public struct PoissonData
 		Points = points;
 	}
 }
-
-

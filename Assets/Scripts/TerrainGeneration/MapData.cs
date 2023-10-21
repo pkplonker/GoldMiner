@@ -13,10 +13,6 @@ namespace TerrainGeneration
 		[field: Range(1, 50), SerializeField]
 		public int ChunksPerRow { get; private set; }
 
-		// [field: SerializeField]public int BorderChangeDistance { get; private set; }
-		// [field: SerializeField]public int BorderSize { get; private set; }
-		// [field: SerializeField]public int BorderDistance { get; private set; }
-
 		[Range(1, 10), SerializeField] public int lod;
 		[field: SerializeField] public int seed;
 
@@ -32,9 +28,7 @@ namespace TerrainGeneration
 
 		[field: Range(0f, 1000f), SerializeField]
 		public float NoiseScale =16 ;
-
-		[field: SerializeField] public Terrains[] terrains;
-
+		
 		[field: Range(0f, 100f), SerializeField]
 		public float heightMultiplier;
 

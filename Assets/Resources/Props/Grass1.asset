@@ -21,6 +21,7 @@ MonoBehaviour:
   <FlatnessTolerance>k__BackingField: 0.3
   <Radius>k__BackingField: 0.1
   <OverrideRideRadius>k__BackingField: 1
+  InBoundryOnly: 0
   <DropIntoTerrainAmount>k__BackingField: 0.01
   <MinHeightNormalised>k__BackingField: 0
   <MaxHeightNormalised>k__BackingField: 0.4
