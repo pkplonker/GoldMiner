@@ -2673,7 +2673,7 @@ MonoBehaviour:
   Camera: {fileID: 0}
   diggingTarget: {fileID: 568684302760893886}
   <digRange>k__BackingField: 3
-  <interactionRange>k__BackingField: 3.5
+  <interactionRange>k__BackingField: 4.5
   <DigDepth>k__BackingField: 0.1
   <RigHandTarget>k__BackingField: {fileID: 3000511470367448561}
   <HandleIKTarget>k__BackingField: {fileID: 1881947244732207016}
