@@ -50,24 +50,6 @@ namespace TerrainGeneration
 
 			//CalculateNormals(ref verts, out norms, ref triangles);
 		}
-
-		// public static void CalculateNormals(ref List<Vector3> verts, out Vector3[] normals, ref List<int> triangles)
-		// {
-		// 	normals = new Vector3[verts.Count];
-		//
-		// 	for (var i = 0; i < triangles.Count / 3; i++)
-		// 	{
-		// 		var normalTriangleIndex = i * 3;
-		// 		var vertexIndexA = triangles[normalTriangleIndex];
-		// 		var vertexIndexB = triangles[normalTriangleIndex + 1];
-		// 		var vertexIndexC = triangles[normalTriangleIndex + 2];
-		//
-		// 		var triangleNormal = Vector3.up;
-		// 		normals[vertexIndexA] = triangleNormal;
-		// 		normals[vertexIndexB] = triangleNormal;
-		// 		normals[vertexIndexC] = triangleNormal;
-		// 	}
-		// }
 	}
 
 	public struct TerrainChunkData

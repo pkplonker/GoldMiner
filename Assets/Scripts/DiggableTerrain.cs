@@ -111,30 +111,30 @@ public class DiggableTerrain : MonoBehaviour
 		// originalTexture.Apply();
 	}
 
-	private void ApplyColorChangeToAdjacentChunk(int chunkX, int chunkY, int xMin, int yMin, int xMax, int yMax)
-	{
-		if (chunkX < 0 || chunkX >= MapGeneratorTerrain.terrainChunks.GetLength(0) || chunkY < 0 ||
-		    chunkY >= MapGeneratorTerrain.terrainChunks.GetLength(1))
-			return;
-
-		var adjacentChunk = MapGeneratorTerrain.terrainChunks[chunkX, chunkY];
-		var adjacentTexture = adjacentChunk.GetComponent<MeshRenderer>().material.mainTexture as Texture2D;
-
-		if (adjacentTexture == null) return;
-		xMin = Mathf.Clamp(xMin, 0, adjacentTexture.width - 1);
-		xMax = Mathf.Clamp(xMax, 0, adjacentTexture.width - 1);
-		yMin = Mathf.Clamp(yMin, 0, adjacentTexture.height - 1);
-		yMax = Mathf.Clamp(yMax, 0, adjacentTexture.height - 1);
-		Color[] adjacentRegionPixels = adjacentTexture.GetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
-
-		for (int i = 0; i < adjacentRegionPixels.Length; i++)
-		{
-			adjacentRegionPixels[i] = dugGroundColorOffet;
-		}
-
-		adjacentTexture.SetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1, adjacentRegionPixels);
-		adjacentTexture.Apply();
-	}
+	// private void ApplyColorChangeToAdjacentChunk(int chunkX, int chunkY, int xMin, int yMin, int xMax, int yMax)
+	// {
+	// 	if (chunkX < 0 || chunkX >= MapGeneratorTerrain.terrainChunks.GetLength(0) || chunkY < 0 ||
+	// 	    chunkY >= MapGeneratorTerrain.terrainChunks.GetLength(1))
+	// 		return;
+	//
+	// 	var adjacentChunk = MapGeneratorTerrain.terrainChunks[chunkX, chunkY];
+	// 	var adjacentTexture = adjacentChunk.GetComponent<MeshRenderer>().material.mainTexture as Texture2D;
+	//
+	// 	if (adjacentTexture == null) return;
+	// 	xMin = Mathf.Clamp(xMin, 0, adjacentTexture.width - 1);
+	// 	xMax = Mathf.Clamp(xMax, 0, adjacentTexture.width - 1);
+	// 	yMin = Mathf.Clamp(yMin, 0, adjacentTexture.height - 1);
+	// 	yMax = Mathf.Clamp(yMax, 0, adjacentTexture.height - 1);
+	// 	Color[] adjacentRegionPixels = adjacentTexture.GetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
+	//
+	// 	for (int i = 0; i < adjacentRegionPixels.Length; i++)
+	// 	{
+	// 		adjacentRegionPixels[i] = dugGroundColorOffet;
+	// 	}
+	//
+	// 	adjacentTexture.SetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1, adjacentRegionPixels);
+	// 	adjacentTexture.Apply();
+	// }
 
 	private void CheckNeighbours(RaycastHit hit)
 	{
@@ -232,23 +232,34 @@ public class DiggableTerrain : MonoBehaviour
 	private int CheckTop(int index, int vertsPerRow, int totalVerts) =>
 		index >= totalVerts - vertsPerRow ? index % vertsPerRow : -1;
 
-	private Mesh RegenerateMesh(Vector3[] verts)
+	private Mesh RegenerateMesh(Vector3[] newVerts)
 	{
 		var oldMesh = meshFilter.mesh;
+		var oldVerts = oldMesh.vertices;
+
 		var newMesh = new Mesh
 		{
 			name = oldMesh.name
 		};
-		newMesh.SetVertices(verts);
+		newMesh.SetVertices(newVerts);
 		newMesh.triangles = oldMesh.GetTriangles(0);
+
 		var oldUvs = new List<Vector2>();
 		oldMesh.GetUVs(0, oldUvs);
 		newMesh.SetUVs(0, oldUvs);
-		var tangents = new List<Vector4>(oldUvs.Count);
+
+		var tangents = new List<Vector4>();
 		oldMesh.GetTangents(tangents);
+
+		for (int i = 0; i < oldVerts.Length; i++)
+		{
+			float yDifference = oldVerts[i].y - newVerts[i].y;
+			tangents[i] = new Vector4(tangents[i].x, yDifference>0 ?1f : tangents[i].y, tangents[i].z, tangents[i].w);
+		}
+
 		newMesh.SetTangents(tangents);
-		//newMesh.RecalculateNormals();
 		newMesh.RecalculateBounds();
+
 		meshFilter.mesh = newMesh;
 		return newMesh;
 	}

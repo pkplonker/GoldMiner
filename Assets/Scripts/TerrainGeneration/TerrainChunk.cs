@@ -47,19 +47,24 @@ namespace TerrainGeneration
 			mesh.RecalculateTangents();
 			mesh.SetUVs(0, tcd.Uvs);
 			mesh.RecalculateNormals();
+			
+			
 			mesh.RecalculateBounds();
-			Matrix4x4 localToWorldMatrix = transform.localToWorldMatrix;
 
-			Vector4[] tangents = new Vector4[tcd.Verts.Count];
-			for (int i = 0; i < tangents.Length; i++)
-			{
-				Vector3 worldPos = localToWorldMatrix.MultiplyPoint3x4(tcd.Verts[i]);
-
-				tangents[i] = new Vector4(0f, worldPos.y, 0f, 0f);
-			}
-
-			mesh.SetTangents(tangents);
+			// Vector4[] tangents = new Vector4[tcd.Verts.Count];
+			// for (int i = 0; i < tangents.Length; i++)
+			// {
+			// 	var vert = tcd.Verts[i];
+			// 	tangents[i] = new Vector4(0f, vert.y, 0f, 0f);
+			// }
+			//
+			// mesh.SetTangents(tangents);
 			mf.mesh = mesh;
+
+			// for (int i = 0; i < mesh.vertices.Length; i++)
+			// {
+			// 	Debug.Log(mesh.vertices[i].y-mesh.tangents[i].y);
+			// }
 		}
 		
 		private static void GenerateCollider(MeshCollider mc, MeshFilter mf)
