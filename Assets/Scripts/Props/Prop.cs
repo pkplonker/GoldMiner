@@ -12,17 +12,17 @@ namespace Props
 	public abstract class Prop : ScriptableObject
 	{
 		[SerializeField] public bool StaticObject = true;
-		[SerializeField] public bool Spawn;
+		[SerializeField] public bool Spawn = true;
 
 		[SerializeField] public GameObject Prefab;
-		[Range(0, 40), SerializeField] public int NumSamplesBeforeRejection;
+		[Range(0, 40), SerializeField] public int NumSamplesBeforeRejection = 5;
 		[Range(0, 2500), SerializeField] public int MaxQuantityPer100M = 100;
 
-		[Range(-1f, 1f), SerializeField] public float FlatnessTolerance;
+		[Range(-1f, 1f), SerializeField] public float FlatnessTolerance = 0.1f;
 
 		[Range(0.1f, 10f), SerializeField] public float Radius;
 
-		[SerializeField] public bool OverrideRideRadius;
+		[SerializeField] public bool OverrideRideRadius = false;
 		private const float THRESHOLD = 100f;
 		[SerializeField] public bool InBoundryOnly = false;
 
@@ -35,7 +35,7 @@ namespace Props
 			{
 				if (lgroup.lodCount > 0) rend = lgroup.GetLODs()[0].renderers[0];
 			}
-
+//de
 			if (rend == null) return float.PositiveInfinity;
 
 			var size = rend.bounds.size;

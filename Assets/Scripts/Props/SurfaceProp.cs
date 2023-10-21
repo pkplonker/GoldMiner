@@ -9,8 +9,8 @@ namespace Props
 		[field: Range(-1f, 1f), SerializeField]
 		public float DropIntoTerrainAmount { get; protected set; }
 
-		[field: Range(0, 1f), SerializeField] public float MinHeightNormalised { get; protected set; }
-		[field: Range(0, 1f), SerializeField] public float MaxHeightNormalised { get; protected set; }
+		[field: Range(0, 1f), SerializeField] public float MinHeightNormalised { get; protected set; } = 0f;
+		[field: Range(0, 1f), SerializeField] public float MaxHeightNormalised { get; protected set; } =0.75f;
 
 		protected override Vector3 CalculatePosition(Vector3 position, MapData mapData, float factor = 10)
 		{

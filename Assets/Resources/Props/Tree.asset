@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Tree
   m_EditorClassIdentifier: 
   StaticObject: 1
-  <Spawn>k__BackingField: 1
-  <Prefab>k__BackingField: {fileID: 2807449429036958551, guid: 40ca47a9b0e3d144389a664a2c2c8618,
-    type: 3}
-  <NumSamplesBeforeRejection>k__BackingField: 10
-  <MaxQuantityPer100M>k__BackingField: 12
-  <FlatnessTolerance>k__BackingField: 0.4
-  <Radius>k__BackingField: 1.5
-  <OverrideRideRadius>k__BackingField: 1
+  Spawn: 1
+  Prefab: {fileID: 2807449429036958551, guid: 40ca47a9b0e3d144389a664a2c2c8618, type: 3}
+  NumSamplesBeforeRejection: 5
+  MaxQuantityPer100M: 100
+  FlatnessTolerance: 0.1
+  Radius: 0.1
+  OverrideRideRadius: 0
+  InBoundryOnly: 0
   <DropIntoTerrainAmount>k__BackingField: 0.1
   <MinHeightNormalised>k__BackingField: 0
   <MaxHeightNormalised>k__BackingField: 0.4

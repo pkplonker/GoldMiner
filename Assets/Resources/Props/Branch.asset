@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Branch
   m_EditorClassIdentifier: 
   StaticObject: 1
-  <Spawn>k__BackingField: 1
-  <Prefab>k__BackingField: {fileID: 1493958779012120596, guid: ade46a1258909a74ab67d9a6d45ff848,
-    type: 3}
-  <NumSamplesBeforeRejection>k__BackingField: 10
-  <MaxQuantityPer100M>k__BackingField: 6
-  <FlatnessTolerance>k__BackingField: 0.4
-  <Radius>k__BackingField: 1
-  <OverrideRideRadius>k__BackingField: 1
+  Spawn: 1
+  Prefab: {fileID: 1493958779012120596, guid: ade46a1258909a74ab67d9a6d45ff848, type: 3}
+  NumSamplesBeforeRejection: 5
+  MaxQuantityPer100M: 100
+  FlatnessTolerance: 0.1
+  Radius: 0.1
+  OverrideRideRadius: 0
+  InBoundryOnly: 0
   <DropIntoTerrainAmount>k__BackingField: 0.1
   <MinHeightNormalised>k__BackingField: 0
   <MaxHeightNormalised>k__BackingField: 0.4

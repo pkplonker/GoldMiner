@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a74456593b20754e8e55d2b6cc0e255, type: 3}
-  m_Name: Rock7
+  m_Name: Rock5
   m_EditorClassIdentifier: 
   StaticObject: 1
-  <Spawn>k__BackingField: 1
-  <Prefab>k__BackingField: {fileID: 785666640, guid: 46386968f6701334a937b15c449da24c,
-    type: 3}
-  <NumSamplesBeforeRejection>k__BackingField: 10
-  <MaxQuantityPer100M>k__BackingField: 6
-  <FlatnessTolerance>k__BackingField: 0.4
-  <Radius>k__BackingField: 1
-  <OverrideRideRadius>k__BackingField: 1
+  Spawn: 1
+  Prefab: {fileID: 1605025214, guid: e15f157c05d77e14596cffee815dd881, type: 3}
+  NumSamplesBeforeRejection: 5
+  MaxQuantityPer100M: 15
+  FlatnessTolerance: 0.1
+  Radius: 0.1
+  OverrideRideRadius: 0
+  InBoundryOnly: 0
   <DropIntoTerrainAmount>k__BackingField: 0.1
   <MinHeightNormalised>k__BackingField: 0
   <MaxHeightNormalised>k__BackingField: 0.4

@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8cefbe61ded6b44d9487a95dd94805a, type: 3}
-  m_Name: Coin2
+  m_Name: Gold2
   m_EditorClassIdentifier: 
   StaticObject: 1
-  <Spawn>k__BackingField: 1
-  <Prefab>k__BackingField: {fileID: 429125889806132760, guid: e850e5e682cbd4a42ab1d93dfe0dd345,
-    type: 3}
-  <NumSamplesBeforeRejection>k__BackingField: 12
-  <MaxQuantityPer100M>k__BackingField: 4
-  <FlatnessTolerance>k__BackingField: 0
-  <Radius>k__BackingField: 1
-  <OverrideRideRadius>k__BackingField: 1
+  Spawn: 1
+  Prefab: {fileID: 3993064214423554663, guid: e34bbbf9284ab4f4d9b1fe15d5a7a667, type: 3}
+  NumSamplesBeforeRejection: 5
+  MaxQuantityPer100M: 100
+  FlatnessTolerance: 0.1
+  Radius: 0.1
+  OverrideRideRadius: 0
   InBoundryOnly: 1
   depthMinimum: 0.15
-  depthMaximum: 0.2
+  depthMaximum: 0.35

@@ -13,14 +13,13 @@ MonoBehaviour:
   m_Name: Grass1
   m_EditorClassIdentifier: 
   StaticObject: 1
-  <Spawn>k__BackingField: 1
-  <Prefab>k__BackingField: {fileID: 3356751432538110193, guid: f4f8d7b90611726479e2544eab43470d,
-    type: 3}
-  <NumSamplesBeforeRejection>k__BackingField: 3
-  <MaxQuantityPer100M>k__BackingField: 250
-  <FlatnessTolerance>k__BackingField: 0.3
-  <Radius>k__BackingField: 0.1
-  <OverrideRideRadius>k__BackingField: 1
+  Spawn: 1
+  Prefab: {fileID: 3356751432538110193, guid: f4f8d7b90611726479e2544eab43470d, type: 3}
+  NumSamplesBeforeRejection: 5
+  MaxQuantityPer100M: 100
+  FlatnessTolerance: 0.1
+  Radius: 0.1
+  OverrideRideRadius: 0
   InBoundryOnly: 0
   <DropIntoTerrainAmount>k__BackingField: 0.01
   <MinHeightNormalised>k__BackingField: 0

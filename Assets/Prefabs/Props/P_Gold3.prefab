@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2442603150683199235}
   - component: {fileID: -2991247437178799616}
   m_Layer: 9
-  m_Name: Gold3
+  m_Name: P_Gold3
   m_TagString: StaticProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
