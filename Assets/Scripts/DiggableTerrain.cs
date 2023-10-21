@@ -43,72 +43,72 @@ public class DiggableTerrain : MonoBehaviour
 
 	private void UpdateColor(int[] hitVertIndexes)
 	{
-		var mat = meshRenderer.material;
-		var originalTexture = mat.mainTexture as Texture2D;
-		if (originalTexture == null) return;
-
-		int textureWidth = originalTexture.width;
-		int currentChunkX = GetCurrentChunk().X;
-		int currentChunkY = GetCurrentChunk().Y;
-
-		foreach (var t in hitVertIndexes)
-		{
-			int x = t % textureWidth;
-			int y = t / textureWidth;
-
-			int radius = 1; // Define the radius
-
-			int xMin = x - radius;
-			int xMax = x + radius;
-			int yMin = y - radius;
-			int yMax = y + radius;
-
-			if (xMin < 0)
-			{
-				ApplyColorChangeToAdjacentChunk(currentChunkX - 1, currentChunkY, xMin + textureWidth, yMin,
-					xMax + textureWidth, yMax);
-				xMin = 0;
-			}
-
-			if (xMax >= textureWidth)
-			{
-				ApplyColorChangeToAdjacentChunk(currentChunkX + 1, currentChunkY, xMin - textureWidth, yMin,
-					xMax - textureWidth, yMax);
-				xMax = textureWidth - 1;
-			}
-
-			if (yMin < 0)
-			{
-				ApplyColorChangeToAdjacentChunk(currentChunkX, currentChunkY - 1, xMin, yMin + textureWidth, xMax,
-					yMax + textureWidth);
-				yMin = 0;
-			}
-
-			if (yMax >= originalTexture.height)
-			{
-				ApplyColorChangeToAdjacentChunk(currentChunkX, currentChunkY + 1, xMin, yMin - textureWidth, xMax,
-					yMax - textureWidth);
-				yMax = originalTexture.height - 1;
-			}
-
-			Color[] regionPixels = originalTexture.GetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
-
-			for (int i = xMin; i <= xMax; i++)
-			{
-				for (int j = yMin; j <= yMax; j++)
-				{
-					float distance = Mathf.Sqrt((i - x) * (i - x) + (j - y) * (j - y));
-					if (distance <= radius)
-					{
-						regionPixels[(j - yMin) * (xMax - xMin + 1) + (i - xMin)] = dugGroundColorOffet;
-					}
-				}
-			}
-
-			originalTexture.SetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1, regionPixels);
-		}
-
-		originalTexture.Apply();
+		// var mat = meshRenderer.material;
+		// var originalTexture = mat.mainTexture as Texture2D;
+		// if (originalTexture == null) return;
+		//
+		// int textureWidth = originalTexture.width;
+		// int currentChunkX = GetCurrentChunk().X;
+		// int currentChunkY = GetCurrentChunk().Y;
+		//
+		// foreach (var t in hitVertIndexes)
+		// {
+		// 	int x = t % textureWidth;
+		// 	int y = t / textureWidth;
+		//
+		// 	int radius = 1; // Define the radius
+		//
+		// 	int xMin = x - radius;
+		// 	int xMax = x + radius;
+		// 	int yMin = y - radius;
+		// 	int yMax = y + radius;
+		//
+		// 	if (xMin < 0)
+		// 	{
+		// 		ApplyColorChangeToAdjacentChunk(currentChunkX - 1, currentChunkY, xMin + textureWidth, yMin,
+		// 			xMax + textureWidth, yMax);
+		// 		xMin = 0;
+		// 	}
+		//
+		// 	if (xMax >= textureWidth)
+		// 	{
+		// 		ApplyColorChangeToAdjacentChunk(currentChunkX + 1, currentChunkY, xMin - textureWidth, yMin,
+		// 			xMax - textureWidth, yMax);
+		// 		xMax = textureWidth - 1;
+		// 	}
+		//
+		// 	if (yMin < 0)
+		// 	{
+		// 		ApplyColorChangeToAdjacentChunk(currentChunkX, currentChunkY - 1, xMin, yMin + textureWidth, xMax,
+		// 			yMax + textureWidth);
+		// 		yMin = 0;
+		// 	}
+		//
+		// 	if (yMax >= originalTexture.height)
+		// 	{
+		// 		ApplyColorChangeToAdjacentChunk(currentChunkX, currentChunkY + 1, xMin, yMin - textureWidth, xMax,
+		// 			yMax - textureWidth);
+		// 		yMax = originalTexture.height - 1;
+		// 	}
+		//
+		// 	Color[] regionPixels = originalTexture.GetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
+		//
+		// 	for (int i = xMin; i <= xMax; i++)
+		// 	{
+		// 		for (int j = yMin; j <= yMax; j++)
+		// 		{
+		// 			float distance = Mathf.Sqrt((i - x) * (i - x) + (j - y) * (j - y));
+		// 			if (distance <= radius)
+		// 			{
+		// 				regionPixels[(j - yMin) * (xMax - xMin + 1) + (i - xMin)] = dugGroundColorOffet;
+		// 			}
+		// 		}
+		// 	}
+		//
+		// 	originalTexture.SetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1, regionPixels);
+		// }
+		//
+		// originalTexture.Apply();
 	}
 
 	private void ApplyColorChangeToAdjacentChunk(int chunkX, int chunkY, int xMin, int yMin, int xMax, int yMax)
@@ -244,7 +244,9 @@ public class DiggableTerrain : MonoBehaviour
 		var oldUvs = new List<Vector2>();
 		oldMesh.GetUVs(0, oldUvs);
 		newMesh.SetUVs(0, oldUvs);
-		newMesh.normals = oldMesh.normals;
+		var tangents = new List<Vector4>(oldUvs.Count);
+		oldMesh.GetTangents(tangents);
+		newMesh.SetTangents(tangents);
 		//newMesh.RecalculateNormals();
 		newMesh.RecalculateBounds();
 		meshFilter.mesh = newMesh;

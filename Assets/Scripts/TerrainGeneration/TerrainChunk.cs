@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -34,7 +35,7 @@ namespace TerrainGeneration
 			GenerateMeshRenderer(meshRenderer, vertsPerRow, mapData.material);
 		}
 
-		private static void GenerateMesh(TerrainChunkData tcd, MeshFilter mf)
+		private void GenerateMesh(TerrainChunkData tcd, MeshFilter mf)
 		{
 			Debug.Log($"{tcd.X}:{tcd.Y}");
 			var mesh = new Mesh
@@ -47,11 +48,20 @@ namespace TerrainGeneration
 			mesh.SetUVs(0, tcd.Uvs);
 			mesh.RecalculateNormals();
 			mesh.RecalculateBounds();
+			Matrix4x4 localToWorldMatrix = transform.localToWorldMatrix;
+
+			Vector4[] tangents = new Vector4[tcd.Verts.Count];
+			for (int i = 0; i < tangents.Length; i++)
+			{
+				Vector3 worldPos = localToWorldMatrix.MultiplyPoint3x4(tcd.Verts[i]);
+
+				tangents[i] = new Vector4(0f, worldPos.y, 0f, 0f);
+			}
+
+			mesh.SetTangents(tangents);
 			mf.mesh = mesh;
-			mesh.SetUVs(3,mesh.vertices);
-
 		}
-
+		
 		private static void GenerateCollider(MeshCollider mc, MeshFilter mf)
 		{
 			if (mc.sharedMesh) mc.sharedMesh.Clear();
