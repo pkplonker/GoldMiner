@@ -28,9 +28,7 @@ namespace TerrainGeneration
 
 		[field: Range(0f, 1000f), SerializeField]
 		public float NoiseScale =16 ;
-
-		[field: SerializeField] public Terrains[] terrains;
-
+		
 		[field: Range(0f, 100f), SerializeField]
 		public float heightMultiplier;
 

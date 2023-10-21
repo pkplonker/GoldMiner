@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Props;
 using TerrainGeneration;
 using UnityEngine;
 
@@ -22,13 +23,15 @@ public class DiggableTerrain : MonoBehaviour
 	private Dictionary<int, float> digChanges = new();
 	[SerializeField] private Color dugGroundColorOffet = Color.blue;
 	private TerrainChunk terrainChunk;
+	private float vertexColorFactor;
 
 	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
 	{
 		if (!setup) Setup();
 		this.digAmount = digAmount;
+		vertexColorFactor = digAmount / SubSurfaceProp.globalMaxDepth;
 		var mesh = meshFilter.mesh;
-		var hitVerts = GetHitVerts(hit, mesh, out var hitVertIndexes);
+		var hitVerts = GetHitVerts(hit, mesh);
 
 		var verts = UpdateVerts(digAmount, hitVerts, mesh.vertices);
 		if (verts != null)
@@ -37,104 +40,8 @@ public class DiggableTerrain : MonoBehaviour
 		}
 
 		CheckNeighbours(hit);
-		UpdateColor(hitVertIndexes);
 		return true;
 	}
-
-	private void UpdateColor(int[] hitVertIndexes)
-	{
-		// var mat = meshRenderer.material;
-		// var originalTexture = mat.mainTexture as Texture2D;
-		// if (originalTexture == null) return;
-		//
-		// int textureWidth = originalTexture.width;
-		// int currentChunkX = GetCurrentChunk().X;
-		// int currentChunkY = GetCurrentChunk().Y;
-		//
-		// foreach (var t in hitVertIndexes)
-		// {
-		// 	int x = t % textureWidth;
-		// 	int y = t / textureWidth;
-		//
-		// 	int radius = 1; // Define the radius
-		//
-		// 	int xMin = x - radius;
-		// 	int xMax = x + radius;
-		// 	int yMin = y - radius;
-		// 	int yMax = y + radius;
-		//
-		// 	if (xMin < 0)
-		// 	{
-		// 		ApplyColorChangeToAdjacentChunk(currentChunkX - 1, currentChunkY, xMin + textureWidth, yMin,
-		// 			xMax + textureWidth, yMax);
-		// 		xMin = 0;
-		// 	}
-		//
-		// 	if (xMax >= textureWidth)
-		// 	{
-		// 		ApplyColorChangeToAdjacentChunk(currentChunkX + 1, currentChunkY, xMin - textureWidth, yMin,
-		// 			xMax - textureWidth, yMax);
-		// 		xMax = textureWidth - 1;
-		// 	}
-		//
-		// 	if (yMin < 0)
-		// 	{
-		// 		ApplyColorChangeToAdjacentChunk(currentChunkX, currentChunkY - 1, xMin, yMin + textureWidth, xMax,
-		// 			yMax + textureWidth);
-		// 		yMin = 0;
-		// 	}
-		//
-		// 	if (yMax >= originalTexture.height)
-		// 	{
-		// 		ApplyColorChangeToAdjacentChunk(currentChunkX, currentChunkY + 1, xMin, yMin - textureWidth, xMax,
-		// 			yMax - textureWidth);
-		// 		yMax = originalTexture.height - 1;
-		// 	}
-		//
-		// 	Color[] regionPixels = originalTexture.GetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
-		//
-		// 	for (int i = xMin; i <= xMax; i++)
-		// 	{
-		// 		for (int j = yMin; j <= yMax; j++)
-		// 		{
-		// 			float distance = Mathf.Sqrt((i - x) * (i - x) + (j - y) * (j - y));
-		// 			if (distance <= radius)
-		// 			{
-		// 				regionPixels[(j - yMin) * (xMax - xMin + 1) + (i - xMin)] = dugGroundColorOffet;
-		// 			}
-		// 		}
-		// 	}
-		//
-		// 	originalTexture.SetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1, regionPixels);
-		// }
-		//
-		// originalTexture.Apply();
-	}
-
-	// private void ApplyColorChangeToAdjacentChunk(int chunkX, int chunkY, int xMin, int yMin, int xMax, int yMax)
-	// {
-	// 	if (chunkX < 0 || chunkX >= MapGeneratorTerrain.terrainChunks.GetLength(0) || chunkY < 0 ||
-	// 	    chunkY >= MapGeneratorTerrain.terrainChunks.GetLength(1))
-	// 		return;
-	//
-	// 	var adjacentChunk = MapGeneratorTerrain.terrainChunks[chunkX, chunkY];
-	// 	var adjacentTexture = adjacentChunk.GetComponent<MeshRenderer>().material.mainTexture as Texture2D;
-	//
-	// 	if (adjacentTexture == null) return;
-	// 	xMin = Mathf.Clamp(xMin, 0, adjacentTexture.width - 1);
-	// 	xMax = Mathf.Clamp(xMax, 0, adjacentTexture.width - 1);
-	// 	yMin = Mathf.Clamp(yMin, 0, adjacentTexture.height - 1);
-	// 	yMax = Mathf.Clamp(yMax, 0, adjacentTexture.height - 1);
-	// 	Color[] adjacentRegionPixels = adjacentTexture.GetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
-	//
-	// 	for (int i = 0; i < adjacentRegionPixels.Length; i++)
-	// 	{
-	// 		adjacentRegionPixels[i] = dugGroundColorOffet;
-	// 	}
-	//
-	// 	adjacentTexture.SetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1, adjacentRegionPixels);
-	// 	adjacentTexture.Apply();
-	// }
 
 	private void CheckNeighbours(RaycastHit hit)
 	{
@@ -216,7 +123,6 @@ public class DiggableTerrain : MonoBehaviour
 			verts[index].y -= digAmount;
 		}
 
-		UpdateColor(indices);
 		var updatedMesh = RegenerateMesh(verts);
 		UpdateCollider(updatedMesh);
 	}
@@ -282,11 +188,11 @@ public class DiggableTerrain : MonoBehaviour
 		meshCollider.cookingOptions = MeshColliderCookingOptions.EnableMeshCleaning;
 	}
 
-	private static Vector3[] GetHitVerts(RaycastHit hit, Mesh mesh, out int[] hitVertIndexes)
+	private static Vector3[] GetHitVerts(RaycastHit hit, Mesh mesh)
 	{
 		var index = hit.triangleIndex;
 		var hitVerts = new Vector3[3];
-		hitVertIndexes = new int[3];
+		var hitVertIndexes = new int[3];
 		for (var i = 0; i < hitVerts.Length; i++)
 		{
 			hitVertIndexes[i] = mesh.triangles[index * 3 + i];

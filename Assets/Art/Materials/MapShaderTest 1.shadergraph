@@ -38,15 +38,6 @@
         },
         {
             "m_Id": "51c771e671f44d4aa0693baf3c06d35a"
-        },
-        {
-            "m_Id": "6faeaf6f82c447f6ac007537f32dd2ea"
-        },
-        {
-            "m_Id": "14c8469401d14babb945c612d2279e3d"
-        },
-        {
-            "m_Id": "72dfaa0bcc8742e89632288762027ff0"
         }
     ],
     "m_Keywords": [],
@@ -878,15 +869,6 @@
         },
         {
             "m_Id": "51c771e671f44d4aa0693baf3c06d35a"
-        },
-        {
-            "m_Id": "6faeaf6f82c447f6ac007537f32dd2ea"
-        },
-        {
-            "m_Id": "14c8469401d14babb945c612d2279e3d"
-        },
-        {
-            "m_Id": "72dfaa0bcc8742e89632288762027ff0"
         }
     ]
 }
@@ -1265,36 +1247,6 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "VertexDescription.Position"
-}
-
-{
-    "m_SGVersion": 3,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
-    "m_ObjectId": "14c8469401d14babb945c612d2279e3d",
-    "m_Guid": {
-        "m_GuidSerialized": "1b936a93-db81-4960-8b60-fe3de5dd8963"
-    },
-    "m_Name": "DigColor",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "DigColor",
-    "m_DefaultReferenceName": "_DigColor",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "r": 0.1396956443786621,
-        "g": 0.0,
-        "b": 1.0,
-        "a": 0.0
-    },
-    "isMainColor": false,
-    "m_ColorMode": 0
 }
 
 {
@@ -2861,36 +2813,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty",
-    "m_ObjectId": "6faeaf6f82c447f6ac007537f32dd2ea",
-    "m_Guid": {
-        "m_GuidSerialized": "c49e1679-c9de-4a9e-a8b0-bd04bbd53fac"
-    },
-    "m_Name": "_MainTex",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "_MainTex",
-    "m_DefaultReferenceName": "_MainTex",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
-        "m_Guid": ""
-    },
-    "isMainTexture": false,
-    "useTilingAndOffset": false,
-    "m_Modifiable": true,
-    "m_DefaultType": 0
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "70d68066717145c483364508feb2b7e3",
     "m_Group": {
@@ -3004,34 +2926,6 @@
     "m_DefaultValue": {
         "x": 0.0,
         "y": 0.0,
-        "z": 0.0,
-        "w": 0.0
-    }
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector2ShaderProperty",
-    "m_ObjectId": "72dfaa0bcc8742e89632288762027ff0",
-    "m_Guid": {
-        "m_GuidSerialized": "5a5acf0f-d9c4-478b-9278-bea822fa732f"
-    },
-    "m_Name": "DigSmoothStep",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "DigSmoothStep",
-    "m_DefaultReferenceName": "_DigSmoothStep",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "x": 0.30000001192092898,
-        "y": 0.699999988079071,
         "z": 0.0,
         "w": 0.0
     }
