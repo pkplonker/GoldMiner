@@ -114,7 +114,8 @@ public class DiggableTerrain : MonoBehaviour
 
 		foreach (var index in indices)
 		{
-			verts[index].y -= digAmount;
+			if (meshFilter.mesh.tangents[index].y < 1)
+				verts[index].y -= digAmount;
 		}
 
 		var updatedMesh = RegenerateMesh(verts);

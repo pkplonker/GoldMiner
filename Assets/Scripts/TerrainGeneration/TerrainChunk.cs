@@ -29,15 +29,14 @@ namespace TerrainGeneration
 			X = tcd.X;
 			Y = tcd.Y;
 			MapData = mapData;
-			var vertsPerRow = (mapData.MapChunkSize * mapData.lod) + 1;
+			//var vertsPerRow = (mapData.MapChunkSize * mapData.lod) + 1;
 			GenerateMesh(tcd, meshFilter);
 			GenerateCollider(meshCollider, meshFilter);
-			GenerateMeshRenderer(meshRenderer, vertsPerRow, mapData.material);
+			GenerateMeshRenderer(meshRenderer, mapData.material);
 		}
 
 		private void GenerateMesh(TerrainChunkData tcd, MeshFilter mf)
 		{
-			//Debug.Log($"{tcd.X}:{tcd.Y}");
 			var mesh = new Mesh
 			{
 				name = $"X{tcd.X}:Y{tcd.Y}"
@@ -46,24 +45,10 @@ namespace TerrainGeneration
 			mesh.SetTriangles(tcd.Triangles, 0);
 			mesh.RecalculateTangents();
 			mesh.SetUVs(0, tcd.Uvs);
-			//mesh.SetNormals(tcd.Normals);
 			mesh.RecalculateNormals();
 			mesh.RecalculateBounds();
-			//
-			// Vector4[] tangents = new Vector4[tcd.Verts.Count];
-			// for (int i = 0; i < tangents.Length; i++)
-			// {
-			// 	var vert = tcd.Verts[i];
-			// 	tangents[i] = new Vector4(0f, 0f, 0f, 0f);
-			// }
-			//
-			// mesh.SetTangents(tangents);
 			mf.mesh = mesh;
-
-			// for (int i = 0; i < mesh.vertices.Length; i++)
-			// {
-			// 	Debug.Log(mesh.vertices[i].y-mesh.tangents[i].y);
-			// }
+			
 		}
 
 		private static void GenerateCollider(MeshCollider mc, MeshFilter mf)
@@ -72,23 +57,10 @@ namespace TerrainGeneration
 			mc.sharedMesh = mf.mesh;
 		}
 
-		private void GenerateMeshRenderer(MeshRenderer mr, int vertsPerRow, Material material)
+		private void GenerateMeshRenderer(MeshRenderer mr, Material material)
 		{
 			mr.material = new Material(material);
 			mr.shadowCastingMode = ShadowCastingMode.Off;
-
-			Texture2D texture = new Texture2D(vertsPerRow, vertsPerRow);
-			Color[] pixels = new Color[vertsPerRow * vertsPerRow];
-
-			for (int i = 0; i < pixels.Length; i++)
-			{
-				pixels[i] = new Color(0, 0, 0, 0);
-			}
-
-			texture.SetPixels(pixels);
-			texture.Apply();
-
-			material.mainTexture = texture;
 		}
 
 		public void ProcessNormalAlignment()
