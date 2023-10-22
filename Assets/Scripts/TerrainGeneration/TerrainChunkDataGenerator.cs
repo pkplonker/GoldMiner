@@ -17,7 +17,7 @@ namespace TerrainGeneration
 
 			var vertsPerRow = (mapData.MapChunkSize * mapData.lod) + 1;
 			GenerateMeshData(vertsPerRow, mapData.lod, noiseMap, mapData.heightMultiplier, hc, xCord, yCord);
-			callback?.Invoke(new TerrainChunkData(xCord, yCord, verts, triangles, uvs));
+			callback?.Invoke(new TerrainChunkData(xCord, yCord, verts, triangles, uvs,norms));
 		}
 
 		private void GenerateMeshData(int vertsPerRow, int lod, float[,] noiseMap, float heightMultiplier,
@@ -48,7 +48,25 @@ namespace TerrainGeneration
 				}
 			}
 
-			//CalculateNormals(ref verts, out norms, ref triangles);
+			CalculateNormals(ref verts, out norms, ref triangles);
+		}
+		
+		public static void CalculateNormals(ref List<Vector3> verts, out Vector3[] normals, ref List<int> triangles)
+		{
+			normals = new Vector3[verts.Count];
+		
+			for (var i = 0; i < triangles.Count / 3; i++)
+			{
+				var normalTriangleIndex = i * 3;
+				var vertexIndexA = triangles[normalTriangleIndex];
+				var vertexIndexB = triangles[normalTriangleIndex + 1];
+				var vertexIndexC = triangles[normalTriangleIndex + 2];
+		
+				var triangleNormal = Vector3.up;
+				normals[vertexIndexA] = triangleNormal;
+				normals[vertexIndexB] = triangleNormal;
+				normals[vertexIndexC] = triangleNormal;
+			}
 		}
 	}
 
@@ -59,9 +77,10 @@ namespace TerrainGeneration
 		public readonly List<Vector3> Verts;
 		public readonly List<int> Triangles;
 		public readonly List<Vector2> Uvs;
+		public readonly Vector3[] Normals;
 
 		public TerrainChunkData(int x, int y, List<Vector3> verts, List<int> triangles,
-			List<Vector2> uvs
+			List<Vector2> uvs, Vector3[] norms
 		)
 		{
 			X = x;
@@ -69,6 +88,7 @@ namespace TerrainGeneration
 			Verts = verts;
 			Triangles = triangles;
 			Uvs = uvs;
+			Normals = norms;
 		}
 	}
 }

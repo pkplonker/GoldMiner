@@ -153,13 +153,20 @@ public class DiggableTerrain : MonoBehaviour
 		var oldUvs = new List<Vector2>();
 		oldMesh.GetUVs(0, oldUvs);
 		newMesh.SetUVs(0, oldUvs);
-		newMesh.SetNormals(oldMesh.normals);
+		newMesh.RecalculateNormals();
 		var tangents = new List<Vector4>();
 		oldMesh.GetTangents(tangents);
 
 		for (int i = 0; i < oldVerts.Length; i++)
 		{
-			float yDifference = oldVerts[i].y - newVerts[i].y;
+			// float yDifference = oldVerts[i].y - newVerts[i].y > 0 ? vertexColorFactor : 0;
+			// if (yDifference > 0)
+			// {
+			// 	Debug.Log($"{yDifference}");
+			// }
+			// tangents[i] = new Vector4(tangents[i].x, tangents[i].y + yDifference, tangents[i].z, tangents[i].w);
+
+			float yDifference = oldVerts[i].y - newVerts[i].y; //> 0 ? vertexColorFactor : 0;
 			tangents[i] = new Vector4(tangents[i].x, tangents[i].y + yDifference, tangents[i].z, tangents[i].w);
 		}
 
@@ -168,6 +175,26 @@ public class DiggableTerrain : MonoBehaviour
 
 		meshFilter.mesh = newMesh;
 		return newMesh;
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		if (meshFilter == null) meshFilter = GetComponent<MeshFilter>();
+		Mesh mesh = meshFilter.mesh;
+		Vector3[] vertices = mesh.vertices;
+		Vector3[] normals = mesh.normals;
+		Vector4[] tangents = mesh.tangents;
+		Transform transform = meshFilter.transform;
+	
+		for (int i = 0; i < vertices.Length; i++)
+		{
+			Vector3 worldVertex = transform.TransformPoint(vertices[i]);
+			Vector3 worldNormal = transform.TransformDirection(normals[i]);
+			Vector3 worldTangent = transform.TransformDirection(tangents[i]);
+	
+			Debug.DrawRay(worldVertex, worldNormal * 0.1f, Color.green);
+			//Debug.DrawRay(worldVertex, worldTangent * 0.2f, Color.red);
+		}
 	}
 
 	private Vector3[] UpdateVerts(float digAmount, Vector3[] hitVerts, Vector3[] verts)

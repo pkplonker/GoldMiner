@@ -37,7 +37,7 @@ namespace TerrainGeneration
 
 		private void GenerateMesh(TerrainChunkData tcd, MeshFilter mf)
 		{
-			Debug.Log($"{tcd.X}:{tcd.Y}");
+			//Debug.Log($"{tcd.X}:{tcd.Y}");
 			var mesh = new Mesh
 			{
 				name = $"X{tcd.X}:Y{tcd.Y}"
@@ -46,8 +46,8 @@ namespace TerrainGeneration
 			mesh.SetTriangles(tcd.Triangles, 0);
 			mesh.RecalculateTangents();
 			mesh.SetUVs(0, tcd.Uvs);
+			//mesh.SetNormals(tcd.Normals);
 			mesh.RecalculateNormals();
-			
 			mesh.RecalculateBounds();
 			//
 			// Vector4[] tangents = new Vector4[tcd.Verts.Count];
