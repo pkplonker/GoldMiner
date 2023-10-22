@@ -38,26 +38,19 @@ public class DiggableTerrain : MonoBehaviour
 			UpdateCollider(RegenerateMesh(verts));
 		}
 
-		CheckNeighbours(hit);
+		CheckNeighbours(hitVertsIndexes);
 
 		GetCurrentChunk().ProcessNormalAlignment();
 		return true;
 	}
 
-	private void CheckNeighbours(RaycastHit hit)
+	private void CheckNeighbours(int[] hitVertsIndexes)
 	{
 		var changes = new List<TerrainChange>();
 		var terrainChunk = GetCurrentChunk();
 		var mapData = terrainChunk.MapData;
 		var x = terrainChunk.X;
 		var y = terrainChunk.Y;
-		var hitVertsIndexes = new int[3];
-		var triangleIndex = hit.triangleIndex;
-
-		for (var i = 0; i < hitVertsIndexes.Length; i++)
-		{
-			hitVertsIndexes[i] = meshFilter.mesh.triangles[triangleIndex * 3 + i];
-		}
 
 		var vertsPerRow = (mapData.MapChunkSize * mapData.lod) + 1;
 		var totalVerts = vertsPerRow * vertsPerRow;
@@ -205,9 +198,12 @@ public class DiggableTerrain : MonoBehaviour
 	{
 		foreach (var hit in hitVerts)
 		{
-			if(meshFilter.mesh.tangents[hit].y<1)
+			if (meshFilter.mesh.tangents[hit].y < 1)
 				verts[hit] -= new Vector3(0, digAmount, 0);
-			else{Debug.Log("max dig");}
+			else
+			{
+				Debug.Log("max dig");
+			}
 		}
 
 		return verts;
