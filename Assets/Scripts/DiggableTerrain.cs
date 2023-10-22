@@ -254,15 +254,11 @@ public class DiggableTerrain : MonoBehaviour
 
 		for (int i = 0; i < oldVerts.Length; i++)
 		{
-			// float yDifference = oldVerts[i].y - newVerts[i].y > 0 ? vertexColorFactor : 0;
-			// if (yDifference > 0)
-			// {
-			// 	Debug.Log($"{yDifference}");
-			// }
-			// tangents[i] = new Vector4(tangents[i].x, tangents[i].y + yDifference, tangents[i].z, tangents[i].w);
-
-			float yDifference = oldVerts[i].y - newVerts[i].y; //> 0 ? vertexColorFactor : 0;
+			float yDifference = oldVerts[i].y - newVerts[i].y > 0 ? vertexColorFactor : 0;
 			tangents[i] = new Vector4(tangents[i].x, tangents[i].y + yDifference, tangents[i].z, tangents[i].w);
+
+			// float yDifference = oldVerts[i].y - newVerts[i].y; //> 0 ? vertexColorFactor : 0;
+			// tangents[i] = new Vector4(tangents[i].x, tangents[i].y + yDifference, tangents[i].z, tangents[i].w);
 		}
 
 		newMesh.SetTangents(tangents);
