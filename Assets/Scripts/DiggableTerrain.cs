@@ -40,7 +40,102 @@ public class DiggableTerrain : MonoBehaviour
 		}
 
 		CheckNeighbours(hit);
+
+		ProcessNormalAlignment();
 		return true;
+	}
+
+	private void ProcessNormalAlignment()
+	{
+		var terrainChunk = GetCurrentChunk();
+		var x = terrainChunk.X;
+		var y = terrainChunk.Y;
+
+		if (y != MapGeneratorTerrain.terrainChunks.GetLength(1) - 1)
+		{
+			AlignEdgeNormals(Vector2.up, MapGeneratorTerrain.terrainChunks[x, y + 1]
+				.GetComponent<DiggableTerrain>());
+		}
+
+		if (x != MapGeneratorTerrain.terrainChunks.GetLength(0) - 1)
+		{
+			AlignEdgeNormals(Vector2.right, MapGeneratorTerrain.terrainChunks[x + 1, y]
+				.GetComponent<DiggableTerrain>());
+		}
+
+		if (y != 0)
+		{
+			AlignEdgeNormals(Vector2.down, MapGeneratorTerrain.terrainChunks[x, y - 1]
+				.GetComponent<DiggableTerrain>());
+		}
+
+		if (x != 0)
+		{
+			AlignEdgeNormals(Vector2.left, MapGeneratorTerrain.terrainChunks[x - 1, y]
+				.GetComponent<DiggableTerrain>());
+		}
+	}
+
+	private void AlignEdgeNormals(Vector2 direction, DiggableTerrain neighbour)
+	{
+		var mesh = GetMesh();
+		var neighbourMesh = neighbour.GetMesh();
+
+		Vector3[] normals = mesh.normals;
+		Vector3[] neighbourNormals = neighbourMesh.normals;
+
+		int resolution = GetCurrentChunk().MapData.lod * GetCurrentChunk().MapData.MapChunkSize + 1;
+
+		for (int i = 0; i < resolution; i++)
+		{
+			int currentIndex, neighbourIndex;
+
+			if (direction == Vector2.up)
+			{
+				currentIndex = (resolution - 1) * resolution + i;
+				neighbourIndex = i;
+			}
+			else if (direction == Vector2.right)
+			{
+				currentIndex = i * resolution + (resolution - 1);
+				neighbourIndex = i * resolution;
+			}
+			else if (direction == Vector2.down)
+			{
+				currentIndex = i;
+				neighbourIndex = (resolution - 1) * resolution + i;
+			}
+			else if (direction == Vector2.left)
+			{
+				currentIndex = i * resolution;
+				neighbourIndex = i * resolution + (resolution - 1);
+			}
+			else
+			{
+				return;
+			}
+
+			// Calculate the average normal
+			Vector3 averageNormal = (normals[currentIndex] + neighbourNormals[neighbourIndex]).normalized;
+
+			// Set the normals
+			normals[currentIndex] = averageNormal;
+			neighbourNormals[neighbourIndex] = averageNormal;
+		}
+
+		// Apply the changes
+		mesh.SetNormals(normals);
+		neighbourMesh.SetNormals(neighbourNormals);
+	}
+
+	private Mesh GetMesh()
+	{
+		if (meshFilter == null)
+		{
+			meshFilter = GetComponent<MeshFilter>();
+		}
+
+		return meshFilter.mesh;
 	}
 
 	private void CheckNeighbours(RaycastHit hit)
@@ -177,23 +272,28 @@ public class DiggableTerrain : MonoBehaviour
 		return newMesh;
 	}
 
+	private Color? col = null;
 	private void OnDrawGizmosSelected()
 	{
 		if (meshFilter == null) meshFilter = GetComponent<MeshFilter>();
+		if (col == null)
+		{
+			col = new Color(UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f),
+				UnityEngine.Random.Range(0, 1f));
+		}
 		Mesh mesh = meshFilter.mesh;
 		Vector3[] vertices = mesh.vertices;
 		Vector3[] normals = mesh.normals;
 		Vector4[] tangents = mesh.tangents;
 		Transform transform = meshFilter.transform;
-	
+
 		for (int i = 0; i < vertices.Length; i++)
 		{
 			Vector3 worldVertex = transform.TransformPoint(vertices[i]);
 			Vector3 worldNormal = transform.TransformDirection(normals[i]);
 			Vector3 worldTangent = transform.TransformDirection(tangents[i]);
-	
-			Debug.DrawRay(worldVertex, worldNormal * 0.1f, Color.green);
-			//Debug.DrawRay(worldVertex, worldTangent * 0.2f, Color.red);
+
+			Debug.DrawRay(worldVertex, worldNormal * 0.1f, col.Value);
 		}
 	}
 
