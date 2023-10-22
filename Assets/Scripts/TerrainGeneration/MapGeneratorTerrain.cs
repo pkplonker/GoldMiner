@@ -114,6 +114,15 @@ namespace TerrainGeneration
 			chunksGeneratedCount = 0;
 			Generated = true;
 			OnTerrainGenerated?.Invoke();
+			AlignNormals();
+		}
+
+		private void AlignNormals()
+		{
+			foreach (var chunk in terrainChunks)
+			{
+				chunk.ProcessNormalAlignment();
+			}
 		}
 
 		private void AddToTerrainChunkQueue(TerrainChunkData terrainChunkData)

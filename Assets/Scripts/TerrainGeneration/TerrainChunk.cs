@@ -65,7 +65,7 @@ namespace TerrainGeneration
 			// 	Debug.Log(mesh.vertices[i].y-mesh.tangents[i].y);
 			// }
 		}
-		
+
 		private static void GenerateCollider(MeshCollider mc, MeshFilter mf)
 		{
 			if (mc.sharedMesh) mc.sharedMesh.Clear();
@@ -89,6 +89,95 @@ namespace TerrainGeneration
 			texture.Apply();
 
 			material.mainTexture = texture;
+		}
+
+		public void ProcessNormalAlignment()
+		{
+			var terrainChunk = this;
+			var x = terrainChunk.X;
+			var y = terrainChunk.Y;
+
+			if (y != MapGeneratorTerrain.terrainChunks.GetLength(1) - 1)
+			{
+				AlignEdgeNormals(Vector2.up, MapGeneratorTerrain.terrainChunks[x, y + 1]);
+			}
+
+			if (x != MapGeneratorTerrain.terrainChunks.GetLength(0) - 1)
+			{
+				AlignEdgeNormals(Vector2.right, MapGeneratorTerrain.terrainChunks[x + 1, y]);
+			}
+
+			if (y != 0)
+			{
+				AlignEdgeNormals(Vector2.down, MapGeneratorTerrain.terrainChunks[x, y - 1]);
+			}
+
+			if (x != 0)
+			{
+				AlignEdgeNormals(Vector2.left, MapGeneratorTerrain.terrainChunks[x - 1, y]);
+			}
+		}
+
+		private void AlignEdgeNormals(Vector2 direction, TerrainChunk neighbour)
+		{
+			var mesh = GetMesh();
+			var neighbourMesh = neighbour.GetMesh();
+
+			Vector3[] normals = mesh.normals;
+			Vector3[] neighbourNormals = neighbourMesh.normals;
+
+			int resolution = MapData.lod * MapData.MapChunkSize + 1;
+
+			for (int i = 0; i < resolution; i++)
+			{
+				int currentIndex, neighbourIndex;
+
+				if (direction == Vector2.up)
+				{
+					currentIndex = (resolution - 1) * resolution + i;
+					neighbourIndex = i;
+				}
+				else if (direction == Vector2.right)
+				{
+					currentIndex = i * resolution + (resolution - 1);
+					neighbourIndex = i * resolution;
+				}
+				else if (direction == Vector2.down)
+				{
+					currentIndex = i;
+					neighbourIndex = (resolution - 1) * resolution + i;
+				}
+				else if (direction == Vector2.left)
+				{
+					currentIndex = i * resolution;
+					neighbourIndex = i * resolution + (resolution - 1);
+				}
+				else
+				{
+					return;
+				}
+
+				// Calculate the average normal
+				Vector3 averageNormal = (normals[currentIndex] + neighbourNormals[neighbourIndex]).normalized;
+
+				// Set the normals
+				normals[currentIndex] = averageNormal;
+				neighbourNormals[neighbourIndex] = averageNormal;
+			}
+
+			// Apply the changes
+			mesh.SetNormals(normals);
+			neighbourMesh.SetNormals(neighbourNormals);
+		}
+
+		private Mesh GetMesh()
+		{
+			if (meshFilter == null)
+			{
+				meshFilter = GetComponent<MeshFilter>();
+			}
+
+			return meshFilter.mesh;
 		}
 	}
 }
