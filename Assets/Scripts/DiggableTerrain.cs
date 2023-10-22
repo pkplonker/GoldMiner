@@ -21,7 +21,6 @@ public class DiggableTerrain : MonoBehaviour
 	private bool setup;
 	private float digAmount;
 	private Dictionary<int, float> digChanges = new();
-	[SerializeField] private Color dugGroundColorOffet = Color.blue;
 	private TerrainChunk terrainChunk;
 	private float vertexColorFactor;
 
@@ -206,7 +205,9 @@ public class DiggableTerrain : MonoBehaviour
 	{
 		foreach (var hit in hitVerts)
 		{
-			verts[hit] -= new Vector3(0, digAmount, 0);
+			if(meshFilter.mesh.tangents[hit].y<1)
+				verts[hit] -= new Vector3(0, digAmount, 0);
+			else{Debug.Log("max dig");}
 		}
 
 		return verts;
