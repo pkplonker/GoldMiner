@@ -152,6 +152,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Debug"",
+                    ""type"": ""Button"",
+                    ""id"": ""a792ba83-48d3-4d67-8754-23423f462c7e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -583,6 +592,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Map"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20f2a097-3623-4d7b-9244-0f965de59161"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Debug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -605,6 +625,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
         m_PlayerMovement_PanLeft = m_PlayerMovement.FindAction("PanLeft", throwIfNotFound: true);
         m_PlayerMovement_PanRight = m_PlayerMovement.FindAction("PanRight", throwIfNotFound: true);
+        m_PlayerMovement_Debug = m_PlayerMovement.FindAction("Debug", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -680,6 +701,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_Jump;
     private readonly InputAction m_PlayerMovement_PanLeft;
     private readonly InputAction m_PlayerMovement_PanRight;
+    private readonly InputAction m_PlayerMovement_Debug;
     public struct PlayerMovementActions
     {
         private @PlayerControls m_Wrapper;
@@ -698,6 +720,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
         public InputAction @PanLeft => m_Wrapper.m_PlayerMovement_PanLeft;
         public InputAction @PanRight => m_Wrapper.m_PlayerMovement_PanRight;
+        public InputAction @Debug => m_Wrapper.m_PlayerMovement_Debug;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -749,6 +772,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @PanRight.started += instance.OnPanRight;
             @PanRight.performed += instance.OnPanRight;
             @PanRight.canceled += instance.OnPanRight;
+            @Debug.started += instance.OnDebug;
+            @Debug.performed += instance.OnDebug;
+            @Debug.canceled += instance.OnDebug;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -795,6 +821,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @PanRight.started -= instance.OnPanRight;
             @PanRight.performed -= instance.OnPanRight;
             @PanRight.canceled -= instance.OnPanRight;
+            @Debug.started -= instance.OnDebug;
+            @Debug.performed -= instance.OnDebug;
+            @Debug.canceled -= instance.OnDebug;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -828,5 +857,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnPanLeft(InputAction.CallbackContext context);
         void OnPanRight(InputAction.CallbackContext context);
+        void OnDebug(InputAction.CallbackContext context);
     }
 }
