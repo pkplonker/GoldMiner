@@ -57,10 +57,13 @@ namespace Props
 			}
 			else
 			{
-				HandleFailedSpawn(sis);
+				HandleFailedSpawn(sis,mapData);
 			}
 		}
 
-		private void HandleFailedSpawn(SingleInstanceSpawn sis) => Debug.LogError($"Failed to spawn {sis.GetName()}");
+		private void HandleFailedSpawn(SingleInstanceSpawn sis,MapData mapData)
+		{
+			if (!sis.allowFailure) SceneHandler.Instance.HandleFailedGeneration(mapData);
+		}
 	}
 }
