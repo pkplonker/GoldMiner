@@ -9,9 +9,9 @@ using StuartHeathTools;
 using TerrainGeneration;
 using UnityEngine;
 
-public class MapStore : GenericUnitySingleton<MapStore>
+public class MapStore : MonoBehaviour
 {
-	private ObservableCollection<Tuple<string, Texture2D>> allMaps = new();
+	public ObservableCollection<Tuple<string, Texture2D>> allMaps { get; private set; } = new();
 
 	private void Start()
 	{
@@ -39,6 +39,7 @@ public class MapStore : GenericUnitySingleton<MapStore>
 			Debug.LogError("Failed to encode texture to PNG");
 			return;
 		}
+
 		var savePath = Path.Combine(Application.persistentDataPath, name + ".png");
 		File.WriteAllBytes(savePath, pngData);
 		//Debug.Log("Combined texture saved as PNG: " + savePath);
@@ -61,8 +62,6 @@ public class MapStore : GenericUnitySingleton<MapStore>
 
 	private void OnCombinedMapGenerated(float[,] map) =>
 		allMaps.Add(new Tuple<string, Texture2D>("Combined", GenerateTexture(map)));
-
-	public List<Tuple<string, Texture2D>> GetAllMaps() => allMaps.ToList();
 
 	private Texture2D GenerateTexture(float[,] map)
 	{
