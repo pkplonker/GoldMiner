@@ -15,24 +15,13 @@ MonoBehaviour:
   <MapChunkSize>k__BackingField: 16
   <ChunksPerRow>k__BackingField: 4
   lod: 4
-  seed: 12345
+  seed: 24000
   octaves: 4
   Persistance: 0.8
   lacunarity: 0.8
   offset: {x: 0, y: 0}
   material: {fileID: 2100000, guid: 8a1ad397b447ca643951705bb09f5075, type: 2}
   NoiseScale: 16
-  terrains:
-  - _color: {r: 0.6509434, g: 0.47361162, b: 0.16273585, a: 0}
-    _height: 0.1
-  - _color: {r: 0.6415094, g: 0.382564, b: 0.19668922, a: 0}
-    _height: 0.36
-  - _color: {r: 0.6226415, g: 0.25361302, b: 0.09104663, a: 0}
-    _height: 0.65
-  - _color: {r: 0.41509432, g: 0.17451166, b: 0.03720184, a: 0}
-    _height: 0.85
-  - _color: {r: 0.4433962, g: 0.064836234, b: 0.064836234, a: 0}
-    _height: 1
   heightMultiplier: 4.8
   heightCurve:
     serializedVersion: 2

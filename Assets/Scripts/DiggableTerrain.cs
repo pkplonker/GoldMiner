@@ -168,32 +168,32 @@ public class DiggableTerrain : MonoBehaviour
 
 	private Color? col = null;
 
-	private void OnDrawGizmosSelected()
-	{
-		if (meshFilter == null) meshFilter = GetComponent<MeshFilter>();
-		if (col == null)
-		{
-			col = new Color(UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f),
-				UnityEngine.Random.Range(0, 1f));
-		}
-	
-		Mesh mesh = meshFilter.mesh;
-		Vector3[] vertices = mesh.vertices;
-		Vector3[] normals = mesh.normals;
-		Vector4[] tangents = mesh.tangents;
-		Transform transform = meshFilter.transform;
-	
-		for (int i = 0; i < vertices.Length; i++)
-		{
-			Vector3 worldVertex = transform.TransformPoint(vertices[i]);
-			Vector3 worldNormal = transform.TransformDirection(normals[i]);
-			Vector3 worldTangent = transform.TransformDirection(tangents[i]);
-	
-			Debug.DrawRay(worldVertex, worldNormal * 0.1f, col.Value);
-			// if (tangents[i] == new Vector4(1,0,0,1)) continue;
-			// Debug.DrawRay(worldVertex, worldTangent * 3f, Color.red);
-		}
-	}
+	// private void OnDrawGizmosSelected()
+	// {
+	// 	if (meshFilter == null) meshFilter = GetComponent<MeshFilter>();
+	// 	if (col == null)
+	// 	{
+	// 		col = new Color(UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f),
+	// 			UnityEngine.Random.Range(0, 1f));
+	// 	}
+	//
+	// 	Mesh mesh = meshFilter.mesh;
+	// 	Vector3[] vertices = mesh.vertices;
+	// 	Vector3[] normals = mesh.normals;
+	// 	Vector4[] tangents = mesh.tangents;
+	// 	Transform transform = meshFilter.transform;
+	//
+	// 	for (int i = 0; i < vertices.Length; i++)
+	// 	{
+	// 		Vector3 worldVertex = transform.TransformPoint(vertices[i]);
+	// 		Vector3 worldNormal = transform.TransformDirection(normals[i]);
+	// 		Vector3 worldTangent = transform.TransformDirection(tangents[i]);
+	//
+	// 		Debug.DrawRay(worldVertex, worldNormal * 0.1f, col.Value);
+	// 		// if (tangents[i] == new Vector4(1,0,0,1)) continue;
+	// 		// Debug.DrawRay(worldVertex, worldTangent * 3f, Color.red);
+	// 	}
+	// }
 
 	private Vector3[] UpdateVerts(float digAmount, int[] hitVerts, Vector3[] verts)
 	{
