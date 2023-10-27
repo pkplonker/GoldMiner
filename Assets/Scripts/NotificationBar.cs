@@ -5,7 +5,7 @@ using StuartHeathTools;
 using UI;
 using UnityEngine;
 
-public class NotificationBar : GenericUnitySingleton<NotificationBar>
+public class NotificationBar : MonoBehaviour, IService
 {
 	private NotificationUI ui;
 	
@@ -18,4 +18,8 @@ public class NotificationBar : GenericUnitySingleton<NotificationBar>
 
 	public void ClearText() => RequestText("");
 	private void GetUI() => ui = FindObjectOfType<NotificationUI>();
+	public void Initialize()
+	{
+		
+	}
 }

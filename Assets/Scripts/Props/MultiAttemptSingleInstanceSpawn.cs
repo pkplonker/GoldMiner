@@ -22,7 +22,7 @@ namespace Props
 		{
 			var t = new Trans();
 			t.Position = CalculatePosition(size, currentInstance, groundLayer);
-			t.Rotation = CalculateRotation(t.Position,currentInstance);
+			t.Rotation = CalculateRotation(t.Position, currentInstance);
 			return t;
 		}
 

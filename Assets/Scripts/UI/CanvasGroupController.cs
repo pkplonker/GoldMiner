@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UI
 {
-	public class CanvasGroupController : GenericUnitySingleton<CanvasGroupController>
+	public class CanvasGroupController : MonoBehaviour, IService
 	{
 		private List<IShowHideUI> uis = new ();
 		public NewItemPickupUI NewItemPickupUI { get; private set; }
@@ -50,6 +50,11 @@ namespace UI
 			{
 				ui.Hide();
 			}
+		}
+
+		public void Initialize()
+		{
+			
 		}
 	}
 }

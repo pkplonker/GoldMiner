@@ -17,31 +17,32 @@ namespace Player
 
 		public override void Tick()
 		{
-			var ray = stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
+			var ray = stateMachine.Camera.ScreenPointToRay(ServiceLocator.Instance.GetService<PlayerInputManager>()
+				.GetMousePosition());
 			if (!Physics.Raycast(ray, out var hit, stateMachine.interactionRange))
 			{
 				HandleMessage(null);
 				return;
 			}
+
 			var interactable = hit.collider.GetComponent<IInteractable>();
-			
+
 			HandleMessage(interactable);
 			HandleClick(interactable);
 		}
 
 		private void HandleMessage(IInteractable interactable)
 		{
-			if (interactable == null) NotificationBar.Instance.ClearText();
-			else NotificationBar.Instance.RequestText(interactable.GetInteractMessage());
-
+			var notificationBar = ServiceLocator.Instance.GetService<NotificationBar>();
+			if (interactable == null) notificationBar.ClearText();
+			else notificationBar.RequestText(interactable.GetInteractMessage());
 		}
 
 		private void HandleClick(IInteractable interactable)
 		{
 			if (interactable == null) return;
-			if (PlayerInputManager.Instance.GetLeftClick()) interactable.Interact(stateMachine);
-			
-			
+			if (ServiceLocator.Instance.GetService<PlayerInputManager>().GetLeftClick())
+				interactable.Interact(stateMachine);
 		}
 	}
 }

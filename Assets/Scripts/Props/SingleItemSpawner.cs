@@ -63,7 +63,8 @@ namespace Props
 
 		private void HandleFailedSpawn(SingleInstanceSpawn sis,MapData mapData)
 		{
-			if (!sis.allowFailure) SceneHandler.Instance.HandleFailedGeneration(mapData);
+			if (!sis.allowFailure) 			ServiceLocator.Instance.GetService<SceneHandler>()
+				.HandleFailedGeneration(mapData);
 		}
 	}
 }

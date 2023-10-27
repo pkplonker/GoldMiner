@@ -18,7 +18,8 @@ public class DiggingState : BaseState
 	private void UpdateMarkerPosition()
 	{
 		stateMachine.diggingTarget.enabled = true;
-		var ray = stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
+		;
+		var ray = stateMachine.Camera.ScreenPointToRay( ServiceLocator.Instance.GetService<PlayerInputManager>().GetMousePosition());
 		if (!Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(stateMachine.GROUND_LAYER))) return;
 		if (Vector3.Distance(stateMachine.transform.position, hit.point) > stateMachine.digRange)
 		{
@@ -63,7 +64,7 @@ public class DiggingState : BaseState
 	public override void Tick()
 	{
 		UpdateMarkerPosition();
-		if (!PlayerInputManager.Instance.GetLeftClick() || !canDig) return;
+		if (!ServiceLocator.Instance.GetService<PlayerInputManager>().GetLeftClick() || !canDig) return;
 		canDig = false;
 		AttemptDig();
 	}
@@ -75,7 +76,7 @@ public class DiggingState : BaseState
 		Profiler.BeginSample("Digging");
 #endif
 		//cast ray to get vertex
-		var ray = stateMachine.Camera.ScreenPointToRay(PlayerInputManager.Instance.GetMousePosition());
+		var ray = stateMachine.Camera.ScreenPointToRay(ServiceLocator.Instance.GetService<PlayerInputManager>().GetMousePosition());
 		if (Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(GetLayerMask())))
 		{
 			if (hit.point == Vector3.negativeInfinity) Debug.Log("Failed to get hit point");

@@ -12,7 +12,7 @@ namespace Player
 	/// <summary>
 	///PlayerInput full description
 	/// </summary>
-	public class PlayerInputManager : GenericUnitySingleton<PlayerInputManager>
+	public class PlayerInputManager : MonoBehaviour, IService
 	{
 		private PlayerControls playerControls;
 		private bool leftClick;
@@ -49,9 +49,8 @@ namespace Player
 		public bool GetPanLeftHeld() => playerControls.PlayerMovement.PanLeft.inProgress;
 		public bool GetPanRightHeld() => playerControls.PlayerMovement.PanRight.inProgress;
 
-		protected override void Awake()
+		protected void Awake()
 		{
-			base.Awake();
 			playerControls = new PlayerControls();
 		}
 
@@ -96,6 +95,10 @@ namespace Player
 		private void LateUpdate()
 		{
 			leftClick = false;
+		}
+
+		public void Initialize()
+		{
 		}
 	}
 }
