@@ -14,7 +14,8 @@ namespace Props
 		public float FlattnessTolerance;
 		[SerializeField] private float IncrementAmount = 0.2f;
 		[SerializeField] private int Attempts = 50;
-		[SerializeField] private Vector3 Offset = Vector3.zero;
+		[SerializeField] private Vector3 StartOffset = Vector3.zero;
+		[SerializeField] private Vector3 FinalOffset = Vector3.zero;
 		[SerializeField] private bool alignToTerrain;
 
 		protected virtual Trans CalculateSpawn(float size, GameObject currentInstance, string groundLayer)
@@ -64,7 +65,7 @@ namespace Props
 		private Vector3 CalculatePosition(float size, GameObject currentInstance, string groundLayer)
 		{
 			var position = new Vector3(size / 2, 50, size / 2);
-			position += Offset;
+			position += StartOffset;
 			currentInstance.transform.position = Vector3.zero;
 
 			for (var x = 0; x < Attempts; x++)
@@ -79,7 +80,7 @@ namespace Props
 				{
 					if (hits[i].collider.transform == currentInstance.transform) continue;
 					position.y = hits[i].point.y;
-					position += Offset;
+					position += FinalOffset;
 
 					var bounds = GetBounds(currentInstance);
 					if (bounds.size == Vector3.zero)
