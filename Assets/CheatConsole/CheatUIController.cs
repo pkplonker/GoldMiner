@@ -10,6 +10,7 @@ public class CheatUIController : MonoBehaviour
 	public GameObject commandButtonPrefab;
 	[SerializeField] private CanvasGroup canvasGroup;
 	private CheatConsole cheatConsole;
+	public static event Action<bool> CheatConsoleActive;
 
 	private void Start()
 	{
@@ -36,6 +37,7 @@ public class CheatUIController : MonoBehaviour
 		canvasGroup.alpha = 0f;
 		canvasGroup.interactable = false;
 		canvasGroup.blocksRaycasts = false;
+		CheatConsoleActive?.Invoke(false);
 	}
 
 	private void Show()
@@ -44,9 +46,11 @@ public class CheatUIController : MonoBehaviour
 		canvasGroup.alpha = 1f;
 		canvasGroup.interactable = true;
 		canvasGroup.blocksRaycasts = true;
+		CheatConsoleActive?.Invoke(true);
 	}
 
 	private List<Button> buttons = new List<Button>();
+
 	private void PopulateCommandsList()
 	{
 		ClearButtons();
@@ -65,7 +69,7 @@ public class CheatUIController : MonoBehaviour
 		{
 			Destroy(b.gameObject);
 		}
-		Debug.Log("Clear buttons");
+
 		buttons.Clear();
 	}
 }

@@ -20,6 +20,7 @@ namespace TerrainGeneration
 			MapGeneratorTerrain.ClearData();
 			SpawnTerrain();
 			spawnedProps = false;
+			
 		}
 
 #if UNITY_EDITOR

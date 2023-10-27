@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 3735925003117618085}
   - component: {fileID: 999486182600027656}
   - component: {fileID: 3716306142845776161}
+  - component: {fileID: 1515496538057374066}
   m_Layer: 5
   m_Name: CheatConsole
   m_TagString: Untagged
@@ -236,7 +237,7 @@ RectTransform:
   m_Children:
   - {fileID: 2922190867856301570}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -264,7 +265,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 32000
   m_TargetDisplay: 0
 --- !u!114 &2074458362429364420
 MonoBehaviour:
@@ -331,8 +332,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   commandsContainer: {fileID: 7648546342014154036}
-  commandButtonPrefab: {fileID: 3171290221995302201, guid: 4f8975f8326f2384a9ba63ac2fd489c6, type: 3}
+  commandButtonPrefab: {fileID: 3171290221995302201, guid: 4f8975f8326f2384a9ba63ac2fd489c6,
+    type: 3}
   canvasGroup: {fileID: 1560595854961391220}
+--- !u!114 &1515496538057374066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469645703631179820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecdbe525f74bb6448b9c49c8611ef3f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51, type: 2}
 --- !u!1 &1552098966996469431
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000469241}
+  m_AnchoredPosition: {x: -0.000024616718, y: -0.000030517578}
   m_SizeDelta: {x: 0, y: 941.95}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6404521249255824025
@@ -794,7 +809,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3346457319444861006}
   m_HandleRect: {fileID: 3620756592714433727}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

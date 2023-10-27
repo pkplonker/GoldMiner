@@ -87,6 +87,7 @@ public class FenceSpawner : SingleInstanceSpawn
 		StaticBatchingUtility.Combine(fenceParent);
 		return true;
 	}
+	
 
 	public override string GetName() => "Fence";
 
@@ -102,7 +103,31 @@ public class FenceSpawner : SingleInstanceSpawn
 		Points.Add(new Vector3(small, 0, small));
 	}
 
-	private void SpawnCollider() { }
+	private void SpawnCollider()
+	{
+		for (var i = 0; i < Points.Count; i++)
+		{
+			var startPoint = Points[i];
+			var endPoint = Points[(i + 1) % Points.Count];
+			var direction = (endPoint - startPoint).normalized;
+			var distance = Vector3.Distance(startPoint, endPoint);
+        
+			var colliderPosition = (startPoint + endPoint) / 2;
+			colliderPosition.y = GetTerrainHeight(colliderPosition);
+        
+			var colliderRotation = Quaternion.LookRotation(direction);
+        
+			var colliderSize = new Vector3(0.1f, 20f, distance); // Adjust the Y value as needed
+        
+			var colliderObject = new GameObject($"EdgeCollider_{i}");
+			var boxCollider = colliderObject.AddComponent<BoxCollider>();
+			boxCollider.size = colliderSize;
+			colliderObject.transform.position = colliderPosition;
+			colliderObject.transform.rotation = colliderRotation;
+			colliderObject.transform.parent = fenceParent.transform;
+		}
+	}
+
 
 	private float GetTerrainHeight(Vector3 position)
 	{

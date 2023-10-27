@@ -23,8 +23,17 @@ public class SceneHandler : MonoBehaviour, IService
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
-	public void Initialize()
+	public void Initialize() { }
+
+	[CheatCommand]
+	public static void Load0()
 	{
-		
+		SceneManager.LoadScene(0);
+	}
+
+	[CheatCommand]
+	public static void Load1()
+	{
+		SceneManager.LoadScene(1);
 	}
 }
