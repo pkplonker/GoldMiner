@@ -34,6 +34,13 @@ namespace UI
 			PropSpawner.OnPropGenerated += NewProp;
 			MapGenerator.MapGenerated += MapGenerated;
 		}
+		private void OnDisable()
+		{
+			MapGeneratorTerrain.OnChunkGenerated -= NewChunk;
+			MapGenerator.MapGenerationStarted -= ProgressStarted;
+			PropSpawner.OnPropGenerated -= NewProp;
+			MapGenerator.MapGenerated -= MapGenerated;
+		}
 
 		private void MapGenerated(float obj)
 		{

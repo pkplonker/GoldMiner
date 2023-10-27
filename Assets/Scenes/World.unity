@@ -1683,7 +1683,7 @@ MonoBehaviour:
   prefabsToSpawn:
   - {fileID: 11400000, guid: efb92ad9e1dc28d43b207894c3b9755e, type: 2}
   - {fileID: 11400000, guid: c4923b9c33f28a74d8aae5a6a33ed9bf, type: 2}
-  - {fileID: 11400000, guid: f1d07c405f4ba0c48aaba3d4f2457d2e, type: 2}
+  - {fileID: 11400000, guid: 11a2257726678cc44a6f9e83b93fa4e7, type: 2}
 --- !u!4 &1351785758
 Transform:
   m_ObjectHideFlags: 0
