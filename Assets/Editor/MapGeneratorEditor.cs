@@ -31,7 +31,7 @@ namespace Editor
 		[CheatCommand]
 		private static void Respawn(MapGenerator mapGenerator)
 		{
-			mapGenerator.Respawn();
+			mapGenerator.RegenerateWorld();
 		}
 	}
 }

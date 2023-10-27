@@ -52,6 +52,8 @@ namespace Player
 		protected void Awake()
 		{
 			playerControls = new PlayerControls();
+
+			ServiceLocator.Instance.RegisterService(this);
 		}
 
 		private void OnEnable()
@@ -97,8 +99,6 @@ namespace Player
 			leftClick = false;
 		}
 
-		public void Initialize()
-		{
-		}
+		public void Initialize() { }
 	}
 }

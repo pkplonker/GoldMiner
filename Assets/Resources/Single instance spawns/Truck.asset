@@ -18,5 +18,5 @@ MonoBehaviour:
   IncrementAmount: 0.2
   Attempts: 50
   StartOffset: {x: 0, y: 0, z: 0}
-  FinalOffset: {x: 0, y: 0.2, z: 0}
+  FinalOffset: {x: 0, y: 0.1, z: 0}
   alignToTerrain: 1

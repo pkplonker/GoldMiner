@@ -8,7 +8,12 @@ using UnityEngine;
 public class NotificationBar : MonoBehaviour, IService
 {
 	private NotificationUI ui;
-	
+
+	private void Awake()
+	{
+		ServiceLocator.Instance.RegisterService(this);
+	}
+
 	public void RequestText(string text)
 	{
 		if (ui == null) GetUI();
@@ -18,8 +23,5 @@ public class NotificationBar : MonoBehaviour, IService
 
 	public void ClearText() => RequestText("");
 	private void GetUI() => ui = FindObjectOfType<NotificationUI>();
-	public void Initialize()
-	{
-		
-	}
+	public void Initialize() { }
 }

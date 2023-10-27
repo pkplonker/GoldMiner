@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using StuartHeathTools;
@@ -8,6 +9,11 @@ using UnityEngine.SceneManagement;
 public class SceneHandler : MonoBehaviour, IService
 {
 	private const string WorldGenScene = "WorldGenScene";
+
+	private void Awake()
+	{
+		ServiceLocator.Instance.RegisterService(this);
+	}
 
 	public void HandleFailedGeneration(MapData mapData)
 	{
