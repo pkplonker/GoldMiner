@@ -6,7 +6,7 @@ using StuartHeathTools;
 using Targets;
 using UnityEngine;
 
-public class GoldSpawnManager : GenericUnitySingleton<GoldSpawnManager>
+public class GoldSpawnManager : MonoBehaviour, IService
 {
 	public List<Gold> goldPiecesSpawned { get; private set; } = new();
 	public List<Gold> goldPiecesFound { get; private set; } = new();
@@ -14,6 +14,10 @@ public class GoldSpawnManager : GenericUnitySingleton<GoldSpawnManager>
 	private PlayerCurrency playerCurrency;
 	public event Action<Transform> GoldDeregistered;
 
+	private void Awake()
+	{
+		ServiceLocator.Instance.RegisterService(this);
+	}
 
 	public void RegisterGold(Gold gold)
 	{
@@ -48,4 +52,8 @@ public class GoldSpawnManager : GenericUnitySingleton<GoldSpawnManager>
 	}
 
 	private void AddGold(Gold gold) => playerCurrency.AddGold(gold);
+	public void Initialize()
+	{
+		
+	}
 }

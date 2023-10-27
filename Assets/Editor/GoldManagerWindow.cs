@@ -29,7 +29,7 @@ public class GoldManagerWindow : EditorWindow
 			return;
 		}
 		GetWindow<GoldManagerWindow>();
-		goldSpawnManager = GoldSpawnManager.Instance;
+		goldSpawnManager = ServiceLocator.Instance.GetService<GoldSpawnManager>();
 	}
 
 	private void OnGUI()

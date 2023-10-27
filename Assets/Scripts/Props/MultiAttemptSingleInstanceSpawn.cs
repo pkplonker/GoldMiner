@@ -42,13 +42,11 @@ namespace Props
 				var pos = position;
 				foreach (var corner in boundsCorners)
 				{
-					Debug.Log("Casting ray");
 					var rayPosition = pos + corner + (Vector3.up * 5);
 
 					if (Physics.Raycast(rayPosition, Vector3.down, out RaycastHit hit, Mathf.Infinity))
 					{
 						averageNormal += hit.normal;
-						Debug.Log($"Hit point {hit.point}");
 					}
 				}
 

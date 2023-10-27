@@ -17,4 +17,6 @@ MonoBehaviour:
   FlattnessTolerance: 1
   IncrementAmount: 0.1
   Attempts: 100
-  Offset: {x: 0, y: 0.1, z: 0}
+  StartOffset: {x: 1.5, y: 0, z: 1.5}
+  FinalOffset: {x: 0, y: 0.3, z: 0}
+  alignToTerrain: 0
