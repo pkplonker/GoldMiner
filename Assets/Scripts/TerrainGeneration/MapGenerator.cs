@@ -16,7 +16,12 @@ namespace TerrainGeneration
 		public static event Action<int,int> MapGenerationStarted;
 
 
-
+		public void Respawn()
+		{
+			MapGeneratorTerrain.ClearData();
+			SpawnTerrain();
+			spawnedProps = false;
+		}
 
 #if UNITY_EDITOR
 		public bool spawnedProps { get; set; } = true;
