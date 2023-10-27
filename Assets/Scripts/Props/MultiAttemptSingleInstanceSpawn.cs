@@ -6,7 +6,8 @@ using UnityEngine;
 
 namespace Props
 {
-	[CreateAssetMenu(fileName = "New Multi-attempt Single instance spawn", menuName = "Props/Spawns/New Multi-attempt Single instance spawn")]
+	[CreateAssetMenu(fileName = "New Multi-attempt Single instance spawn",
+		menuName = "Props/Spawns/New Multi-attempt Single instance spawn")]
 	public class MultiAttemptSingleInstanceSpawn : SingleInstanceSpawn
 	{
 		public GameObject Prefab;
@@ -14,18 +15,51 @@ namespace Props
 		[SerializeField] private float IncrementAmount = 0.2f;
 		[SerializeField] private int Attempts = 50;
 		[SerializeField] private Vector3 Offset = Vector3.zero;
+		[SerializeField] private bool alignToTerrain;
 
 		protected virtual Trans CalculateSpawn(float size, GameObject currentInstance, string groundLayer)
 		{
-			var t = new Trans
-			{
-				Position = CalculatePosition(size, currentInstance, groundLayer),
-				Rotation = CalculateRotation()
-			};
+			var t = new Trans();
+			t.Position = CalculatePosition(size, currentInstance, groundLayer);
+			t.Rotation = CalculateRotation(t.Position,currentInstance);
 			return t;
 		}
 
-		private Quaternion CalculateRotation() => Quaternion.identity;
+		private Quaternion CalculateRotation(Vector3 position, GameObject currentInstance)
+		{
+			if (alignToTerrain)
+			{
+				var bounds = GetBounds(currentInstance);
+
+				Vector3[] boundsCorners = new Vector3[4];
+				boundsCorners[0] = new Vector3(bounds.min.x, bounds.max.y, bounds.min.z);
+				boundsCorners[1] = new Vector3(bounds.max.x, bounds.max.y, bounds.min.z);
+				boundsCorners[2] = new Vector3(bounds.min.x, bounds.max.y, bounds.max.z);
+				boundsCorners[3] = new Vector3(bounds.max.x, bounds.max.y, bounds.max.z);
+
+				Vector3 averageNormal = Vector3.zero;
+				var pos = position;
+				foreach (var corner in boundsCorners)
+				{
+					Debug.Log("Casting ray");
+					var rayPosition = pos + corner + (Vector3.up * 5);
+
+					if (Physics.Raycast(rayPosition, Vector3.down, out RaycastHit hit, Mathf.Infinity))
+					{
+						averageNormal += hit.normal;
+						Debug.Log($"Hit point {hit.point}");
+					}
+				}
+
+				averageNormal /= boundsCorners.Length;
+				Vector3 up = Vector3.up;
+				Quaternion rotation = Quaternion.FromToRotation(up, averageNormal) *
+				                      currentInstance.transform.rotation;
+				return rotation;
+			}
+
+			return Quaternion.identity;
+		}
 
 		private Vector3 CalculatePosition(float size, GameObject currentInstance, string groundLayer)
 		{
@@ -45,6 +79,7 @@ namespace Props
 				{
 					if (hits[i].collider.transform == currentInstance.transform) continue;
 					position.y = hits[i].point.y;
+					position += Offset;
 
 					var bounds = GetBounds(currentInstance);
 					if (bounds.size == Vector3.zero)
