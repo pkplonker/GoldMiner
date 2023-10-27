@@ -23,14 +23,15 @@ public class InGameMap : MonoBehaviour
 	private void Start()
 	{
 		MapGenerator.MapGenerated += MapGeneratorOnMapGenerated;
-		GoldSpawnManager.Instance.GoldDeregistered += OnGoldDeregistered;
+		ServiceLocator.Instance.GetService<GoldSpawnManager>().GoldDeregistered += OnGoldDeregistered;
+
 		mapGeneratorTerrain = GetComponent<MapGeneratorTerrain>();
 	}
 
 	private void OnDisable()
 	{
 		MapGenerator.MapGenerated -= MapGeneratorOnMapGenerated;
-		GoldSpawnManager.Instance.GoldDeregistered -= OnGoldDeregistered;
+		ServiceLocator.Instance.GetService<GoldSpawnManager>().GoldDeregistered -= OnGoldDeregistered;
 	}
 
 	private void MapGeneratorOnMapGenerated(float obj)

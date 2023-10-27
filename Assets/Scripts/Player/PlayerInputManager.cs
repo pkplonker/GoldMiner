@@ -12,7 +12,7 @@ namespace Player
 	/// <summary>
 	///PlayerInput full description
 	/// </summary>
-	public class PlayerInputManager : GenericUnitySingleton<PlayerInputManager>
+	public class PlayerInputManager : MonoBehaviour, IService
 	{
 		private PlayerControls playerControls;
 		private bool leftClick;
@@ -25,7 +25,9 @@ namespace Player
 		public static event Action OnESC;
 		public static event Action OnInvent;
 		public static event Action OnMap;
-
+#if UNITY_EDITOR
+		public static event Action OnDebug;
+#endif
 		private void ManualDetectionToggle(InputAction.CallbackContext obj) => OnManualDetectionToggle?.Invoke();
 		private void Detection(InputAction.CallbackContext obj) => OnDetection?.Invoke();
 		private void Jump(InputAction.CallbackContext obj) => OnJump?.Invoke();
@@ -35,7 +37,9 @@ namespace Player
 		private void ESC(InputAction.CallbackContext obj) => OnESC?.Invoke();
 		private void Invent(InputAction.CallbackContext obj) => OnInvent?.Invoke();
 		private void Map(InputAction.CallbackContext obj) => OnMap?.Invoke();
-
+#if UNITY_EDITOR
+		private void DebugMenu(InputAction.CallbackContext obj) => OnDebug?.Invoke();
+#endif
 		public Vector2 GetPlayerMovement() => playerControls.PlayerMovement.Move.ReadValue<Vector2>();
 		public Vector2 GetMouseDelta() => playerControls.PlayerMovement.Look.ReadValue<Vector2>();
 		public Vector2 GetMousePosition() => playerControls.PlayerMovement.MousePosition.ReadValue<Vector2>();
@@ -45,10 +49,11 @@ namespace Player
 		public bool GetPanLeftHeld() => playerControls.PlayerMovement.PanLeft.inProgress;
 		public bool GetPanRightHeld() => playerControls.PlayerMovement.PanRight.inProgress;
 
-		protected override void Awake()
+		protected void Awake()
 		{
-			base.Awake();
 			playerControls = new PlayerControls();
+
+			ServiceLocator.Instance.RegisterService(this);
 		}
 
 		private void OnEnable()
@@ -64,7 +69,9 @@ namespace Player
 			playerControls.PlayerMovement.ESC.performed += ESC;
 			playerControls.PlayerMovement.Invent.performed += Invent;
 			playerControls.PlayerMovement.Map.performed += Map;
-
+#if UNITY_EDITOR
+			playerControls.PlayerMovement.Debug.performed += DebugMenu;
+#endif
 		}
 
 		private void OnDisable()
@@ -80,7 +87,9 @@ namespace Player
 			playerControls.PlayerMovement.ESC.performed -= ESC;
 			playerControls.PlayerMovement.Invent.performed -= Invent;
 			playerControls.PlayerMovement.Map.performed -= Map;
-
+#if UNITY_EDITOR
+			playerControls.PlayerMovement.Debug.performed -= DebugMenu;
+#endif
 		}
 
 		private void SetLeftClick(InputAction.CallbackContext obj) => leftClick = true;
@@ -89,5 +98,7 @@ namespace Player
 		{
 			leftClick = false;
 		}
+
+		public void Initialize() { }
 	}
 }

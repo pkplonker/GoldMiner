@@ -34,7 +34,7 @@ namespace UI
 			pickupTarget.DestroyItem();
 			var inv = playerInteractionStateMachine.GetComponent<Inventory>();
 			if (inv == null || !inv.Add(pickupTarget.Item)) FailedToAddToInventory();
-			CanvasGroupController.Instance.Hide(this);
+			ServiceLocator.Instance.GetService<CanvasGroupController>().Hide(this);
 		}
 
 		private void FailedToAddToInventory() => Debug.LogError("Failed to add to inventory");
@@ -44,7 +44,7 @@ namespace UI
 		{
 			if (pickupTarget == null) Debug.LogError("missing refs");
 			pickupTarget.DestroyItem();
-			CanvasGroupController.Instance.Hide(this);
+			ServiceLocator.Instance.GetService<CanvasGroupController>().Hide(this);
 		}
 
 

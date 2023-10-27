@@ -5,10 +5,15 @@ using StuartHeathTools;
 using UI;
 using UnityEngine;
 
-public class NotificationBar : GenericUnitySingleton<NotificationBar>
+public class NotificationBar : MonoBehaviour, IService
 {
 	private NotificationUI ui;
-	
+
+	private void Awake()
+	{
+		ServiceLocator.Instance.RegisterService(this);
+	}
+
 	public void RequestText(string text)
 	{
 		if (ui == null) GetUI();
@@ -18,4 +23,5 @@ public class NotificationBar : GenericUnitySingleton<NotificationBar>
 
 	public void ClearText() => RequestText("");
 	private void GetUI() => ui = FindObjectOfType<NotificationUI>();
+	public void Initialize() { }
 }

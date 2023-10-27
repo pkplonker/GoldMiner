@@ -18,7 +18,7 @@ namespace Targets
 
 		private void Awake()
 		{
-			GoldSpawnManager.Instance.RegisterGold(this);
+			ServiceLocator.Instance.GetService<GoldSpawnManager>().RegisterGold(this);
 			var value = UtilityRandom.RandomFloat01();
 			Weight = CreateWeight(goldChanceAnimationCurve, value);
 			SignalStrength +=value;
@@ -30,7 +30,7 @@ namespace Targets
 		public override void Interact(PlayerInteractionStateMachine player)
 		{
 			Debug.Log($"Interacted with {Weight}g nugget");
-			GoldSpawnManager.Instance.GoldCollected(this);
+			ServiceLocator.Instance.GetService<GoldSpawnManager>().GoldCollected(this);
 			DisableObject();
 		}
 	}

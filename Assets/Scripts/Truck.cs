@@ -24,10 +24,10 @@ public class Truck : MonoBehaviour, IInteractable
 
 	private void OpenTruckUI(PlayerInteractionStateMachine player)
 	{
-		CanvasGroupController.Instance.Show(truckUI);
+		ServiceLocator.Instance.GetService<CanvasGroupController>().Show(truckUI);
 		truckUI.Init(player);
 	}
 
-	public void Close() => CanvasGroupController.Instance.Hide(truckUI);
+	public void Close() => ServiceLocator.Instance.GetService<CanvasGroupController>().Hide(truckUI);
 
 }

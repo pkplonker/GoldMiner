@@ -13,10 +13,14 @@ namespace TerrainGeneration
 		public static event Action<float> MapGenerated;
 
 		public static event Action<MapData> TerrainGenerated;
-		public static event Action<int,int> MapGenerationStarted;
+		public static event Action<int, int> MapGenerationStarted;
 
-
-
+		public void RegenerateWorld()
+		{
+			MapGeneratorTerrain.ClearData();
+			SpawnTerrain();
+			spawnedProps = false;
+		}
 
 #if UNITY_EDITOR
 		public bool spawnedProps { get; set; } = true;
@@ -50,7 +54,7 @@ namespace TerrainGeneration
 			propsTimer.Start();
 #endif
 			TerrainGenerated?.Invoke(MapGeneratorTerrain.MapData);
-			if(PropSpawner.GetPropsRequired()==0)OnPropsGenerated();
+			if (PropSpawner.GetPropsRequired() == 0) OnPropsGenerated();
 		}
 
 		private void OnPropsGenerated()
@@ -64,7 +68,6 @@ namespace TerrainGeneration
 			MapGenerated?.Invoke(MapGeneratorTerrain.MapData.GetSize());
 		}
 
-
 		public void SpawnTerrain()
 		{
 #if UNITY_EDITOR
@@ -74,7 +77,7 @@ namespace TerrainGeneration
 #endif
 			spawnedProps = false;
 			var chunksRequired = MapGeneratorTerrain.MapData.ChunksPerRow * MapGeneratorTerrain.MapData.ChunksPerRow;
-			MapGenerationStarted?.Invoke(chunksRequired,PropSpawner.GetPropsRequired());
+			MapGenerationStarted?.Invoke(chunksRequired, PropSpawner.GetPropsRequired());
 			MapGeneratorTerrain.Generate();
 		}
 

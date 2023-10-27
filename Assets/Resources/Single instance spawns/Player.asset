@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faeddb3bc83100046beab9679b500ccf, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
+  <allowFailure>k__BackingField: 0
   Prefab: {fileID: 7635256604560604012, guid: 7256dc8a1f156ac42a5bd5f96d43efc9, type: 3}
-  FlattnessTolerance: 0.5
-  IncrementAmount: 0.05
-  Attempts: 150
-  Offset: {x: 0, y: 0.1, z: 0}
+  FlattnessTolerance: 1
+  IncrementAmount: 0.1
+  Attempts: 100
+  StartOffset: {x: 1.5, y: 0, z: 1.5}
+  FinalOffset: {x: 0, y: 0.3, z: 0}
+  alignToTerrain: 0

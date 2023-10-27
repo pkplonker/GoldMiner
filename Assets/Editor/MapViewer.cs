@@ -10,25 +10,23 @@ using UnityEditor;
 public class MapViewer : EditorWindow
 {
 	Vector2 scrollPosition = Vector2.zero;
-
+	private MapStore mapstore;
 	[MenuItem("GoldMiner/Procgen MapViewer")]
-	public static void MapViweer()
-	{
-		if (!Application.isPlaying)
-		{
-			Debug.Log("Can't open window in edit mode");
-			return;
-		}
-		GetWindow<MapViewer>();
-	}
+	public static void MapViweer()=> GetWindow<MapViewer>();
+	
 
 	private void OnGUI()
 	{
+		if (!Application.isPlaying)
+		{
+			EditorGUILayout.LabelField("Waiting for game");
+			return;
+		}
 		float size = 650f;
 		float padding = 10f;
 		int mapsPerRow = Mathf.Max(1, Mathf.FloorToInt((position.width - padding) / (size + padding)));
 		if (!Application.isPlaying) Close();
-		var maps = MapStore.Instance.GetAllMaps();
+		var maps = mapstore.allMaps;
 		scrollPosition = GUILayout.BeginScrollView(scrollPosition, true, false);
 
 		for (var i = 0; i < maps.Count; i++)

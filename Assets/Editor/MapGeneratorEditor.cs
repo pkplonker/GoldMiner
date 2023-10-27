@@ -21,16 +21,17 @@ namespace Editor
 			{
 				if (((mapGenerator.spawnedProps)) && mapGenerator.MapGeneratorTerrain.Generated)
 				{
-					if (GUILayout.Button("Regenerate Map"))
-					{
-						mapGenerator.MapGeneratorTerrain.ClearData();
-						mapGenerator.SpawnTerrain();
-						mapGenerator.spawnedProps = false;
-					}
+					if (GUILayout.Button("Regenerate Map")) { }
 				}
 			}
 
 			base.OnInspectorGUI();
+		}
+
+		[CheatCommand]
+		private static void Respawn(MapGenerator mapGenerator)
+		{
+			mapGenerator.RegenerateWorld();
 		}
 	}
 }

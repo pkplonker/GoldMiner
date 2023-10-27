@@ -43,7 +43,6 @@ namespace TerrainGeneration
 			points.Add(points[0] + new Vector3(-bounds.extents.x, 0, -bounds.extents.z));
 			points.Add(points[0] + new Vector3(-bounds.extents.x, 0, +bounds.extents.z));
 			points.Add(points[0] + new Vector3(+bounds.extents.x, 0, -bounds.extents.z));
-
 			return points;
 		}
 

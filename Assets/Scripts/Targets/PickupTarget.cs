@@ -25,8 +25,9 @@ namespace Targets
 				return;
 			}
 
-			CanvasGroupController.Instance.Show(CanvasGroupController.Instance.NewItemPickupUI);
-			CanvasGroupController.Instance.NewItemPickupUI.Init(this, player);
+			var canvas = ServiceLocator.Instance.GetService<CanvasGroupController>();
+			canvas.Show(canvas.NewItemPickupUI);
+			canvas.NewItemPickupUI.Init(this, player);
 		}
 
 		public void DestroyItem()

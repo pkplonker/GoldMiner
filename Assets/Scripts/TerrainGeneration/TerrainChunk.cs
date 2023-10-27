@@ -29,15 +29,14 @@ namespace TerrainGeneration
 			X = tcd.X;
 			Y = tcd.Y;
 			MapData = mapData;
-			var vertsPerRow = (mapData.MapChunkSize * mapData.lod) + 1;
+			//var vertsPerRow = (mapData.MapChunkSize * mapData.lod) + 1;
 			GenerateMesh(tcd, meshFilter);
 			GenerateCollider(meshCollider, meshFilter);
-			GenerateMeshRenderer(meshRenderer, vertsPerRow, mapData.material);
+			GenerateMeshRenderer(meshRenderer, mapData.material);
 		}
 
 		private void GenerateMesh(TerrainChunkData tcd, MeshFilter mf)
 		{
-			Debug.Log($"{tcd.X}:{tcd.Y}");
 			var mesh = new Mesh
 			{
 				name = $"X{tcd.X}:Y{tcd.Y}"
@@ -47,48 +46,110 @@ namespace TerrainGeneration
 			mesh.RecalculateTangents();
 			mesh.SetUVs(0, tcd.Uvs);
 			mesh.RecalculateNormals();
-			
 			mesh.RecalculateBounds();
-			//
-			// Vector4[] tangents = new Vector4[tcd.Verts.Count];
-			// for (int i = 0; i < tangents.Length; i++)
-			// {
-			// 	var vert = tcd.Verts[i];
-			// 	tangents[i] = new Vector4(0f, 0f, 0f, 0f);
-			// }
-			//
-			// mesh.SetTangents(tangents);
 			mf.mesh = mesh;
-
-			// for (int i = 0; i < mesh.vertices.Length; i++)
-			// {
-			// 	Debug.Log(mesh.vertices[i].y-mesh.tangents[i].y);
-			// }
+			
 		}
-		
+
 		private static void GenerateCollider(MeshCollider mc, MeshFilter mf)
 		{
 			if (mc.sharedMesh) mc.sharedMesh.Clear();
 			mc.sharedMesh = mf.mesh;
 		}
 
-		private void GenerateMeshRenderer(MeshRenderer mr, int vertsPerRow, Material material)
+		private void GenerateMeshRenderer(MeshRenderer mr, Material material)
 		{
 			mr.material = new Material(material);
 			mr.shadowCastingMode = ShadowCastingMode.Off;
+		}
 
-			Texture2D texture = new Texture2D(vertsPerRow, vertsPerRow);
-			Color[] pixels = new Color[vertsPerRow * vertsPerRow];
+		public void ProcessNormalAlignment()
+		{
+			var terrainChunk = this;
+			var x = terrainChunk.X;
+			var y = terrainChunk.Y;
 
-			for (int i = 0; i < pixels.Length; i++)
+			if (y != MapGeneratorTerrain.terrainChunks.GetLength(1) - 1)
 			{
-				pixels[i] = new Color(0, 0, 0, 0);
+				AlignEdgeNormals(Vector2.up, MapGeneratorTerrain.terrainChunks[x, y + 1]);
 			}
 
-			texture.SetPixels(pixels);
-			texture.Apply();
+			if (x != MapGeneratorTerrain.terrainChunks.GetLength(0) - 1)
+			{
+				AlignEdgeNormals(Vector2.right, MapGeneratorTerrain.terrainChunks[x + 1, y]);
+			}
 
-			material.mainTexture = texture;
+			if (y != 0)
+			{
+				AlignEdgeNormals(Vector2.down, MapGeneratorTerrain.terrainChunks[x, y - 1]);
+			}
+
+			if (x != 0)
+			{
+				AlignEdgeNormals(Vector2.left, MapGeneratorTerrain.terrainChunks[x - 1, y]);
+			}
+		}
+
+		private void AlignEdgeNormals(Vector2 direction, TerrainChunk neighbour)
+		{
+			var mesh = GetMesh();
+			var neighbourMesh = neighbour.GetMesh();
+
+			Vector3[] normals = mesh.normals;
+			Vector3[] neighbourNormals = neighbourMesh.normals;
+
+			int resolution = MapData.lod * MapData.MapChunkSize + 1;
+
+			for (int i = 0; i < resolution; i++)
+			{
+				int currentIndex, neighbourIndex;
+
+				if (direction == Vector2.up)
+				{
+					currentIndex = (resolution - 1) * resolution + i;
+					neighbourIndex = i;
+				}
+				else if (direction == Vector2.right)
+				{
+					currentIndex = i * resolution + (resolution - 1);
+					neighbourIndex = i * resolution;
+				}
+				else if (direction == Vector2.down)
+				{
+					currentIndex = i;
+					neighbourIndex = (resolution - 1) * resolution + i;
+				}
+				else if (direction == Vector2.left)
+				{
+					currentIndex = i * resolution;
+					neighbourIndex = i * resolution + (resolution - 1);
+				}
+				else
+				{
+					return;
+				}
+
+				// Calculate the average normal
+				Vector3 averageNormal = (normals[currentIndex] + neighbourNormals[neighbourIndex]).normalized;
+
+				// Set the normals
+				normals[currentIndex] = averageNormal;
+				neighbourNormals[neighbourIndex] = averageNormal;
+			}
+
+			// Apply the changes
+			mesh.SetNormals(normals);
+			neighbourMesh.SetNormals(neighbourNormals);
+		}
+
+		private Mesh GetMesh()
+		{
+			if (meshFilter == null)
+			{
+				meshFilter = GetComponent<MeshFilter>();
+			}
+
+			return meshFilter.mesh;
 		}
 	}
 }

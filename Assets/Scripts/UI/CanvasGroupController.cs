@@ -7,16 +7,21 @@ using UnityEngine;
 
 namespace UI
 {
-	public class CanvasGroupController : GenericUnitySingleton<CanvasGroupController>
+	public class CanvasGroupController : MonoBehaviour, IService
 	{
-		private List<IShowHideUI> uis = new ();
+		private List<IShowHideUI> uis = new();
 		public NewItemPickupUI NewItemPickupUI { get; private set; }
 		public TruckUI TruckUI { get; private set; }
+
+		private void Awake()
+		{
+			ServiceLocator.Instance.RegisterService(this);
+		}
 
 		private void Start()
 		{
 			NewItemPickupUI = GetComponentInChildren<NewItemPickupUI>();
-			TruckUI= GetComponentInChildren<TruckUI>();
+			TruckUI = GetComponentInChildren<TruckUI>();
 		}
 
 		public void Show(IShowHideUI ui)
@@ -29,7 +34,7 @@ namespace UI
 
 			uis.RemoveAll(x => x == null);
 			ui.Toggle();
-			for (var i = 0; i < uis.Count-1; i++)
+			for (var i = 0; i < uis.Count - 1; i++)
 			{
 				ui.Disable();
 			}
@@ -51,5 +56,7 @@ namespace UI
 				ui.Hide();
 			}
 		}
+
+		public void Initialize() { }
 	}
 }

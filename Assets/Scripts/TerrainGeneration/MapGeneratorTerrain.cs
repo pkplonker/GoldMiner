@@ -28,6 +28,11 @@ namespace TerrainGeneration
 		public static event Action<float[,]> OnNoiseMapGenerated;
 		public static event Action<float[,]> OnCombinedMapGenerated;
 
+		private void Awake()
+		{
+			CheatConsole.Instance.RegisterCommand("RandomiseSeed", ()=>MapData.seed = UnityEngine.Random.Range(0,64000));
+		}
+
 		public float[,] NoiseMap
 		{
 			get => noiseMap;
@@ -114,6 +119,15 @@ namespace TerrainGeneration
 			chunksGeneratedCount = 0;
 			Generated = true;
 			OnTerrainGenerated?.Invoke();
+			AlignNormals();
+		}
+
+		private void AlignNormals()
+		{
+			foreach (var chunk in terrainChunks)
+			{
+				chunk.ProcessNormalAlignment();
+			}
 		}
 
 		private void AddToTerrainChunkQueue(TerrainChunkData terrainChunkData)
@@ -163,6 +177,7 @@ namespace TerrainGeneration
 			zCoord = Mathf.Clamp(zCoord, 0, terrainChunks.Length - 1);
 			return new Vector2Int(xCoord, zCoord);
 		}
+		
 	}
 
 	[Serializable]

@@ -125,8 +125,9 @@ namespace Player
 		}
 
 		private void CameraRotation()
-		{
-			var mouseLook = PlayerInputManager.Instance.GetMouseDelta();
+		{			
+
+			var mouseLook = ServiceLocator.Instance.GetService<PlayerInputManager>().GetMouseDelta();
 			if (!(mouseLook.sqrMagnitude >= THRESHOLD)) return;
 			cinemachineTargetPitch -= mouseLook.y * rotationSpeedY * Time.deltaTime;
 			rotationVelocity = mouseLook.x * rotationSpeedX * Time.deltaTime;
@@ -138,7 +139,7 @@ namespace Player
 
 		private void Move()
 		{
-			var input = PlayerInputManager.Instance.GetPlayerMovement();
+			var input = ServiceLocator.Instance.GetService<PlayerInputManager>().GetPlayerMovement();
 
 			var velocity = controller.velocity;
 			var currentHorizontalSpeed = new Vector3(velocity.x, 0.0f, velocity.z).magnitude;
