@@ -20,7 +20,7 @@ namespace Targets
 		[SerializeField] private bool drawGizmos;
 		[SerializeField] private string interactText = "Click to pickup";
 		private bool isActiveTarget;
-		private static bool drawDebug = false;
+		private static bool drawDebug = true;
 
 		[FormerlySerializedAs("_gizmoColor")] [SerializeField]
 		private Color gizmoColor = Color.red;
