@@ -14,14 +14,14 @@ public class CheatConsoleMovement : MonoBehaviour
 
 	private void Start()
 	{
-		CheatUIController.CheatConsoleActive += StopMovement;
+		CheatUIController.CheatConsoleActive += CheatConsoleActive;
 	}
 
-	private void StopMovement(bool active)
+	private void CheatConsoleActive(bool active)
 	{
 		if (playerReference.GetPlayer() != null)
 		{
-			playerReference.GetPlayer().GetComponent<PlayerMovement>().SetCanMove(active);
+			playerReference.GetPlayer().GetComponent<PlayerMovement>().SetCanMove(!active);
 		}
 	}
 
