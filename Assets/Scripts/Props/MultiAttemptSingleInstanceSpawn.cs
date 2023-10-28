@@ -26,7 +26,7 @@ namespace Props
 			return t;
 		}
 
-		private Quaternion CalculateRotation(Vector3 position, GameObject currentInstance)
+		protected virtual Quaternion CalculateRotation(Vector3 position, GameObject currentInstance)
 		{
 			if (alignToTerrain)
 			{
@@ -60,7 +60,7 @@ namespace Props
 			return Quaternion.identity;
 		}
 
-		private Vector3 CalculatePosition(float size, GameObject currentInstance, string groundLayer)
+		protected virtual  Vector3 CalculatePosition(float size, GameObject currentInstance, string groundLayer)
 		{
 			var position = new Vector3(size / 2, 50, size / 2);
 			position += StartOffset;

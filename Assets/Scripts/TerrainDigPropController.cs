@@ -21,22 +21,26 @@ public class TerrainDigPropController : MonoBehaviour
 
 		foreach (var prop in props)
 		{
-			float distance;
 			var collider = prop.GetComponent<Collider>();
 			if (collider != null)
 			{
-				var closestPoint = collider.ClosestPoint(hit.point);
-				distance = Vector3.Distance(hit.point, closestPoint);
+				var bounds = collider.bounds;
+				var hitPointXZ = new Vector3(hit.point.x, bounds.center.y, hit.point.z);
+				var boundsCenterXZ = new Vector3(bounds.center.x, bounds.center.y, bounds.center.z);
+
+				if (bounds.Contains(hitPointXZ))
+				{
+					result = false;
+				}
 			}
 			else
 			{
-				distance = Vector3.Distance(hit.point, prop.position);
-			}
-
-			if (distance < radius)
-			{
-				if (collider == null) propsToRemove.Add(prop);
-				else result = false;
+				var propPositionXZ = new Vector3(prop.position.x, hit.point.y, prop.position.z);
+				float distance = Vector3.Distance(hit.point, propPositionXZ);
+				if (distance < radius)
+				{
+					propsToRemove.Add(prop);
+				}
 			}
 		}
 
@@ -54,7 +58,6 @@ public class TerrainDigPropController : MonoBehaviour
 
 	private void UpdateProps()
 	{
-		if (props != null && props.Any()) return;
 		props = GetComponentsInChildren<Transform>().ToList();
 		props = props.Where(t => t != transform && t.gameObject.CompareTag(propTag)).ToList();
 		props = props.Select(t => t.transform).ToList();

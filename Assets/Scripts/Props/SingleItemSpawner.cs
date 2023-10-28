@@ -52,7 +52,8 @@ namespace Props
 		{
 			if (sis.Spawn(mapData, out GameObject obj))
 			{
-				obj.transform.SetParent(transform);
+				if(obj.transform==null)
+					obj.transform.SetParent(transform);
 				spawnedPrefabs.Add(obj);
 			}
 			else

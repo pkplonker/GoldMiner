@@ -160,6 +160,16 @@ namespace TerrainGeneration
 			return texture;
 		}
 
+		public static TerrainChunk GetChunkFromPosition(MapData MapData,Vector3 position)
+		{
+			var xCoord = (int) position.x / MapData.MapChunkSize;
+			var zCoord = (int) position.z / MapData.MapChunkSize;
+			xCoord = Mathf.Clamp(xCoord, 0, terrainChunks.Length - 1);
+			zCoord = Mathf.Clamp(zCoord, 0, terrainChunks.Length - 1);
+			var terrain = terrainChunks[xCoord, zCoord];
+			return terrain;
+		}
+		
 		public TerrainChunk GetChunkFromPosition(Vector3 position)
 		{
 			var xCoord = (int) position.x / MapData.MapChunkSize;
