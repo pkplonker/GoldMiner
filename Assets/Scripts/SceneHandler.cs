@@ -19,8 +19,7 @@ public class SceneHandler : MonoBehaviour, IService
 	{
 		var old = mapData.seed;
 		mapData.seed *= 10;
-		Debug.LogWarning($"Failed creating scene{old}, changing to {mapData.seed}");
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		ServiceLocator.Instance.GetService<MapGenerator>().RegenerateWorld();
 	}
 
 	public void Initialize() { }

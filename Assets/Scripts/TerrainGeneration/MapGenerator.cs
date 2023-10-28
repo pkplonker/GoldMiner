@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace TerrainGeneration
 {
-	public class MapGenerator : MonoBehaviour
+	public class MapGenerator : MonoBehaviour, IService
 	{
 		[field: SerializeField] public MapGeneratorTerrain MapGeneratorTerrain { get; private set; }
 		[field: SerializeField] public PropSpawner PropSpawner { get; private set; }
@@ -15,12 +15,16 @@ namespace TerrainGeneration
 		public static event Action<MapData> TerrainGenerated;
 		public static event Action<int, int> MapGenerationStarted;
 
+		private void Awake()
+		{
+			ServiceLocator.Instance.RegisterService(this);
+		}
+
 		public void RegenerateWorld()
 		{
 			MapGeneratorTerrain.ClearData();
 			SpawnTerrain();
 			spawnedProps = false;
-			
 		}
 
 #if UNITY_EDITOR
@@ -71,7 +75,6 @@ namespace TerrainGeneration
 
 		public void SpawnTerrain()
 		{
-			
 #if UNITY_EDITOR
 			mapTimer = new Stopwatch();
 			mapTimer.Start();
@@ -91,5 +94,7 @@ namespace TerrainGeneration
 				spawnedProps = true;
 			}
 		}
+
+		public void Initialize() { }
 	}
 }

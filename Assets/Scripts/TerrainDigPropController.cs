@@ -14,7 +14,6 @@ public class TerrainDigPropController : MonoBehaviour
 	public Action CanDig(RaycastHit hit)
 	{
 		UpdateProps();
-		Debug.Log($"Props count {props.Count}");
 
 		var propsToRemove = new List<Transform>();
 		var result = true;
@@ -26,7 +25,6 @@ public class TerrainDigPropController : MonoBehaviour
 			{
 				var bounds = collider.bounds;
 				var hitPointXZ = new Vector3(hit.point.x, bounds.center.y, hit.point.z);
-				var boundsCenterXZ = new Vector3(bounds.center.x, bounds.center.y, bounds.center.z);
 
 				if (bounds.Contains(hitPointXZ))
 				{
