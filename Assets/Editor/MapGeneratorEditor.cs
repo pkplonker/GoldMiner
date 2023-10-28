@@ -21,7 +21,10 @@ namespace Editor
 			{
 				if (((mapGenerator.spawnedProps)) && mapGenerator.MapGeneratorTerrain.Generated)
 				{
-					if (GUILayout.Button("Regenerate Map")) { }
+					if (GUILayout.Button("Regenerate Map"))
+					{
+						Respawn(mapGenerator);
+					}
 				}
 			}
 

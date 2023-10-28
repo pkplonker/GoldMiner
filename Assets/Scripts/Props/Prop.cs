@@ -100,7 +100,7 @@ namespace Props
 			var bounds = BoundDrawer.GetBounds(Prefab);
 			var isFlat = BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
 				result - new Vector3(0, bounds.extents.y, 0),
-				bounds, tolerance, mapData.groundLayer, rotation));
+				bounds, tolerance, mapData.GroundLayer, rotation));
 			return isFlat;
 		}
 
@@ -112,9 +112,9 @@ namespace Props
 
 		protected virtual Vector3 CalculatePosition(Vector3 position, MapData mapData, float factor = 10)
 		{
-			position.y = mapData.heightMultiplier;
-			if (!Physics.Raycast(position, Vector3.down, out var hit, mapData.heightMultiplier + factor,
-				    LayerMask.GetMask(mapData.groundLayer))) return Vector3.positiveInfinity;
+			position.y = mapData.HeightMultiplier;
+			if (!Physics.Raycast(position, Vector3.down, out var hit, mapData.HeightMultiplier + factor,
+				    LayerMask.GetMask(mapData.GroundLayer))) return Vector3.positiveInfinity;
 
 			position.y = hit.point.y - GetDropIntoTerrainAmount(mapData.seed, position);
 			return position;
@@ -123,6 +123,6 @@ namespace Props
 		protected virtual float GetDropIntoTerrainAmount(int seed, Vector3 position) => 0f;
 
 		public virtual float GetSpawnSize(MapData mapData) =>
-			InBoundryOnly ? mapData.GetSize() - (mapData.boundryInstep * 2) : mapData.GetSize();
+			InBoundryOnly ? mapData.GetSize() - (mapData.BoundaryInstep * 2) : mapData.GetSize();
 	}
 }

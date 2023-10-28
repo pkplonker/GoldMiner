@@ -95,7 +95,7 @@ public class FenceSpawner : SingleInstanceSpawn
 	{
 		Points ??= new();
 		Points.Clear();
-		var small = mapData.boundryInstep;
+		var small = mapData.BoundaryInstep;
 		var large = mapData.GetSize() - small;
 		Points.Add(new Vector3(small, 0, large));
 		Points.Add(new Vector3(large, 0, large));

@@ -15,7 +15,7 @@ namespace Props
 		protected override Vector3 CalculatePosition(Vector3 position, MapData mapData, float factor = 10)
 		{
 			position = base.CalculatePosition(position, mapData, factor);
-			var normalisedHeight = position.y / mapData.heightMultiplier;
+			var normalisedHeight = position.y / mapData.HeightMultiplier;
 			return (normalisedHeight > MinHeightNormalised && normalisedHeight < MaxHeightNormalised)
 				? position
 				: Vector3.positiveInfinity;
