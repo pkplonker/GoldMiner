@@ -986,9 +986,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewDistance: 125
   playerReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51, type: 2}
-  refreshRate: 0.05
-  fovAngle: 50
-  closeThreshold: 35
+  refreshRate: 0
+  fovAngle: 55
+  closeThreshold: 45
 --- !u!114 &821097377
 MonoBehaviour:
   m_ObjectHideFlags: 0
