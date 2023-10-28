@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Targets;
 using UnityEngine;
 
 public class TerrainDigPropController : MonoBehaviour
@@ -56,8 +57,7 @@ public class TerrainDigPropController : MonoBehaviour
 
 	private void UpdateProps()
 	{
-		props = GetComponentsInChildren<Transform>().ToList();
-		props = props.Where(t => t != transform && t.gameObject.CompareTag(propTag)).ToList();
-		props = props.Select(t => t.transform).ToList();
+		props = GetComponentsInChildren<Transform>().Where(t => t != transform && t.gameObject.CompareTag(propTag))
+			.Where(x => x.GetComponent<Target>() == null).Select(t => t.transform).ToList();
 	}
 }
