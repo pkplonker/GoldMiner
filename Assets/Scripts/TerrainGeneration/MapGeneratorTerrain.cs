@@ -64,6 +64,7 @@ namespace TerrainGeneration
 		public void Generate()
 		{
 			ClearData();
+			MapData.InitialiseValues();
 			var chunksRequired = MapData.ChunksPerRow * MapData.ChunksPerRow;
 			terrainChunks = new TerrainChunk[MapData.ChunksPerRow, MapData.ChunksPerRow];
 			terrainChunkData = new TerrainChunkData[MapData.ChunksPerRow, MapData.ChunksPerRow];
@@ -73,12 +74,12 @@ namespace TerrainGeneration
 				Container.SetParent(transform);
 			}
 
-			var vertsPerRow = (MapData.MapChunkSize * MapData.lod) + 1;
+			var vertsPerRow = (MapData.MapChunkSize * MapData.LOD) + 1;
 			var mapSize = vertsPerRow * MapData.ChunksPerRow;
-			NoiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, MapData.seed, MapData.NoiseScale * MapData.lod,
-				MapData.octaves,
+			NoiseMap = Noise.GenerateNoiseMap(mapSize, mapSize, MapData.seed, MapData.NoiseScale * MapData.LOD,
+				MapData.Octaves,
 				MapData.Persistance,
-				MapData.lacunarity,
+				MapData.Lacunarity,
 				new Vector2(MapData.offset.x, MapData.offset.y));
 			OnNoiseMapGenerated?.Invoke(NoiseMap);
 			OnCombinedMapGenerated?.Invoke(NoiseMap);

@@ -20,7 +20,7 @@ namespace Props
 	{
 		[SerializeField] private float depthMinimum = 0.15f;
 		[SerializeField] private float depthMaximum = 0.35f;
-		public static float globalMaxDepth { get; private set; } = 0.35f;
+		public static float globalMaxDepth { get; private set; } = 0.5f;
 
 		private void OnValidate()
 		{
@@ -32,7 +32,7 @@ namespace Props
 			out Quaternion rotation)
 		{
 			result = CalculatePosition(
-				new Vector3(points[i].x + mapData.boundryInstep, 0, points[i].y + mapData.boundryInstep), mapData);
+				new Vector3(points[i].x + mapData.BoundaryInstep, 0, points[i].y + mapData.BoundaryInstep), mapData);
 			rotation = CalculateRotation(i, mapData.seed);
 			return result != Vector3.positiveInfinity;
 		}

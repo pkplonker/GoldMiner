@@ -52,7 +52,7 @@ public class DiggableTerrain : MonoBehaviour
 		var x = terrainChunk.X;
 		var y = terrainChunk.Y;
 
-		var vertsPerRow = (mapData.MapChunkSize * mapData.lod) + 1;
+		var vertsPerRow = (mapData.MapChunkSize * mapData.LOD) + 1;
 		var totalVerts = vertsPerRow * vertsPerRow;
 
 		foreach (var index in hitVertsIndexes)

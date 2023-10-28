@@ -13,10 +13,10 @@ namespace TerrainGeneration
 
 		public void Init(Action<TerrainChunkData> callback, int xCord, int yCord, MapData mapData, float[,] noiseMap)
 		{
-			var hc = new AnimationCurve(mapData.heightCurve.keys);
+			var hc = new AnimationCurve(mapData.HeightCurve.keys);
 
-			var vertsPerRow = (mapData.MapChunkSize * mapData.lod) + 1;
-			GenerateMeshData(vertsPerRow, mapData.lod, noiseMap, mapData.heightMultiplier, hc, xCord, yCord);
+			var vertsPerRow = (mapData.MapChunkSize * mapData.LOD) + 1;
+			GenerateMeshData(vertsPerRow, mapData.LOD, noiseMap, mapData.HeightMultiplier, hc, xCord, yCord);
 			callback?.Invoke(new TerrainChunkData(xCord, yCord, verts, triangles, uvs,norms));
 		}
 

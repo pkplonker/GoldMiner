@@ -71,6 +71,7 @@ namespace TerrainGeneration
 
 		public void SpawnTerrain()
 		{
+			
 #if UNITY_EDITOR
 			mapTimer = new Stopwatch();
 			mapTimer.Start();

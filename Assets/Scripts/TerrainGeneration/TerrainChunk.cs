@@ -98,7 +98,7 @@ namespace TerrainGeneration
 			Vector3[] normals = mesh.normals;
 			Vector3[] neighbourNormals = neighbourMesh.normals;
 
-			int resolution = MapData.lod * MapData.MapChunkSize + 1;
+			int resolution = MapData.LOD * MapData.MapChunkSize + 1;
 
 			for (int i = 0; i < resolution; i++)
 			{

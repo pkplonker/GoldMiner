@@ -119,7 +119,7 @@ namespace Props
 		{
 			currentInstance = Instantiate(Prefab);
 			currentInstance.SetActive(false);
-			var spawnTransform = CalculateSpawn(mapData.GetSize(), currentInstance, mapData.groundLayer);
+			var spawnTransform = CalculateSpawn(mapData.GetSize(), currentInstance, mapData.GroundLayer);
 
 			if (spawnTransform.Position.x < mapData.GetSize())
 			{

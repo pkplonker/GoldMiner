@@ -12,18 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa6cdd56bafef64cb5f9033de9fb655, type: 3}
   m_Name: SmallTestMapData
   m_EditorClassIdentifier: 
-  <MapChunkSize>k__BackingField: 16
+  PersistanceRange:
+    Min: 0.7
+    Max: 1
+  LacunarityRange:
+    Min: 0.7
+    Max: 1
+  NoiseScaleRange:
+    Min: 10
+    Max: 50
+  HeightMultiplierRange:
+    Min: 3
+    Max: 10
+  <Persistance>k__BackingField: 0
+  <Lacunarity>k__BackingField: 0
+  <NoiseScale>k__BackingField: 0
+  <HeightMultiplier>k__BackingField: 0
   <ChunksPerRow>k__BackingField: 4
-  lod: 4
-  seed: 24000
-  octaves: 4
-  Persistance: 0.8
-  lacunarity: 0.8
+  <MapChunkSize>k__BackingField: 16
+  seed: 0
   offset: {x: 0, y: 0}
   material: {fileID: 2100000, guid: 8a1ad397b447ca643951705bb09f5075, type: 2}
-  NoiseScale: 16
-  heightMultiplier: 4.8
-  heightCurve:
+  HeightCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -74,5 +84,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <groundLayer>k__BackingField: Ground
-  <boundryInstep>k__BackingField: 0
+  GroundLayer: Ground
+  BoundaryInstep: 50
+  Octaves: 4
+  LOD: 4
