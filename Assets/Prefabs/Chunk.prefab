@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 51959433323081977}
   - component: {fileID: 5502943811654474230}
   - component: {fileID: 2639233252708079568}
+  - component: {fileID: -1285533109201977899}
   m_Layer: 6
   m_Name: Chunk
   m_TagString: Untagged
@@ -137,4 +138,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93e4e059568294348925faf152229231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dugGroundColorOffet: {r: 0, g: 0.024302177, b: 0.9622642, a: 1}
+--- !u!114 &-1285533109201977899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51959433323081978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11823fb6bf73ba64ba0d26dbb4f519cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

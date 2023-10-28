@@ -20,6 +20,7 @@ namespace Targets
 		[SerializeField] private bool drawGizmos;
 		[SerializeField] private string interactText = "Click to pickup";
 		private bool isActiveTarget;
+		private static bool drawDebug = false;
 
 		[FormerlySerializedAs("_gizmoColor")] [SerializeField]
 		private Color gizmoColor = Color.red;
@@ -29,8 +30,12 @@ namespace Targets
 			if (drawGizmos) DrawMarker();
 		}
 
+		[CheatCommand]
+		public static void ToggleDrawDebug() => drawDebug = !drawDebug;
+
 		protected virtual void DrawMarker()
 		{
+			if (!drawDebug) return;
 			SetColor();
 			Gizmos.DrawRay(transform.position, Vector3.up);
 		}

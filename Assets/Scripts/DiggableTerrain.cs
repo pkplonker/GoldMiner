@@ -12,6 +12,7 @@ using UnityEngine;
 /// <summary>
 ///DiggableTerrain full description
 /// </summary>
+[RequireComponent(typeof(TerrainDigPropController))]
 public class DiggableTerrain : MonoBehaviour
 {
 	private MeshCollider meshCollider;
@@ -23,25 +24,36 @@ public class DiggableTerrain : MonoBehaviour
 	private Dictionary<int, float> digChanges = new();
 	private TerrainChunk terrainChunk;
 	private float vertexColorFactor;
+	private TerrainDigPropController terrainDigPropController;
+	public event Action<RaycastHit> OnDig;
 
 	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
 	{
 		if (!setup) Setup();
-		this.digAmount = digAmount;
-		vertexColorFactor = digAmount / SubSurfaceProp.globalMaxDepth;
-		var mesh = meshFilter.mesh;
-		var hitVertsIndexes = GetHitVerts(hit, mesh);
-
-		var verts = UpdateVerts(digAmount, hitVertsIndexes, mesh.vertices);
-		if (verts != null)
+		var digCompleteCallback = terrainDigPropController.CanDig(hit);
+		if (digCompleteCallback != null)
 		{
-			UpdateCollider(RegenerateMesh(verts));
+			this.digAmount = digAmount;
+			vertexColorFactor = digAmount / SubSurfaceProp.globalMaxDepth;
+			var mesh = meshFilter.mesh;
+			var hitVertsIndexes = GetHitVerts(hit, mesh);
+
+			var verts = UpdateVerts(digAmount, hitVertsIndexes, mesh.vertices, out var result);
+			if (result)
+				if (verts != null)
+				{
+					UpdateCollider(RegenerateMesh(verts));
+				}
+
+			CheckNeighbours(hitVertsIndexes);
+
+			GetCurrentChunk().ProcessNormalAlignment();
+			digCompleteCallback?.Invoke();
+			OnDig?.Invoke(hit);
+			return true;
 		}
 
-		CheckNeighbours(hitVertsIndexes);
-
-		GetCurrentChunk().ProcessNormalAlignment();
-		return true;
+		return false;
 	}
 
 	private void CheckNeighbours(int[] hitVertsIndexes)
@@ -195,15 +207,15 @@ public class DiggableTerrain : MonoBehaviour
 	// 	}
 	// }
 
-	private Vector3[] UpdateVerts(float digAmount, int[] hitVerts, Vector3[] verts)
+	private Vector3[] UpdateVerts(float digAmount, int[] hitVerts, Vector3[] verts, out bool result)
 	{
+		result = false;
 		foreach (var hit in hitVerts)
 		{
 			if (meshFilter.mesh.tangents[hit].y < 1)
-				verts[hit] -= new Vector3(0, digAmount, 0);
-			else
 			{
-				Debug.Log("max dig");
+				verts[hit] -= new Vector3(0, digAmount, 0);
+				result = true;
 			}
 		}
 
@@ -247,6 +259,7 @@ public class DiggableTerrain : MonoBehaviour
 		if (!meshRenderer) meshRenderer = GetComponent<MeshRenderer>();
 		if (!meshCollider) meshCollider = GetComponent<MeshCollider>();
 		if (!meshFilter) meshFilter = GetComponent<MeshFilter>();
+		if (terrainDigPropController == null) terrainDigPropController = GetComponent<TerrainDigPropController>();
 		setup = meshRenderer && meshCollider && meshFilter;
 	}
 
