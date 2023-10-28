@@ -11,7 +11,7 @@ public class TerrainDigPropController : MonoBehaviour
 
 	private void Start() => UpdateProps();
 
-	public Action CanDig(RaycastHit hit )
+	public Action CanDig(RaycastHit hit)
 	{
 		UpdateProps();
 		Debug.Log($"Props count {props.Count}");
@@ -19,12 +19,26 @@ public class TerrainDigPropController : MonoBehaviour
 		var propsToRemove = new List<Transform>();
 		var result = true;
 
-		foreach (var prop in props.Where(prop => Vector3.Distance(hit.point, prop.position) < radius))
+		foreach (var prop in props)
 		{
-			if (prop.GetComponent<Collider>() == null) propsToRemove.Add(prop);
-			else result = false;
-		}
+			float distance;
+			var collider = prop.GetComponent<Collider>();
+			if (collider != null)
+			{
+				var closestPoint = collider.ClosestPoint(hit.point);
+				distance = Vector3.Distance(hit.point, closestPoint);
+			}
+			else
+			{
+				distance = Vector3.Distance(hit.point, prop.position);
+			}
 
+			if (distance < radius)
+			{
+				if (collider == null) propsToRemove.Add(prop);
+				else result = false;
+			}
+		}
 
 		return result ? () => DestroyProps(propsToRemove) : null;
 	}
