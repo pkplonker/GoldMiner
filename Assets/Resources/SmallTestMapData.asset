@@ -13,41 +13,41 @@ MonoBehaviour:
   m_Name: SmallTestMapData
   m_EditorClassIdentifier: 
   PersistanceRange:
-    Min: 0.7
-    Max: 1
+    Min: 0.5
+    Max: 0.95
   LacunarityRange:
-    Min: 0.7
-    Max: 1
+    Min: 0.5
+    Max: 0.95
   NoiseScaleRange:
     Min: 10
-    Max: 50
+    Max: 20
   HeightMultiplierRange:
-    Min: 3
-    Max: 10
-  <Persistance>k__BackingField: 0
-  <Lacunarity>k__BackingField: 0
-  <NoiseScale>k__BackingField: 0
-  <HeightMultiplier>k__BackingField: 0
-  <ChunksPerRow>k__BackingField: 4
+    Min: 2
+    Max: 7
+  <Persistance>k__BackingField: 0.6455746
+  <Lacunarity>k__BackingField: 0.5377855
+  <NoiseScale>k__BackingField: 13.377074
+  <HeightMultiplier>k__BackingField: 2.122383
+  <ChunksPerRow>k__BackingField: 10
   <MapChunkSize>k__BackingField: 16
-  seed: 0
+  seed: 11725
   offset: {x: 0, y: 0}
   material: {fileID: 2100000, guid: 8a1ad397b447ca643951705bb09f5075, type: 2}
   HeightCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.5004402
-      outSlope: 0.5004402
+      time: -0.008804321
+      value: 0.17993164
+      inSlope: 0.5192422
+      outSlope: 0.5192422
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.38346374
-      value: 0.19190067
+      time: 0.3905133
+      value: 0.3872742
       inSlope: 0.13457006
       outSlope: 0.13457006
       tangentMode: 0
@@ -55,8 +55,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.7114341
-      value: 0.34720373
+      time: 0.65247416
+      value: 0.74634314
       inSlope: 0.14516482
       outSlope: 0.14516482
       tangentMode: 0
@@ -85,6 +85,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   GroundLayer: Ground
-  BoundaryInstep: 50
-  Octaves: 4
+  BoundaryInstep: 0
+  Octaves: 2
   LOD: 4

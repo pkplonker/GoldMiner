@@ -12,43 +12,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa6cdd56bafef64cb5f9033de9fb655, type: 3}
   m_Name: MapData
   m_EditorClassIdentifier: 
-  <MapChunkSize>k__BackingField: 16
+  PersistanceRange:
+    Min: 0.5
+    Max: 0.95
+  LacunarityRange:
+    Min: 0.5
+    Max: 0.95
+  NoiseScaleRange:
+    Min: 10
+    Max: 20
+  HeightMultiplierRange:
+    Min: 2
+    Max: 7
+  <Persistance>k__BackingField: 0.5300361
+  <Lacunarity>k__BackingField: 0.5315718
+  <NoiseScale>k__BackingField: 17.747652
+  <HeightMultiplier>k__BackingField: 4.5556965
   <ChunksPerRow>k__BackingField: 25
-  lod: 4
+  <MapChunkSize>k__BackingField: 16
   seed: 12345
-  octaves: 4
-  Persistance: 0.8
-  lacunarity: 0.8
   offset: {x: 0, y: 0}
   material: {fileID: 2100000, guid: 8a1ad397b447ca643951705bb09f5075, type: 2}
-  NoiseScale: 16
-  terrains:
-  - _color: {r: 0.6509434, g: 0.47361162, b: 0.16273585, a: 0}
-    _height: 0.1
-  - _color: {r: 0.6415094, g: 0.382564, b: 0.19668922, a: 0}
-    _height: 0.36
-  - _color: {r: 0.6226415, g: 0.25361302, b: 0.09104663, a: 0}
-    _height: 0.65
-  - _color: {r: 0.41509432, g: 0.17451166, b: 0.03720184, a: 0}
-    _height: 0.85
-  - _color: {r: 0.4433962, g: 0.064836234, b: 0.064836234, a: 0}
-    _height: 1
-  heightMultiplier: 4.8
-  heightCurve:
+  HeightCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.5004402
-      outSlope: 0.5004402
+      time: -0.008804321
+      value: 0.17993164
+      inSlope: 0.5192422
+      outSlope: 0.5192422
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.38346374
-      value: 0.19190067
+      time: 0.3905133
+      value: 0.3872742
       inSlope: 0.13457006
       outSlope: 0.13457006
       tangentMode: 0
@@ -56,8 +55,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.7114341
-      value: 0.34720373
+      time: 0.65247416
+      value: 0.74634314
       inSlope: 0.14516482
       outSlope: 0.14516482
       tangentMode: 0
@@ -85,5 +84,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <groundLayer>k__BackingField: Ground
-  <boundryInstep>k__BackingField: 55
+  GroundLayer: Ground
+  BoundaryInstep: 50
+  Octaves: 2
+  LOD: 4
