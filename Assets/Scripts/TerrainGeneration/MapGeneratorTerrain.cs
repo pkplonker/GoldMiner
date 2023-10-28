@@ -26,8 +26,7 @@ namespace TerrainGeneration
 		public static TerrainChunk[,] terrainChunks;
 		public static TerrainChunkData[,] terrainChunkData;
 		private Coroutine awaitChunkCor;
-		public static event Action<float[,]> OnNoiseMapGenerated;
-		public static event Action<float[,]> OnCombinedMapGenerated;
+		public static event Action<float[,],MapData> OnNoiseMapGenerated;
 
 		private void Awake()
 		{
@@ -84,8 +83,7 @@ namespace TerrainGeneration
 				MapData.Persistance,
 				MapData.Lacunarity,
 				new Vector2(MapData.offset.x, MapData.offset.y));
-			OnNoiseMapGenerated?.Invoke(NoiseMap);
-			OnCombinedMapGenerated?.Invoke(NoiseMap);
+			OnNoiseMapGenerated?.Invoke(NoiseMap,MapData);
 
 			awaitChunkCor = StartCoroutine(AwaitChunkDataCor(chunksRequired));
 			for (var x = 0; x < MapData.ChunksPerRow; x++)

@@ -2,9 +2,7 @@
 // Copyright (C) 2023 Stuart Heath. All rights reserved.
 //
 
-using System;
 using Player;
-using StuartHeathTools;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +19,8 @@ namespace UI
 		[SerializeField] private HUDUI hud;
 		[SerializeField] private PlayerReference playerReference;
 		private PlayerMovement playerMovement;
-		private void Start()
+
+		private void OnEnable()
 		{
 			InGameMap.OnMapGenerated += MapGenerated;
 			PlayerInputManager.OnMap += Toggle;
@@ -42,7 +41,6 @@ namespace UI
 				HideUI();
 				hud.Toggle();
 				playerMovement.SetCanMove(true);
-
 			}
 		}
 

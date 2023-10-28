@@ -1,18 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IService
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public bool IsSurvival = true;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void Awake()
+	{
+		DontDestroyOnLoad(gameObject);
+		ServiceLocator.Instance.RegisterService(this);
+	}
+
+	public void Initialize() { }
 }
