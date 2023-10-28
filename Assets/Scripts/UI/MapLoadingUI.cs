@@ -44,9 +44,11 @@ namespace UI
 
 		private void MapGenerated(float obj)
 		{
+			Destroy(gameObject);
 			if(updatingCor!=null) StopCoroutine(updatingCor);
 			fadeTime = 1f;
 			HideUI(fadeTime);
+			StopCor();
 		}
 
 		private void NewProp(int count)
@@ -76,6 +78,7 @@ namespace UI
 			currentTotal = 0;
 			currentChunkProgress = 0;
 			currentPropProgress = 0;
+			
 			requiredChunk = chunks;
 			requiredProp = props;
 			totalRequired = requiredChunk + requiredProp;
@@ -103,7 +106,7 @@ namespace UI
 
 		private IEnumerator ProgressBarUpdateCor()
 		{
-			while (true)
+			while (progressLoadingImage.fillAmount!=1)
 			{
 				currentFillTarget = (float)currentTotal / totalRequired;
 				progressLoadingImage.fillAmount = Mathf.Lerp(progressLoadingImage.fillAmount, currentFillTarget,

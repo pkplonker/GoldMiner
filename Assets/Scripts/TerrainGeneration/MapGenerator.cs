@@ -20,8 +20,9 @@ namespace TerrainGeneration
 			ServiceLocator.Instance.RegisterService(this);
 		}
 
-		public void RegenerateWorld()
+		public void RegenerateWorld(bool newSeed = false)
 		{
+			MapGeneratorTerrain.MapData.seed = Random.Range(0, 32000);
 			MapGeneratorTerrain.ClearData();
 			SpawnTerrain();
 			spawnedProps = false;

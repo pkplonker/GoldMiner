@@ -26,11 +26,22 @@ namespace Editor
 						Respawn(mapGenerator);
 					}
 				}
+				if (((mapGenerator.spawnedProps)) && mapGenerator.MapGeneratorTerrain.Generated)
+				{
+					if (GUILayout.Button("Regenerate Random Map"))
+					{
+						RespawnRandom(mapGenerator);
+					}
+				}
 			}
 
 			base.OnInspectorGUI();
 		}
-
+		[CheatCommand]
+		private static void RespawnRandom(MapGenerator mapGenerator)
+		{
+			mapGenerator.RegenerateWorld(true);
+		}
 		[CheatCommand]
 		private static void Respawn(MapGenerator mapGenerator)
 		{
