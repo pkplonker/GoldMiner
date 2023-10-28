@@ -6,37 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Branch1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Branch1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Bush1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Bush1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Coin1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Coin1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Coin2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Coin2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Gold1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Gold1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Gold2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Gold2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Gold3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Gold3.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Grass1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Grass1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Grass2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Grass2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock10.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock10.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock11.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock11.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock3.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock4.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock4.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock5.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock5.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock6.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock6.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock7.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock7.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock8.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock8.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock9.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Rock9.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_RockMedium1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_RockMedium1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_RockSmall1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_RockSmall1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_RockSmall2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_RockSmall2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Sovereign.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Sovereign.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Stump1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Stump1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Tree1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Props/P_Tree1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MapData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MapData.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/World.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/World.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/MultiAttemptSingleInstanceSpawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/MultiAttemptSingleInstanceSpawn.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/ChunkBalancer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/ChunkBalancer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunk.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

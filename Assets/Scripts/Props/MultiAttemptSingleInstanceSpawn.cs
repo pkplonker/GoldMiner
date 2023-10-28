@@ -51,12 +51,18 @@ namespace Props
 				}
 
 				cornerHeights.Sort((a, b) => a.Value.CompareTo(b.Value));
-				Vector3[] threeLowestCorners = { cornerHeights[0].Key, cornerHeights[1].Key, cornerHeights[2].Key };
+				Vector3[] threeLowestCorners = {cornerHeights[0].Key, cornerHeights[1].Key, cornerHeights[2].Key};
 
-				Vector3 normal = Vector3.Cross(threeLowestCorners[1] - threeLowestCorners[0], threeLowestCorners[2] - threeLowestCorners[0]).normalized;
+				Vector3 normal = Vector3.Cross(threeLowestCorners[1] - threeLowestCorners[0],
+					threeLowestCorners[2] - threeLowestCorners[0]).normalized;
 
-				Vector3 up = Vector3.up;
-				Quaternion rotation = Quaternion.FromToRotation(up, normal) * currentInstance.transform.rotation;
+				if (Vector3.Dot(normal, Vector3.up) < 0)
+				{
+					normal = -normal;
+				}
+
+				Quaternion rotation =
+					Quaternion.FromToRotation(Vector3.up, normal) * currentInstance.transform.rotation;
 
 				return rotation;
 			}
@@ -64,8 +70,7 @@ namespace Props
 			return Quaternion.identity;
 		}
 
-
-		protected virtual  Vector3 CalculatePosition(float size, GameObject currentInstance, string groundLayer)
+		protected virtual Vector3 CalculatePosition(float size, GameObject currentInstance, string groundLayer)
 		{
 			var position = new Vector3(size / 2, 50, size / 2);
 			position += StartOffset;
