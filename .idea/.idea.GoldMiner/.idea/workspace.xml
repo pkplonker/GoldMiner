@@ -5,20 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/Editor.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/Editor.asmdef" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/SmallTestMapData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/SmallTestMapData.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FenceSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FenceSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/MultiAttemptSingleInstanceSpawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/MultiAttemptSingleInstanceSpawn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/SubSurfaceProp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/SubSurfaceProp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/SurfaceProp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/SurfaceProp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGeneratorTerrain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunk.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunkDataGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainChunkDataGenerator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/PropCollections/EmptyPropCollection.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Props/PropCollections/EmptyPropCollection.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/Branch.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/Branch.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/Bush.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/Bush.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/EmptyPropCollection.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/EmptyPropCollection.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/Grass.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/Grass.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/Grass1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/Grass1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/MediumRock.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/MediumRock.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock10.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock10.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock11.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock11.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock2.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock3.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock3.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock4.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock4.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock5.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock5.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock6.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock6.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock7.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock7.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock8.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock8.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock9.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/Rock9.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/RockSmall.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/RockSmall.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Props/RockS/RockSmall2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Props/RockS/RockSmall2.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CheatConsoleMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CheatConsoleMovement.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,10 +186,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="12972">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="12972" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />

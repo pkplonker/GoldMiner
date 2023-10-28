@@ -23,4 +23,4 @@ MonoBehaviour:
   InBoundryOnly: 0
   <DropIntoTerrainAmount>k__BackingField: 0.1
   <MinHeightNormalised>k__BackingField: 0
-  <MaxHeightNormalised>k__BackingField: 0.4
+  <MaxHeightNormalised>k__BackingField: 0.8

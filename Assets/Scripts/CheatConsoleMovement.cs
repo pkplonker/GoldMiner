@@ -11,7 +11,6 @@ using UnityEngine;
 public class CheatConsoleMovement : MonoBehaviour
 {
 	[SerializeField] private PlayerReference playerReference;
-	private bool cachedState;
 
 	private void Start()
 	{
@@ -22,15 +21,7 @@ public class CheatConsoleMovement : MonoBehaviour
 	{
 		if (playerReference.GetPlayer() != null)
 		{
-			if (active)
-			{
-				playerReference.GetPlayer().GetComponent<PlayerMovement>().SetCanMove(cachedState);
-			}
-			else
-			{
-				cachedState = playerReference.GetPlayer().GetComponent<PlayerMovement>().GetCanMove();
-				playerReference.GetPlayer().GetComponent<PlayerMovement>().SetCanMove(false);
-			}
+			playerReference.GetPlayer().GetComponent<PlayerMovement>().SetCanMove(active);
 		}
 	}
 
