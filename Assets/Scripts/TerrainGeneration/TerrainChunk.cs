@@ -151,5 +151,10 @@ namespace TerrainGeneration
 
 			return meshFilter.mesh;
 		}
+
+		public void SetActive(bool state)
+		{
+			meshRenderer.enabled = state;
+		}
 	}
 }

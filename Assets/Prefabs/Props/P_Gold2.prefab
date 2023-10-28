@@ -18,7 +18,7 @@ GameObject:
   m_TagString: StaticProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!4 &4332997288616661213
 Transform:

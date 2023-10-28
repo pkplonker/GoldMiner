@@ -38,27 +38,32 @@ namespace Props
 				boundsCorners[2] = new Vector3(bounds.min.x, bounds.max.y, bounds.max.z);
 				boundsCorners[3] = new Vector3(bounds.max.x, bounds.max.y, bounds.max.z);
 
-				Vector3 averageNormal = Vector3.zero;
+				List<KeyValuePair<Vector3, float>> cornerHeights = new List<KeyValuePair<Vector3, float>>();
+
 				var pos = position;
 				foreach (var corner in boundsCorners)
 				{
 					var rayPosition = pos + corner + (Vector3.up * 5);
-
 					if (Physics.Raycast(rayPosition, Vector3.down, out RaycastHit hit, Mathf.Infinity))
 					{
-						averageNormal += hit.normal;
+						cornerHeights.Add(new KeyValuePair<Vector3, float>(corner, hit.point.y));
 					}
 				}
 
-				averageNormal /= boundsCorners.Length;
+				cornerHeights.Sort((a, b) => a.Value.CompareTo(b.Value));
+				Vector3[] threeLowestCorners = { cornerHeights[0].Key, cornerHeights[1].Key, cornerHeights[2].Key };
+
+				Vector3 normal = Vector3.Cross(threeLowestCorners[1] - threeLowestCorners[0], threeLowestCorners[2] - threeLowestCorners[0]).normalized;
+
 				Vector3 up = Vector3.up;
-				Quaternion rotation = Quaternion.FromToRotation(up, averageNormal) *
-				                      currentInstance.transform.rotation;
+				Quaternion rotation = Quaternion.FromToRotation(up, normal) * currentInstance.transform.rotation;
+
 				return rotation;
 			}
 
 			return Quaternion.identity;
 		}
+
 
 		protected virtual  Vector3 CalculatePosition(float size, GameObject currentInstance, string groundLayer)
 		{
