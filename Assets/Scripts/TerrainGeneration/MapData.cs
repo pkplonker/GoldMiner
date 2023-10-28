@@ -20,7 +20,7 @@ namespace TerrainGeneration
 		[field: SerializeField] public float Persistance { get; private set; }
 		[field: SerializeField] public float Lacunarity { get; private set; }
 		[field: SerializeField] public float NoiseScale { get; private set; }
-		[field: SerializeField] public float HeightMultiplier { get; private set; }
+		[field: SerializeField] public float HeightMultiplier { get; private set; } = 5;
 		
 		[field: Header("Standard")]
 		[field: SerializeField] public int ChunksPerRow { get; private set; }
@@ -45,8 +45,8 @@ namespace TerrainGeneration
 			             LacunarityRange.Min;
 			NoiseScale = (float) random.NextDouble() * (NoiseScaleRange.Max - NoiseScaleRange.Min) +
 			             NoiseScaleRange.Min;
-			HeightMultiplier = (float) random.NextDouble() * (HeightMultiplierRange.Max - HeightMultiplierRange.Min) +
-			                   HeightMultiplierRange.Min;
+			// HeightMultiplier = (float) random.NextDouble() * (HeightMultiplierRange.Max - HeightMultiplierRange.Min) +
+			//                    HeightMultiplierRange.Min;
 		}
 
 		public int GetSize() => MapChunkSize * ChunksPerRow;

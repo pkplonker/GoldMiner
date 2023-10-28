@@ -25,12 +25,14 @@ namespace TerrainGeneration
 
 		public static TerrainChunk[,] terrainChunks;
 		public static TerrainChunkData[,] terrainChunkData;
+		private Coroutine awaitChunkCor;
 		public static event Action<float[,]> OnNoiseMapGenerated;
 		public static event Action<float[,]> OnCombinedMapGenerated;
 
 		private void Awake()
 		{
-			CheatConsole.Instance.RegisterCommand("RandomiseSeed", ()=>MapData.seed = UnityEngine.Random.Range(0,64000));
+			CheatConsole.Instance.RegisterCommand("RandomiseSeed",
+				() => MapData.seed = UnityEngine.Random.Range(0, 64000));
 		}
 
 		public float[,] NoiseMap
@@ -64,6 +66,7 @@ namespace TerrainGeneration
 		public void Generate()
 		{
 			ClearData();
+			StopCor();
 			MapData.InitialiseValues();
 			var chunksRequired = MapData.ChunksPerRow * MapData.ChunksPerRow;
 			terrainChunks = new TerrainChunk[MapData.ChunksPerRow, MapData.ChunksPerRow];
@@ -84,7 +87,7 @@ namespace TerrainGeneration
 			OnNoiseMapGenerated?.Invoke(NoiseMap);
 			OnCombinedMapGenerated?.Invoke(NoiseMap);
 
-			StartCoroutine(AwaitChunkDataCor(chunksRequired));
+			awaitChunkCor = StartCoroutine(AwaitChunkDataCor(chunksRequired));
 			for (var x = 0; x < MapData.ChunksPerRow; x++)
 			{
 				for (var y = 0; y < MapData.ChunksPerRow; y++)
@@ -95,6 +98,11 @@ namespace TerrainGeneration
 						MapData, NoiseMap));
 				}
 			}
+		}
+
+		private void StopCor()
+		{
+			if (awaitChunkCor != null) StopCoroutine(awaitChunkCor);
 		}
 
 		private IEnumerator AwaitChunkDataCor(int chunksRequired)
@@ -160,7 +168,7 @@ namespace TerrainGeneration
 			return texture;
 		}
 
-		public static TerrainChunk GetChunkFromPosition(MapData MapData,Vector3 position)
+		public static TerrainChunk GetChunkFromPosition(MapData MapData, Vector3 position)
 		{
 			var xCoord = (int) position.x / MapData.MapChunkSize;
 			var zCoord = (int) position.z / MapData.MapChunkSize;
@@ -169,7 +177,7 @@ namespace TerrainGeneration
 			var terrain = terrainChunks[xCoord, zCoord];
 			return terrain;
 		}
-		
+
 		public TerrainChunk GetChunkFromPosition(Vector3 position)
 		{
 			var xCoord = (int) position.x / MapData.MapChunkSize;
@@ -188,7 +196,6 @@ namespace TerrainGeneration
 			zCoord = Mathf.Clamp(zCoord, 0, terrainChunks.Length - 1);
 			return new Vector2Int(xCoord, zCoord);
 		}
-		
 	}
 
 	[Serializable]

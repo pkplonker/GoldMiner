@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <allowFailure>k__BackingField: 0
   Prefab: {fileID: 7635256604560604012, guid: 7256dc8a1f156ac42a5bd5f96d43efc9, type: 3}
-  FlattnessTolerance: 1
+  FlattnessTolerance: 1.5
   IncrementAmount: 0.1
   Attempts: 100
   StartOffset: {x: 3, y: 0, z: 3}

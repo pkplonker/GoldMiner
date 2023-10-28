@@ -13,21 +13,21 @@ MonoBehaviour:
   m_Name: MapData
   m_EditorClassIdentifier: 
   PersistanceRange:
-    Min: 0.5
-    Max: 0.95
+    Min: 0.8
+    Max: 0.8
   LacunarityRange:
-    Min: 0.5
-    Max: 0.95
+    Min: 0.8
+    Max: 0.8
   NoiseScaleRange:
-    Min: 10
-    Max: 20
+    Min: 12
+    Max: 12
   HeightMultiplierRange:
-    Min: 2
-    Max: 7
-  <Persistance>k__BackingField: 0.5300361
-  <Lacunarity>k__BackingField: 0.5315718
-  <NoiseScale>k__BackingField: 17.747652
-  <HeightMultiplier>k__BackingField: 4.5556965
+    Min: 4.8
+    Max: 4.8
+  <Persistance>k__BackingField: 0.8
+  <Lacunarity>k__BackingField: 0.8
+  <NoiseScale>k__BackingField: 12
+  <HeightMultiplier>k__BackingField: 4.8
   <ChunksPerRow>k__BackingField: 25
   <MapChunkSize>k__BackingField: 16
   seed: 12345
@@ -86,5 +86,5 @@ MonoBehaviour:
     m_RotationOrder: 4
   GroundLayer: Ground
   BoundaryInstep: 50
-  Octaves: 2
+  Octaves: 4
   LOD: 4

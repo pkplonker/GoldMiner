@@ -97,7 +97,7 @@ namespace Props
 			}
 
 			Debug.Log($"failed to spawn {Prefab.name} + " + new Vector3(size / 2, 50, size / 2));
-			return Vector3.positiveInfinity;
+			return position;
 		}
 
 		private static Bounds GetBounds(GameObject currentInstance)
