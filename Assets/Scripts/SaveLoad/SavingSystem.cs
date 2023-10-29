@@ -24,7 +24,6 @@ namespace Save
 		private void OnEnable()
 		{
 			saveableObjects = new List<SaveableGameObject>();
-			//MapGenerator.MapGenerated
 		}
 
 		private void Start()

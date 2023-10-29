@@ -15,16 +15,19 @@ namespace Props
 	{
 		[SerializeField] private List<SingleInstanceSpawn> prefabsToSpawn;
 		private static List<GameObject> spawnedPrefabs = new();
+
 		private void OnEnable()
 		{
-			MapGenerator.TerrainGenerated += SpawnAll;
-			MapGenerator.MapGenerationStarted += DespawnObjects;
+			var mapGenerator = ServiceLocator.Instance.GetService<MapGenerator>();
+			mapGenerator.TerrainGenerated += SpawnAll;
+			mapGenerator.MapGenerationStarted += DespawnObjects;
 		}
 
 		private void OnDisable()
 		{
-			MapGenerator.TerrainGenerated -= SpawnAll;
-			MapGenerator.MapGenerationStarted -= DespawnObjects;
+			var mapGenerator = ServiceLocator.Instance.GetService<MapGenerator>();
+			mapGenerator.TerrainGenerated -= SpawnAll;
+			mapGenerator.MapGenerationStarted -= DespawnObjects;
 		}
 
 		private void DespawnObjects(int notRequired = 0, int notRequired2 = 0)
@@ -52,20 +55,21 @@ namespace Props
 		{
 			if (sis.Spawn(mapData, out GameObject obj))
 			{
-				if(obj.transform==null)
+				if (obj.transform == null)
 					obj.transform.SetParent(transform);
 				spawnedPrefabs.Add(obj);
 			}
 			else
 			{
-				HandleFailedSpawn(sis,mapData);
+				HandleFailedSpawn(sis, mapData);
 			}
 		}
 
-		private void HandleFailedSpawn(SingleInstanceSpawn sis,MapData mapData)
+		private void HandleFailedSpawn(SingleInstanceSpawn sis, MapData mapData)
 		{
-			if (!sis.allowFailure) 			ServiceLocator.Instance.GetService<SceneHandler>()
-				.HandleFailedGeneration(mapData);
+			if (!sis.allowFailure)
+				ServiceLocator.Instance.GetService<SceneHandler>()
+					.HandleFailedGeneration(mapData);
 		}
 	}
 }

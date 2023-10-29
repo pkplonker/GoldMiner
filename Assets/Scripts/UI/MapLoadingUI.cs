@@ -9,8 +9,8 @@ namespace UI
 	public class MapLoadingUI : CanvasGroupBase
 	{
 		[SerializeField] private Image progressLoadingImage;
-		[SerializeField] private float progressBarSpeed=4f;
-		[SerializeField] private float fadeTime=0.3f;
+		[SerializeField] private float progressBarSpeed = 4f;
+		[SerializeField] private float fadeTime = 0.3f;
 
 		private int currentPropProgress;
 		private int currentChunkProgress;
@@ -27,25 +27,26 @@ namespace UI
 			StopCor();
 		}
 
-		private void OnEnable()
+		private void Start()
 		{
 			MapGeneratorTerrain.OnChunkGenerated += NewChunk;
-			MapGenerator.MapGenerationStarted += ProgressStarted;
+			ServiceLocator.Instance.GetService<MapGenerator>().MapGenerationStarted += ProgressStarted;
 			PropSpawner.OnPropGenerated += NewProp;
-			MapGenerator.MapGenerated += MapGenerated;
+			ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated += MapGenerated;
 		}
+
 		private void OnDisable()
 		{
 			MapGeneratorTerrain.OnChunkGenerated -= NewChunk;
-			MapGenerator.MapGenerationStarted -= ProgressStarted;
+			ServiceLocator.Instance.GetService<MapGenerator>().MapGenerationStarted -= ProgressStarted;
 			PropSpawner.OnPropGenerated -= NewProp;
-			MapGenerator.MapGenerated -= MapGenerated;
+			ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -= MapGenerated;
 		}
 
 		private void MapGenerated(float obj)
 		{
 			Destroy(gameObject);
-			if(updatingCor!=null) StopCoroutine(updatingCor);
+			if (updatingCor != null) StopCoroutine(updatingCor);
 			fadeTime = 1f;
 			HideUI(fadeTime);
 			StopCor();
@@ -66,7 +67,6 @@ namespace UI
 			}
 		}
 
-		
 		private void Complete()
 		{
 			StopCor();
@@ -78,7 +78,7 @@ namespace UI
 			currentTotal = 0;
 			currentChunkProgress = 0;
 			currentPropProgress = 0;
-			
+
 			requiredChunk = chunks;
 			requiredProp = props;
 			totalRequired = requiredChunk + requiredProp;
@@ -106,9 +106,9 @@ namespace UI
 
 		private IEnumerator ProgressBarUpdateCor()
 		{
-			while (progressLoadingImage.fillAmount!=1)
+			while (progressLoadingImage.fillAmount != 1)
 			{
-				currentFillTarget = (float)currentTotal / totalRequired;
+				currentFillTarget = (float) currentTotal / totalRequired;
 				progressLoadingImage.fillAmount = Mathf.Lerp(progressLoadingImage.fillAmount, currentFillTarget,
 					progressBarSpeed * Time.deltaTime);
 				yield return null;
