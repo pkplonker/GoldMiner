@@ -52,12 +52,26 @@ namespace Save
 		/// </summary>
 		public void SaveGame(bool isNew = false)
 		{
-			Dictionary<string, object> saveData;
-			if (!isNew) saveData = new Dictionary<string, object>();
-			else saveData = output.Load() ?? new Dictionary<string, object>();
-			SaveData(saveData);
-			output.Save(saveData);
+			Dictionary<string, object> existingSaveData = output.Load() ?? new Dictionary<string, object>();
+			Dictionary<string, object> currentSaveData = new Dictionary<string, object>();
+    
+			SaveData(currentSaveData);
+
+			if (!isNew)
+			{
+				foreach (var item in currentSaveData)
+				{
+					existingSaveData[item.Key] = item.Value;
+				}
+			}
+			else
+			{
+				existingSaveData = currentSaveData;
+			}
+
+			output.Save(existingSaveData);
 		}
+
 
 		private void OnApplicationQuit()
 		{
