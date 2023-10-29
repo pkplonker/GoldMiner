@@ -22,7 +22,7 @@ namespace TerrainGeneration
 
 		public void RegenerateWorld(bool newSeed = false)
 		{
-			MapGeneratorTerrain.MapData.seed = Random.Range(0, 32000);
+			if(newSeed) MapGeneratorTerrain.MapData.seed = Random.Range(0, 32000);
 			MapGeneratorTerrain.ClearData();
 			SpawnTerrain();
 			spawnedProps = false;
@@ -97,5 +97,7 @@ namespace TerrainGeneration
 		}
 
 		public void Initialize() { }
+
+		public int GetSeed() => MapGeneratorTerrain.MapData.seed;
 	}
 }

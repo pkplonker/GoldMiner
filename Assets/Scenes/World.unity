@@ -882,7 +882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b46b4edb2860b4687f5d3a590942e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MapData>k__BackingField: {fileID: 11400000, guid: 8da5b7854ad34324f97106864988b3e3,
+  <MapData>k__BackingField: {fileID: 11400000, guid: e27e8493a5f6230419f86ed8a58e4d4b,
     type: 2}
   chunkPrefab: {fileID: 5502943811654474230, guid: 78e4fce1823e2874e96fa3edfe934f4a,
     type: 3}
@@ -2178,6 +2178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: a0c25c63-a54b-499a-88d2-d0bf4bf39947
+  PositionBasedID: 0
 --- !u!4 &1442851141
 Transform:
   m_ObjectHideFlags: 0

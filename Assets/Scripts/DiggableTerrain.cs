@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Props;
+using Save;
 using TerrainGeneration;
 using UnityEngine;
 
@@ -21,22 +22,30 @@ public class DiggableTerrain : MonoBehaviour
 	private MeshFilter meshFilter;
 	private bool setup;
 	private float digAmount;
-	private Dictionary<int, float> digChanges = new();
 	private TerrainChunk terrainChunk;
 	private float vertexColorFactor;
 	private TerrainDigPropController terrainDigPropController;
-	public event Action<RaycastHit> OnDig;
+	public event Action<DigParams> OnDig;
 
-	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
+	[Serializable]
+	public struct DigParams
+	{
+		public SerializableVector HitPoint;
+		public int TriangleIndex;
+		public float DigAmount;
+		public bool PlayVFX;
+	}
+
+	public bool Dig(DigParams digParams)
 	{
 		if (!setup) Setup();
-		var digCompleteCallback = terrainDigPropController.CanDig(hit);
+		var digCompleteCallback = terrainDigPropController.CanDig(digParams.HitPoint);
 		if (digCompleteCallback != null)
 		{
-			this.digAmount = digAmount;
+			digAmount = digParams.DigAmount;
 			vertexColorFactor = digAmount / SubSurfaceProp.globalMaxDepth;
 			var mesh = meshFilter.mesh;
-			var hitVertsIndexes = GetHitVerts(hit, mesh);
+			var hitVertsIndexes = GetHitVerts(digParams.TriangleIndex, mesh);
 
 			var verts = UpdateVerts(digAmount, hitVertsIndexes, mesh.vertices, out var result);
 			if (result)
@@ -49,11 +58,17 @@ public class DiggableTerrain : MonoBehaviour
 
 			GetCurrentChunk().ProcessNormalAlignment();
 			digCompleteCallback?.Invoke();
-			OnDig?.Invoke(hit);
+			OnDig?.Invoke( digParams);
 			return true;
 		}
 
 		return false;
+	}
+	public bool Dig(RaycastHit RaycastHit,DigParams digParams)
+	{
+		digParams.HitPoint = RaycastHit.point;
+		digParams.TriangleIndex = RaycastHit.triangleIndex;
+		return Dig(digParams);
 	}
 
 	private void CheckNeighbours(int[] hitVertsIndexes)
@@ -229,9 +244,8 @@ public class DiggableTerrain : MonoBehaviour
 		meshCollider.cookingOptions = MeshColliderCookingOptions.EnableMeshCleaning;
 	}
 
-	private int[] GetHitVerts(RaycastHit hit, Mesh mesh)
+	private int[] GetHitVerts(int index, Mesh mesh)
 	{
-		var index = hit.triangleIndex;
 		var hitVerts = new Vector3[6];
 		var hitVertIndexes = new int[6];
 

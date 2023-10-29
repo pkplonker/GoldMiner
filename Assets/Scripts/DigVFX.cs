@@ -16,9 +16,10 @@ public class DigVFX : MonoBehaviour
 		diggableTerrain.OnDig += OnDig;
 	}
 
-	private void OnDig(RaycastHit hit)
+	private void OnDig(DiggableTerrain.DigParams digParams)
 	{
-		var vfx = Instantiate(particleSystem, hit.point, Quaternion.identity, transform);
+		if (!digParams.PlayVFX) return;
+		var vfx = Instantiate(particleSystem, digParams.HitPoint, Quaternion.identity, transform);
 		vfx.gameObject.AddComponent<DestroyParticleWhenDone>();
 	}
 }

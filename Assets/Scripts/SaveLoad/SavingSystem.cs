@@ -27,7 +27,7 @@ namespace Save
 
 		private void Start()
 		{
-			LoadGame();
+			//LoadGame();
 		}
 
 		/// <summary>
@@ -61,7 +61,7 @@ namespace Save
 
 		private void OnApplicationQuit()
 		{
-			SaveGame();
+			//SaveGame();
 		}
 
 		/// <summary>

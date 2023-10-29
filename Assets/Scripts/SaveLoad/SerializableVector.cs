@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Save
@@ -20,6 +21,9 @@ namespace Save
 			z = v.z;
 		}
 
+		public SerializableVector() { }
+
+		[JsonConstructor]
 		public SerializableVector(float x, float y, float z)
 		{
 			this.x = x;

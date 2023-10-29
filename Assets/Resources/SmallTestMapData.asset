@@ -24,13 +24,13 @@ MonoBehaviour:
   HeightMultiplierRange:
     Min: 3
     Max: 6
-  <Persistance>k__BackingField: 0.84406215
-  <Lacunarity>k__BackingField: 0.8204994
-  <NoiseScale>k__BackingField: 10.0328245
+  <Persistance>k__BackingField: 0.7645703
+  <Lacunarity>k__BackingField: 0.74876946
+  <NoiseScale>k__BackingField: 9.069536
   <HeightMultiplier>k__BackingField: 4.8
   <ChunksPerRow>k__BackingField: 10
   <MapChunkSize>k__BackingField: 8
-  seed: 22642
+  seed: 22566
   offset: {x: 0, y: 0}
   material: {fileID: 2100000, guid: 8a1ad397b447ca643951705bb09f5075, type: 2}
   HeightCurve:

@@ -19,7 +19,8 @@ public class DiggingState : BaseState
 	{
 		stateMachine.diggingTarget.enabled = true;
 		;
-		var ray = stateMachine.Camera.ScreenPointToRay( ServiceLocator.Instance.GetService<PlayerInputManager>().GetMousePosition());
+		var ray = stateMachine.Camera.ScreenPointToRay(ServiceLocator.Instance.GetService<PlayerInputManager>()
+			.GetMousePosition());
 		if (!Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(stateMachine.GROUND_LAYER))) return;
 		if (Vector3.Distance(stateMachine.transform.position, hit.point) > stateMachine.digRange)
 		{
@@ -76,7 +77,8 @@ public class DiggingState : BaseState
 		Profiler.BeginSample("Digging");
 #endif
 		//cast ray to get vertex
-		var ray = stateMachine.Camera.ScreenPointToRay(ServiceLocator.Instance.GetService<PlayerInputManager>().GetMousePosition());
+		var ray = stateMachine.Camera.ScreenPointToRay(ServiceLocator.Instance.GetService<PlayerInputManager>()
+			.GetMousePosition());
 		if (Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(GetLayerMask())))
 		{
 			if (hit.point == Vector3.negativeInfinity) Debug.Log("Failed to get hit point");
@@ -84,7 +86,9 @@ public class DiggingState : BaseState
 			{
 				if (hit.collider.TryGetComponent(out DiggableTerrain terrain))
 				{
-					if (terrain.Dig(hit, stateMachine.DigDepth, stateMachine.MaxDigDepth)) return;
+					if (terrain.Dig(hit,
+						    new DiggableTerrain.DigParams
+							    {DigAmount = stateMachine.DigDepth, PlayVFX = true})) return;
 				}
 			}
 		}

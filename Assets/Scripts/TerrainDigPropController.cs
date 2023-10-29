@@ -12,7 +12,7 @@ public class TerrainDigPropController : MonoBehaviour
 
 	private void Start() => UpdateProps();
 
-	public Action CanDig(RaycastHit hit)
+	public Action CanDig(Vector3 point)
 	{
 		UpdateProps();
 
@@ -25,7 +25,7 @@ public class TerrainDigPropController : MonoBehaviour
 			if (collider != null)
 			{
 				var bounds = collider.bounds;
-				var hitPointXZ = new Vector3(hit.point.x, bounds.center.y, hit.point.z);
+				var hitPointXZ = new Vector3(point.x, bounds.center.y, point.z);
 
 				if (bounds.Contains(hitPointXZ))
 				{
@@ -34,8 +34,8 @@ public class TerrainDigPropController : MonoBehaviour
 			}
 			else
 			{
-				var propPositionXZ = new Vector3(prop.position.x, hit.point.y, prop.position.z);
-				float distance = Vector3.Distance(hit.point, propPositionXZ);
+				var propPositionXZ = new Vector3(prop.position.x, point.y, prop.position.z);
+				float distance = Vector3.Distance(point, propPositionXZ);
 				if (distance < radius)
 				{
 					propsToRemove.Add(prop);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using TerrainGeneration;
 using UnityEngine;
 
 namespace Save
@@ -8,9 +9,10 @@ namespace Save
 	public class SaveableGameObject : MonoBehaviour, ISerializationCallbackReceiver
 	{
 		public string id;
-
+		[SerializeField] private bool PositionBasedID;
 		private void Start()
 		{
+			if(PositionBasedID)DeterministicSeededGuid(ServiceLocator.Instance.GetService<MapGenerator>().GetSeed());
 			if (ServiceLocator.Instance.GetService<SavingSystem>() == null) return;
 			ServiceLocator.Instance.GetService<SavingSystem>().Subscribe(this);
 		}
@@ -24,6 +26,17 @@ namespace Save
 		public void OnBeforeSerialize()
 		{
 			GenerateUniqueID();
+		}
+
+		public void DeterministicSeededGuid(int seed)
+		{
+			string inputString = transform.position + seed.ToString();
+			using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+			{
+				byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(inputString);
+				byte[] hashBytes = md5.ComputeHash(inputBytes);
+				id = new Guid(hashBytes).ToString();
+			}
 		}
 
 		/// <summary>

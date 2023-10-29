@@ -6,18 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/Save.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/Save.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/SaveLoad/SaveLoadEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/SaveLoad/SaveLoadEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Chunk.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Chunk.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/World.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/World.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/ISaveLoadIO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/ISaveLoadIO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveFileHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveFileHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveLoadIOMediator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveLoadIOMediator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DigVFX.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DigVFX.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggingState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveableGameObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveableGameObject.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SavingSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SavingSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SerializableVector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SerializableVector.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainDigPropController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainDigPropController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGenerator.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +90,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateMachine.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TerrainDigPropController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/ChunkBalancer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/TerrainSave.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Test/TerrainTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/ButtonHoverEffectScale.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/CanvasGroupController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -276,13 +275,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs</url>
-          <line>205</line>
+          <line>220</line>
           <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\DiggableTerrain.cs" initialLine="201" containingFunctionPresentation="Method 'OnDrawGizmosSelected'">
             <startOffsets>
-              <option value="6392" />
+              <option value="6703" />
             </startOffsets>
             <endOffsets>
-              <option value="6452" />
+              <option value="6763" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="12" />
@@ -314,125 +313,6 @@
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/InGameMap.cs</url>
-          <line>47</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\InGameMap.cs" initialLine="47" containingFunctionPresentation="Method 'OnNoiseMapGenerated'">
-            <startOffsets>
-              <option value="1408" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1433" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveFileHandler.cs</url>
-          <line>44</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\SaveLoad\SaveFileHandler.cs" initialLine="44" containingFunctionPresentation="Method 'Save'">
-            <startOffsets>
-              <option value="1390" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1445" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="64" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveLoad/SavingSystem.cs</url>
-          <line>93</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\SaveLoad\SavingSystem.cs" initialLine="101" containingFunctionPresentation="Method 'SaveData'">
-            <startOffsets>
-              <option value="2158" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2205" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="65" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveableGameObject.cs</url>
-          <line>13</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\SaveLoad\SaveableGameObject.cs" initialLine="12" containingFunctionPresentation="Method 'OnEnable'">
-            <startOffsets>
-              <option value="248" />
-              <option value="312" />
-            </startOffsets>
-            <endOffsets>
-              <option value="311" />
-              <option value="319" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="68" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveLoad/SavingSystem.cs</url>
-          <line>114</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\SaveLoad\SavingSystem.cs" initialLine="120" containingFunctionPresentation="Method 'Subscribe'">
-            <startOffsets>
-              <option value="2634" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2656" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="69" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveLoad/SavingSystem.cs</url>
-          <line>112</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\SaveLoad\SavingSystem.cs" initialLine="118" containingFunctionPresentation="Method 'Subscribe'">
-            <startOffsets>
-              <option value="2575" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2624" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveableGameObject.cs</url>
-          <line>75</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\SaveLoad\SaveableGameObject.cs" initialLine="75" containingFunctionPresentation="Method 'LoadState'">
-            <startOffsets>
-              <option value="2125" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2164" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="73" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveableGameObject.cs</url>
-          <line>61</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\SaveLoad\SaveableGameObject.cs" initialLine="61" containingFunctionPresentation="Method 'LoadState'">
-            <startOffsets>
-              <option value="1670" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1702" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/SaveLoad/SavingSystem.cs</url>
-          <line>71</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\SaveLoad\SavingSystem.cs" initialLine="82" containingFunctionPresentation="Method 'LoadData'">
-            <startOffsets>
-              <option value="1664" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1711" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/SaveTest.cs</url>
           <line>16</line>
           <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\SaveTest.cs" initialLine="15" containingFunctionPresentation="Method 'LoadState'">
@@ -444,6 +324,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/TerrainSave.cs</url>
+          <line>59</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\TerrainSave.cs" initialLine="59" containingFunctionPresentation="Method 'LoadFromParams'">
+            <startOffsets>
+              <option value="1200" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1230" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="84" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
