@@ -27,8 +27,7 @@ public class TerrainSave : MonoBehaviour, ISaveLoad
 		diggableTerrain.OnDig += OnDig;
 	}
 
-	private void OnDig(DiggableTerrain.DigParams param)=>digParams.Add(param);
-	
+	private void OnDig(DiggableTerrain.DigParams param) => digParams.Add(param);
 
 	public void LoadState(object data)
 	{
@@ -38,6 +37,7 @@ public class TerrainSave : MonoBehaviour, ISaveLoad
 			{
 				var saveData = jobject.ToObject<SaveData>();
 				digParams = saveData.digList;
+				diggableTerrain.Reset();
 				LoadFromParams();
 			}
 			catch (Exception ex)
@@ -59,7 +59,7 @@ public class TerrainSave : MonoBehaviour, ISaveLoad
 			{
 				var param = digParam;
 				param.PlayVFX = false;
-				diggableTerrain.Dig(param);
+				diggableTerrain.Dig(param,true);
 			}
 		}
 	}

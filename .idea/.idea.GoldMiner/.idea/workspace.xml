@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Chunk.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Chunk.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/World.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/World.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DigVFX.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DigVFX.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggingState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveableGameObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveableGameObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SavingSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SavingSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SerializableVector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SerializableVector.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainDigPropController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainDigPropController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MapGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainSave.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainSave.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -275,13 +266,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs</url>
-          <line>220</line>
+          <line>225</line>
           <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\DiggableTerrain.cs" initialLine="201" containingFunctionPresentation="Method 'OnDrawGizmosSelected'">
             <startOffsets>
-              <option value="6703" />
+              <option value="6810" />
             </startOffsets>
             <endOffsets>
-              <option value="6763" />
+              <option value="6870" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="12" />
@@ -326,17 +317,30 @@
           <option name="timeStamp" value="76" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/TerrainSave.cs</url>
-          <line>59</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\TerrainSave.cs" initialLine="59" containingFunctionPresentation="Method 'LoadFromParams'">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs</url>
+          <line>284</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\DiggableTerrain.cs" initialLine="284" containingFunctionPresentation="Method 'Setup'">
             <startOffsets>
-              <option value="1200" />
+              <option value="8468" />
             </startOffsets>
             <endOffsets>
-              <option value="1230" />
+              <option value="8487" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="84" />
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs</url>
+          <line>308</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\DiggableTerrain.cs" initialLine="308" containingFunctionPresentation="Method 'Reset'">
+            <startOffsets>
+              <option value="8989" />
+            </startOffsets>
+            <endOffsets>
+              <option value="9000" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="88" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
