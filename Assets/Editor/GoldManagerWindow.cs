@@ -28,6 +28,7 @@ public class GoldManagerWindow : EditorWindow
 			Debug.Log("Can't open window in edit mode");
 			return;
 		}
+
 		GetWindow<GoldManagerWindow>();
 		goldSpawnManager = ServiceLocator.Instance.GetService<GoldSpawnManager>();
 	}
@@ -64,12 +65,14 @@ public class GoldManagerWindow : EditorWindow
 		else
 		{
 			if (GUILayout.Button("ShowAll"))
-				currentDisplayedItems = goldSpawnManager.goldPiecesSpawned.OrderByDescending(g => g.Weight).ToList();
+				currentDisplayedItems =
+					goldSpawnManager.spawnedTargets.OfType<Gold>().OrderByDescending(g => g.Weight).ToList();
 			if (GUILayout.Button("Show Collected"))
-				currentDisplayedItems = goldSpawnManager.goldPiecesFound.OrderByDescending(g => g.Weight).ToList();
+				currentDisplayedItems = goldSpawnManager.targetPiecesFound.OfType<Gold>()
+					.OrderByDescending(g => g.Weight).ToList();
 			if (GUILayout.Button("Show Uncollected"))
 				currentDisplayedItems =
-					goldSpawnManager.goldPiecesSpawned.Except(goldSpawnManager.goldPiecesFound)
+					goldSpawnManager.spawnedTargets.Except(goldSpawnManager.targetPiecesFound).OfType<Gold>()
 						.OrderByDescending(g => g.Weight).ToList();
 		}
 
@@ -79,15 +82,16 @@ public class GoldManagerWindow : EditorWindow
 	private void DrawTotals()
 	{
 		GUILayout.BeginHorizontal();
-		var c = goldSpawnManager.goldPiecesSpawned.Sum(g => g.Weight);
+		var c = goldSpawnManager.spawnedTargets.OfType<Gold>().Sum(g => g.Weight);
 
 		EditorGUILayout.LabelField("Total Gold on Map = " + c + "[ £" + c * GoldPrice.goldPrice + "]",
 			EditorStyles.boldLabel, GUILayout.Width(columnWidth));
-		c = goldSpawnManager.goldPiecesFound.Sum(g => g.Weight);
+		c = goldSpawnManager.targetPiecesFound.OfType<Gold>().Sum(g => g.Weight);
 
 		EditorGUILayout.LabelField("Total Gold found =" + c + "[ £" + c * GoldPrice.goldPrice + "]",
 			EditorStyles.boldLabel, GUILayout.Width(columnWidth));
-		c = goldSpawnManager.goldPiecesSpawned.Except(goldSpawnManager.goldPiecesFound).Sum(g => g.Weight);
+		c = goldSpawnManager.spawnedTargets.Except(goldSpawnManager.targetPiecesFound).OfType<Gold>()
+			.Sum(g => g.Weight);
 		EditorGUILayout.LabelField("Total Gold remaining =" + c + "[ £" + c * GoldPrice.goldPrice + "]",
 			EditorStyles.boldLabel, GUILayout.Width(columnWidth));
 
@@ -117,8 +121,9 @@ public class GoldManagerWindow : EditorWindow
 
 		EditorGUILayout.LabelField(gold.transform.position.ToString(), EditorStyles.boldLabel,
 			GUILayout.Width(columnWidth));
-		EditorGUILayout.LabelField(gold.Weight.ToString(CultureInfo.InvariantCulture), EditorStyles.boldLabel, GUILayout.Width(columnWidth));
-		
+		EditorGUILayout.LabelField(gold.Weight.ToString(CultureInfo.InvariantCulture), EditorStyles.boldLabel,
+			GUILayout.Width(columnWidth));
+
 		GUILayout.EndHorizontal();
 	}
 }

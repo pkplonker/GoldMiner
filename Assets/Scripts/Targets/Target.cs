@@ -2,7 +2,9 @@
 // Copyright (C) 2022 Stuart Heath. All rights reserved.
 //
 
+using System;
 using Player;
+using Save;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -21,14 +23,19 @@ namespace Targets
 		[SerializeField] private string interactText = "Click to pickup";
 		private bool isActiveTarget;
 		private static bool drawDebug = true;
+		public Vector3 Position => transform.position;
 
 		[FormerlySerializedAs("_gizmoColor")] [SerializeField]
 		private Color gizmoColor = Color.red;
+
+		private void Awake() => Register();
 
 		protected virtual void OnDrawGizmos()
 		{
 			if (drawGizmos) DrawMarker();
 		}
+
+		protected virtual void Register() => ServiceLocator.Instance.GetService<TargetManager>().RegisterTarget(this);
 
 		[CheatCommand]
 		public static void ToggleDrawDebug() => drawDebug = !drawDebug;
@@ -45,12 +52,18 @@ namespace Targets
 
 		public virtual void Interact(PlayerInteractionStateMachine player) => Debug.Log("Interacted");
 
-		protected void DisableObject()
+		public void DisableObject()
 		{
 			GetComponent<Collider>().enabled = false;
 			GetComponent<MeshRenderer>().enabled = false;
 		}
 
 		public string GetInteractMessage() => interactText;
+
+		public void EnableObject()
+		{
+			GetComponent<Collider>().enabled = true;
+			GetComponent<MeshRenderer>().enabled = true;
+		}
 	}
 }

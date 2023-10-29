@@ -149,4 +149,9 @@ namespace Save
 
 		public void Initialize() { }
 	}
+
+	public interface IResetOnLoad
+	{
+		public void Reset();
+	}
 }

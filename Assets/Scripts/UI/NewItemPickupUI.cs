@@ -31,7 +31,7 @@ namespace UI
 		public void Pickup()
 		{
 			if (pickupTarget == null || playerInteractionStateMachine == null) Debug.LogError("missing refs");
-			pickupTarget.DestroyItem();
+			pickupTarget.DisableObject();
 			var inv = playerInteractionStateMachine.GetComponent<Inventory>();
 			if (inv == null || !inv.Add(pickupTarget.Item)) FailedToAddToInventory();
 			ServiceLocator.Instance.GetService<CanvasGroupController>().Hide(this);
@@ -43,7 +43,7 @@ namespace UI
 		public void ThrowAway()
 		{
 			if (pickupTarget == null) Debug.LogError("missing refs");
-			pickupTarget.DestroyItem();
+			pickupTarget.DisableObject();
 			ServiceLocator.Instance.GetService<CanvasGroupController>().Hide(this);
 		}
 

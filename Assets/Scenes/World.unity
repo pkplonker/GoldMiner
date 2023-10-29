@@ -1532,6 +1532,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1341566459}
   - component: {fileID: 1341566458}
+  - component: {fileID: 1341566461}
+  - component: {fileID: 1341566460}
   m_Layer: 0
   m_Name: GoldSpawnManager
   m_TagString: Untagged
@@ -1567,6 +1569,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1341566460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341566457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3f82ec28b8b5d740b0bc125ae489d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51, type: 2}
+--- !u!114 &1341566461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341566457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8c0aba6d62b694ca1eb526de4302d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 61b58158-26e6-4edc-8ecf-ce52e75e027a
+  PositionSeedBasedID: 0
+  SeedBasedID: 1
 --- !u!1 &1351236041
 GameObject:
   m_ObjectHideFlags: 0
@@ -2178,7 +2208,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: a0c25c63-a54b-499a-88d2-d0bf4bf39947
-  PositionBasedID: 0
+  PositionSeedBasedID: 0
+  SeedBasedID: 0
 --- !u!4 &1442851141
 Transform:
   m_ObjectHideFlags: 0

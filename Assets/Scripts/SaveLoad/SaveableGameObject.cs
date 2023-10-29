@@ -10,11 +10,14 @@ namespace Save
 	public class SaveableGameObject : MonoBehaviour, ISerializationCallbackReceiver
 	{
 		public string id;
-		[SerializeField] private bool PositionBasedID;
+		[SerializeField] private bool PositionSeedBasedID;
+		[SerializeField] private bool SeedBasedID;
 
 		private void Start()
 		{
-			if (PositionBasedID) DeterministicSeededGuid(ServiceLocator.Instance.GetService<MapGenerator>().GetSeed());
+			if (PositionSeedBasedID)
+				DeterministicPositionSeededGuid(ServiceLocator.Instance.GetService<MapGenerator>().GetSeed());
+			if (SeedBasedID) DeterministicSeededGuid(ServiceLocator.Instance.GetService<MapGenerator>().GetSeed());
 			if (ServiceLocator.Instance.GetService<SavingSystem>() == null) return;
 			ServiceLocator.Instance.GetService<SavingSystem>().Subscribe(this);
 		}
@@ -25,12 +28,20 @@ namespace Save
 			ServiceLocator.Instance.GetService<SavingSystem>().UnSubscribe(this);
 		}
 
-		public void OnBeforeSerialize()
-		{
-			GenerateUniqueID();
-		}
+		public void OnBeforeSerialize() => GenerateUniqueID();
 
 		public void DeterministicSeededGuid(int seed)
+		{
+			string inputString = seed.ToString();
+			using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+			{
+				byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(inputString);
+				byte[] hashBytes = md5.ComputeHash(inputBytes);
+				id = new Guid(hashBytes).ToString();
+			}
+		}
+
+		public void DeterministicPositionSeededGuid(int seed)
 		{
 			string inputString = transform.position + seed.ToString();
 			using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
@@ -102,10 +113,17 @@ namespace Save
 		public void PreLoadStep()
 		{
 			var components = GetComponents<ISaveLoad>();
-			foreach (var saveLoad in components.Where(x => x is ResetOnLoad))
+			foreach (var saveLoad in components.Where(x => x is IResetOnLoad))
 			{
-				var component = (ResetOnLoad) saveLoad;
-				component.Reset();
+				var component = (IResetOnLoad) saveLoad;
+				try
+				{
+					component.Reset();
+				}
+				catch (Exception ex)
+				{
+					Debug.LogWarning($"Failed to reset {component}");
+				}
 			}
 		}
 	}

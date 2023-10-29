@@ -6,7 +6,7 @@ using Save;
 using UnityEngine;
 
 [RequireComponent(typeof(DiggableTerrain))]
-public class TerrainSave : MonoBehaviour, ISaveLoad, ResetOnLoad
+public class TerrainSave : MonoBehaviour, ISaveLoad, IResetOnLoad
 {
 	[SerializeField] private DiggableTerrain diggableTerrain;
 	private HashSet<DiggableTerrain.DigParams> digParams = new();
@@ -69,9 +69,4 @@ public class TerrainSave : MonoBehaviour, ISaveLoad, ResetOnLoad
 	{
 		if (diggableTerrain != null) diggableTerrain.Reset();
 	}
-}
-
-public interface ResetOnLoad
-{
-	public void Reset();
 }

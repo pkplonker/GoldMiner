@@ -180,7 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0430cd25-0ba8-498c-93ab-aaf1766e0e09
-  PositionBasedID: 1
+  PositionSeedBasedID: 1
+  SeedBasedID: 0
 --- !u!114 &6692654787764363706
 MonoBehaviour:
   m_ObjectHideFlags: 0
