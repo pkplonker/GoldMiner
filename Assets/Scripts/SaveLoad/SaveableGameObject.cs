@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace Save
@@ -9,18 +9,17 @@ namespace Save
 	{
 		public string id;
 
-		private void OnEnable()
+		private void Start()
 		{
-			if (SavingSystem.instance == null) return;
-			SavingSystem.instance.Subscribe(this);
+			if (ServiceLocator.Instance.GetService<SavingSystem>() == null) return;
+			ServiceLocator.Instance.GetService<SavingSystem>().Subscribe(this);
 		}
 
 		private void OnDisable()
 		{
-			if (SavingSystem.instance == null) return;
-			SavingSystem.instance.UnSubscribe(this);
+			if (ServiceLocator.Instance.GetService<SavingSystem>() == null) return;
+			ServiceLocator.Instance.GetService<SavingSystem>().UnSubscribe(this);
 		}
-
 
 		public void OnBeforeSerialize()
 		{
@@ -38,11 +37,8 @@ namespace Save
 			}
 		}
 
-
 		//required for ISerializationCallbackReceiver interface
-		public void OnAfterDeserialize()
-		{
-		}
+		public void OnAfterDeserialize() { }
 
 		/// <summary>
 		/// Method <c>SaveState</c> Public function that gets all components implementing ISaveLoad on this object add adds saveData to return dictionary
@@ -63,14 +59,27 @@ namespace Save
 		/// </summary>
 		public void LoadState(object data)
 		{
-			var saveData = (Dictionary<string, object>) data;
-			foreach (var component in GetComponents<ISaveLoad>())
+			if (data is JObject jObjectData)
 			{
-				string typeName = component.GetType().ToString();
-				if (saveData.TryGetValue(typeName, out object componentSaveData))
+				Dictionary<string, object> saveData = jObjectData.ToObject<Dictionary<string, object>>();
+				if (saveData == null)
 				{
-					component.LoadState(componentSaveData);
+					Debug.LogWarning($"Failed to load data on {gameObject.name}");
+					return;
 				}
+
+				foreach (var component in GetComponents<ISaveLoad>())
+				{
+					string typeName = component.GetType().ToString();
+					if (saveData.TryGetValue(typeName, out object componentSaveData))
+					{
+						component.LoadState(componentSaveData);
+					}
+				}
+			}
+			else
+			{
+				Debug.LogWarning($"Invalid data type passed to LoadState on {gameObject.name}");
 			}
 		}
 	}

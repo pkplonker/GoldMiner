@@ -3,33 +3,32 @@ using Save;
 using UnityEditor;
 using UnityEngine;
 
+public class SaveLoadEditor : MonoBehaviour
+{
+	[MenuItem("SaveLoad/Save")]
+	static void SaveGame()
+	{
+		var savingSystem = ServiceLocator.Instance.GetService<SavingSystem>();
+		if (savingSystem == null) return;
 
-    public class SaveLoadEditor : MonoBehaviour
-    {
-	   
-	    [MenuItem("SaveLoad/Save")]
-	    static  void SaveGame()
-	    {
-		    var savingSystem = FindObjectOfType<SavingSystem>();
-		    if (savingSystem == null) return;
+		savingSystem.SaveGame();
+	}
 
-		    savingSystem.SaveGame();
-	    }
-	    [MenuItem("SaveLoad/Load")]
-	    static  void LoadGame()
-	    {
-		    var savingSystem = FindObjectOfType<SavingSystem>();
-		    if (savingSystem == null) return;
+	[MenuItem("SaveLoad/Load")]
+	static void LoadGame()
+	{
+		var savingSystem = ServiceLocator.Instance.GetService<SavingSystem>();
+		if (savingSystem == null) return;
 
-		    savingSystem.LoadGame();
-	    }
-	    [MenuItem("SaveLoad/ClearSaveData") ]
-	    static void NewGame()
-	    {
-		    var savingSystem = FindObjectOfType<SavingSystem>();
-		    if (savingSystem == null) return;
+		savingSystem.LoadGame();
+	}
 
-		    savingSystem.ClearSave();
-	    }
-    }
+	[MenuItem("SaveLoad/ClearSaveData")]
+	static void NewGame()
+	{
+		var savingSystem = ServiceLocator.Instance.GetService<SavingSystem>();
+		if (savingSystem == null) return;
 
+		savingSystem.ClearSave();
+	}
+}

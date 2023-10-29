@@ -5,9 +5,8 @@ using UnityEngine;
 
 namespace Save
 {
-	public class SavingSystem : MonoBehaviour
+	public class SavingSystem : MonoBehaviour, IService
 	{
-		public static SavingSystem instance { get; private set; }
 		private List<SaveableGameObject> saveableObjects;
 		[SerializeField] private string fileName = "Game.data";
 		private ISaveLoadIO output;
@@ -16,23 +15,10 @@ namespace Save
 
 		private void Awake()
 		{
-			#region Singleton
-
-			if (instance == null )
-			{
-				instance = this;
-			}
-			else if(instance!=this)
-			{
-				Debug.LogWarning("Destroying" + this + " on gameobject " + gameObject.name + " due to singleton");
-				Destroy(this);
-			}
-			#endregion
+			ServiceLocator.Instance.RegisterService(this);
 
 			output = new SaveLoadIOMediator().CreateSaveLoadExternal(fileName);
 		}
-
-		
 
 		private void OnEnable()
 		{
@@ -43,6 +29,7 @@ namespace Save
 		{
 			LoadGame();
 		}
+
 		/// <summary>
 		/// Method <c>ClearSave</c> Public function to clear existing save file
 		/// </summary>
@@ -51,6 +38,7 @@ namespace Save
 			output ??= new SaveFileHandler(Application.persistentDataPath, fileName);
 			output.Clear();
 		}
+
 		/// <summary>
 		/// Method <c>LoadGame</c> Public function to load existing save file
 		/// </summary>
@@ -58,10 +46,11 @@ namespace Save
 		{
 			LoadData(output.Load());
 		}
+
 		/// <summary>
 		/// Method <c>SaveGame</c> Public function to save new changes
 		/// </summary>
-		public void SaveGame(bool isNew=false)
+		public void SaveGame(bool isNew = false)
 		{
 			Dictionary<string, object> saveData;
 			if (!isNew) saveData = new Dictionary<string, object>();
@@ -69,12 +58,12 @@ namespace Save
 			SaveData(saveData);
 			output.Save(saveData);
 		}
-		
 
 		private void OnApplicationQuit()
 		{
 			SaveGame();
 		}
+
 		/// <summary>
 		/// Method <c>LoadData</c> Private function to distribute data to saveableobjects
 		/// </summary>
@@ -87,13 +76,16 @@ namespace Save
 					saveableObjects.Remove(saveableObject);
 					continue;
 				}
+
 				if (data.TryGetValue(saveableObject.id, out object saveData))
 				{
 					saveableObject.LoadState(saveData);
 				}
 			}
+
 			OnLoad?.Invoke();
 		}
+
 		/// <summary>
 		/// Method <c>SaveData</c> Private function to collate save data from saveableObjects
 		/// </summary>
@@ -106,8 +98,10 @@ namespace Save
 					saveableObjects.Remove(saveableObject);
 					continue;
 				}
+
 				data[saveableObject.id] = saveableObject.SaveState();
 			}
+
 			OnSave?.Invoke();
 		}
 
@@ -118,9 +112,11 @@ namespace Save
 		{
 			if (!saveableObjects.Contains(saveLoadInterface))
 			{
+				Debug.Log("Registed");
 				saveableObjects.Add(saveLoadInterface);
 			}
 		}
+
 		/// <summary>
 		/// Method <c>UnSubscribe</c> Public observer pattern unsubscription
 		/// </summary>
@@ -131,5 +127,7 @@ namespace Save
 				saveableObjects.Remove(saveLoadInterface);
 			}
 		}
+
+		public void Initialize() { }
 	}
 }
