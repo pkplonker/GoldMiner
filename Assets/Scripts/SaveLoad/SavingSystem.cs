@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TerrainGeneration;
 using UnityEngine;
 
 namespace Save
@@ -23,6 +24,7 @@ namespace Save
 		private void OnEnable()
 		{
 			saveableObjects = new List<SaveableGameObject>();
+			//MapGenerator.MapGenerated
 		}
 
 		private void Start()
@@ -54,7 +56,7 @@ namespace Save
 		{
 			Dictionary<string, object> existingSaveData = output.Load() ?? new Dictionary<string, object>();
 			Dictionary<string, object> currentSaveData = new Dictionary<string, object>();
-    
+
 			SaveData(currentSaveData);
 
 			if (!isNew)
@@ -72,7 +74,6 @@ namespace Save
 			output.Save(existingSaveData);
 		}
 
-
 		private void OnApplicationQuit()
 		{
 			//SaveGame();
@@ -83,6 +84,11 @@ namespace Save
 		/// </summary>
 		private void LoadData(Dictionary<string, object> data)
 		{
+			foreach (var saveableObject in saveableObjects)
+			{
+				saveableObject.PreLoadStep();
+			}
+
 			foreach (var saveableObject in saveableObjects)
 			{
 				if (saveableObject == null)

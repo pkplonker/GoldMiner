@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 using TerrainGeneration;
 using UnityEngine;
@@ -10,9 +11,10 @@ namespace Save
 	{
 		public string id;
 		[SerializeField] private bool PositionBasedID;
+
 		private void Start()
 		{
-			if(PositionBasedID)DeterministicSeededGuid(ServiceLocator.Instance.GetService<MapGenerator>().GetSeed());
+			if (PositionBasedID) DeterministicSeededGuid(ServiceLocator.Instance.GetService<MapGenerator>().GetSeed());
 			if (ServiceLocator.Instance.GetService<SavingSystem>() == null) return;
 			ServiceLocator.Instance.GetService<SavingSystem>().Subscribe(this);
 		}
@@ -74,6 +76,7 @@ namespace Save
 		{
 			if (data is JObject jObjectData)
 			{
+				var components = GetComponents<ISaveLoad>();
 				Dictionary<string, object> saveData = jObjectData.ToObject<Dictionary<string, object>>();
 				if (saveData == null)
 				{
@@ -81,7 +84,7 @@ namespace Save
 					return;
 				}
 
-				foreach (var component in GetComponents<ISaveLoad>())
+				foreach (var component in components)
 				{
 					string typeName = component.GetType().ToString();
 					if (saveData.TryGetValue(typeName, out object componentSaveData))
@@ -93,6 +96,16 @@ namespace Save
 			else
 			{
 				Debug.LogWarning($"Invalid data type passed to LoadState on {gameObject.name}");
+			}
+		}
+
+		public void PreLoadStep()
+		{
+			var components = GetComponents<ISaveLoad>();
+			foreach (var saveLoad in components.Where(x => x is ResetOnLoad))
+			{
+				var component = (ResetOnLoad) saveLoad;
+				component.Reset();
 			}
 		}
 	}

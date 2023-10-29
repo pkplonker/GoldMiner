@@ -6,7 +6,7 @@ using Save;
 using UnityEngine;
 
 [RequireComponent(typeof(DiggableTerrain))]
-public class TerrainSave : MonoBehaviour, ISaveLoad
+public class TerrainSave : MonoBehaviour, ISaveLoad, ResetOnLoad
 {
 	[SerializeField] private DiggableTerrain diggableTerrain;
 	private HashSet<DiggableTerrain.DigParams> digParams = new();
@@ -37,7 +37,6 @@ public class TerrainSave : MonoBehaviour, ISaveLoad
 			{
 				var saveData = jobject.ToObject<SaveData>();
 				digParams = saveData.digList;
-				diggableTerrain.Reset();
 				LoadFromParams();
 			}
 			catch (Exception ex)
@@ -59,10 +58,20 @@ public class TerrainSave : MonoBehaviour, ISaveLoad
 			{
 				var param = digParam;
 				param.PlayVFX = false;
-				diggableTerrain.Dig(param,true);
+				diggableTerrain.Dig(param, true);
 			}
 		}
 	}
 
 	public object SaveState() => new SaveData() {digList = digParams};
+
+	public void Reset()
+	{
+		if (diggableTerrain != null) diggableTerrain.Reset();
+	}
+}
+
+public interface ResetOnLoad
+{
+	public void Reset();
 }

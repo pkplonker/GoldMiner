@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveableGameObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SaveableGameObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SavingSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SaveLoad/SavingSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainSave.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainSave.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -315,32 +317,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="76" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs</url>
-          <line>284</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\DiggableTerrain.cs" initialLine="284" containingFunctionPresentation="Method 'Setup'">
-            <startOffsets>
-              <option value="8468" />
-            </startOffsets>
-            <endOffsets>
-              <option value="8487" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs</url>
-          <line>308</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\DiggableTerrain.cs" initialLine="308" containingFunctionPresentation="Method 'Reset'">
-            <startOffsets>
-              <option value="8989" />
-            </startOffsets>
-            <endOffsets>
-              <option value="9000" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="88" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
