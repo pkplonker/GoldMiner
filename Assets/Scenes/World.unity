@@ -1535,7 +1535,7 @@ GameObject:
   - component: {fileID: 1341566461}
   - component: {fileID: 1341566460}
   m_Layer: 0
-  m_Name: GoldSpawnManager
+  m_Name: SpawnManagers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

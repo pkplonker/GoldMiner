@@ -19,7 +19,6 @@ namespace UI
 		private PlayerMovement playerMovement;
 		[SerializeField] private Button keepButton;
 
-
 		private void UpdateUI(Item item)
 		{
 			itemNameText.text = item.ItemName;
@@ -31,9 +30,17 @@ namespace UI
 		public void Pickup()
 		{
 			if (pickupTarget == null || playerInteractionStateMachine == null) Debug.LogError("missing refs");
-			pickupTarget.DisableObject();
+
 			var inv = playerInteractionStateMachine.GetComponent<Inventory>();
-			if (inv == null || !inv.Add(pickupTarget.Item)) FailedToAddToInventory();
+			if (inv == null || !inv.Add(pickupTarget.Item))
+			{
+				FailedToAddToInventory();
+			}
+			else
+			{
+				ServiceLocator.Instance.GetService<TargetManager>()?.DeregisterTarget(pickupTarget);
+			}
+
 			ServiceLocator.Instance.GetService<CanvasGroupController>().Hide(this);
 		}
 
@@ -43,10 +50,9 @@ namespace UI
 		public void ThrowAway()
 		{
 			if (pickupTarget == null) Debug.LogError("missing refs");
-			pickupTarget.DisableObject();
+			ServiceLocator.Instance.GetService<TargetManager>()?.DeregisterTarget(pickupTarget);
 			ServiceLocator.Instance.GetService<CanvasGroupController>().Hide(this);
 		}
-
 
 		public override void Toggle()
 		{
@@ -59,7 +65,6 @@ namespace UI
 			base.Hide();
 			playerMovement.SetCanMove(true);
 		}
-
 
 		public void Init(PickupTarget pickupTarget, PlayerInteractionStateMachine player)
 		{
