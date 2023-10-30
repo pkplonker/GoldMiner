@@ -12,17 +12,16 @@ public class GoldSpawnManager : TargetManager
 	private PlayerCurrency playerCurrency;
 	public event Action<Transform> GoldDeregistered;
 
-	protected override void Awake()
-	{
-		ServiceLocator.Instance.RegisterService(this);
-	}
+	protected override void Awake() => ServiceLocator.Instance.RegisterService(this);
 
-	public override void DeregisterTarget(Target target)
+	private void AddGold(Target gold) => playerCurrency.AddGold(gold as Gold);
+
+	public void Collect(Gold gold)
 	{
-		base.DeregisterTarget(target);
+		DeregisterTarget(gold);
 		if (playerCurrency != null)
 		{
-			AddGold(target);
+			AddGold(gold);
 		}
 		else if (playerReference == null)
 		{
@@ -31,9 +30,8 @@ public class GoldSpawnManager : TargetManager
 		else
 		{
 			playerCurrency = playerReference.GetPlayer().GetComponent<PlayerCurrency>();
-			if (playerCurrency != null) AddGold(target);
+			if (playerCurrency != null) AddGold(gold);
 		}
+		GoldDeregistered?.Invoke(gold.transform);
 	}
-
-	private void AddGold(Target gold) => playerCurrency.AddGold(gold as Gold);
 }

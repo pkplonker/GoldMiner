@@ -37,7 +37,7 @@ namespace Targets
 		public override void Interact(PlayerInteractionStateMachine player)
 		{
 			Debug.Log($"Interacted with {Weight}g nugget");
-			ServiceLocator.Instance.GetService<GoldSpawnManager>().DeregisterTarget(this);
+			ServiceLocator.Instance.GetService<GoldSpawnManager>().Collect(this);
 		}
 	}
 }
