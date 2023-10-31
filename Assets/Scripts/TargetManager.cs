@@ -13,7 +13,7 @@ public class TargetManager : MonoBehaviour, IService, ISaveLoad, IResetOnLoad
 	public HashSet<Target> spawnedTargets { get; private set; } = new();
 	public HashSet<Target> targetPiecesFound { get; private set; } = new();
 	[SerializeField] protected PlayerReference playerReference;
-	public event Action<Transform> TargetRegistered;
+	public event Action<Transform> TargetDeregistered;
 
 	protected virtual void Awake()=> ServiceLocator.Instance.RegisterService(this);
 	public virtual void RegisterTarget(Target target)=> spawnedTargets.Add(target);
@@ -23,9 +23,12 @@ public class TargetManager : MonoBehaviour, IService, ISaveLoad, IResetOnLoad
 		if (!spawnedTargets.Contains(target)) return;
 		spawnedTargets.Remove(target);
 		targetPiecesFound.Add(target);
-		TargetRegistered?.Invoke(target.transform);
+		FireDeregisterEvent(target);
 		target.DisableObject();
 	}
+
+	protected virtual void FireDeregisterEvent(Target target)=> TargetDeregistered?.Invoke(target.transform);
+	
 
 	public void Initialize() { }
 
