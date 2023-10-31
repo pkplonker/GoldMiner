@@ -2580,6 +2580,7 @@ GameObject:
   - component: {fileID: 895930739325738965}
   - component: {fileID: 656486071192660988}
   - component: {fileID: 8574296284557326014}
+  - component: {fileID: -4191451294503838027}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -2698,6 +2699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db47983a91132041b28978882fc1357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldAmount: {fileID: 11400000, guid: f9b44ac0d007dd54181cbfa8e2c82ea7, type: 2}
+  currency: {fileID: 11400000, guid: 3104591330f1663418230b92e7df5169, type: 2}
 --- !u!114 &895930739325738965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2711,6 +2714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacity: 10
+  itemDatabase: {fileID: 11400000, guid: bc63c2e3597155946b24b740505b27fd, type: 2}
 --- !u!114 &656486071192660988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2746,6 +2750,21 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &-4191451294503838027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7635256604560604012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8c0aba6d62b694ca1eb526de4302d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 4b029bc6-b119-4b24-b65f-edee4a78d75f
+  PositionSeedBasedID: 0
+  SeedBasedID: 0
 --- !u!1001 &1881947243787532403
 PrefabInstance:
   m_ObjectHideFlags: 0

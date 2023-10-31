@@ -2,40 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Player;
+using Save;
 using StuartHeathTools;
 using Targets;
 using UnityEngine;
 
-public class GoldSpawnManager : MonoBehaviour, IService
+public class GoldSpawnManager : TargetManager
 {
-	public List<Gold> goldPiecesSpawned { get; private set; } = new();
-	public List<Gold> goldPiecesFound { get; private set; } = new();
-	[SerializeField] private PlayerReference playerReference;
 	private PlayerCurrency playerCurrency;
 	public event Action<Transform> GoldDeregistered;
 
-	private void Awake()
-	{
-		ServiceLocator.Instance.RegisterService(this);
-	}
+	protected override void Awake() => ServiceLocator.Instance.RegisterService(this);
 
-	public void RegisterGold(Gold gold)
-	{
-		if (!goldPiecesSpawned.Contains(gold)) goldPiecesSpawned.Add(gold);
-	}
+	private void AddGold(Target gold) => playerCurrency.AddGold(gold as Gold);
+	protected override void FireDeregisterEvent(Target target) => GoldDeregistered?.Invoke(target.transform);
 
-	public void DeregisterGold(Gold gold)
+	public void Collect(Gold gold)
 	{
-		if (goldPiecesSpawned.Contains(gold))
-		{
-			goldPiecesSpawned.Remove(gold);
-			GoldDeregistered?.Invoke(gold.transform);
-		}
-	}
-
-	public void GoldCollected(Gold gold)
-	{
-		DeregisterGold(gold);
+		DeregisterTarget(gold);
 		if (playerCurrency != null)
 		{
 			AddGold(gold);
@@ -49,11 +33,7 @@ public class GoldSpawnManager : MonoBehaviour, IService
 			playerCurrency = playerReference.GetPlayer().GetComponent<PlayerCurrency>();
 			if (playerCurrency != null) AddGold(gold);
 		}
-	}
 
-	private void AddGold(Gold gold) => playerCurrency.AddGold(gold);
-	public void Initialize()
-	{
-		
+		GoldDeregistered?.Invoke(gold.transform);
 	}
 }

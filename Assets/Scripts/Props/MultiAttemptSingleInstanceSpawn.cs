@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TerrainGeneration;
 using UnityEngine;
 
@@ -21,53 +22,86 @@ namespace Props
 		protected virtual Trans CalculateSpawn(float size, GameObject currentInstance, string groundLayer)
 		{
 			var t = new Trans();
-			t.Position = CalculatePosition(size, currentInstance, groundLayer);
-			t.Rotation = CalculateRotation(t.Position, currentInstance);
+			var result = AlignToTerrain(CalculatePosition(size, currentInstance, groundLayer), currentInstance);
+			t.Position = result.position;
+			t.Rotation = result.rotation;
 			return t;
 		}
 
-		protected virtual Quaternion CalculateRotation(Vector3 position, GameObject currentInstance)
+		protected virtual (Quaternion rotation, Vector3 position) AlignToTerrain(Vector3 position,
+			GameObject currentInstance)
 		{
-			if (alignToTerrain)
+			if (!alignToTerrain || currentInstance == null)
+				return (Quaternion.identity, position);
+
+			BoxCollider collider = currentInstance.GetComponent<BoxCollider>();
+			if (collider == null)
 			{
-				var bounds = GetBounds(currentInstance);
-
-				Vector3[] boundsCorners = new Vector3[4];
-				boundsCorners[0] = new Vector3(bounds.min.x, bounds.max.y, bounds.min.z);
-				boundsCorners[1] = new Vector3(bounds.max.x, bounds.max.y, bounds.min.z);
-				boundsCorners[2] = new Vector3(bounds.min.x, bounds.max.y, bounds.max.z);
-				boundsCorners[3] = new Vector3(bounds.max.x, bounds.max.y, bounds.max.z);
-
-				List<KeyValuePair<Vector3, float>> cornerHeights = new List<KeyValuePair<Vector3, float>>();
-
-				var pos = position;
-				foreach (var corner in boundsCorners)
-				{
-					var rayPosition = pos + corner + (Vector3.up * 5);
-					if (Physics.Raycast(rayPosition, Vector3.down, out RaycastHit hit, Mathf.Infinity))
-					{
-						cornerHeights.Add(new KeyValuePair<Vector3, float>(corner, hit.point.y));
-					}
-				}
-
-				cornerHeights.Sort((a, b) => a.Value.CompareTo(b.Value));
-				Vector3[] threeLowestCorners = {cornerHeights[0].Key, cornerHeights[1].Key, cornerHeights[2].Key};
-
-				Vector3 normal = Vector3.Cross(threeLowestCorners[1] - threeLowestCorners[0],
-					threeLowestCorners[2] - threeLowestCorners[0]).normalized;
-
-				if (Vector3.Dot(normal, Vector3.up) < 0)
-				{
-					normal = -normal;
-				}
-
-				Quaternion rotation =
-					Quaternion.FromToRotation(Vector3.up, normal) * currentInstance.transform.rotation;
-
-				return rotation;
+				Debug.LogError("The GameObject does not have a Collider component.");
+				return (Quaternion.identity, position);
 			}
 
-			return Quaternion.identity;
+			Vector3[] bottomCorners = GetBottomCorners(collider);
+
+			Vector3[] hitPoints = new Vector3[4];
+			int hitCount = 0;
+
+			for (int i = 0; i < 4; i++)
+			{
+				Vector3 rayStart = position + bottomCorners[i] + Vector3.up * 10;
+				//Debug.DrawRay(rayStart, Vector3.down * 20, Color.green, 5f);
+				if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, Mathf.Infinity))
+				{
+					hitPoints[hitCount] = hit.point;
+					hitCount++;
+				}
+			}
+
+			if (hitCount < 3) return (Quaternion.identity, position);
+
+			Vector3 vector1 = hitPoints[1] - hitPoints[0];
+			Vector3 vector2 = hitPoints[2] - hitPoints[0];
+			Vector3 averageNormal = Vector3.Cross(vector1, vector2).normalized;
+
+			Vector3 newPosition = CalculateNewPosition(hitPoints, hitCount);
+			newPosition.y = hitPoints.Min(hit => hit.y);
+
+			if (averageNormal.y < 0)
+				averageNormal = -averageNormal;
+
+			newPosition.y = hitPoints.Min(hit => hit.y);
+
+			Quaternion newRotation =
+				Quaternion.LookRotation(Vector3.Cross(averageNormal, currentInstance.transform.right), averageNormal);
+			newPosition.y += collider.center.y;
+			return (newRotation, newPosition);
+		}
+
+		private Vector3[] GetBottomCorners(BoxCollider collider)
+		{
+			Vector3[] corners = new Vector3[4];
+
+			Vector3 size = collider.size;
+			Vector3 center = collider.center;
+
+			corners[0] = center + new Vector3(-size.x, -size.y, -size.z) * 0.5f;
+			corners[1] = center + new Vector3(size.x, -size.y, -size.z) * 0.5f;
+			corners[2] = center + new Vector3(-size.x, -size.y, size.z) * 0.5f;
+			corners[3] = center + new Vector3(size.x, -size.y, size.z) * 0.5f;
+
+			return corners;
+		}
+
+		private Vector3 CalculateNewPosition(Vector3[] hitPoints, int hitCount)
+		{
+			Vector3 newPosition = Vector3.zero;
+			for (int i = 0; i < hitCount; i++)
+			{
+				newPosition += hitPoints[i];
+			}
+
+			newPosition /= hitCount;
+			return newPosition;
 		}
 
 		protected virtual Vector3 CalculatePosition(float size, GameObject currentInstance, string groundLayer)

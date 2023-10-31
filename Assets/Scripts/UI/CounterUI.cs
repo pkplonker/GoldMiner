@@ -60,15 +60,17 @@ namespace UI
 
 		private IEnumerator UpdateTextCor()
 		{
+			float tolerance = 0.01f;
 			var delta = targetAmount - currentAmount;
-			while (targetAmount.ToString("n2") != currentAmount.ToString("n2"))
+			while (Mathf.Abs(targetAmount - currentAmount) > tolerance)
 			{
 				currentAmount = Mathf.MoveTowards(currentAmount, targetAmount,
 					targetAmount > currentAmount ? delta / speed * Time.deltaTime : -delta / speed * Time.deltaTime);
 				UpdateText();
 				yield return null;
 			}
-
+			currentAmount = targetAmount;
+			UpdateText();
 			coroutine = null;
 		}
 	}

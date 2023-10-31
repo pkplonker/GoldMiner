@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Props;
+using Save;
 using TerrainGeneration;
 using UnityEngine;
 
@@ -21,22 +22,33 @@ public class DiggableTerrain : MonoBehaviour
 	private MeshFilter meshFilter;
 	private bool setup;
 	private float digAmount;
-	private Dictionary<int, float> digChanges = new();
 	private TerrainChunk terrainChunk;
 	private float vertexColorFactor;
 	private TerrainDigPropController terrainDigPropController;
-	public event Action<RaycastHit> OnDig;
+	public event Action<DigParams> OnDig;
+	private Vector3[] initialVertices;
+	private Vector3[] initialNormals;
+	private Vector4[] initialTangents;
 
-	public bool Dig(RaycastHit hit, float digAmount = 0.1f, float maxDigDepth = -2f)
+	[Serializable]
+	public struct DigParams
+	{
+		public SerializableVector HitPoint;
+		public int TriangleIndex;
+		public float DigAmount;
+		public bool PlayVFX;
+	}
+
+	public bool Dig(DigParams digParams,bool isReplay)
 	{
 		if (!setup) Setup();
-		var digCompleteCallback = terrainDigPropController.CanDig(hit);
+		var digCompleteCallback = terrainDigPropController.CanDig(digParams.HitPoint);
 		if (digCompleteCallback != null)
 		{
-			this.digAmount = digAmount;
+			digAmount = digParams.DigAmount;
 			vertexColorFactor = digAmount / SubSurfaceProp.globalMaxDepth;
 			var mesh = meshFilter.mesh;
-			var hitVertsIndexes = GetHitVerts(hit, mesh);
+			var hitVertsIndexes = GetHitVerts(digParams.TriangleIndex, mesh);
 
 			var verts = UpdateVerts(digAmount, hitVertsIndexes, mesh.vertices, out var result);
 			if (result)
@@ -49,11 +61,19 @@ public class DiggableTerrain : MonoBehaviour
 
 			GetCurrentChunk().ProcessNormalAlignment();
 			digCompleteCallback?.Invoke();
-			OnDig?.Invoke(hit);
+			if(!isReplay)
+				OnDig?.Invoke(digParams);
 			return true;
 		}
 
 		return false;
+	}
+
+	public bool Dig(RaycastHit RaycastHit, DigParams digParams, bool isReplay = false)
+	{
+		digParams.HitPoint = RaycastHit.point;
+		digParams.TriangleIndex = RaycastHit.triangleIndex;
+		return Dig(digParams,isReplay);
 	}
 
 	private void CheckNeighbours(int[] hitVertsIndexes)
@@ -228,10 +248,15 @@ public class DiggableTerrain : MonoBehaviour
 		meshCollider.sharedMesh = newMesh;
 		meshCollider.cookingOptions = MeshColliderCookingOptions.EnableMeshCleaning;
 	}
-
-	private int[] GetHitVerts(RaycastHit hit, Mesh mesh)
+	
+	private void ResetCollider(Mesh newMesh)
 	{
-		var index = hit.triangleIndex;
+		meshCollider.sharedMesh = null;
+		meshCollider.sharedMesh = newMesh;
+	}
+
+	private int[] GetHitVerts(int index, Mesh mesh)
+	{
 		var hitVerts = new Vector3[6];
 		var hitVertIndexes = new int[6];
 
@@ -261,7 +286,55 @@ public class DiggableTerrain : MonoBehaviour
 		if (!meshFilter) meshFilter = GetComponent<MeshFilter>();
 		if (terrainDigPropController == null) terrainDigPropController = GetComponent<TerrainDigPropController>();
 		setup = meshRenderer && meshCollider && meshFilter;
+		if (setup)
+		{
+			SaveInitialState();
+		}
+		else
+		{
+			Debug.LogError("Setup failed. MeshRenderer, MeshCollider, or MeshFilter is missing.");
+		}
 	}
+
+	private void SaveInitialState()
+	{
+		if (meshFilter.mesh != null)
+		{
+			initialVertices = meshFilter.mesh.vertices.Clone() as Vector3[];
+			initialNormals = meshFilter.mesh.normals.Clone() as Vector3[];
+			initialTangents = meshFilter.mesh.tangents.Clone() as Vector4[];
+		}
+		else
+		{
+			Debug.LogError("Mesh is missing. Cannot save initial state.");
+		}
+	}
+
+	public void Reset()
+	{
+		if (!setup)
+		{
+			Setup();
+		}
+
+		if (initialVertices == null || initialNormals == null || initialTangents == null)
+		{
+			Debug.LogError("Initial state not saved. Cannot reset terrain.");
+			return;
+		}
+
+		var mesh = meshFilter.mesh;
+		mesh.vertices = initialVertices.Clone() as Vector3[];
+		mesh.normals = initialNormals.Clone() as Vector3[];
+		mesh.tangents = initialTangents.Clone() as Vector4[];
+		mesh.RecalculateBounds();
+		//mesh.RecalculateNormals();
+		//mesh.RecalculateTangents();
+
+		ResetCollider(mesh);
+	}
+
+
 
 	private struct TerrainChange
 	{

@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using Save;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
@@ -10,10 +11,10 @@ namespace TerrainGeneration
 	{
 		[field: SerializeField] public MapGeneratorTerrain MapGeneratorTerrain { get; private set; }
 		[field: SerializeField] public PropSpawner PropSpawner { get; private set; }
-		public static event Action<float> MapGenerated;
+		public event Action<float> MapGenerated;
 
-		public static event Action<MapData> TerrainGenerated;
-		public static event Action<int, int> MapGenerationStarted;
+		public event Action<MapData> TerrainGenerated;
+		public event Action<int, int> MapGenerationStarted;
 
 		private void Awake()
 		{
@@ -22,7 +23,7 @@ namespace TerrainGeneration
 
 		public void RegenerateWorld(bool newSeed = false)
 		{
-			MapGeneratorTerrain.MapData.seed = Random.Range(0, 32000);
+			if (newSeed) MapGeneratorTerrain.MapData.seed = Random.Range(0, 32000);
 			MapGeneratorTerrain.ClearData();
 			SpawnTerrain();
 			spawnedProps = false;
@@ -71,6 +72,7 @@ namespace TerrainGeneration
 			          "ms . Frames taken = " +
 			          (Time.frameCount - startFrame));
 #endif
+			ServiceLocator.Instance.GetService<SavingSystem>().LoadGame();
 			MapGenerated?.Invoke(MapGeneratorTerrain.MapData.GetSize());
 		}
 
@@ -97,5 +99,7 @@ namespace TerrainGeneration
 		}
 
 		public void Initialize() { }
+
+		public int GetSeed() => MapGeneratorTerrain.MapData.seed;
 	}
 }

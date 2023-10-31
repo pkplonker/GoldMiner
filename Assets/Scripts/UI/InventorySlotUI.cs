@@ -14,8 +14,8 @@ namespace UI
 		public void SetItem(InventorySlot slot)
 		{
 			if (slot == null) return;
-			item = slot._item;
-			quantity = slot._quantity;
+			item = slot.item;
+			quantity = slot.quantity;
 			UpdateUI();
 		}
 

@@ -2,20 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Linq;
+using Save;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, ISaveLoad
 {
-	private List<InventorySlot> slots ;
+	private List<InventorySlot> slots;
 	[SerializeField] private int capacity = 10;
-
+	[SerializeField] private ItemDatabase itemDatabase;
 	public event Action OnInventoryChanged;
 	public event Action OnInventorySetup;
 
 	public int GetCapacity() => capacity;
 
 	private void Start() => FillSlotCapacity();
-
 
 	private void FillSlotCapacity()
 	{
@@ -26,24 +27,25 @@ public class Inventory : MonoBehaviour
 		{
 			slots.Add(new InventorySlot(null, 0));
 		}
+
 		OnInventorySetup?.Invoke();
 	}
 
 	public bool Add(Item item, int quantity = 1)
 	{
 		if (item == null) return false;
-		if (slots.Any(t => t._item == item))
+		if (slots.Any(t => t.item == item))
 		{
-			var slot = slots.First(t => t._item == item);
+			var slot = slots.First(t => t.item == item);
 			slot.Add(item, quantity);
 			OnInventoryChanged?.Invoke();
 			return true;
 		}
 
 		//check for empty space
-		if (slots.Any(t => t._item == null))
+		if (slots.Any(t => t.item == null))
 		{
-			var slot = slots.FirstOrDefault(t => t._item == null);
+			var slot = slots.FirstOrDefault(t => t.item == null);
 			slot.Add(item, quantity);
 			OnInventoryChanged?.Invoke();
 			return true;
@@ -54,9 +56,9 @@ public class Inventory : MonoBehaviour
 
 	public bool Remove(Item item, int quantity = 1)
 	{
-		if (slots.Any(t => t._item == item))
+		if (slots.Any(t => t.item == item))
 		{
-			var slot = slots.First(t => t._item == item);
+			var slot = slots.First(t => t.item == item);
 			slot.Remove(quantity);
 			OnInventoryChanged?.Invoke();
 			return true;
@@ -72,38 +74,118 @@ public class Inventory : MonoBehaviour
 	}
 
 	public bool RemoveAtSlot(int quantity, int index) => slots[index].Remove(quantity);
+
+	public void ClearInventory()
+	{
+		for (int i = 0; i < slots.Count; i++)
+		{
+			slots[i].item = null;
+			slots[i].quantity = 0;
+		}
+
+		OnInventoryChanged?.Invoke();
+	}
+
+	public void LoadState(object data)
+	{
+		if (data is JObject jobject)
+		{
+			try
+			{
+				var saveData = jobject.ToObject<InventorySaveData>();
+				ClearInventory();
+
+				foreach (var itemData in saveData.Items)
+				{
+					var item = itemDatabase.GetItemByGUID(itemData.ItemGUID);
+					if (item != null)
+					{
+						Add(item, itemData.Quantity);
+					}
+					else
+					{
+						Debug.LogWarning($"Item not found: {itemData.ItemGUID}");
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Debug.LogError("Failed to deserialize SaveData: " + ex);
+			}
+		}
+		else
+		{
+			Debug.LogError("Invalid data type passed to LoadState");
+		}
+	}
+
+	public object SaveState()
+	{
+		var saveData = new InventorySaveData
+		{
+			Items = new List<InventorySaveData.ItemSaveData>()
+		};
+
+		foreach (var slot in slots)
+		{
+			if (slot.item != null)
+			{
+				var itemData = new InventorySaveData.ItemSaveData
+				{
+					ItemGUID = slot.item.GUID,
+					Quantity = slot.quantity
+				};
+				saveData.Items.Add(itemData);
+			}
+		}
+
+		return saveData;
+	}
+
+	[Serializable]
+	public class InventorySaveData
+	{
+		public List<ItemSaveData> Items;
+
+		[Serializable]
+		public class ItemSaveData
+		{
+			public string ItemGUID;
+			public int Quantity;
+		}
+	}
 }
 
 [Serializable]
 public class InventorySlot
 {
-	public Item _item;
-	public int _quantity;
+	public Item item;
+	public int quantity;
 
 	public InventorySlot(Item item, int quantity)
 	{
-		_item = item;
-		_quantity = quantity;
+		this.item = item;
+		this.quantity = quantity;
 	}
 
 	public void Add(Item item, int quantity)
 	{
-		_item = item;
-		_quantity += quantity;
+		this.item = item;
+		this.quantity += quantity;
 	}
 
 	public bool Remove(int quantity)
 	{
-		_quantity -= quantity;
+		this.quantity -= quantity;
 		switch (quantity)
 		{
 			case > 0:
 				return true;
 			case 0:
-				_item = null;
+				item = null;
 				return true;
 			default:
-				_quantity += quantity;
+				this.quantity += quantity;
 				return false;
 		}
 	}

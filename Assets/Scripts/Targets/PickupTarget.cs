@@ -29,10 +29,5 @@ namespace Targets
 			canvas.Show(canvas.NewItemPickupUI);
 			canvas.NewItemPickupUI.Init(this, player);
 		}
-
-		public void DestroyItem()
-		{
-			Destroy(gameObject);
-		}
 	}
 }

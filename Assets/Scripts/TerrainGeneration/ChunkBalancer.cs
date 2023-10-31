@@ -22,8 +22,8 @@ public class ChunkBalancer : MonoBehaviour
 		mapGeneratorTerrain = GetComponent<MapGeneratorTerrain>();
 	}
 
-	private void OnEnable() => MapGenerator.MapGenerated += MapGenerated;
-	private void OnDisable() => MapGenerator.MapGenerated -= MapGenerated;
+	private void OnEnable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated += MapGenerated;
+	private void OnDisable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -= MapGenerated;
 
 	private void MapGenerated(float notUsed)
 	{

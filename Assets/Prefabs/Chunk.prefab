@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 2639233252708079568}
   - component: {fileID: -1285533109201977899}
   - component: {fileID: 3507809876940638363}
+  - component: {fileID: 3004690501183804056}
+  - component: {fileID: 6692654787764363706}
   m_Layer: 6
   m_Name: Chunk
   m_TagString: Untagged
@@ -165,3 +167,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleSystem: {fileID: 198029139897396496, guid: e9f3bb09b000386428badf996ba2bdca,
     type: 3}
+--- !u!114 &3004690501183804056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51959433323081978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8c0aba6d62b694ca1eb526de4302d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0430cd25-0ba8-498c-93ab-aaf1766e0e09
+  PositionSeedBasedID: 1
+  SeedBasedID: 0
+--- !u!114 &6692654787764363706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51959433323081978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c105e3281cf3e947a4e898577958cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diggableTerrain: {fileID: 2639233252708079568}

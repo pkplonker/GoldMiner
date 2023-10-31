@@ -16,22 +16,28 @@ namespace Targets
 		[SerializeField] private AnimationCurve goldChanceAnimationCurve;
 		public float Weight { get; private set; }
 
+
 		private void Awake()
 		{
-			ServiceLocator.Instance.GetService<GoldSpawnManager>().RegisterGold(this);
+			Register();
 			var value = UtilityRandom.RandomFloat01();
 			Weight = CreateWeight(goldChanceAnimationCurve, value);
-			SignalStrength +=value;
+			SignalStrength += value;
 			SignalStrength = Mathf.Clamp01(SignalStrength);
 		}
 
-		private static float CreateWeight(AnimationCurve goldChanceAnimationCurve, float value)=>goldChanceAnimationCurve.Evaluate(value);
+		protected override void Register()
+		{
+			ServiceLocator.Instance.GetService<GoldSpawnManager>().RegisterTarget(this);
+		}
+
+		private static float CreateWeight(AnimationCurve goldChanceAnimationCurve, float value) =>
+			goldChanceAnimationCurve.Evaluate(value);
 
 		public override void Interact(PlayerInteractionStateMachine player)
 		{
 			Debug.Log($"Interacted with {Weight}g nugget");
-			ServiceLocator.Instance.GetService<GoldSpawnManager>().GoldCollected(this);
-			DisableObject();
+			ServiceLocator.Instance.GetService<GoldSpawnManager>().Collect(this);
 		}
 	}
 }
