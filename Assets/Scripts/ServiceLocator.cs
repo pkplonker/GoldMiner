@@ -38,6 +38,13 @@ public class ServiceLocator : GenericUnitySingleton<ServiceLocator>
 		Debug.LogError($"Service {type} not found");
 		return default;
 	}
+	private void OnDestroy()
+	{
+		if (instance == this)
+		{
+			instance = null;
+		}
+	}
 }
 
 public interface IService
