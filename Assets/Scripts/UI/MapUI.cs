@@ -19,6 +19,7 @@ namespace UI
 		[SerializeField] private HUDUI hud;
 		[SerializeField] private PlayerReference playerReference;
 		private PlayerMovement playerMovement;
+		private InGameMap inGameMap;
 
 		private void OnEnable()
 		{
@@ -32,6 +33,7 @@ namespace UI
 			enabled = !enabled;
 			if (enabled)
 			{
+				inGameMap.UpdatePlayer();
 				ShowUI();
 				hud.Hide();
 				playerMovement.SetCanMove(false);
@@ -50,9 +52,10 @@ namespace UI
 			PlayerInputManager.OnMap -= Toggle;
 		}
 
-		private void MapGenerated(Texture2D obj)
+		private void MapGenerated(InGameMap inGameMap, Texture2D texture2D)
 		{
-			mapImage.texture = obj;
+			this.inGameMap = inGameMap;
+			mapImage.texture = texture2D;
 		}
 	}
 }

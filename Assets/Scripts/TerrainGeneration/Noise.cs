@@ -39,8 +39,8 @@ namespace TerrainGeneration
 
 					for (var i = 0; i < octaves; i++)
 					{
-						var sampleX = (x - halfWidth) / scale * frequency + octaveOffsets[i].x;
-						var sampleY = (y - halfHeight) / scale * frequency + octaveOffsets[i].y;
+						var sampleX = (x - halfWidth) / scale * frequency + octaveOffsets[i].x*frequency;
+						var sampleY = (y - halfHeight) / scale * frequency + octaveOffsets[i].y*frequency;
 
 						var perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1;
 						noiseHeight += perlinValue * amplitude;

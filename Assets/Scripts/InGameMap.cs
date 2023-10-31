@@ -1,18 +1,37 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Player;
 using TerrainGeneration;
 
 [RequireComponent(typeof(MapGeneratorTerrain))]
 public class InGameMap : MonoBehaviour
 {
+	public enum MapUpdateType
+	{
+		Player,
+		Gold,
+		Target
+	}
+
 	[field: SerializeField] public Texture2D texture { get; private set; }
-	public static event Action<Texture2D> OnMapGenerated;
+	public static event Action<InGameMap, Texture2D> OnMapGenerated;
+	public static event Action<Vector2, MapUpdateType> PositionUpdate;
+
 	private int originalSize = 0;
 	private float[,] noiseMap;
 	private MapData mapData;
 	[SerializeField] private float contourInterval = .25f;
 	[SerializeField] private float contourRange = 0.1f;
+	[SerializeField] private Color goldHighlightColor = Color.green;
+	[SerializeField] private Color targetHighlightColor = Color.blue;
+	[SerializeField] private Color playerHighlightColor = Color.red;
+	[SerializeField] private int playerMarkerSize = 7;
+	[SerializeField] private int markerSize = 5;
+	[SerializeField] private PlayerReference playerReference;
+	private Texture2D playerTexture;
+	private Texture2D targetTexture;
 
 	private static void WriteToFile(Texture2D combinedTexture)
 	{
@@ -26,6 +45,8 @@ public class InGameMap : MonoBehaviour
 	{
 		MapGeneratorTerrain.OnNoiseMapGenerated += OnNoiseMapGenerated;
 		ServiceLocator.Instance.GetService<GoldSpawnManager>().GoldDeregistered += OnGoldDeregistered;
+		ServiceLocator.Instance.GetService<TargetManager>().TargetDeregistered += OnTargetDeregistered;
+
 		CheatConsole.Instance.RegisterCommand("Regenerate UI Map", Regenerate);
 	}
 
@@ -33,6 +54,7 @@ public class InGameMap : MonoBehaviour
 	{
 		MapGeneratorTerrain.OnNoiseMapGenerated -= OnNoiseMapGenerated;
 		ServiceLocator.Instance.GetService<GoldSpawnManager>().GoldDeregistered -= OnGoldDeregistered;
+		ServiceLocator.Instance.GetService<TargetManager>().TargetDeregistered -= OnTargetDeregistered;
 	}
 
 	private void Regenerate()
@@ -99,7 +121,7 @@ public class InGameMap : MonoBehaviour
 		texture.filterMode = FilterMode.Point;
 		texture.Apply();
 
-		OnMapGenerated?.Invoke(texture);
+		OnMapGenerated?.Invoke(this, texture);
 		WriteToFile(texture);
 	}
 
@@ -114,11 +136,65 @@ public class InGameMap : MonoBehaviour
 		return resizedTexture;
 	}
 
-	private void OnGoldDeregistered(Transform gold)
+	private void OnGoldDeregistered(Transform obj) => GetPosition(obj, MapUpdateType.Gold);
+
+	private void OnTargetDeregistered(Transform obj) => GetPosition(obj, MapUpdateType.Target);
+
+	private void GetPosition(Transform t, MapUpdateType type)
 	{
-		var goldPosition = gold.transform.position;
-		var normalizedPosition = new Vector2(goldPosition.x / originalSize, goldPosition.z / originalSize);
-		var scaledPosition = new Vector2(normalizedPosition.x * 1024, normalizedPosition.y * 1024);
-		var textureCoordinate = new Vector2Int((int) scaledPosition.x, (int) scaledPosition.y);
+		var goldPosition = t.transform.position;
+
+		var size = (mapData.GetSize() * mapData.LOD);
+		var percentX = (goldPosition.x + size / 2f) / size;
+		var percentY = (goldPosition.z + size / 2f) / size;
+		percentX = Mathf.Clamp01(percentX);
+		percentY = Mathf.Clamp01(percentY);
+
+		var mapX = Mathf.RoundToInt((targetTexture.width - 1) * percentX);
+		var mapY = Mathf.RoundToInt((targetTexture.height - 1) * percentY);
+
+		// DrawCircle(targetTexture, mapX, mapY, markerSize, color);
+		// texture.Apply();
+		//OnMapGenerated?.Invoke(this, texture);
+		PositionUpdate?.Invoke(new Vector2(mapX, mapY), type);
+	}
+
+	private void DrawCircle(Texture2D texture, int centerX, int centerY, int radius, Color color)
+	{
+		for (var y = -radius; y <= radius; y++)
+		{
+			for (var x = -radius; x <= radius; x++)
+			{
+				if (x * x + y * y > radius * radius) continue;
+				var drawX = centerX + x;
+				var drawY = centerY + y;
+				if (drawX >= 0 && drawX < texture.width && drawY >= 0 && drawY < texture.height)
+					texture.SetPixel(drawX, drawY, color);
+			}
+		}
+	}
+
+	public void UpdatePlayer()
+	{
+		if (playerReference == null || playerReference.GetPlayer() == null)
+		{
+			Debug.LogError("Player reference or player transform is not set.");
+			return;
+		}
+
+		var playerPosition = playerReference.GetPlayer().transform;
+		GetPosition(playerPosition, MapUpdateType.Player);
+		// var size = (mapData.GetSize() * mapData.LOD);
+		// var percentX = (playerPosition.x + size / 2f) / size;
+		// var percentY = (playerPosition.z + size / 2f) / size;
+		// percentX = Mathf.Clamp01(percentX);
+		// percentY = Mathf.Clamp01(percentY);
+
+		// var mapX = Mathf.RoundToInt((texture.width - 1) * percentX);
+		// var mapY = Mathf.RoundToInt((texture.height - 1) * percentY);
+		//
+		// DrawCircle(texture, mapX, mapY, playerMarkerSize, playerHighlightColor);
+		// texture.Apply();
+		//OnMapGenerated?.Invoke(this, texture);
 	}
 }

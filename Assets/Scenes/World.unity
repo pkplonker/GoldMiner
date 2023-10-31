@@ -960,6 +960,12 @@ MonoBehaviour:
   <texture>k__BackingField: {fileID: 0}
   contourInterval: 0.2
   contourRange: 0.01
+  goldHighlightColor: {r: 0, g: 1, b: 0, a: 1}
+  targetHighlightColor: {r: 0, g: 0, b: 1, a: 1}
+  playerHighlightColor: {r: 1, g: 0, b: 0, a: 1}
+  playerMarkerSize: 7
+  markerSize: 5
+  playerReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51, type: 2}
 --- !u!1 &883963960
 GameObject:
   m_ObjectHideFlags: 0
