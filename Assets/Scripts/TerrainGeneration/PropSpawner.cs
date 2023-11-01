@@ -9,7 +9,7 @@ namespace TerrainGeneration
 {
 	public class PropSpawner : MonoBehaviour
 	{
-		[SerializeField] private PropCollection PropCollections;
+		[field: SerializeField] public PropCollection PropCollections { get; set; }
 		public static event Action<int> OnPropGenerated;
 		public static event Action<int> OnPropsGenerationStarted;
 

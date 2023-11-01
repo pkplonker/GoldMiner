@@ -12,7 +12,7 @@ namespace TerrainGeneration
 		// [SerializeField] private float noiseScale = 0.1f;
 		// [SerializeField] private float noiseWeight = 0.1f;
 
-		[field: SerializeField] public MapData MapData { get; private set; }
+		[field: SerializeField] public MapData MapData { get; set; }
 		private readonly ConcurrentQueue<TerrainChunkData> terrainChunkDatasQueue = new();
 		private int chunksGeneratedCount;
 		[SerializeField] private TerrainChunk chunkPrefab;
