@@ -47,6 +47,7 @@ public class DiggingState : BaseState
 		if (stateMachine == null)
 		{
 			Debug.LogError("invalid state machine");
+			return;
 		}
 
 		isDiggingState = true;
