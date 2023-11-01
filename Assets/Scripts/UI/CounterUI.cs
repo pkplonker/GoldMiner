@@ -24,7 +24,7 @@ namespace UI
 
 		private void OnDisable()
 		{
-			PlayerReference.OnPlayerChanged += PlayerChanged;
+			PlayerReference.OnPlayerChanged -= PlayerChanged;
 			UnSubscribe();
 		}
 

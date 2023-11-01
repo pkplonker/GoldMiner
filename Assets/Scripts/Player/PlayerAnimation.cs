@@ -35,8 +35,8 @@ namespace Player
 
 		private void OnDisable()
 		{
-			playerMovement.OnMove += Move;
-			playerMovement.OnRotate += Rotate;
+			playerMovement.OnMove -= Move;
+			playerMovement.OnRotate -= Rotate;
 		}
 
 		private void Rotate(Vector2 v) { }

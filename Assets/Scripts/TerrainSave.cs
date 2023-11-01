@@ -26,6 +26,10 @@ public class TerrainSave : MonoBehaviour, ISaveLoad, IResetOnLoad
 	{
 		diggableTerrain.OnDig += OnDig;
 	}
+	private void OnDisable()
+	{
+		diggableTerrain.OnDig -= OnDig;
+	}
 
 	private void OnDig(DiggableTerrain.DigParams param) => digParams.Add(param);
 

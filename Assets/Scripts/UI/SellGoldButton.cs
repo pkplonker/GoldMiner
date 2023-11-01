@@ -9,7 +9,7 @@ namespace UI
 		[SerializeField] private PlayerReference PlayerReference;
 
 		private void Awake() => PlayerReference.OnPlayerChanged += PlayerChanged;
-		private void OnDestroy() => PlayerReference.OnPlayerChanged += PlayerChanged;
+		private void OnDestroy() => PlayerReference.OnPlayerChanged -= PlayerChanged;
 
 
 		private void PlayerChanged()

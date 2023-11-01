@@ -927,7 +927,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 830c299a728098448af3599ae14fbca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PropCollections: {fileID: 11400000, guid: baeb76e7e0d690e418658baa4b276127, type: 2}
+  <PropCollections>k__BackingField: {fileID: 11400000, guid: baeb76e7e0d690e418658baa4b276127,
+    type: 2}
 --- !u!114 &821097376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2427,6 +2428,50 @@ MonoBehaviour:
   bounceTime: 0.25
   bounceHeight: 10
   dots: []
+--- !u!1 &1753762956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1753762958}
+  - component: {fileID: 1753762957}
+  m_Layer: 0
+  m_Name: ServiceLocator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1753762957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753762956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 129845a430314c6499dfb48a15379d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1753762958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753762956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1765157299
 GameObject:
   m_ObjectHideFlags: 0

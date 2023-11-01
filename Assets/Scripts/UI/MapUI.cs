@@ -27,6 +27,12 @@ namespace UI
 			PlayerInputManager.OnMap += Toggle;
 		}
 
+		private void OnDisable()
+		{
+			InGameMap.OnMapGenerated -= MapGenerated;
+			PlayerInputManager.OnMap -= Toggle;
+		}
+
 		public override void Toggle()
 		{
 			if (playerMovement == null) playerMovement = playerReference.GetPlayer().GetComponent<PlayerMovement>();
@@ -44,12 +50,6 @@ namespace UI
 				hud.Toggle();
 				playerMovement.SetCanMove(true);
 			}
-		}
-
-		private void OnDisable()
-		{
-			InGameMap.OnMapGenerated -= MapGenerated;
-			PlayerInputManager.OnMap -= Toggle;
 		}
 
 		private void MapGenerated(InGameMap inGameMap, Texture2D texture2D)

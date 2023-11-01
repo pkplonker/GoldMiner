@@ -93,7 +93,7 @@ namespace Player
 
 		private void OnEnable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated += MapGeneratorOnMapGenerated;
 
-		private void OnDisable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated += MapGeneratorOnMapGenerated;
+		private void OnDisable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -= MapGeneratorOnMapGenerated;
 
 		private void MapGeneratorOnMapGenerated(float obj)
 		{
