@@ -12,6 +12,7 @@ using Targets;
 using TerrainGeneration;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.PlayerLoop;
 
 /// <summary>
 ///MapGenerationTester full description
@@ -92,7 +93,9 @@ public class MapGenerationTester : EditorWindow
 		}
 	}
 
-	private float GetAverageTimeTaken()
+	
+
+	private static float GetAverageTimeTaken()
 	{
 		if (mapGenerationTestResults.Count == 0) return 0;
 		return mapGenerationTestResults.Average(result => result.msTaken);

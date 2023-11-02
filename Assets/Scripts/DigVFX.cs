@@ -19,7 +19,7 @@ public class DigVFX : MonoBehaviour
 
 	private void OnDisable()
 	{
-		diggableTerrain.OnDig -= OnDig;
+		if(diggableTerrain!=null) diggableTerrain.OnDig -= OnDig;
 	}
 
 	private void OnDig(DiggableTerrain.DigParams digParams)
