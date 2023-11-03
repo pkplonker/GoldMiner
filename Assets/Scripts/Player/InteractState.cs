@@ -11,9 +11,14 @@ namespace Player
 		{
 			stateMachine = sm as PlayerInteractionStateMachine;
 			stateMachine.Reticle.enabled = true;
+			PlayerInputManager.OnScroll += Scroll;
 		}
 
-		protected override void VirtualStateExit() => stateMachine.Reticle.enabled = false;
+		protected override void VirtualStateExit()
+		{
+			stateMachine.Reticle.enabled = false;
+			PlayerInputManager.OnScroll -= Scroll;
+		}
 
 		public override void Tick()
 		{
@@ -29,6 +34,12 @@ namespace Player
 
 			HandleMessage(interactable);
 			HandleClick(interactable);
+		}
+
+		private void Scroll(float scroll)
+		{
+			if (scroll > 0) stateMachine.ChangeState(stateMachine.DetectingState);
+			else  stateMachine.ChangeState(stateMachine.DiggingState);
 		}
 
 		private void HandleMessage(IInteractable interactable)

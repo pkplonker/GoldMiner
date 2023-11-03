@@ -84,9 +84,8 @@ namespace DetectorScripts
 		public void HandleManualMovement()
 		{
 			var inputManager = ServiceLocator.Instance.GetService<PlayerInputManager>();
-			if (inputManager.GetLeftClickHeld() && inputManager.GetPanRightHeld()) return;
-			if (inputManager.GetLeftClickHeld()) MoveLeft();
-			else if (inputManager.GetPanRightHeld()) MoveRight();
+			if (inputManager.GetLeftClickHeld() || inputManager.GetPanLeftHeld()) MoveLeft();
+			else if (inputManager.GetRightClickHeld() ||inputManager.GetPanRightHeld()) MoveRight();
 		}
 
 		private void MoveLeft()

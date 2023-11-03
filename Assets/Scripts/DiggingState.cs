@@ -53,6 +53,14 @@ public class DiggingState : BaseState
 		isDiggingState = true;
 		stateMachine.diggingTarget.enabled = true;
 		PlayerInputManager.OnDiggingToggle += ToggleDigging;
+		PlayerInputManager.OnScroll += Scroll;
+
+	}
+
+	private void Scroll(float scroll)
+	{
+		if(scroll>0) stateMachine.ChangeState(stateMachine.InteractState);
+		else stateMachine.ChangeState(stateMachine.DetectingState);
 	}
 
 	protected override void VirtualStateExit()
@@ -61,12 +69,15 @@ public class DiggingState : BaseState
 		isDiggingState = false;
 		stateMachine.diggingTarget.enabled = false;
 		PlayerInputManager.OnDiggingToggle -= ToggleDigging;
+		PlayerInputManager.OnScroll -= Scroll;
+
 	}
 
 	public override void Tick()
 	{
 		UpdateMarkerPosition();
-		if (!ServiceLocator.Instance.GetService<PlayerInputManager>().GetLeftClick() || !canDig) return;
+		var player = ServiceLocator.Instance.GetService<PlayerInputManager>();
+		if ((!player.GetLeftClick() && !player.GetPanRightHeld()) || !canDig) return;
 		canDig = false;
 		AttemptDig();
 	}

@@ -31,6 +31,8 @@ namespace DetectorScripts
 			stateMachine.Animator.SetLayerWeight(stateMachine.Animator.GetLayerIndex("RightHand"), 1);
 			stateMachine.Rig.weight = 1;
 			stateMachine.DetectorModel.SetActive(true);
+			PlayerInputManager.OnScroll += Scroll;
+
 		}
 
 		protected override void VirtualStateExit()
@@ -41,8 +43,14 @@ namespace DetectorScripts
 			PlayerInteractionStateMachine.IsManualDetecting = false;
 			detectorMovement.ResetPosition();
 			stateMachine.DetectorModel.SetActive(false);
-		}
+			PlayerInputManager.OnScroll -= Scroll;
 
+		}
+		private void Scroll(float scroll)
+		{
+			if (scroll > 0) stateMachine.ChangeState(stateMachine.DiggingState);
+			else stateMachine.ChangeState(stateMachine.InteractState);
+		}
 		public override void Tick()
 		{
 			UpdateHandIK();

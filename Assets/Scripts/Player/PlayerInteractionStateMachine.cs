@@ -65,6 +65,7 @@ namespace Player
 			PlayerInputManager.OnManualDetectionToggle += ManualDetectionToggle;
 			PlayerInputManager.OnDiggingToggle += DiggingToggle;
 			PlayerInputManager.OnIdleToggle += InteractionToggle;
+
 			if (playerMovement == null)
 			{
 				playerMovement = GetComponent<PlayerMovement>();
@@ -94,6 +95,8 @@ namespace Player
 			IsDetecting = !IsDetecting;
 			ChangeState(IsDetecting ? DetectingState : InteractState);
 		}
+		
+		
 
 		private void OnDisable()
 		{
