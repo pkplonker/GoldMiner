@@ -65,6 +65,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Editor/MapGenerationTester.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Editor/RangeDrawers.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Editor/SaveLoad/SaveLoadEditor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Layer Lab/GUI PRO Kit - Fantasy RPG/Scripts/PanelControlFantasyRPG.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PlayerControls.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DataStore.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorHeadAlignment.cs" root0="FORCE_HIGHLIGHTING" />
@@ -298,10 +299,10 @@
           <line>71</line>
           <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="70" containingFunctionPresentation="Method 'Complete'">
             <startOffsets>
-              <option value="1746" />
+              <option value="1733" />
             </startOffsets>
             <endOffsets>
-              <option value="1756" />
+              <option value="1743" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="37" />
@@ -311,10 +312,10 @@
           <line>65</line>
           <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="63" containingFunctionPresentation="Method 'UpdateTotals'">
             <startOffsets>
-              <option value="1691" />
+              <option value="1678" />
             </startOffsets>
             <endOffsets>
-              <option value="1702" />
+              <option value="1689" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="39" />
@@ -422,6 +423,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="124" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/UI/MapLoadingUI.cs</url>
+          <line>110</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="110" containingFunctionPresentation="Method 'ProgressBarUpdateCor'">
+            <startOffsets>
+              <option value="2399" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2456" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="125" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -142,6 +142,7 @@ public class InGameMap : MonoBehaviour
 
 	private void GetPosition(Transform t, MapUpdateType type)
 	{
+		if (targetTexture == null) return;
 		var goldPosition = t.transform.position;
 
 		var size = (mapData.GetSize() * mapData.LOD);

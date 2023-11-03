@@ -8,7 +8,7 @@ namespace UI
 {
 	public class MapLoadingUI : CanvasGroupBase
 	{
-		[SerializeField] private Image progressLoadingImage;
+		[SerializeField] private Slider slider;
 		[SerializeField] private float progressBarSpeed = 4f;
 		[SerializeField] private float fadeTime = 0.3f;
 
@@ -101,15 +101,15 @@ namespace UI
 
 		private void ResetFill()
 		{
-			progressLoadingImage.fillAmount = 0f;
+			slider.value = 0f;
 		}
 
 		private IEnumerator ProgressBarUpdateCor()
 		{
-			while (progressLoadingImage.fillAmount != 1)
+			while (slider.value != 1f)
 			{
 				currentFillTarget = (float) currentTotal / totalRequired;
-				progressLoadingImage.fillAmount = Mathf.Lerp(progressLoadingImage.fillAmount, currentFillTarget,
+				slider.value = Mathf.Lerp(slider.value, currentFillTarget,
 					progressBarSpeed * Time.deltaTime);
 				yield return null;
 			}
