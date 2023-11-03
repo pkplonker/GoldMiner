@@ -93,7 +93,11 @@ public class MapGenerationTester : EditorWindow
 		}
 	}
 
-	
+	private void OnEnable() => EditorApplication.update += UpdateAlways;
+
+	private void OnDisable() => EditorApplication.update -= UpdateAlways;
+
+	private void UpdateAlways() => Repaint();
 
 	private static float GetAverageTimeTaken()
 	{

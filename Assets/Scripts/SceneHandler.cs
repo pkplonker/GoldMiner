@@ -17,9 +17,11 @@ public class SceneHandler : MonoBehaviour, IService
 
 	public void HandleFailedGeneration(MapData mapData)
 	{
+#if !UNITY_EDITOR
 		var old = mapData.seed;
 		mapData.seed *= 10;
 		ServiceLocator.Instance.GetService<MapGenerator>().RegenerateWorld();
+#endif
 	}
 
 	public void Initialize() { }
