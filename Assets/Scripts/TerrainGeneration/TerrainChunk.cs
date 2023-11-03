@@ -24,6 +24,27 @@ namespace TerrainGeneration
 			meshRenderer = GetComponent<MeshRenderer>();
 		}
 
+		private void OnDestroy()
+		{
+			if (meshFilter != null)
+			{
+				Destroy(meshFilter.mesh);
+
+				Destroy(meshFilter.sharedMesh);
+			}
+
+			if (meshCollider != null)
+			{
+				Destroy(meshCollider.sharedMesh);
+			}
+
+			if (meshRenderer != null)
+			{
+				Destroy(meshRenderer.sharedMaterial);
+				Destroy(meshRenderer.material);
+			}
+		}
+
 		public void Generate(MapData mapData, TerrainChunkData tcd)
 		{
 			X = tcd.X;
@@ -48,7 +69,6 @@ namespace TerrainGeneration
 			mesh.RecalculateNormals();
 			mesh.RecalculateBounds();
 			mf.mesh = mesh;
-			
 		}
 
 		private static void GenerateCollider(MeshCollider mc, MeshFilter mf)

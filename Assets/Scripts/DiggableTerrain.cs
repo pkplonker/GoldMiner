@@ -190,7 +190,7 @@ public class DiggableTerrain : MonoBehaviour
 			float yDifference = oldVerts[i].y - newVerts[i].y > 0 ? vertexColorFactor : 0;
 			tangents[i] = new Vector4(tangents[i].x, tangents[i].y + yDifference, tangents[i].z, tangents[i].w);
 		}
-
+		Destroy(oldMesh);
 		newMesh.SetTangents(tangents);
 		newMesh.RecalculateBounds();
 

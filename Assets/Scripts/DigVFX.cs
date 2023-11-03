@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,11 @@ public class DigVFX : MonoBehaviour
 	{
 		diggableTerrain = GetComponent<DiggableTerrain>();
 		diggableTerrain.OnDig += OnDig;
+	}
+
+	private void OnDisable()
+	{
+		if(diggableTerrain!=null) diggableTerrain.OnDig -= OnDig;
 	}
 
 	private void OnDig(DiggableTerrain.DigParams digParams)

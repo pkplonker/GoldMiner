@@ -2,6 +2,7 @@
 // Copyright (C) 2023 Stuart Heath. All rights reserved.
 //
 
+using System;
 using Player;
 using UnityEngine;
 
@@ -15,6 +16,12 @@ public class CheatConsoleMovement : MonoBehaviour
 	private void Start()
 	{
 		CheatUIController.CheatConsoleActive += CheatConsoleActive;
+	}
+
+	private void OnDisable()
+	{
+		CheatUIController.CheatConsoleActive -= CheatConsoleActive;
+
 	}
 
 	private void CheatConsoleActive(bool active)

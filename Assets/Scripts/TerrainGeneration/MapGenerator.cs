@@ -12,6 +12,7 @@ namespace TerrainGeneration
 		[field: SerializeField] public MapGeneratorTerrain MapGeneratorTerrain { get; private set; }
 		[field: SerializeField] public PropSpawner PropSpawner { get; private set; }
 		public event Action<float> MapGenerated;
+		public event Action<float, float> MapGeneratedTime;
 
 		public event Action<MapData> TerrainGenerated;
 		public event Action<int, int> MapGenerationStarted;
@@ -24,6 +25,17 @@ namespace TerrainGeneration
 		public void RegenerateWorld(bool newSeed = false)
 		{
 			if (newSeed) MapGeneratorTerrain.MapData.seed = Random.Range(0, 32000);
+			GenerateWorld();
+		}
+
+		public void RegenerateWorld(int newSeed)
+		{
+			MapGeneratorTerrain.MapData.seed = newSeed;
+			GenerateWorld();
+		}
+
+		private void GenerateWorld()
+		{
 			MapGeneratorTerrain.ClearData();
 			SpawnTerrain();
 			spawnedProps = false;
@@ -62,6 +74,7 @@ namespace TerrainGeneration
 #endif
 			TerrainGenerated?.Invoke(MapGeneratorTerrain.MapData);
 			if (PropSpawner.GetPropsRequired() == 0) OnPropsGenerated();
+			else MapGeneratedTime?.Invoke(mapTimer.ElapsedMilliseconds, propsTimer.ElapsedMilliseconds);
 		}
 
 		private void OnPropsGenerated()
@@ -74,6 +87,7 @@ namespace TerrainGeneration
 #endif
 			ServiceLocator.Instance.GetService<SavingSystem>().LoadGame();
 			MapGenerated?.Invoke(MapGeneratorTerrain.MapData.GetSize());
+			MapGeneratedTime?.Invoke(mapTimer.ElapsedMilliseconds, propsTimer.ElapsedMilliseconds);
 		}
 
 		public void SpawnTerrain()

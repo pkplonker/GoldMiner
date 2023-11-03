@@ -27,6 +27,12 @@ namespace DetectorScripts
 			PlayerInteractionStateMachine.OnDetectorManualToggleChanged += OnDetectorAutoToggle;
 		}
 
+		private void OnDisable()
+		{
+			DetectorState.UnregisterDetector(this);
+			PlayerInteractionStateMachine.OnDetectorManualToggleChanged -= OnDetectorAutoToggle;
+		}
+
 		private void OnDetectorAutoToggle(bool on)
 		{
 			if (!on) return;
@@ -49,12 +55,6 @@ namespace DetectorScripts
 				if (Math.Abs(transform.localEulerAngles.y - finishRotation.eulerAngles.y) < 0.1f)
 					currentTargetIsLeft = true;
 			}
-		}
-
-		private void OnDisable()
-		{
-			DetectorState.UnregisterDetector(this);
-			PlayerInteractionStateMachine.OnDetectorManualToggleChanged -= OnDetectorAutoToggle;
 		}
 
 		private void Start()

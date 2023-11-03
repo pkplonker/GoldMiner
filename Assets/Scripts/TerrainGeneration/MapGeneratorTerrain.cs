@@ -12,7 +12,7 @@ namespace TerrainGeneration
 		// [SerializeField] private float noiseScale = 0.1f;
 		// [SerializeField] private float noiseWeight = 0.1f;
 
-		[field: SerializeField] public MapData MapData { get; private set; }
+		[field: SerializeField] public MapData MapData { get; set; }
 		private readonly ConcurrentQueue<TerrainChunkData> terrainChunkDatasQueue = new();
 		private int chunksGeneratedCount;
 		[SerializeField] private TerrainChunk chunkPrefab;
@@ -54,12 +54,36 @@ namespace TerrainGeneration
 				foreach (Transform t in Container.GetComponentInChildren<Transform>())
 				{
 					if (t == Container) continue;
+					var tc = t.GetComponent<TerrainChunk>();
+					
+					if(tc!=null)Destroy(tc);
+					var mr = t.GetComponent<MeshFilter>();
+					if (mr!=null)
+					{
+						if (mr.sharedMesh != null)
+						{
+							Destroy(mr.sharedMesh);
+						}
+						Destroy(mr);
+					}
+					
+					var mf = t.GetComponent<MeshRenderer>();
+					if (mf!=null)
+					{
+						if (mf.material != null)
+						{
+							Destroy(mf.material);
+						}
+						Destroy(mf);
+					}
 					Destroy(t.gameObject);
 				}
 			}
 
 			chunksGeneratedCount = 0;
 			Generated = false;
+			Resources.UnloadUnusedAssets();
+			GC.Collect();
 		}
 
 		public void Generate()
@@ -133,7 +157,7 @@ namespace TerrainGeneration
 		{
 			foreach (var chunk in terrainChunks)
 			{
-				chunk.ProcessNormalAlignment();
+				if(chunk!=null) chunk.ProcessNormalAlignment();
 			}
 		}
 
