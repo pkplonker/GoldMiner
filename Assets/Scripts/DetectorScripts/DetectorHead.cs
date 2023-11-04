@@ -23,6 +23,7 @@ namespace DetectorScripts
 		private ConeGenerator coneGenerator;
 		public static float CurrentSignal { get; private set; }
 		[SerializeField] private float signalDegradeSpeed = 2f;
+		[SerializeField]private bool showCone = false;
 		public static event Action<float> OnDetection;
 		private const string TARGET_LAYER_MASK = "StaticProp";
 
@@ -46,7 +47,8 @@ namespace DetectorScripts
 			go.AddComponent<DetectorCone>();
 			go.layer = LayerMask.NameToLayer(coneLayer);
 #if UNITY_EDITOR
-			go.AddComponent<MeshRenderer>();
+			if(showCone)
+				go.AddComponent<MeshRenderer>();
 #endif
 		}
 
