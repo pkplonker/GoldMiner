@@ -50,11 +50,16 @@ namespace Player
 		private CharacterController controller;
 		private GameObject mainCamera;
 		private bool canMove;
+		private DetectorCollisionAvoidance detector;
+		private PlayerInputManager inputManager;
 
 		private const float THRESHOLD = 0.01f;
 
 		private void Awake()
 		{
+			detector = GetComponentInChildren<DetectorCollisionAvoidance>();
+			inputManager = ServiceLocator.Instance.GetService<PlayerInputManager>();
+
 			if (mainCamera == null)
 			{
 				mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -70,7 +75,7 @@ namespace Player
 		public void SetCanMove(bool cm)
 		{
 			canMove = cm;
-			
+
 			if (cm)
 			{
 				Cursor.visible = false;
@@ -92,9 +97,11 @@ namespace Player
 			SetCanMove(true);
 		}
 
-		private void OnEnable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated += MapGeneratorOnMapGenerated;
+		private void OnEnable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated +=
+			MapGeneratorOnMapGenerated;
 
-		private void OnDisable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -= MapGeneratorOnMapGenerated;
+		private void OnDisable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -=
+			MapGeneratorOnMapGenerated;
 
 		private void MapGeneratorOnMapGenerated(float obj)
 		{
@@ -126,45 +133,78 @@ namespace Player
 		}
 
 		private void CameraRotation()
-		{			
-
-			var mouseLook = ServiceLocator.Instance.GetService<PlayerInputManager>().GetMouseDelta();
+		{
+			var mouseLook = inputManager.GetMouseDelta();
 			if (!(mouseLook.sqrMagnitude >= THRESHOLD)) return;
+
+			Quaternion originalCameraRotation = cinemachineCameraTarget.transform.localRotation;
+			Quaternion originalCharacterRotation = transform.rotation;
+
 			cinemachineTargetPitch -= mouseLook.y * rotationSpeedY * Time.deltaTime;
 			rotationVelocity = mouseLook.x * rotationSpeedX * Time.deltaTime;
+
 			cinemachineTargetPitch = ClampCameraPitchAngle(cinemachineTargetPitch, bottomClamp, topClamp);
 			cinemachineCameraTarget.transform.localRotation = Quaternion.Euler(cinemachineTargetPitch, 0.0f, 0.0f);
 			transform.Rotate(Vector3.up * rotationVelocity);
-			OnRotate?.Invoke(mouseLook.normalized);
+
+			if (!detector.CanMove())
+			{
+				cinemachineCameraTarget.transform.localRotation = originalCameraRotation;
+				transform.rotation = originalCharacterRotation;
+			}
+			else
+			{
+				OnRotate?.Invoke(mouseLook.normalized);
+			}
 		}
 
 		private void Move()
 		{
-			var input = ServiceLocator.Instance.GetService<PlayerInputManager>().GetPlayerMovement();
+			var input = inputManager.GetPlayerMovement();
 
 			var velocity = controller.velocity;
 			var currentHorizontalSpeed = new Vector3(velocity.x, 0.0f, velocity.z).magnitude;
-			const float SPEED_OFFSET = 0.1f;
-			if (currentHorizontalSpeed < moveSpeed - SPEED_OFFSET || currentHorizontalSpeed > moveSpeed + SPEED_OFFSET)
+
+			var targetSpeed = CalculateTargetSpeed(input, currentHorizontalSpeed);
+			Vector3 potentialMovement = CalculateInputDirection(input) * (targetSpeed * Time.deltaTime);
+
+			Vector3 originalPosition = transform.position;
+
+			controller.Move(potentialMovement + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
+
+			if (!detector.CanMove())
 			{
-				speed = Mathf.Lerp(currentHorizontalSpeed, moveSpeed, Time.deltaTime * speedChangeRate);
-				speed = Mathf.Round(speed * 1000f) / 1000f;
+				transform.position = originalPosition;
+				OnMove?.Invoke(Vector2.zero);
 			}
 			else
 			{
-				speed = moveSpeed;
+				OnMove?.Invoke(input.normalized);
 			}
+		}
 
-			var inputDirection = new Vector3(input.x, 0.0f, input.y).normalized;
+		private float CalculateTargetSpeed(Vector2 input, float currentHorizontalSpeed)
+		{
+			const float SPEED_OFFSET = 0.1f;
+			if (currentHorizontalSpeed < moveSpeed - SPEED_OFFSET || currentHorizontalSpeed > moveSpeed + SPEED_OFFSET)
+			{
+				return Mathf.Lerp(currentHorizontalSpeed, moveSpeed, Time.deltaTime * speedChangeRate);
+			}
+			else
+			{
+				return moveSpeed;
+			}
+		}
+
+		private Vector3 CalculateInputDirection(Vector2 input)
+		{
 			if (input != Vector2.zero)
 			{
 				var trans = transform;
-				inputDirection = trans.right * input.x + trans.forward * input.y;
+				return trans.right * input.x + trans.forward * input.y;
 			}
 
-			controller.Move(inputDirection.normalized * (speed * Time.deltaTime) +
-			                new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
-			OnMove?.Invoke(input.normalized);
+			return Vector3.zero;
 		}
 
 		private void Gravity()
