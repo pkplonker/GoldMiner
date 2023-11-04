@@ -39,7 +39,7 @@ public class DiggableTerrain : MonoBehaviour
 		public bool PlayVFX;
 	}
 
-	public bool Dig(DigParams digParams,bool isReplay)
+	public bool Dig(DigParams digParams, bool isReplay)
 	{
 		if (!setup) Setup();
 		var digCompleteCallback = terrainDigPropController.CanDig(digParams.HitPoint);
@@ -51,17 +51,14 @@ public class DiggableTerrain : MonoBehaviour
 			var hitVertsIndexes = GetHitVerts(digParams.TriangleIndex, mesh);
 
 			var verts = UpdateVerts(digAmount, hitVertsIndexes, mesh.vertices, out var result);
-			if (result)
-				if (verts != null)
-				{
-					UpdateCollider(RegenerateMesh(verts));
-				}
+			if (result && verts != null)
+				UpdateCollider(RegenerateMesh(verts));
 
 			CheckNeighbours(hitVertsIndexes);
 
 			GetCurrentChunk().ProcessNormalAlignment();
 			digCompleteCallback?.Invoke();
-			if(!isReplay)
+			if (!isReplay)
 				OnDig?.Invoke(digParams);
 			return true;
 		}
@@ -73,7 +70,7 @@ public class DiggableTerrain : MonoBehaviour
 	{
 		digParams.HitPoint = RaycastHit.point;
 		digParams.TriangleIndex = RaycastHit.triangleIndex;
-		return Dig(digParams,isReplay);
+		return Dig(digParams, isReplay);
 	}
 
 	private void CheckNeighbours(int[] hitVertsIndexes)
@@ -190,6 +187,7 @@ public class DiggableTerrain : MonoBehaviour
 			float yDifference = oldVerts[i].y - newVerts[i].y > 0 ? vertexColorFactor : 0;
 			tangents[i] = new Vector4(tangents[i].x, tangents[i].y + yDifference, tangents[i].z, tangents[i].w);
 		}
+
 		Destroy(oldMesh);
 		newMesh.SetTangents(tangents);
 		newMesh.RecalculateBounds();
@@ -248,7 +246,7 @@ public class DiggableTerrain : MonoBehaviour
 		meshCollider.sharedMesh = newMesh;
 		meshCollider.cookingOptions = MeshColliderCookingOptions.EnableMeshCleaning;
 	}
-	
+
 	private void ResetCollider(Mesh newMesh)
 	{
 		meshCollider.sharedMesh = null;
@@ -333,8 +331,6 @@ public class DiggableTerrain : MonoBehaviour
 
 		ResetCollider(mesh);
 	}
-
-
 
 	private struct TerrainChange
 	{

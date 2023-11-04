@@ -2686,6 +2686,7 @@ MonoBehaviour:
   <Reticle>k__BackingField: {fileID: 8161424353797823668}
   playerReference: {fileID: 11400000, guid: 31c2ae0ad20b38e45beee24020174d51, type: 2}
   CanMove: 0
+  digInterval: 0
   <MaxDigDepth>k__BackingField: -1
 --- !u!114 &730840486265341367
 MonoBehaviour:
