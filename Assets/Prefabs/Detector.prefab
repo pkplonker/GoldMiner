@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxYRot: 35
-  rotationSpeed: 35
+  rotationSpeed: 25
 --- !u!82 &1691519814
 AudioSource:
   m_ObjectHideFlags: 0
