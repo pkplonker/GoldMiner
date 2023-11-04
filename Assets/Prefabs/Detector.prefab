@@ -150,7 +150,7 @@ Transform:
   m_Children:
   - {fileID: 3728400243578458615}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1881947244043790603
 MonoBehaviour:
@@ -277,7 +277,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lowFreq: 500
   highFreq: 750
-  isDetecting: 0
 --- !u!114 &5829248635142955580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,9 +301,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881947244043790597}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.65, y: 0.1, z: 0.65}
   m_Center: {x: -0.08, y: -1.17, z: 2.075}
 --- !u!54 &7704455819170020198
@@ -314,10 +321,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881947244043790597}
-  serializedVersion: 2
+  serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -419,11 +437,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec25a01964a79440bac8d92e28b77db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lowerRad: 0.4
+  lowerRad: 0.7
   upperRad: 0.4
   distance: 0.75
   lowerDistanceThreshHoldForMaxOutput: 0.3
-  _signalDegradeSpeed: 2
+  coneLayer: DetectorCone
+  signalDegradeSpeed: 2
 --- !u!1 &6400816813479670093
 GameObject:
   m_ObjectHideFlags: 0

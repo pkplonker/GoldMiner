@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorBeep.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorBeep.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorHead.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorHead.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Materials/MapMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Materials/MapMaterial.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Detector.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Detector.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,7 +247,7 @@
       <workItem from="1698177729161" duration="8848000" />
       <workItem from="1698601808693" duration="1031000" />
       <workItem from="1698704402531" duration="1422000" />
-      <workItem from="1698871636842" duration="20011000" />
+      <workItem from="1698871636842" duration="20380000" />
     </task>
     <servers />
   </component>
@@ -424,19 +423,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="124" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorBeep.cs</url>
-          <line>47</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\DetectorScripts\DetectorBeep.cs" initialLine="47" containingFunctionPresentation="Method 'Update'">
-            <startOffsets>
-              <option value="1176" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1227" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="134" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
