@@ -70,6 +70,7 @@ namespace Player
 		public void SetCanMove(bool cm)
 		{
 			canMove = cm;
+			
 			if (cm)
 			{
 				Cursor.visible = false;

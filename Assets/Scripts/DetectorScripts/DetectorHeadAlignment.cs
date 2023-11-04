@@ -14,8 +14,7 @@ namespace DetectorScripts
 
 		private void Update()
 		{
-			Debug.DrawLine(transform.position + new Vector3(0, 2f, 0), transform.position - new Vector3(0, 2f, 0),
-				Color.cyan, .2f);
+			 
 			var results = Physics.RaycastAll(transform.position + new Vector3(0, 2f, 0), Vector3.down, 4f);
 
 			foreach (var result in results)

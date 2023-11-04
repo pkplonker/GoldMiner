@@ -30,7 +30,11 @@ namespace Player
 		{
 			playerMovement.OnMove += Move;
 			playerMovement.OnRotate += Rotate;
-			playerMovement.OnCanMoveChanged += (val) => canMove = val;
+			playerMovement.OnCanMoveChanged += (val) =>
+			{
+				canMove = val;
+				SetNoMovement();
+			};
 		}
 
 		private void OnDisable()
@@ -45,12 +49,17 @@ namespace Player
 		{
 			if (!canMove)
 			{
-				animator.SetFloat("MoveX", 0);
-				animator.SetFloat("MoveY", 0);
+				SetNoMovement();
 			}
 
 			animator.SetFloat("MoveX", v.x);
 			animator.SetFloat("MoveY", v.y);
+		}
+
+		private void SetNoMovement()
+		{
+			animator.SetFloat("MoveX", 0);
+			animator.SetFloat("MoveY", 0);
 		}
 	}
 }
