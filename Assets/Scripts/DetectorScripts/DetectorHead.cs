@@ -19,10 +19,10 @@ namespace DetectorScripts
 		[SerializeField] private float upperRad = 0.4f;
 		[SerializeField] private float distance = 0.4f;
 		[SerializeField] private float lowerDistanceThreshHoldForMaxOutput = 0.3f;
-
+		[SerializeField] private string coneLayer = "DetectorCone";
 		private ConeGenerator coneGenerator;
 		public static float CurrentSignal { get; private set; }
-		[SerializeField] private float _signalDegradeSpeed = 2f;
+		[SerializeField] private float signalDegradeSpeed = 2f;
 		public static event Action<float> OnDetection;
 		private const string TARGET_LAYER_MASK = "StaticProp";
 
@@ -44,9 +44,10 @@ namespace DetectorScripts
 			coneGenerator.GenerateCone(12, distance, lowerRad, upperRad);
 			coneGenerator.enabled = false;
 			go.AddComponent<DetectorCone>();
-
-			//debug only
+			go.layer = LayerMask.NameToLayer(coneLayer);
+#if UNITY_EDITOR
 			go.AddComponent<MeshRenderer>();
+#endif
 		}
 
 		private void Update()
@@ -58,7 +59,7 @@ namespace DetectorScripts
 
 		private void DegradeSignal()
 		{
-			CurrentSignal = Mathf.Lerp(CurrentSignal, 0, Time.deltaTime * _signalDegradeSpeed);
+			CurrentSignal = Mathf.Lerp(CurrentSignal, 0, Time.deltaTime * signalDegradeSpeed);
 		}
 
 		private float CalculateSignalStrength(Target t)
@@ -87,7 +88,7 @@ namespace DetectorScripts
 		{
 			if (!PlayerInteractionStateMachine.IsDetecting) return;
 			CurrentSignal = CalculateSignalStrength(target);
-			Debug.Log("BUZZZZZ");
+			Debug.Log($"Signal Strength: {CurrentSignal}");
 			OnDetection?.Invoke(CurrentSignal);
 		}
 	}

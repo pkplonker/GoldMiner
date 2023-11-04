@@ -29,6 +29,7 @@ namespace DetectorScripts
 		{
 			stateMachine = sm as PlayerInteractionStateMachine;
 			stateMachine.Animator.SetLayerWeight(stateMachine.Animator.GetLayerIndex("RightHand"), 1);
+			PlayerInteractionStateMachine.IsDetecting = true;
 			stateMachine.Rig.weight = 1;
 			stateMachine.DetectorModel.SetActive(true);
 			PlayerInputManager.OnScroll += Scroll;

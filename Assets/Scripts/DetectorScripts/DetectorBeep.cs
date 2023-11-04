@@ -20,7 +20,7 @@ namespace DetectorScripts
 		ToneGenerator.ToneClipData toneClipData;
 		[SerializeField] private float lowFreq;
 		[SerializeField] private float highFreq;
-		[SerializeField] private bool isDetecting;
+		private bool isDetecting;
 
 		private void Start()
 		{
