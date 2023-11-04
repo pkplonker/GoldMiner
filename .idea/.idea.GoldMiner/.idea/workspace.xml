@@ -7,7 +7,6 @@
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorHeadAlignment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorHeadAlignment.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +28,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/08e97795506846d2b49f430c361fcdf715d000/ea/538c0c4e/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/08e97795506846d2b49f430c361fcdf715d000/f6/b5b7037f/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3f936d8f1c4c48e083fc500d08667b591fe00/27/30aa663a/RaycastHit.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3f936d8f1c4c48e083fc500d08667b591fe00/4d/8b499e1e/QueryTriggerInteraction.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3f936d8f1c4c48e083fc500d08667b591fe00/6e/e1f031b5/Physics.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/40c82fbb8a9645d5a6c0bfc1e0fa6dfd46a800/ab/c38a537a/Task.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/40c82fbb8a9645d5a6c0bfc1e0fa6dfd46a800/cd/8ca2b018/List`1.cs" root0="SKIP_HIGHLIGHTING" />
@@ -251,7 +251,7 @@
       <workItem from="1698177729161" duration="8848000" />
       <workItem from="1698601808693" duration="1031000" />
       <workItem from="1698704402531" duration="1422000" />
-      <workItem from="1698871636842" duration="26715000" />
+      <workItem from="1698871636842" duration="28027000" />
     </task>
     <servers />
   </component>
