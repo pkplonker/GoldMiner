@@ -6,14 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlayerControls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PlayerControls.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlayerControls.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PlayerControls.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/World.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/World.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DetectorScripts/DetectorState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggingState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/InteractState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/InteractState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInteractionStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInteractionStateMachine.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -254,7 +247,7 @@
       <workItem from="1698177729161" duration="8848000" />
       <workItem from="1698601808693" duration="1031000" />
       <workItem from="1698704402531" duration="1422000" />
-      <workItem from="1698871636842" duration="16966000" />
+      <workItem from="1698871636842" duration="17810000" />
     </task>
     <servers />
   </component>

@@ -37,6 +37,7 @@ namespace Player
 		public static bool IsManualDetecting;
 		public bool CanMove;
 		private PlayerMovement playerMovement;
+		[SerializeField] public float digInterval = 0.6f;
 		public event Action OnPlayerDestroyed;
 		public static event Action<bool> OnDetectorManualToggleChanged;
 

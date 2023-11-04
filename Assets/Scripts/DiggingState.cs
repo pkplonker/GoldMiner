@@ -14,6 +14,7 @@ public class DiggingState : BaseState
 	private bool canDig;
 	private const string NONDIGGABLE_LAYER = "BlocksDig";
 	public static Action<Vector3> OnCannotDigHere;
+	private float lastDigTime;
 
 	private void UpdateMarkerPosition()
 	{
@@ -54,12 +55,11 @@ public class DiggingState : BaseState
 		stateMachine.diggingTarget.enabled = true;
 		PlayerInputManager.OnDiggingToggle += ToggleDigging;
 		PlayerInputManager.OnScroll += Scroll;
-
 	}
 
 	private void Scroll(float scroll)
 	{
-		if(scroll>0) stateMachine.ChangeState(stateMachine.InteractState);
+		if (scroll > 0) stateMachine.ChangeState(stateMachine.InteractState);
 		else stateMachine.ChangeState(stateMachine.DetectingState);
 	}
 
@@ -70,17 +70,18 @@ public class DiggingState : BaseState
 		stateMachine.diggingTarget.enabled = false;
 		PlayerInputManager.OnDiggingToggle -= ToggleDigging;
 		PlayerInputManager.OnScroll -= Scroll;
-
 	}
 
 	public override void Tick()
 	{
 		UpdateMarkerPosition();
 		var player = ServiceLocator.Instance.GetService<PlayerInputManager>();
-		if ((!player.GetLeftClick() && !player.GetPanRightHeld()) || !canDig) return;
+		if ((!player.GetLeftClick() && !player.GetPanRightHeld()) || !canDig || !CheckDigTime()) return;
 		canDig = false;
 		AttemptDig();
 	}
+
+	private bool CheckDigTime() => Time.time - lastDigTime > stateMachine.digInterval;
 
 	private void AttemptDig()
 	{
@@ -100,7 +101,11 @@ public class DiggingState : BaseState
 				{
 					if (terrain.Dig(hit,
 						    new DiggableTerrain.DigParams
-							    {DigAmount = stateMachine.DigDepth, PlayVFX = true})) return;
+							    {DigAmount = stateMachine.DigDepth, PlayVFX = true}))
+					{
+						lastDigTime = Time.time;
+						return;
+					}
 				}
 			}
 		}
