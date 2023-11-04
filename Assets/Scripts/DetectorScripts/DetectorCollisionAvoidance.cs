@@ -3,36 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(MeshCollider))]
 public class DetectorCollisionAvoidance : MonoBehaviour
 {
-	public LayerMask collisionLayer;
-
-	private BoxCollider boxCollider;
+	public LayerMask collisionMask;
+	private MeshCollider meshCollider;
 
 	private void Awake()
 	{
-		boxCollider = GetComponent<BoxCollider>();
+		meshCollider = GetComponent<MeshCollider>();
 	}
 
 	public bool CanMove()
 	{
-		Vector3 worldCenter = transform.TransformPoint(boxCollider.center);
+		float thresholdDistance = 0.3f;
 
-		Vector3 halfExtents = Vector3.Scale(boxCollider.size / 2, transform.lossyScale);
+		Collider[] colliders = Physics.OverlapSphere(transform.position, meshCollider.bounds.extents.magnitude,collisionMask);
 
-		Collider[] hits = Physics.OverlapBox(worldCenter, halfExtents, transform.rotation);
-
-		if (hits.Length > 0)
+		foreach (var collider in colliders)
 		{
-			foreach (var hit in hits.Where(x => x.gameObject != gameObject && x.transform.parent != transform))
+			if (collider == meshCollider || collider.transform.parent == transform) continue;
+			Vector3 closestPoint = collider.ClosestPoint(transform.position);
+			float distance = Vector3.Distance(closestPoint, transform.position);
+
+			if (distance < thresholdDistance)
 			{
-				Debug.Log(hit.name);
+				Debug.Log(collider.name);
 				return false;
 			}
 		}
 
-		// No collisions with other objects were detected
 		return true;
 	}
 }

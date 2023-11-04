@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 1986650975}
   - component: {fileID: 3711545635451745061}
   - component: {fileID: 3700772232221811333}
-  - component: {fileID: 7535085701567094347}
+  - component: {fileID: 8100561804313241856}
   m_Layer: 0
   m_Name: Coil
   m_TagString: Untagged
@@ -437,8 +437,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15917cddc74d2c4b9d90d9b858a80ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &7535085701567094347
-BoxCollider:
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!64 &8100561804313241856
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -455,9 +458,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.55000025, y: 0.55000013, z: 0.06918312}
-  m_Center: {x: -0.000000014901161, y: -0.00000024070536, z: 0.009591451}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3140221429909269876, guid: 1049f0033ae7e084b8a099fed533df00, type: 3}
 --- !u!1 &6400816813479670093
 GameObject:
   m_ObjectHideFlags: 0
