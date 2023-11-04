@@ -88,7 +88,7 @@ namespace DetectorScripts
 		{
 			if (!PlayerInteractionStateMachine.IsDetecting) return;
 			CurrentSignal = CalculateSignalStrength(target);
-			Debug.Log($"Signal Strength: {CurrentSignal}");
+			//Debug.Log($"Signal Strength: {CurrentSignal}");
 			OnDetection?.Invoke(CurrentSignal);
 		}
 	}

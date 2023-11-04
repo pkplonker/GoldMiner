@@ -126,7 +126,6 @@ GameObject:
   - component: {fileID: 1881947244043790603}
   - component: {fileID: 1691519814}
   - component: {fileID: 1691519813}
-  - component: {fileID: 5829248635142955580}
   - component: {fileID: 1808290901332323623}
   - component: {fileID: 7704455819170020198}
   m_Layer: 0
@@ -277,22 +276,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lowFreq: 500
   highFreq: 750
---- !u!114 &5829248635142955580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1881947244043790597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c904f705c05d8f408d32c5d07d564d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundLayer: Ground
-  detector: {fileID: 6400816813479670093}
-  targetGroundOffset: 0.3
-  groundDetectionStartingHeight: {x: 0, y: 0.5, z: 0}
 --- !u!65 &1808290901332323623
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -322,9 +305,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881947244043790597}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.0000001
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -337,10 +320,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 126
+  m_CollisionDetection: 1
 --- !u!1 &3319792146653603275
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +336,7 @@ GameObject:
   - component: {fileID: 8417816610193384932}
   - component: {fileID: 8485827179815299022}
   - component: {fileID: 1986650975}
+  - component: {fileID: 3711545635451745061}
   m_Layer: 0
   m_Name: Coil
   m_TagString: Untagged
@@ -443,6 +427,23 @@ MonoBehaviour:
   lowerDistanceThreshHoldForMaxOutput: 0.3
   coneLayer: DetectorCone
   signalDegradeSpeed: 2
+--- !u!114 &3711545635451745061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319792146653603275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c904f705c05d8f408d32c5d07d564d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer: Ground
+  detector: {fileID: 6400816813479670093}
+  targetGroundOffset: 0.3
+  groundDetectionStartingHeight: {x: 0, y: 0.5, z: 0}
+  maxMove: 0.3
 --- !u!1 &6400816813479670093
 GameObject:
   m_ObjectHideFlags: 0
