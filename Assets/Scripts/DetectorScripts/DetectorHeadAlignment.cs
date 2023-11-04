@@ -32,7 +32,7 @@ namespace DetectorScripts
 			{
 				if (results[i].collider.gameObject.layer != LayerMask.NameToLayer(groundLayer)) continue;
 				var targetHeight = results[i].point.y;
-				Debug.Log(targetHeight);
+				//Debug.Log(targetHeight);
 				transform.position = new Vector3(transform.position.x, targetHeight + targetGroundOffset,
 					transform.position.z);
 				Vector3 adjustedHandlePosition = handleTarget.transform.position -

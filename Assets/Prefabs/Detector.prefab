@@ -126,7 +126,6 @@ GameObject:
   - component: {fileID: 1881947244043790603}
   - component: {fileID: 1691519814}
   - component: {fileID: 1691519813}
-  - component: {fileID: 1808290901332323623}
   - component: {fileID: 7704455819170020198}
   m_Layer: 0
   m_Name: Detector
@@ -276,27 +275,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lowFreq: 500
   highFreq: 750
---- !u!65 &1808290901332323623
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1881947244043790597}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.65, y: 0.1, z: 0.65}
-  m_Center: {x: -0.08, y: -1.17, z: 2.075}
 --- !u!54 &7704455819170020198
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -337,6 +315,8 @@ GameObject:
   - component: {fileID: 8485827179815299022}
   - component: {fileID: 1986650975}
   - component: {fileID: 3711545635451745061}
+  - component: {fileID: 3700772232221811333}
+  - component: {fileID: 7535085701567094347}
   m_Layer: 0
   m_Name: Coil
   m_TagString: Untagged
@@ -445,6 +425,39 @@ MonoBehaviour:
   shaft: {fileID: 2734064955734631666}
   handleTarget: {fileID: 1202911194}
   distanceBehindHandle: -0.1
+--- !u!114 &3700772232221811333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319792146653603275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f15917cddc74d2c4b9d90d9b858a80ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &7535085701567094347
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319792146653603275}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.55000025, y: 0.55000013, z: 0.06918312}
+  m_Center: {x: -0.000000014901161, y: -0.00000024070536, z: 0.009591451}
 --- !u!1 &6400816813479670093
 GameObject:
   m_ObjectHideFlags: 0
