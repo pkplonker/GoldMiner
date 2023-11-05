@@ -6,7 +6,7 @@ using UnityEditor;
 namespace Pinwheel.Jupiter
 {
     [CustomEditor(typeof(JSky))]
-    public class JSkyInspector : Editor
+    public class JSkyInspector : UnityEditor.Editor
     {
         private JSky sky;
         private JSkyProfile profile;

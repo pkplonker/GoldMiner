@@ -5,14 +5,14 @@ using UnityEditor;
 
 namespace Pinwheel.Jupiter
 {
-    [CustomEditor(typeof(JDayNightCycleProfile))]
-    public class JDayNightCycleProfileInspector : Editor
+    [CustomEditor(typeof(JSkyProfile))]
+    public class JSkyProfileInspector : UnityEditor.Editor
     {
-        private JDayNightCycleProfile instance;
+        private JSkyProfile instance;
 
         private void OnEnable()
         {
-            instance = target as JDayNightCycleProfile;
+            instance = target as JSkyProfile;
         }
         
         public override void OnInspectorGUI()

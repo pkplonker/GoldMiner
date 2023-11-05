@@ -9,7 +9,7 @@ using UnityEngine.Rendering;
 namespace Pinwheel.Jupiter
 {
     [CustomEditor(typeof(JDayNightCycle))]
-    public class JDayNightCycleInspector : Editor
+    public class JDayNightCycleInspector : UnityEditor.Editor
     {
         private static List<JAnimatedProperty> allProperties;
         private static List<JAnimatedProperty> AllProperties
