@@ -30,7 +30,7 @@ MonoBehaviour:
   <HeightMultiplier>k__BackingField: 4.8
   <ChunksPerRow>k__BackingField: 10
   <MapChunkSize>k__BackingField: 8
-  seed: 22566
+  seed: 0
   offset: {x: 0, y: 0}
   material: {fileID: 2100000, guid: 8a1ad397b447ca643951705bb09f5075, type: 2}
   HeightCurve:

@@ -37,8 +37,19 @@ public class CheatConsole : MonoBehaviour
 		}
 	}
 
-	private MethodInfo[] GetCheatMethods() =>
-		cachedCommands ??= TypeCache.GetMethodsWithAttribute<CheatCommandAttribute>().ToArray();
+	private MethodInfo[] GetCheatMethods()
+	{
+		if (cachedCommands != null)
+		{
+			return cachedCommands;
+		}
+		
+#if UNITY_EDITOR
+		return TypeCache.GetMethodsWithAttribute<CheatCommandAttribute>().ToArray();
+#endif
+		return new MethodInfo[] { };
+	}
+		
 
 	private void Update()
 	{

@@ -16,6 +16,11 @@ namespace TerrainGeneration
 
 		public event Action<MapData> TerrainGenerated;
 		public event Action<int, int> MapGenerationStarted;
+		public bool spawnedProps { get; set; } = true;
+		private Stopwatch mapTimer = new Stopwatch();
+		private Stopwatch propsTimer = new Stopwatch();
+
+		private int startFrame;
 
 		private void Awake()
 		{
@@ -41,16 +46,6 @@ namespace TerrainGeneration
 			spawnedProps = false;
 		}
 
-#if UNITY_EDITOR
-		public bool spawnedProps { get; set; } = true;
-		private Stopwatch mapTimer = new Stopwatch();
-		private Stopwatch propsTimer = new Stopwatch();
-
-		private int startFrame;
-#else
-		public bool spawnedProps { get; private set; }
-
-#endif
 		private void OnEnable()
 		{
 			MapGeneratorTerrain.OnTerrainGenerated += OnTerrainGenerated;
@@ -65,13 +60,12 @@ namespace TerrainGeneration
 
 		private void OnTerrainGenerated()
 		{
-#if UNITY_EDITOR
 			Debug.Log("Terrain generated in " + mapTimer.ElapsedMilliseconds + "ms. Frames taken = " +
 			          (Time.frameCount - startFrame));
 			startFrame = Time.frameCount;
 			propsTimer = new Stopwatch();
 			propsTimer.Start();
-#endif
+
 			TerrainGenerated?.Invoke(MapGeneratorTerrain.MapData);
 			if (PropSpawner.GetPropsRequired() == 0) OnPropsGenerated();
 			else MapGeneratedTime?.Invoke(mapTimer.ElapsedMilliseconds, propsTimer.ElapsedMilliseconds);
@@ -80,11 +74,9 @@ namespace TerrainGeneration
 		private void OnPropsGenerated()
 		{
 			spawnedProps = true;
-#if UNITY_EDITOR
 			Debug.Log("Props Spawned in " + propsTimer.ElapsedMilliseconds +
 			          "ms . Frames taken = " +
 			          (Time.frameCount - startFrame));
-#endif
 			ServiceLocator.Instance.GetService<SavingSystem>().LoadGame();
 			MapGenerated?.Invoke(MapGeneratorTerrain.MapData.GetSize());
 			MapGeneratedTime?.Invoke(mapTimer.ElapsedMilliseconds, propsTimer.ElapsedMilliseconds);
@@ -92,11 +84,9 @@ namespace TerrainGeneration
 
 		public void SpawnTerrain()
 		{
-#if UNITY_EDITOR
 			mapTimer = new Stopwatch();
 			mapTimer.Start();
 			startFrame = Time.frameCount;
-#endif
 			spawnedProps = false;
 			var chunksRequired = MapGeneratorTerrain.MapData.ChunksPerRow * MapGeneratorTerrain.MapData.ChunksPerRow;
 			MapGenerationStarted?.Invoke(chunksRequired, PropSpawner.GetPropsRequired());
