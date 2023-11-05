@@ -24,6 +24,9 @@ namespace Player
 		public static event Action OnESC;
 		public static event Action OnInvent;
 		public static event Action OnMap;
+		public static event Action OnLeftPan;
+		public static event Action OnRightPan;
+
 		public static event Action<float> OnScroll;
 
 #if UNITY_EDITOR
@@ -72,10 +75,16 @@ namespace Player
 			playerControls.PlayerMovement.ESC.performed += ESC;
 			playerControls.PlayerMovement.Invent.performed += Invent;
 			playerControls.PlayerMovement.Map.performed += Map;
+			playerControls.PlayerMovement.PanRight.started += RightPan;
+			playerControls.PlayerMovement.PanRight.started += LeftPan;
+
 #if UNITY_EDITOR
 			playerControls.PlayerMovement.Debug.performed += DebugMenu;
 #endif
 		}
+
+		private void LeftPan(InputAction.CallbackContext obj) => OnLeftPan?.Invoke();
+		private void RightPan(InputAction.CallbackContext obj) => OnRightPan?.Invoke();
 
 		private void OnDisable()
 		{
@@ -90,6 +99,8 @@ namespace Player
 			playerControls.PlayerMovement.ESC.performed -= ESC;
 			playerControls.PlayerMovement.Invent.performed -= Invent;
 			playerControls.PlayerMovement.Map.performed -= Map;
+			playerControls.PlayerMovement.PanRight.started -= RightPan;
+			playerControls.PlayerMovement.PanRight.started -= LeftPan;
 #if UNITY_EDITOR
 			playerControls.PlayerMovement.Debug.performed -= DebugMenu;
 #endif
