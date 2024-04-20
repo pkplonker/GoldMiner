@@ -37,12 +37,12 @@ namespace Editor
 
 			base.OnInspectorGUI();
 		}
-		[CheatCommand]
+
 		private static void RespawnRandom(MapGenerator mapGenerator)
 		{
 			mapGenerator.RegenerateWorld(true);
 		}
-		[CheatCommand]
+
 		private static void Respawn(MapGenerator mapGenerator)
 		{
 			mapGenerator.RegenerateWorld();

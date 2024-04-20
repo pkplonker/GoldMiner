@@ -37,7 +37,6 @@ namespace Targets
 
 		protected virtual void Register() => ServiceLocator.Instance.GetService<TargetManager>().RegisterTarget(this);
 
-		[CheatCommand]
 		public static void ToggleDrawDebug() => drawDebug = !drawDebug;
 
 		protected virtual void DrawMarker()
