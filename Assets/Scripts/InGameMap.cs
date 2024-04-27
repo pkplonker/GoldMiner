@@ -15,21 +15,40 @@ public class InGameMap : MonoBehaviour
 		Target
 	}
 
-	[field: SerializeField] public Texture2D texture { get; private set; }
+	[field: SerializeField]
+	public Texture2D texture { get; private set; }
+
 	public static event Action<InGameMap, Texture2D> OnMapGenerated;
 	public static event Action<Vector2, MapUpdateType> PositionUpdate;
 
 	private int originalSize = 0;
 	private float[,] noiseMap;
 	private MapData mapData;
-	[SerializeField] private float contourInterval = .25f;
-	[SerializeField] private float contourRange = 0.1f;
-	[SerializeField] private Color goldHighlightColor = Color.green;
-	[SerializeField] private Color targetHighlightColor = Color.blue;
-	[SerializeField] private Color playerHighlightColor = Color.red;
-	[SerializeField] private int playerMarkerSize = 7;
-	[SerializeField] private int markerSize = 5;
-	[SerializeField] private PlayerReference playerReference;
+
+	[SerializeField]
+	private float contourInterval = .25f;
+
+	[SerializeField]
+	private float contourRange = 0.1f;
+
+	[SerializeField]
+	private Color goldHighlightColor = Color.green;
+
+	[SerializeField]
+	private Color targetHighlightColor = Color.blue;
+
+	[SerializeField]
+	private Color playerHighlightColor = Color.red;
+
+	[SerializeField]
+	private int playerMarkerSize = 7;
+
+	[SerializeField]
+	private int markerSize = 5;
+
+	[SerializeField]
+	private PlayerReference playerReference;
+
 	private Texture2D playerTexture;
 	private Texture2D targetTexture;
 
@@ -46,8 +65,6 @@ public class InGameMap : MonoBehaviour
 		MapGeneratorTerrain.OnNoiseMapGenerated += OnNoiseMapGenerated;
 		ServiceLocator.Instance.GetService<GoldSpawnManager>().GoldDeregistered += OnGoldDeregistered;
 		ServiceLocator.Instance.GetService<TargetManager>().TargetDeregistered += OnTargetDeregistered;
-
-		CheatConsole.Instance.RegisterCommand("Regenerate UI Map", Regenerate);
 	}
 
 	private void OnDisable()

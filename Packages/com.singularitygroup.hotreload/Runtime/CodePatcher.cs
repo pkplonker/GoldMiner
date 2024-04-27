@@ -209,6 +209,11 @@ namespace SingularityGroup.HotReload {
                 DetourApi.DetourMethod(state.match, patchMethod, out result);
                 if (result.success) {
                     patchesResult.patchedMethods.Add(sOriginalMethod);
+                    try {
+                        Dispatch.OnHotReloadLocal(state.match, patchMethod);
+                    } catch {
+                        // best effort
+                    }
                     return null;
                 } else {
                     if(result.exception is InvalidProgramException && containsBurstJobs) {
@@ -324,7 +329,7 @@ namespace SingularityGroup.HotReload {
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
                 var assembliesByName = new Dictionary<string, List<Assembly>>();
                 for (var i = 0; i < assemblies.Length; i++) {
-                    var name = assemblies[i].GetName().Name;
+                    var name = assemblies[i].GetNameSafe();
                     List<Assembly> list;
                     if (!assembliesByName.TryGetValue(name, out list)) {
                         assembliesByName.Add(name, list = new List<Assembly>());

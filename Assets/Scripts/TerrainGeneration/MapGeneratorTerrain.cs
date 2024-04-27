@@ -30,8 +30,7 @@ namespace TerrainGeneration
 
 		private void Awake()
 		{
-			CheatConsole.Instance.RegisterCommand("RandomiseSeed",
-				() => MapData.seed = UnityEngine.Random.Range(0, 64000));
+		
 		}
 
 		public float[,] NoiseMap
