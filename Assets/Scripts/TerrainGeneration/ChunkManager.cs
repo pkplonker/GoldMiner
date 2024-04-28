@@ -218,12 +218,10 @@ public class ChunkManager : MonoBehaviour, IService
 		}
 	}
 
-	private bool IsValidChunkIndex(Vector3Int chunkIndex, Chunk[,,] chunks)
-	{
-		return chunkIndex.x >= 0 && chunkIndex.y >= 0 && chunkIndex.z >= 0 &&
-		       chunkIndex.x < chunks.GetLength(0) && chunkIndex.y < chunks.GetLength(1) &&
-		       chunkIndex.z < chunks.GetLength(2);
-	}
+	private bool IsValidChunkIndex(Vector3Int chunkIndex, Chunk[,,] chunks) =>
+		chunkIndex.x >= 0 && chunkIndex.y >= 0 && chunkIndex.z >= 0 &&
+		chunkIndex.x < chunks.GetLength(0) && chunkIndex.y < chunks.GetLength(1) &&
+		chunkIndex.z < chunks.GetLength(2);
 
 	private void CreateModification(Chunk chunk, Dictionary<Chunk, List<NoiseMapChange>> modifications, int x,
 		int y, int z, Vector3Int paddedSize)

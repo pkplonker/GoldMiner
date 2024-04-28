@@ -96,7 +96,8 @@ public class FenceSpawner : SingleInstanceSpawn
 		Points ??= new();
 		Points.Clear();
 		var small = mapData.BoundaryInstep;
-		var large = mapData.MapSize2D - small;
+		//this should actually use the mapsize correctly and not assume that it's square.
+		var large = mapData.MapSize.x - small;
 		Points.Add(new Vector3(small, 0, large));
 		Points.Add(new Vector3(large, 0, large));
 		Points.Add(new Vector3(large, 0, small));

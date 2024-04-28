@@ -46,11 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f3e6da74bb4761b8bc0b7f2a45045d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChunkSize: {x: 9, y: 9, z: 9}
-  MapSize: {x: 180, y: 9, z: 180}
   ChunkPrefab: {fileID: 4306579607726012621, guid: 0468af4d4650927479c6d478df9b90d1,
     type: 3}
-  MapData: {fileID: 11400000, guid: 8da5b7854ad34324f97106864988b3e3, type: 2}
   NoiseShader: {fileID: 7200000, guid: 84846995732c451abfaf759f7605c543, type: 3}
   MaxConcurrentGPUActions: 12
   MaxConcurrentGPUReadbackActions: 12
@@ -66,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3d09c34a191264fbf8663baeab6dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MapData: {fileID: 11400000, guid: 8da5b7854ad34324f97106864988b3e3, type: 2}
 --- !u!114 &7923012736426775509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,4 +76,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f1f82afbf94a75a1f5843ff51e9dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  propCollection: {fileID: 0}
+  <PropCollections>k__BackingField: {fileID: 11400000, guid: 85bb75af07b90ff4ba0359535a174011,
+    type: 2}

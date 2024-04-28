@@ -15,22 +15,22 @@ namespace Props
 	{
 		[SerializeField] private List<SingleInstanceSpawn> prefabsToSpawn;
 		private static List<GameObject> spawnedPrefabs = new();
+		private WorldGenerator worldGenerator;
 
-		// private void OnEnable()
-		// {
-		// 	var mapGenerator = ServiceLocator.Instance.GetService<MapGenerator>();
-		// 	mapGenerator.TerrainGenerated += SpawnAll;
-		// 	mapGenerator.MapGenerationStarted += DespawnObjects;
-		// }
-		//
-		// private void OnDisable()
-		// {
-		// 	var mapGenerator = ServiceLocator.Instance.GetService<MapGenerator>();
-		// 	mapGenerator.TerrainGenerated -= SpawnAll;
-		// 	mapGenerator.MapGenerationStarted -= DespawnObjects;
-		// }
+		private void Start()
+		{
+			worldGenerator = ServiceLocator.Instance.GetService<WorldGenerator>();
+			worldGenerator.TerrainGenerated += SpawnAll;
+			worldGenerator.MapGenerationStarted += DespawnObjects;
+		}
+		
+		private void OnDisable()
+		{
+			worldGenerator.TerrainGenerated -= SpawnAll;
+			worldGenerator.MapGenerationStarted -= DespawnObjects;
+		}
 
-		private void DespawnObjects(int notRequired = 0, int notRequired2 = 0)
+		private void DespawnObjects(int _ = 0)
 		{
 			if (spawnedPrefabs == null || spawnedPrefabs.Count == 0) return;
 			foreach (var spawned in spawnedPrefabs)
@@ -41,13 +41,13 @@ namespace Props
 
 		private static void DestroyObject(GameObject spawned) => Destroy(spawned);
 
-		private void SpawnAll(MarchingCubeMapData mapData)
+		private void SpawnAll()
 		{
 			DespawnObjects();
 
 			foreach (var p in prefabsToSpawn)
 			{
-				Spawn(p, mapData);
+				Spawn(p, worldGenerator.MapData);
 			}
 		}
 

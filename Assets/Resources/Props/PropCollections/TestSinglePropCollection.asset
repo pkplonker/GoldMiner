@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TestSinglePropCollection
   m_EditorClassIdentifier: 
   Props:
-  - {fileID: 11400000, guid: 3040fb96e1808d4448196ed4ee721acd, type: 2}
+  - {fileID: 11400000, guid: a9bc4cecd7eddc046934633ae21c3def, type: 2}

@@ -163,7 +163,8 @@ namespace Props
 		{
 			currentInstance = Instantiate(Prefab);
 			currentInstance.SetActive(false);
-			var spawnTransform = CalculateSpawn(mapData.MapSize2D, currentInstance, mapData.GroundLayer);
+			//this should be changed to not just use X but also y/z to ensure correct results on non-square maps
+			var spawnTransform = CalculateSpawn(mapData.MapSize.x, currentInstance, mapData.GroundLayer);
 
 			if (spawnTransform.Position.x < mapData.MapSize2D)
 			{
