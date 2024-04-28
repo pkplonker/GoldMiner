@@ -37,6 +37,7 @@ public class FenceSpawner : SingleInstanceSpawn
 				positionVector = Vector3.ClampMagnitude(positionVector, distance);
 				var position = startPoint + positionVector;
 				position.y = GetTerrainHeight(position);
+				
 				if (j != quantity)
 				{
 					Instantiate(PostPrefab, position - postInsertion, Quaternion.identity, fenceParent.transform);
@@ -133,6 +134,15 @@ public class FenceSpawner : SingleInstanceSpawn
 	private float GetTerrainHeight(Vector3 position)
 	{
 		var ray = new Ray(position + Vector3.up * 1000f, Vector3.down);
-		return Physics.Raycast(ray, out RaycastHit hitInfo) ? hitInfo.point.y : position.y;
+		var result = Physics.Raycast(ray, out RaycastHit hitInfo) ? hitInfo.point.y : position.y;
+		
+		if (result == 0)
+		{
+			Debug.DrawLine(position+Vector3.up*1000f,position,Color.red,20f);
+
+			Debug.LogWarning("fence through floor");
+		}
+
+		return result;
 	}
 }

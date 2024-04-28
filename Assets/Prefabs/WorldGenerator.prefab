@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3621743741902011605}
   - component: {fileID: 8497369500623639814}
   - component: {fileID: 7923012736426775509}
+  - component: {fileID: 2880977256006900032}
   m_Layer: 0
   m_Name: WorldGenerator
   m_TagString: Untagged
@@ -76,5 +77,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f1f82afbf94a75a1f5843ff51e9dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PropCollections>k__BackingField: {fileID: 11400000, guid: 85bb75af07b90ff4ba0359535a174011,
+  <PropCollections>k__BackingField: {fileID: 11400000, guid: baeb76e7e0d690e418658baa4b276127,
     type: 2}
+--- !u!114 &2880977256006900032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3804337690170444713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10964694ec8108f419e23430ba9f21a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToSpawn:
+  - {fileID: 11400000, guid: f1d07c405f4ba0c48aaba3d4f2457d2e, type: 2}
+  - {fileID: 11400000, guid: 11a2257726678cc44a6f9e83b93fa4e7, type: 2}
+  - {fileID: 11400000, guid: c4923b9c33f28a74d8aae5a6a33ed9bf, type: 2}
+  - {fileID: 11400000, guid: 1771f14b3753fd341a9a6271efb206f6, type: 2}

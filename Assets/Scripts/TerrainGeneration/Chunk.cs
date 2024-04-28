@@ -106,8 +106,8 @@ public class Chunk : MonoBehaviour
 		mesh.RecalculateNormals();
 		var t = Task.Run(() => Physics.BakeMesh(id, false)).ContinueWith(_ =>
 			{
+				meshCollider.sharedMesh = mesh;
 				OnChunkGenerated?.Invoke(this);
-				return meshCollider.sharedMesh = mesh;
 			},
 			new CancellationToken(),
 			TaskContinuationOptions.None, MainThreadDispatcher.Instance.Sceduler);
