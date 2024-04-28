@@ -41,7 +41,7 @@ namespace Props
 			return Mathf.Sqrt(size.x * size.x + size.z * size.z) / 2;
 		}
 
-		protected float GetTolerance() => FlatnessTolerance + FlatnessTolerance;
+		protected float GetTolerance() => FlatnessTolerance *2;
 		
 		public IEnumerator ProcessPointDataCor(PoissonData poissonData,
 			Action callback, PropSpawner propSpawner, MarchingCubeMapData mapData)
@@ -72,12 +72,10 @@ namespace Props
 				if (numToSpawn <= 0) break;
 				if (!CalculatePlacement(mapData, points, i, tolerance, out var result, out var rotation)) continue;
 				if (result.IsInfinity()) continue;
-				//propSpawner.SpawnProp(index, result, rotation);
+				propSpawner.SpawnProp(index, result, rotation);
 				numToSpawn--;
 			}
-
-			// Debug.Log(
-			// 	$"spawned {cachedNumberToSpawn - numToSpawn}/{cachedNumberToSpawn} {name} from {points.Count}");
+			
 			callback?.Invoke();
 		}
 
@@ -111,9 +109,8 @@ namespace Props
 
 		protected virtual Vector3 CalculatePosition(Vector3 position, MarchingCubeMapData mapData, float factor = 10)
 		{
-			//position.y = mapData.HeightMultiplier;
-			//changed at integration
-			if (!Physics.Raycast(position, Vector3.down, out var hit, 20/*mapData.HeightMultiplier + factor*/,
+			position.y = 1000;
+			if (!Physics.Raycast(position, Vector3.down, out var hit, position.y,
 				    LayerMask.GetMask(mapData.GroundLayer))) return Vector3.positiveInfinity;
 
 			position.y = hit.point.y - GetDropIntoTerrainAmount(mapData.Seed, position);
@@ -122,7 +119,11 @@ namespace Props
 
 		protected virtual float GetDropIntoTerrainAmount(int seed, Vector3 position) => 0f;
 
-		public virtual float GetSpawnSize(MarchingCubeMapData mapData) =>
-			InBoundryOnly ? mapData.MapSize2D - (mapData.BoundaryInstep * 2) : mapData.MapSize2D;
+		public virtual Vector2 GetSpawnSize(MarchingCubeMapData mapData)
+		{
+			var step = (mapData.BoundaryInstep * 2);
+			return InBoundryOnly ? new Vector2(mapData.MapSize.x - step, mapData.MapSize.z - step ) : new Vector2(mapData.MapSize.x ,mapData.MapSize.z);
+		}
+			
 	}
 }

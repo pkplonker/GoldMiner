@@ -18,12 +18,15 @@ public class PropSpawner : MonoBehaviour, IService
 
 	public static event Action OnPropsGenerated;
 	private List<Vector2> points;
-	private Queue<PoissonData> poissonDataQueue;
+	private Queue<PoissonData> poissonDataQueue = new();
 
 	private WorldGenerator worldGenerator;
+	private int count;
+	private Coroutine cor;
 
 	private void Start()
 	{
+		poissonDataQueue = new();
 		ServiceLocator.Instance.RegisterService<PropSpawner>(this);
 		worldGenerator = ServiceLocator.Instance.GetService<WorldGenerator>();
 		worldGenerator.MapGenerated += WorldGeneratorOnMapGenerated;
@@ -32,7 +35,8 @@ public class PropSpawner : MonoBehaviour, IService
 	private void WorldGeneratorOnMapGenerated()
 	{
 		Debug.Log("PropSpawner");
-		StartCoroutine(SpawnObjectsCor(worldGenerator.MapData));
+		if (cor != null) StopCoroutine(cor);
+		cor = StartCoroutine(SpawnObjectsCor(worldGenerator.MapData));
 	}
 
 	private IEnumerator SpawnObjectsCor(MarchingCubeMapData mapData)
@@ -43,9 +47,9 @@ public class PropSpawner : MonoBehaviour, IService
 			var j1 = j;
 			var spawnArea = PropCollections.Props[j].GetSpawnSize(mapData);
 			int maxPointsPerProp =
-				(int) ((spawnArea * spawnArea * PropCollections.Props[j1].MaxQuantityPer100M / 10000) * 1.1f);
+				(int) ((spawnArea.x * spawnArea.y * PropCollections.Props[j1].MaxQuantityPer100M / 10000) * 1.1f);
 			var task = Task.Run(() => PoissonDiscSampling.GeneratePoints(index: j1, maxPointsPerProp,
-				new Vector2(spawnArea, spawnArea), worldGenerator.MapData, PoissonCallback,
+				spawnArea, worldGenerator.MapData, PoissonCallback,
 				PropCollections.Props[j1].NumSamplesBeforeRejection));
 			tasks.Add(task);
 		}
@@ -76,7 +80,7 @@ public class PropSpawner : MonoBehaviour, IService
 
 		for (var i = 0; i < worldGenerator.ChunkManager.maxChunkCoord.x; i++)
 		{
-			for (var j = 0; j < worldGenerator.ChunkManager.maxChunkCoord.x; j++)
+			for (var j = 0; j < worldGenerator.ChunkManager.maxChunkCoord.y; j++)
 			{
 				for (var k = 0; k < worldGenerator.ChunkManager.maxChunkCoord.z; k++)
 				{
@@ -104,8 +108,6 @@ public class PropSpawner : MonoBehaviour, IService
 		go.transform.rotation = rotation;
 		go.isStatic = PropCollections.Props[index].StaticObject;
 	}
-
-	private int count;
 
 	private void PropSpawnCompleteCallback()
 	{

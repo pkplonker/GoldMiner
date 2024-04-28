@@ -22,7 +22,6 @@ MonoBehaviour:
   GroundHeight: 2
   Amplitude: 30
   GroundLayer: Ground
-  BoundaryInstep: 50
-  MapSize: {x: 90, y: 9, z: 90}
+  BoundaryInstep: 10
+  MapSize: {x: 180, y: 9, z: 180}
   ChunkSize: {x: 9, y: 9, z: 9}
-  MaxChunks: {x: 10, y: 1, z: 10}

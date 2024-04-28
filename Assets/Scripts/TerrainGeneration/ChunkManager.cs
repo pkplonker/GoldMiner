@@ -5,11 +5,7 @@ using Debug = UnityEngine.Debug;
 
 public class ChunkManager : MonoBehaviour, IService
 {
-	[SerializeField]
-	private Vector3Int ChunkSize;
-
-	[SerializeField]
-	private Vector3Int MapSize;
+	
 
 	public Chunk[,,] Chunks { get; private set; }
 
@@ -84,9 +80,9 @@ public class ChunkManager : MonoBehaviour, IService
 	public void GenerateChunks(MarchingCubeMapData mapData)
 	{
 		this.mapData = mapData;
-		maxChunkCoord = new Vector3Int(Mathf.CeilToInt(MapSize.x / (float) ChunkSize.x),
-			Mathf.CeilToInt(MapSize.y / (float) ChunkSize.z),
-			Mathf.CeilToInt(MapSize.z / (float) ChunkSize.z));
+		maxChunkCoord = new Vector3Int(Mathf.CeilToInt( this.mapData.MapSize.x / (float) this.mapData.ChunkSize.x),
+			Mathf.CeilToInt(this.mapData.MapSize.y / (float) this.mapData.ChunkSize.z),
+			Mathf.CeilToInt(this.mapData.MapSize.z / (float) this.mapData.ChunkSize.z));
 		TerrainGenerationStarted?.Invoke(maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z);
 
 		factor = Mathf.CeilToInt(1 / this.mapData.VertDistance);
@@ -100,11 +96,11 @@ public class ChunkManager : MonoBehaviour, IService
 				{
 					//DrawSolidDebugChunk(x, y, z);
 					var chunkGO = GameObject.Instantiate(ChunkPrefab,
-						new Vector3(ChunkSize.x * x, ChunkSize.y * y, ChunkSize.z * z), Quaternion.identity);
+						new Vector3(this.mapData.ChunkSize.x * x, this.mapData.ChunkSize.y * y, this.mapData.ChunkSize.z * z), Quaternion.identity);
 					chunkGO.transform.SetParent(transform);
 					var chunk = chunkGO.GetComponent<Chunk>();
 					Chunks[x, y, z] = chunk;
-					chunk.Init(new Vector3Int(x, y, z), this, new TerrainNoise3DCompute(NoiseShader), ChunkSize,
+					chunk.Init(new Vector3Int(x, y, z), this, new TerrainNoise3DCompute(NoiseShader), this.mapData.ChunkSize,
 						this.mapData, computeShaderQueue, gpuAsyncReadbackqueue);
 					chunk.GetComponent<MeshRenderer>().material.color = new Color(UnityEngine.Random.Range(0f, 1f),
 						UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
@@ -122,8 +118,8 @@ public class ChunkManager : MonoBehaviour, IService
 	private void DrawSolidDebugChunk(int x, int y, int z)
 	{
 		var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		go.transform.localScale = ChunkSize;
-		go.transform.position = new Vector3(ChunkSize.x * x, ChunkSize.y * y, ChunkSize.z * z);
+		go.transform.localScale = this.mapData.ChunkSize;
+		go.transform.position = new Vector3(this.mapData.ChunkSize.x * x, this.mapData.ChunkSize.y * y, this.mapData.ChunkSize.z * z);
 		go.GetComponent<MeshRenderer>().material.color = new Color(UnityEngine.Random.value,
 			UnityEngine.Random.value, UnityEngine.Random.value);
 	}
@@ -131,7 +127,7 @@ public class ChunkManager : MonoBehaviour, IService
 	public bool Modify(Chunk chunk, RaycastHit hitInfo, float radius)
 	{
 		Vector3 hitPoint = chunk.transform.InverseTransformPoint(hitInfo.point) * factor;
-		var paddedSize = (ChunkSize * factor) + new Vector3Int(1, 1, 1);
+		var paddedSize = (this.mapData.ChunkSize * factor) + new Vector3Int(1, 1, 1);
 
 		int minX = Mathf.FloorToInt(hitPoint.x - radius * factor);
 		int maxX = Mathf.CeilToInt(hitPoint.x + radius * factor);
