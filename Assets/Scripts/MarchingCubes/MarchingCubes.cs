@@ -14,7 +14,7 @@ public class MarchingCubes
 	private MeshRenderer meshRender;
 
 	private ComputeShader shader;
-	private ITerrainNoise3D noiseGenerator;
+	private TerrainNoise3DCompute noiseGenerator;
 
 	private static readonly int ISO_LEVEL = Shader.PropertyToID("isoLevel");
 	private static readonly int SIZE = Shader.PropertyToID("size");

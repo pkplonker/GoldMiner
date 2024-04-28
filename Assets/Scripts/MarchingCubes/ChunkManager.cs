@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-public class ChunkManager : MonoBehaviour
+public class ChunkManager : MonoBehaviour, IService
 {
 	[SerializeField]
 	private Vector3Int ChunkSize;
@@ -17,7 +18,7 @@ public class ChunkManager : MonoBehaviour
 	private GameObject ChunkPrefab;
 
 	[SerializeField]
-	private Noise NoiseData;
+	public MarchingCubeNoise MapData;
 
 	private readonly Dictionary<Chunk, List<NoiseMapChange>> modifications = new();
 
@@ -35,11 +36,12 @@ public class ChunkManager : MonoBehaviour
 
 	private AsyncQueue gpuAsyncReadbackqueue;
 	public Vector3Int maxChunkCoord { get; private set; }
-
+	
 	private void OnEnable()
 	{
 		computeShaderQueue = new AsyncQueue("computeShaderQueue", () => MaxConcurrentGPUActions);
 		gpuAsyncReadbackqueue = new AsyncQueue("gpuAsyncReadbackqueue", () => MaxConcurrentGPUReadbackActions);
+		ServiceLocator.Instance.RegisterService<ChunkManager>(this);
 	}
 
 	public void Start()
@@ -70,7 +72,7 @@ public class ChunkManager : MonoBehaviour
 
 		using var t = new Timer(time => Debug.Log($"Generate All took {time / (maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z)}ms average"));
 
-		factor = Mathf.CeilToInt(1 / NoiseData.VertDistance);
+		factor = Mathf.CeilToInt(1 / MapData.VertDistance);
 
 		chunks = new Chunk[maxChunkCoord.x, maxChunkCoord.y, maxChunkCoord.z];
 		for (int x = 0; x < maxChunkCoord.x; x++)
@@ -86,7 +88,7 @@ public class ChunkManager : MonoBehaviour
 					var chunk = chunkGO.GetComponent<Chunk>();
 					chunks[x, y, z] = chunk;
 					chunk.Init(new Vector3Int(x, y, z),this, new TerrainNoise3DCompute(NoiseShader), ChunkSize,
-						NoiseData, computeShaderQueue, gpuAsyncReadbackqueue);
+						MapData, computeShaderQueue, gpuAsyncReadbackqueue);
 					chunk.GetComponent<MeshRenderer>().material.color = new Color(UnityEngine.Random.Range(0f, 1f),
 						UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
 				}
@@ -233,6 +235,9 @@ public class ChunkManager : MonoBehaviour
 	private static int GetIndex(int x, int y, int z, Vector3Int paddedSize) =>
 		x + y * paddedSize.x + z * paddedSize.x * paddedSize.y;
 
-	private float GetDigValue() =>  1; 
+	private float GetDigValue() =>  1;
 
+	public void Initialize()
+	{
+	}
 }

@@ -49,7 +49,7 @@ namespace TerrainGeneration
 				if (!candidateAccepted) spawnPoints.RemoveAt(spawnIndex);
 			}
 
-			callback?.Invoke(new PoissonData(index,points));
+			//callback?.Invoke(new PoissonData(index,points));
 			Profiler.EndSample();
 		}
 

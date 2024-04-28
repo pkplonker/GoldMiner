@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
+
 [System.Serializable]
-public class Noise 
+public class MarchingCubeNoise 
 {
 	public float IsoLevel ;
 	public float VertDistance;
@@ -14,7 +15,7 @@ public class Noise
 	public float GroundHeight;
 	public float Amplitude;
 
-	public Noise()
+	public MarchingCubeNoise()
 	{
 		Lacunarity = 0;
 		Seed = 0;

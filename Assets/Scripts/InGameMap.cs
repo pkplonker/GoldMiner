@@ -5,7 +5,7 @@ using System.IO;
 using Player;
 using TerrainGeneration;
 
-[RequireComponent(typeof(MapGeneratorTerrain))]
+//[RequireComponent(typeof(MapGeneratorTerrain))]
 public class InGameMap : MonoBehaviour
 {
 	public enum MapUpdateType
@@ -62,14 +62,14 @@ public class InGameMap : MonoBehaviour
 
 	private void Start()
 	{
-		MapGeneratorTerrain.OnNoiseMapGenerated += OnNoiseMapGenerated;
+		//MapGeneratorTerrain.OnNoiseMapGenerated += OnNoiseMapGenerated;
 		ServiceLocator.Instance.GetService<GoldSpawnManager>().GoldDeregistered += OnGoldDeregistered;
 		ServiceLocator.Instance.GetService<TargetManager>().TargetDeregistered += OnTargetDeregistered;
 	}
 
 	private void OnDisable()
 	{
-		MapGeneratorTerrain.OnNoiseMapGenerated -= OnNoiseMapGenerated;
+		//MapGeneratorTerrain.OnNoiseMapGenerated -= OnNoiseMapGenerated;
 		ServiceLocator.Instance.GetService<GoldSpawnManager>().GoldDeregistered -= OnGoldDeregistered;
 		ServiceLocator.Instance.GetService<TargetManager>().TargetDeregistered -= OnTargetDeregistered;
 	}

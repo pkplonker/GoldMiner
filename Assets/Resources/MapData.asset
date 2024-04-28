@@ -13,26 +13,26 @@ MonoBehaviour:
   m_Name: MapData
   m_EditorClassIdentifier: 
   PersistanceRange:
-    Min: 0.7
-    Max: 1
+    Min: 0
+    Max: 2
   LacunarityRange:
-    Min: 0.7
+    Min: 0
     Max: 1
   NoiseScaleRange:
-    Min: 8
-    Max: 16
+    Min: 1
+    Max: 1000
   HeightMultiplierRange:
-    Min: 3
-    Max: 6
-  <Persistance>k__BackingField: 0.8964931
-  <Lacunarity>k__BackingField: 0.88100725
-  <NoiseScale>k__BackingField: 8.352568
+    Min: 0
+    Max: 100
+  <Persistance>k__BackingField: 1.7
+  <Lacunarity>k__BackingField: 0.7
+  <NoiseScale>k__BackingField: 2
   <HeightMultiplier>k__BackingField: 4.8
-  <ChunksPerRow>k__BackingField: 25
-  <MapChunkSize>k__BackingField: 16
-  seed: 2494
+  <ChunksPerRow>k__BackingField: 10
+  <MapChunkSize>k__BackingField: 9
+  seed: 0
   offset: {x: 0, y: 0}
-  material: {fileID: 2100000, guid: 8a1ad397b447ca643951705bb09f5075, type: 2}
+  material: {fileID: 0}
   HeightCurve:
     serializedVersion: 2
     m_Curve:

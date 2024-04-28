@@ -7,19 +7,19 @@ namespace TerrainGeneration
 	[Serializable]
 	public class MapData : ScriptableObject
 	{
-		[field: Header("Ranges")]
-		[field: SerializeField] public RangeFloat PersistanceRange = new RangeFloat {Min = 0f, Max = 2f};
-		[field: SerializeField] public RangeFloat LacunarityRange = new RangeFloat {Min = 0f, Max = 1f};
-		[field: SerializeField] public RangeFloat NoiseScaleRange = new RangeFloat {Min = 1f, Max = 1000f};
-
-		[field: SerializeField] public RangeFloat HeightMultiplierRange = new RangeFloat {Min = 0f, Max = 100f};
+		// [field: Header("Ranges")]
+		// [field: SerializeField] public RangeFloat PersistanceRange = new RangeFloat {Min = 0f, Max = 2f};
+		// [field: SerializeField] public RangeFloat LacunarityRange = new RangeFloat {Min = 0f, Max = 1f};
+		// [field: SerializeField] public RangeFloat NoiseScaleRange = new RangeFloat {Min = 1f, Max = 1000f};
+		//
+		// [field: SerializeField] public RangeFloat HeightMultiplierRange = new RangeFloat {Min = 0f, Max = 100f};
 		
 		[field: Header("Determined props")]
 		
 
-		[field: SerializeField] public float Persistance { get; private set; }
-		[field: SerializeField] public float Lacunarity { get; private set; }
-		[field: SerializeField] public float NoiseScale { get; private set; }
+		[field: SerializeField] public float Persistance { get; set; }
+		[field: SerializeField] public float Lacunarity { get; set; }
+		[field: SerializeField] public float NoiseScale { get; set; }
 		[field: SerializeField] public float HeightMultiplier { get; private set; } = 5;
 		
 		[field: Header("Standard")]
@@ -39,12 +39,12 @@ namespace TerrainGeneration
 		public void InitialiseValues()
 		{
 			var random = new System.Random(seed);
-			Persistance = (float) random.NextDouble() * (PersistanceRange.Max - PersistanceRange.Min) +
-			              PersistanceRange.Min;
-			Lacunarity = (float) random.NextDouble() * (LacunarityRange.Max - LacunarityRange.Min) +
-			             LacunarityRange.Min;
-			NoiseScale = (float) random.NextDouble() * (NoiseScaleRange.Max - NoiseScaleRange.Min) +
-			             NoiseScaleRange.Min;
+			// Persistance = (float) random.NextDouble() * (PersistanceRange.Max - PersistanceRange.Min) +
+			//               PersistanceRange.Min;
+			// Lacunarity = (float) random.NextDouble() * (LacunarityRange.Max - LacunarityRange.Min) +
+			//              LacunarityRange.Min;
+			// NoiseScale = (float) random.NextDouble() * (NoiseScaleRange.Max - NoiseScaleRange.Min) +
+			//              NoiseScaleRange.Min;
 			// HeightMultiplier = (float) random.NextDouble() * (HeightMultiplierRange.Max - HeightMultiplierRange.Min) +
 			//                    HeightMultiplierRange.Min;
 		}

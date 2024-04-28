@@ -17,9 +17,9 @@ public class Chunk : MonoBehaviour
 	private MeshCollider meshCollider;
 
 	[SerializeField]
-	private ITerrainNoise3D noiseGenerator;
+	private TerrainNoise3DCompute noiseGenerator;
 
-	private Noise noiseData;
+	private MarchingCubeNoise noiseData;
 	private Vector3[] vertices = Array.Empty<Vector3>();
 	private int[] indices = Array.Empty<int>();
 	private Vector3Int size;
@@ -32,8 +32,8 @@ public class Chunk : MonoBehaviour
 	public Vector3Int ChunkCoord { get; private set; }
 
 	public void Init(Vector3Int chunkCoord, ChunkManager chunkManager,
-		ITerrainNoise3D noiseGenerator, Vector3Int size,
-		Noise noiseData, AsyncQueue computerShaderQueue, AsyncQueue readbackQueue)
+		TerrainNoise3DCompute noiseGenerator, Vector3Int size,
+		MarchingCubeNoise noiseData, AsyncQueue computerShaderQueue, AsyncQueue readbackQueue)
 	{
 		this.ChunkCoord = chunkCoord;
 		this.noiseData = noiseData;
@@ -54,13 +54,11 @@ public class Chunk : MonoBehaviour
 			(data =>
 			{
 				marchingCubes = new MarchingCubes(MarchingCubeShader, data, noiseData.IsoLevel, size, factor,
-					BuildMesh,computerShaderQueue, readbackQueue);
-			}), computerShaderQueue, readbackQueue,ChunkCoord,chunkManager.maxChunkCoord);
+					BuildMesh, computerShaderQueue, readbackQueue);
+			}), computerShaderQueue, readbackQueue, ChunkCoord, chunkManager.maxChunkCoord);
 	}
 
 	private void BuildMesh(MarchingCubes mCubes) => mCubes.March(GenerateMesh);
-
-	private void OnEnable() => noiseGenerator = GetComponent<ITerrainNoise3D>();
 
 	private void OnDisable()
 	{

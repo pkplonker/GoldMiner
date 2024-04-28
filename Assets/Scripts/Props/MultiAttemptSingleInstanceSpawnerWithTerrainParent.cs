@@ -13,8 +13,8 @@ public class MultiAttemptSingleInstanceSpawnerWithTerrainParent : MultiAttemptSi
 		var result = base.Spawn(mapData, out currentInstance);
 		if (result)
 		{
-			currentInstance.transform.SetParent(MapGeneratorTerrain
-				.GetChunkFromPosition(mapData, currentInstance.transform.position).transform);
+			// currentInstance.transform.SetParent(MapGeneratorTerrain
+			// 	.GetChunkFromPosition(mapData, currentInstance.transform.position).transform);
 		}
 
 		return result;

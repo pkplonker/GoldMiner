@@ -44,6 +44,10 @@ namespace Props
 
 		protected float GetTolerance() => FlatnessTolerance + FlatnessTolerance;
 
+		public class PropSpawner
+		{
+			
+		}
 		public IEnumerator ProcessPointDataCor(PoissonData poissonData,
 			Action callback, PropSpawner propSpawner, MapData mapData)
 		{
@@ -73,7 +77,7 @@ namespace Props
 				if (numToSpawn <= 0) break;
 				if (!CalculatePlacement(mapData, points, i, tolerance, out var result, out var rotation)) continue;
 				if (result.IsInfinity()) continue;
-				propSpawner.SpawnProp(index, result, rotation);
+				//propSpawner.SpawnProp(index, result, rotation);
 				numToSpawn--;
 			}
 

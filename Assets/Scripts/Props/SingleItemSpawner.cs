@@ -16,19 +16,19 @@ namespace Props
 		[SerializeField] private List<SingleInstanceSpawn> prefabsToSpawn;
 		private static List<GameObject> spawnedPrefabs = new();
 
-		private void OnEnable()
-		{
-			var mapGenerator = ServiceLocator.Instance.GetService<MapGenerator>();
-			mapGenerator.TerrainGenerated += SpawnAll;
-			mapGenerator.MapGenerationStarted += DespawnObjects;
-		}
-
-		private void OnDisable()
-		{
-			var mapGenerator = ServiceLocator.Instance.GetService<MapGenerator>();
-			mapGenerator.TerrainGenerated -= SpawnAll;
-			mapGenerator.MapGenerationStarted -= DespawnObjects;
-		}
+		// private void OnEnable()
+		// {
+		// 	var mapGenerator = ServiceLocator.Instance.GetService<MapGenerator>();
+		// 	mapGenerator.TerrainGenerated += SpawnAll;
+		// 	mapGenerator.MapGenerationStarted += DespawnObjects;
+		// }
+		//
+		// private void OnDisable()
+		// {
+		// 	var mapGenerator = ServiceLocator.Instance.GetService<MapGenerator>();
+		// 	mapGenerator.TerrainGenerated -= SpawnAll;
+		// 	mapGenerator.MapGenerationStarted -= DespawnObjects;
+		// }
 
 		private void DespawnObjects(int notRequired = 0, int notRequired2 = 0)
 		{

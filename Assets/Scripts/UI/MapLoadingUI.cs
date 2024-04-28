@@ -8,9 +8,14 @@ namespace UI
 {
 	public class MapLoadingUI : CanvasGroupBase
 	{
-		[SerializeField] private Slider slider;
-		[SerializeField] private float progressBarSpeed = 4f;
-		[SerializeField] private float fadeTime = 0.3f;
+		[SerializeField]
+		private Slider slider;
+
+		[SerializeField]
+		private float progressBarSpeed = 4f;
+
+		[SerializeField]
+		private float fadeTime = 0.3f;
 
 		private int currentPropProgress;
 		private int currentChunkProgress;
@@ -29,18 +34,18 @@ namespace UI
 
 		private void Start()
 		{
-			MapGeneratorTerrain.OnChunkGenerated += NewChunk;
-			ServiceLocator.Instance.GetService<MapGenerator>().MapGenerationStarted += ProgressStarted;
-			PropSpawner.OnPropGenerated += NewProp;
-			ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated += MapGenerated;
-		}
-
-		private void OnDisable()
-		{
-			MapGeneratorTerrain.OnChunkGenerated -= NewChunk;
-			ServiceLocator.Instance.GetService<MapGenerator>().MapGenerationStarted -= ProgressStarted;
-			PropSpawner.OnPropGenerated -= NewProp;
-			ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -= MapGenerated;
+			// 	MapGeneratorTerrain.OnChunkGenerated += NewChunk;
+			// 	ServiceLocator.Instance.GetService<MapGenerator>().MapGenerationStarted += ProgressStarted;
+			// 	PropSpawner.OnPropGenerated += NewProp;
+			// 	ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated += MapGenerated;
+			// }
+			//
+			// private void OnDisable()
+			// {
+			// 	MapGeneratorTerrain.OnChunkGenerated -= NewChunk;
+			// 	ServiceLocator.Instance.GetService<MapGenerator>().MapGenerationStarted -= ProgressStarted;
+			// 	PropSpawner.OnPropGenerated -= NewProp;
+			// 	ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -= MapGenerated;
 		}
 
 		private void MapGenerated(float obj)

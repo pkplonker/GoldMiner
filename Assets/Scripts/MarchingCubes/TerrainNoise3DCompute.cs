@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 using Debug = UnityEngine.Debug;
 using Random = System.Random;
 
-public class TerrainNoise3DCompute : ITerrainNoise3D, IDisposable
+public class TerrainNoise3DCompute :  IDisposable
 {
 	private ComputeBuffer resultsBuffer;
 	private ComputeBuffer octaveOffsetsBuffer;
@@ -44,7 +44,7 @@ public class TerrainNoise3DCompute : ITerrainNoise3D, IDisposable
 		random = new System.Random();
 	}
 
-	public void GenerateNoiseMap(Vector3Int dimensions, Noise noiseData, Vector3 offset, Action<float4[]> callback,
+	public void GenerateNoiseMap(Vector3Int dimensions, MarchingCubeNoise noiseData, Vector3 offset, Action<float4[]> callback,
 		AsyncQueue computeShaderQueue, AsyncQueue computeShaderReadbackQueue, Vector3Int worldChunk,
 		Vector3Int maxChunk)
 	{
@@ -97,7 +97,7 @@ public class TerrainNoise3DCompute : ITerrainNoise3D, IDisposable
 		});
 	}
 
-	public static float CalculateExtents(Noise noise)
+	public static float CalculateExtents(MarchingCubeNoise noise)
 	{
 		float noiseExtents = 0f;
 		float amp = noise.Amplitude;
@@ -126,7 +126,7 @@ public class TerrainNoise3DCompute : ITerrainNoise3D, IDisposable
 		}
 	}
 
-	private void SetShaderParameters(Vector3Int dimensions, Noise noiseData, Vector3 offset)
+	private void SetShaderParameters(Vector3Int dimensions, MarchingCubeNoise noiseData, Vector3 offset)
 	{
 		noiseShader.SetBuffer(kernelIndex, RESULT, resultsBuffer);
 		noiseShader.SetBuffer(kernelIndex, OCTAVE_OFFSETS, octaveOffsetsBuffer);

@@ -15,9 +15,9 @@ namespace Save
 
 		private void Start()
 		{
-			if (PositionSeedBasedID)
-				DeterministicPositionSeededGuid(ServiceLocator.Instance.GetService<MapGenerator>().GetSeed());
-			if (SeedBasedID) DeterministicSeededGuid(ServiceLocator.Instance.GetService<MapGenerator>().GetSeed());
+			// if (PositionSeedBasedID)
+			// 	DeterministicPositionSeededGuid(ServiceLocator.Instance.GetService<MapGenerator>().GetSeed());
+			// if (SeedBasedID) DeterministicSeededGuid(ServiceLocator.Instance.GetService<MapGenerator>().GetSeed());
 			if (ServiceLocator.Instance.GetService<SavingSystem>() == null) return;
 			ServiceLocator.Instance.GetService<SavingSystem>().Subscribe(this);
 		}
