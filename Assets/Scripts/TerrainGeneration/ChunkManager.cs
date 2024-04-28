@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TerrainGeneration;
-using Unity.Mathematics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -53,7 +51,6 @@ public class ChunkManager : MonoBehaviour, IService
 	public void Start()
 	{
 		Chunk.OnChunkGenerated += OnChunkGenerated;
-		GenerateChunks();
 	}
 
 	private void OnChunkGenerated(Chunk obj)

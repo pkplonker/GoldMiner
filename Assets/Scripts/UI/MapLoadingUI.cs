@@ -26,16 +26,16 @@ namespace UI
 		{
 			HideUI();
 			StopCor();
-			ServiceLocator.Instance.GetService<ChunkManager>().OnChunkGeneratedAction += NewChunk;
-			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerationStarted += ProgressStarted;
-			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerated += MapGenerated;
+			ServiceLocator.Instance.GetService<WorldGenerator>().OnChunkGeneratedAction += NewChunk;
+			ServiceLocator.Instance.GetService<WorldGenerator>().MapGenerationStarted += ProgressStarted;
+			ServiceLocator.Instance.GetService<WorldGenerator>().MapGenerated += MapGenerated;
 		}
 
 		private void OnDisable()
 		{
-			ServiceLocator.Instance.GetService<ChunkManager>().OnChunkGeneratedAction -= NewChunk;
-			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerationStarted -= ProgressStarted;
-			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerated -= MapGenerated;
+			ServiceLocator.Instance.GetService<WorldGenerator>().OnChunkGeneratedAction -= NewChunk;
+			ServiceLocator.Instance.GetService<WorldGenerator>().MapGenerationStarted -= ProgressStarted;
+			ServiceLocator.Instance.GetService<WorldGenerator>().MapGenerated -= MapGenerated;
 		}
 
 		private void MapGenerated()
