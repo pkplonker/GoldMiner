@@ -49,7 +49,7 @@ namespace Props
 			for (int i = 0; i < 4; i++)
 			{
 				Vector3 rayStart = position + bottomCorners[i] + Vector3.up * 10;
-				//Debug.DrawRay(rayStart, Vector3.down * 20, Color.green, 5f);
+				Debug.DrawRay(rayStart, Vector3.down * 20, Color.green, 5f);
 				if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, Mathf.Infinity))
 				{
 					hitPoints[hitCount] = hit.point;
@@ -57,11 +57,11 @@ namespace Props
 				}
 			}
 
-			if (hitCount < 3) return (Quaternion.identity, position);
+			if (hitCount <= 3) return (Quaternion.identity, position);
 
-			Vector3 vector1 = hitPoints[1] - hitPoints[0];
-			Vector3 vector2 = hitPoints[2] - hitPoints[0];
-			Vector3 averageNormal = Vector3.Cross(vector1, vector2).normalized;
+			Vector3 vector1 = (hitPoints[1] - hitPoints[0]).normalized;
+			Vector3 vector2 = (hitPoints[2] - hitPoints[0]).normalized;
+			Vector3 averageNormal = Vector3.Cross(vector2, vector1).normalized;
 
 			Vector3 newPosition = CalculateNewPosition(hitPoints, hitCount);
 			newPosition.y = hitPoints.Min(hit => hit.y);
@@ -71,10 +71,10 @@ namespace Props
 
 			newPosition.y = hitPoints.Min(hit => hit.y);
 
-			Quaternion newRotation =
-				Quaternion.LookRotation(Vector3.Cross(averageNormal, currentInstance.transform.right), averageNormal);
+			// Quaternion newRotation =
+			// 	Quaternion.LookRotation(Vector3.Cross(averageNormal, Vector3.right), averageNormal);
 			newPosition.y += collider.center.y;
-			return (newRotation, newPosition);
+			return (Quaternion.identity, newPosition);
 		}
 
 		private Vector3[] GetBottomCorners(BoxCollider collider)
@@ -166,7 +166,7 @@ namespace Props
 			//this should be changed to not just use X but also y/z to ensure correct results on non-square maps
 			var spawnTransform = CalculateSpawn(mapData.MapSize.x, currentInstance, mapData.GroundLayer);
 
-			if (spawnTransform.Position.x < mapData.MapSize2D)
+			if (spawnTransform.Position.x < mapData.MapSize.x)
 			{
 				currentInstance.transform.position = spawnTransform.Position;
 				currentInstance.transform.rotation = spawnTransform.Rotation;
