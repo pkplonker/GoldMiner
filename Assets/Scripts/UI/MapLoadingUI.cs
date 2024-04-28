@@ -30,25 +30,26 @@ namespace UI
 		{
 			HideUI();
 			StopCor();
+			ServiceLocator.Instance.GetService<ChunkManager>().OnChunkGeneratedAction += NewChunk;
+			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerationStarted += ProgressStarted;
+			PropSpawner.OnPropGenerated += NewProp;
+			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerated += MapGenerated;
 		}
 
 		private void Start()
 		{
-			// 	MapGeneratorTerrain.OnChunkGenerated += NewChunk;
-			// 	ServiceLocator.Instance.GetService<MapGenerator>().MapGenerationStarted += ProgressStarted;
-			// 	PropSpawner.OnPropGenerated += NewProp;
-			// 	ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated += MapGenerated;
-			// }
-			//
-			// private void OnDisable()
-			// {
-			// 	MapGeneratorTerrain.OnChunkGenerated -= NewChunk;
-			// 	ServiceLocator.Instance.GetService<MapGenerator>().MapGenerationStarted -= ProgressStarted;
-			// 	PropSpawner.OnPropGenerated -= NewProp;
-			// 	ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -= MapGenerated;
+			
 		}
 
-		private void MapGenerated(float obj)
+		private void OnDisable()
+		{
+			ServiceLocator.Instance.GetService<ChunkManager>().OnChunkGeneratedAction -= NewChunk;
+			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerationStarted -= ProgressStarted;
+			PropSpawner.OnPropGenerated -= NewProp;
+			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerated -= MapGenerated;
+		}
+
+		private void MapGenerated()
 		{
 			Destroy(gameObject);
 			if (updatingCor != null) StopCoroutine(updatingCor);

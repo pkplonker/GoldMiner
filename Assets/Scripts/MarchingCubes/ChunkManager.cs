@@ -12,7 +12,7 @@ public class ChunkManager : MonoBehaviour, IService
 	[SerializeField]
 	private Vector3Int MapSize;
 
-	private Chunk[,,] chunks;
+	public Chunk[,,] chunks { get; private set; }
 
 	[SerializeField]
 	private GameObject ChunkPrefab;
@@ -35,8 +35,12 @@ public class ChunkManager : MonoBehaviour, IService
 	private int MaxConcurrentGPUReadbackActions = 5;
 
 	private AsyncQueue gpuAsyncReadbackqueue;
+	private int generatedChunks;
 	public Vector3Int maxChunkCoord { get; private set; }
-	
+	public Action MapGenerated { get; set; }
+	public Action<int, int> MapGenerationStarted { get; set; }
+	public Action<int, int> OnChunkGeneratedAction { get; set; }
+
 	private void OnEnable()
 	{
 		computeShaderQueue = new AsyncQueue("computeShaderQueue", () => MaxConcurrentGPUActions);
@@ -46,31 +50,48 @@ public class ChunkManager : MonoBehaviour, IService
 
 	public void Start()
 	{
+		Chunk.OnChunkGenerated += OnChunkGenerated;
 		GenerateChunks();
+	}
+
+	private void OnChunkGenerated(Chunk obj)
+	{
+		generatedChunks++;
+		var req = maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z;
+
+		OnChunkGeneratedAction?.Invoke(generatedChunks, req);
+		if (generatedChunks == req)
+		{
+			MapGenerated?.Invoke();
+		}
 	}
 
 	public void ClearChunks()
 	{
 		if (chunks == null) return;
-		for (int x = 0; x < chunks.GetLength(0); x++)
+		for (var x = 0; x < chunks.GetLength(0); x++)
 		{
-			for (int y = 0; y < chunks.GetLength(1); y++)
+			for (var y = 0; y < chunks.GetLength(1); y++)
 			{
-				for (int z = 0; z < chunks.GetLength(2); z++)
+				for (var z = 0; z < chunks.GetLength(2); z++)
 				{
 					if (chunks[x, y, z] != null)
 						Destroy(chunks[x, y, z].gameObject);
 				}
 			}
 		}
+
+		generatedChunks = 0;
 	}
 
 	public void GenerateChunks()
 	{
 		maxChunkCoord = new Vector3Int(Mathf.CeilToInt(MapSize.x / (float) ChunkSize.x),
 			Mathf.CeilToInt(MapSize.y / (float) ChunkSize.z), Mathf.CeilToInt(MapSize.z / (float) ChunkSize.z));
+		MapGenerationStarted?.Invoke(maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z, 0);
 
-		using var t = new Timer(time => Debug.Log($"Generate All took {time / (maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z)}ms average"));
+		using var t = new Timer(time =>
+			Debug.Log($"Generate All took {time / (maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z)}ms average"));
 
 		factor = Mathf.CeilToInt(1 / MapData.VertDistance);
 
@@ -87,7 +108,7 @@ public class ChunkManager : MonoBehaviour, IService
 					chunkGO.transform.SetParent(transform);
 					var chunk = chunkGO.GetComponent<Chunk>();
 					chunks[x, y, z] = chunk;
-					chunk.Init(new Vector3Int(x, y, z),this, new TerrainNoise3DCompute(NoiseShader), ChunkSize,
+					chunk.Init(new Vector3Int(x, y, z), this, new TerrainNoise3DCompute(NoiseShader), ChunkSize,
 						MapData, computeShaderQueue, gpuAsyncReadbackqueue);
 					chunk.GetComponent<MeshRenderer>().material.color = new Color(UnityEngine.Random.Range(0f, 1f),
 						UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
@@ -160,7 +181,7 @@ public class ChunkManager : MonoBehaviour, IService
 
 	private void ProcessNeighbors(int x, int y, int z, Vector3Int paddedSize, Chunk chunk,
 		Dictionary<Chunk, List<NoiseMapChange>> modifications)
-  	{
+	{
 		if (!IsOnEdgeOrCorner(x, y, z, paddedSize))
 			return;
 
@@ -235,9 +256,7 @@ public class ChunkManager : MonoBehaviour, IService
 	private static int GetIndex(int x, int y, int z, Vector3Int paddedSize) =>
 		x + y * paddedSize.x + z * paddedSize.x * paddedSize.y;
 
-	private float GetDigValue() =>  1;
+	private float GetDigValue() => 1;
 
-	public void Initialize()
-	{
-	}
+	public void Initialize() { }
 }

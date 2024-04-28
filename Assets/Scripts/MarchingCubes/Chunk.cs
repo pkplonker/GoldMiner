@@ -29,6 +29,7 @@ public class Chunk : MonoBehaviour
 	private AsyncQueue computerShaderQueue;
 	private AsyncQueue readbackQueue;
 	private Vector3Int maxChunkCoord;
+	public static Action<Chunk> OnChunkGenerated;
 	public Vector3Int ChunkCoord { get; private set; }
 
 	public void Init(Vector3Int chunkCoord, ChunkManager chunkManager,
@@ -103,7 +104,11 @@ public class Chunk : MonoBehaviour
 
 		var id = mesh.GetInstanceID();
 		mesh.RecalculateNormals();
-		var t = Task.Run(() => Physics.BakeMesh(id, false)).ContinueWith(_ => meshCollider.sharedMesh = mesh,
+		var t = Task.Run(() => Physics.BakeMesh(id, false)).ContinueWith(_ =>
+			{
+				OnChunkGenerated?.Invoke(this);
+				return meshCollider.sharedMesh = mesh;
+			},
 			new CancellationToken(),
 			TaskContinuationOptions.None, MainThreadDispatcher.Instance.Sceduler);
 	}

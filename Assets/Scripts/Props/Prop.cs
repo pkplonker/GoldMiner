@@ -43,11 +43,7 @@ namespace Props
 		}
 
 		protected float GetTolerance() => FlatnessTolerance + FlatnessTolerance;
-
-		public class PropSpawner
-		{
-			
-		}
+		
 		public IEnumerator ProcessPointDataCor(PoissonData poissonData,
 			Action callback, PropSpawner propSpawner, MarchingCubeMapData mapData)
 		{
