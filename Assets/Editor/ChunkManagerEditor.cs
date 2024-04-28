@@ -5,7 +5,7 @@ using Debug = UnityEngine.Debug;
 
 [CustomEditor(typeof(ChunkManager))]
 [CanEditMultipleObjects]
-public class MarchinChunkManagerEditor : UnityEditor.Editor
+public class MarchingChunkManagerEditor : UnityEditor.Editor
 {
 	public override void OnInspectorGUI()
 	{
