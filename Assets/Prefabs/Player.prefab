@@ -2689,6 +2689,7 @@ MonoBehaviour:
   CanMove: 0
   digInterval: 0
   <MaxDigDepth>k__BackingField: -1
+  <DigRadius>k__BackingField: 0.2
 --- !u!114 &730840486265341367
 MonoBehaviour:
   m_ObjectHideFlags: 0

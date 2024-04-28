@@ -9,7 +9,10 @@ public class MarchingCubeMapData : ScriptableObject
 	public int Seed = 0;
 	public int Octaves = 8;
 	public float Persistance = 1.7f;
-	public float Scale = 2;
+	[SerializeField]
+	private float NoiseScale = 2;
+
+	public float Scale => NoiseScale * (1 / VertDistance);
 	public float GroundHeight = 2f;
 	public float Amplitude = 30f;
 	public string GroundLayer = "Ground";

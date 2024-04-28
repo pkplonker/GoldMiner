@@ -98,6 +98,7 @@ public class PropSpawner : MonoBehaviour, IService
 				}
 			}
 		}
+		poissonDataQueue.Clear();
 	}
 
 	public void SpawnProp(int index, Vector3 result, Quaternion rotation)

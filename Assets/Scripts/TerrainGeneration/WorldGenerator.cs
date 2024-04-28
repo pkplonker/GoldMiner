@@ -30,6 +30,11 @@ public class WorldGenerator : MonoBehaviour, IService
 		ChunkManager.OnChunkGeneratedAction += OnChunkGenerated;
 		ChunkManager.TerrainGenerated += OnMapGenerated;
 		ChunkManager.TerrainGenerationStarted += OnMapGenerationStarted;
+		Generate();
+	}
+
+	public void Generate()
+	{
 		ChunkManager.GenerateChunks(MapData);
 	}
 
@@ -50,4 +55,9 @@ public class WorldGenerator : MonoBehaviour, IService
 	}
 
 	public void Initialize() { }
+
+	public void ClearChunks()
+	{
+		ChunkManager.ClearChunks();
+	}
 }

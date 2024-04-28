@@ -18,10 +18,10 @@ MonoBehaviour:
   Seed: 0
   Octaves: 8
   Persistance: 1.7
-  Scale: 2
+  NoiseScale: 2
   GroundHeight: 2
   Amplitude: 30
   GroundLayer: Ground
-  BoundaryInstep: 75
-  MapSize: {x: 360, y: 9, z: 360}
+  BoundaryInstep: 5
+  MapSize: {x: 90, y: 9, z: 90}
   ChunkSize: {x: 9, y: 9, z: 9}

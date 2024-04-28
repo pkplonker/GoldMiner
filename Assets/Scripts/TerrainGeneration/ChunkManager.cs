@@ -84,9 +84,7 @@ public class ChunkManager : MonoBehaviour, IService
 			Mathf.CeilToInt(this.mapData.MapSize.y / (float) this.mapData.ChunkSize.z),
 			Mathf.CeilToInt(this.mapData.MapSize.z / (float) this.mapData.ChunkSize.z));
 		TerrainGenerationStarted?.Invoke(maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z);
-
-		factor = Mathf.CeilToInt(1 / this.mapData.VertDistance);
-
+		
 		Chunks = new Chunk[maxChunkCoord.x, maxChunkCoord.y, maxChunkCoord.z];
 		for (int x = 0; x < maxChunkCoord.x; x++)
 		{
