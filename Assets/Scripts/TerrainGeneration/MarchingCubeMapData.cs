@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-[System.Serializable]
-public class MarchingCubeMapData
+[CreateAssetMenu(fileName = "MapData", menuName = "MapData")]
+public class MarchingCubeMapData : ScriptableObject
 {
 	public float IsoLevel = 0.5f;
 	public float VertDistance = 1.0f;
@@ -16,16 +16,12 @@ public class MarchingCubeMapData
 	public float BoundaryInstep = 50;
 	public Vector3Int MapSize = new Vector3Int(90, 9, 90);
 	public Vector3Int ChunkSize = new Vector3Int(9, 9, 9);
-	public Vector3Int MaxChunks;
 
 	[HideInInspector]
 	public int MapSize2D { get; private set; }
 
 	public MarchingCubeMapData()
 	{
-		MaxChunks = new Vector3Int(Mathf.CeilToInt(MapSize.x / (float) this.ChunkSize.x),
-			Mathf.CeilToInt(MapSize.y / (float) this.ChunkSize.y),
-			Mathf.CeilToInt(MapSize.z / (float) this.ChunkSize.z));
 		ChunkSize = new Vector3Int(9, 9, 9);
 		MapSize2D = MapSize.x * MapSize.z;
 	}

@@ -1,20 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Profiling;
+using Task = System.Threading.Tasks.Task;
 
 namespace TerrainGeneration
 {
 	public static class PoissonDiscSampling
 	{
 		//Credit to Sebastian Lague for the original algorithm.
-		public static void GeneratePointsCor(int index, int maxPoints, Vector2 sampleRegionSize,
-			Action<PoissonData> callback, MarchingCubeMapData mapData, int numSamplesBeforeRejection = 30)
+		public static void GeneratePoints(int index, int maxPoints, Vector2 sampleRegionSize,
+			MarchingCubeMapData mapData, Action<PoissonData> callback, int numSamplesBeforeRejection = 30)
 		{
 			Profiler.BeginSample("disc");
 			var prng = new System.Random(mapData.Seed + index);
-    
+
 			float area = sampleRegionSize.x * sampleRegionSize.y;
 			float radius = Mathf.Sqrt(area / maxPoints);
 			var cellSize = radius / Mathf.Sqrt(2);
@@ -49,11 +52,9 @@ namespace TerrainGeneration
 				if (!candidateAccepted) spawnPoints.RemoveAt(spawnIndex);
 			}
 
-			//callback?.Invoke(new PoissonData(index,points));
+			callback?.Invoke(new PoissonData(index, points));
 			Profiler.EndSample();
 		}
-
-
 
 		static bool IsValid(Vector2 candidate, Vector2 sampleRegionSize, float cellSize, float radius,
 			IReadOnlyList<Vector2> points, int[,] grid)

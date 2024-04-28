@@ -10,9 +10,14 @@ using UnityEngine;
 /// </summary>
 public class WorldGenerator : MonoBehaviour, IService
 {
+	public ChunkManager ChunkManager{ get; private set; }
 	public event Action<int, int> OnChunkGeneratedAction;
 	public event Action<int> MapGenerationStarted;
 	public event Action MapGenerated;
+	public event Action TerrainGenerated;
+
+	[SerializeField]
+	public MarchingCubeMapData MapData;
 
 	private void Awake()
 	{
@@ -21,11 +26,11 @@ public class WorldGenerator : MonoBehaviour, IService
 
 	private void Start()
 	{
-		var chunkManager = ServiceLocator.Instance.GetService<ChunkManager>();
-		chunkManager.OnChunkGeneratedAction += OnChunkGenerated;
-		chunkManager.MapGenerated += OnMapGenerated;
-		chunkManager.MapGenerationStarted += OnMapGenerationStarted;
-		chunkManager.GenerateChunks();
+		ChunkManager = ServiceLocator.Instance.GetService<ChunkManager>();
+		ChunkManager.OnChunkGeneratedAction += OnChunkGenerated;
+		ChunkManager.TerrainGenerated += OnMapGenerated;
+		ChunkManager.TerrainGenerationStarted += OnMapGenerationStarted;
+		ChunkManager.GenerateChunks(MapData);
 	}
 
 	private void OnChunkGenerated(int generatedCount, int requiredCount)
@@ -35,6 +40,7 @@ public class WorldGenerator : MonoBehaviour, IService
 
 	private void OnMapGenerated()
 	{
+		TerrainGenerated?.Invoke();
 		MapGenerated?.Invoke();
 	}
 

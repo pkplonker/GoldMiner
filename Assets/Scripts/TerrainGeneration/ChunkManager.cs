@@ -11,13 +11,10 @@ public class ChunkManager : MonoBehaviour, IService
 	[SerializeField]
 	private Vector3Int MapSize;
 
-	public Chunk[,,] chunks { get; private set; }
+	public Chunk[,,] Chunks { get; private set; }
 
 	[SerializeField]
 	private GameObject ChunkPrefab;
-
-	[SerializeField]
-	public MarchingCubeMapData MapData;
 
 	private readonly Dictionary<Chunk, List<NoiseMapChange>> modifications = new();
 
@@ -35,11 +32,12 @@ public class ChunkManager : MonoBehaviour, IService
 
 	private AsyncQueue gpuAsyncReadbackqueue;
 	private int generatedChunks;
-	
+
 	public Vector3Int maxChunkCoord { get; private set; }
-	public Action MapGenerated { get; set; }
-	public Action<int> MapGenerationStarted { get; set; }
+	public Action TerrainGenerated { get; set; }
+	public Action<int> TerrainGenerationStarted { get; set; }
 	public Action<int, int> OnChunkGeneratedAction { get; set; }
+	private MarchingCubeMapData mapData;
 
 	private void OnEnable()
 	{
@@ -61,21 +59,21 @@ public class ChunkManager : MonoBehaviour, IService
 		OnChunkGeneratedAction?.Invoke(generatedChunks, req);
 		if (generatedChunks == req)
 		{
-			MapGenerated?.Invoke();
+			TerrainGenerated?.Invoke();
 		}
 	}
 
 	public void ClearChunks()
 	{
-		if (chunks == null) return;
-		for (var x = 0; x < chunks.GetLength(0); x++)
+		if (Chunks == null) return;
+		for (var x = 0; x < Chunks.GetLength(0); x++)
 		{
-			for (var y = 0; y < chunks.GetLength(1); y++)
+			for (var y = 0; y < Chunks.GetLength(1); y++)
 			{
-				for (var z = 0; z < chunks.GetLength(2); z++)
+				for (var z = 0; z < Chunks.GetLength(2); z++)
 				{
-					if (chunks[x, y, z] != null)
-						Destroy(chunks[x, y, z].gameObject);
+					if (Chunks[x, y, z] != null)
+						Destroy(Chunks[x, y, z].gameObject);
 				}
 			}
 		}
@@ -83,16 +81,17 @@ public class ChunkManager : MonoBehaviour, IService
 		generatedChunks = 0;
 	}
 
-	public void GenerateChunks()
+	public void GenerateChunks(MarchingCubeMapData mapData)
 	{
+		this.mapData = mapData;
 		maxChunkCoord = new Vector3Int(Mathf.CeilToInt(MapSize.x / (float) ChunkSize.x),
 			Mathf.CeilToInt(MapSize.y / (float) ChunkSize.z),
 			Mathf.CeilToInt(MapSize.z / (float) ChunkSize.z));
-		MapGenerationStarted?.Invoke(maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z);
-		
-		factor = Mathf.CeilToInt(1 / MapData.VertDistance);
+		TerrainGenerationStarted?.Invoke(maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z);
 
-		chunks = new Chunk[maxChunkCoord.x, maxChunkCoord.y, maxChunkCoord.z];
+		factor = Mathf.CeilToInt(1 / this.mapData.VertDistance);
+
+		Chunks = new Chunk[maxChunkCoord.x, maxChunkCoord.y, maxChunkCoord.z];
 		for (int x = 0; x < maxChunkCoord.x; x++)
 		{
 			for (int y = 0; y < maxChunkCoord.y; y++)
@@ -104,9 +103,9 @@ public class ChunkManager : MonoBehaviour, IService
 						new Vector3(ChunkSize.x * x, ChunkSize.y * y, ChunkSize.z * z), Quaternion.identity);
 					chunkGO.transform.SetParent(transform);
 					var chunk = chunkGO.GetComponent<Chunk>();
-					chunks[x, y, z] = chunk;
+					Chunks[x, y, z] = chunk;
 					chunk.Init(new Vector3Int(x, y, z), this, new TerrainNoise3DCompute(NoiseShader), ChunkSize,
-						MapData, computeShaderQueue, gpuAsyncReadbackqueue);
+						this.mapData, computeShaderQueue, gpuAsyncReadbackqueue);
 					chunk.GetComponent<MeshRenderer>().material.color = new Color(UnityEngine.Random.Range(0f, 1f),
 						UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
 				}
@@ -212,9 +211,9 @@ public class ChunkManager : MonoBehaviour, IService
 		var chunkOffset = new Vector3Int(dx, dy, dz);
 		var chunkIndex = chunk.ChunkCoord + chunkOffset;
 
-		if (IsValidChunkIndex(chunkIndex, chunks))
+		if (IsValidChunkIndex(chunkIndex, Chunks))
 		{
-			var neighbourChunk = chunks[chunkIndex.x, chunkIndex.y, chunkIndex.z];
+			var neighbourChunk = Chunks[chunkIndex.x, chunkIndex.y, chunkIndex.z];
 			var newX = (dx != 0) ? (dx == -1 ? paddedSize.x - 1 : 0) : x;
 			var newY = (dy != 0) ? (dy == -1 ? paddedSize.y - 1 : 0) : y;
 			var newZ = (dz != 0) ? (dz == -1 ? paddedSize.z - 1 : 0) : z;
@@ -259,10 +258,10 @@ public class ChunkManager : MonoBehaviour, IService
 
 	public Chunk GetChunkFromPosition(Vector3 result)
 	{
-		var multiplier = 1 * MapData.VertDistance;
-		var x = Mathf.FloorToInt(result.x / (MapData.ChunkSize.x * multiplier));
-		var y = Mathf.FloorToInt(result.y / (MapData.ChunkSize.z * multiplier));
-		var z = Mathf.FloorToInt(result.z / (MapData.ChunkSize.z * multiplier));
-		return chunks[x, y, z];
+		var multiplier = 1 * mapData.VertDistance;
+		var x = Mathf.FloorToInt(result.x / (mapData.ChunkSize.x * multiplier));
+		var y = Mathf.FloorToInt(result.y / (mapData.ChunkSize.z * multiplier));
+		var z = Mathf.FloorToInt(result.z / (mapData.ChunkSize.z * multiplier));
+		return Chunks[x, y, z];
 	}
 }

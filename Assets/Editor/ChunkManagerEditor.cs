@@ -15,7 +15,7 @@ public class MarchingChunkManagerEditor : UnityEditor.Editor
 		if (GUILayout.Button("Generate"))
 		{
 			manager.ClearChunks();
-			manager.GenerateChunks();
+			manager.GenerateChunks(ServiceLocator.Instance.GetService<WorldGenerator>().MapData);
 		}
 
 		if (GUILayout.Button("Clear"))

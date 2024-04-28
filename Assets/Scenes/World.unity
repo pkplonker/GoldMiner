@@ -302,56 +302,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3621743741902011605, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      propertyPath: propSpawner
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3621743741902011605, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      propertyPath: MapData.Scale
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3621743741902011605, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      propertyPath: MapData.Octaves
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3621743741902011605, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      propertyPath: MapData.IsoLevel
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3621743741902011605, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      propertyPath: MapData.Lacunarity
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3621743741902011605, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      propertyPath: MapData.Persistance
-      value: 1.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3621743741902011605, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      propertyPath: MapData.GroundHeight
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3621743741902011605, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      propertyPath: MapData.VertDistance
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3621743741902011605, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      propertyPath: MapData.GroundDistanceFactor
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3804337690170444713, guid: d0337ca1ae9181c408fb8039c89767a5,
         type: 3}
       propertyPath: m_Name
-      value: ChunkManager
+      value: WorldGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 7923012736426775509, guid: d0337ca1ae9181c408fb8039c89767a5,
+        type: 3}
+      propertyPath: propCollection
+      value: 
+      objectReference: {fileID: 11400000, guid: 2e5a8c3a5124bed4fa2c8bd2032330c9,
+        type: 2}
+    - target: {fileID: 7923012736426775509, guid: d0337ca1ae9181c408fb8039c89767a5,
+        type: 3}
+      propertyPath: <PropCollections>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 2e5a8c3a5124bed4fa2c8bd2032330c9,
+        type: 2}
+    - target: {fileID: 8497369500623639814, guid: d0337ca1ae9181c408fb8039c89767a5,
+        type: 3}
+      propertyPath: MapData
+      value: 
+      objectReference: {fileID: 11400000, guid: 8da5b7854ad34324f97106864988b3e3,
+        type: 2}
     - target: {fileID: 8903269289263273574, guid: d0337ca1ae9181c408fb8039c89767a5,
         type: 3}
       propertyPath: m_RootOrder
@@ -410,11 +383,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3804337690170444713, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 718319744}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0337ca1ae9181c408fb8039c89767a5, type: 3}
 --- !u!224 &512644919 stripped
 RectTransform:
@@ -556,24 +525,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!1 &718319741 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3804337690170444713, guid: d0337ca1ae9181c408fb8039c89767a5,
-    type: 3}
-  m_PrefabInstance: {fileID: 454881007}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &718319744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718319741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e3d09c34a191264fbf8663baeab6dc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &751905026 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5861079456411682076, guid: 58aebf8aac327aa4c95e9a111a059eca,
@@ -1032,6 +983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e988d9439276f3439a6e340aa8d5b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnTerrainOnStart: 1
 --- !u!4 &995952191
 Transform:
   m_ObjectHideFlags: 0
