@@ -8,17 +8,5 @@ namespace Props
 	{
 		[field: Range(-1f, 1f), SerializeField]
 		public float DropIntoTerrainAmount { get; protected set; }
-
-		[field: Range(0, 1f), SerializeField] public float MinHeightNormalised { get; protected set; } = 0f;
-		[field: Range(0, 1f), SerializeField] public float MaxHeightNormalised { get; protected set; } =0.75f;
-
-		protected override Vector3 CalculatePosition(Vector3 position, MarchingCubeMapData mapData, float factor = 10)
-		{
-			position = base.CalculatePosition(position, mapData, factor);
-			var normalisedHeight = position.y ;/// mapData.HeightMultiplier;
-			return (normalisedHeight > MinHeightNormalised && normalisedHeight < MaxHeightNormalised)
-				? position
-				: Vector3.positiveInfinity;
-		}
 	}
 }

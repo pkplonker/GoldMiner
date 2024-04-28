@@ -164,7 +164,7 @@ public class DiggableTerrain : MonoBehaviour
 
 	private Mesh RegenerateMesh(Vector3[] newVerts)
 	{
-		vertexColorFactor = digAmount / SubSurfaceProp.globalMaxDepth;
+		vertexColorFactor = digAmount / SubSurfaceProp.GlobalMaxDepth;
 		var oldMesh = meshFilter.mesh;
 		var oldVerts = oldMesh.vertices;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TerrainGeneration;
 using Unity.Mathematics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -36,9 +37,10 @@ public class ChunkManager : MonoBehaviour, IService
 
 	private AsyncQueue gpuAsyncReadbackqueue;
 	private int generatedChunks;
+	
 	public Vector3Int maxChunkCoord { get; private set; }
 	public Action MapGenerated { get; set; }
-	public Action<int, int> MapGenerationStarted { get; set; }
+	public Action<int> MapGenerationStarted { get; set; }
 	public Action<int, int> OnChunkGeneratedAction { get; set; }
 
 	private void OnEnable()
@@ -87,12 +89,10 @@ public class ChunkManager : MonoBehaviour, IService
 	public void GenerateChunks()
 	{
 		maxChunkCoord = new Vector3Int(Mathf.CeilToInt(MapSize.x / (float) ChunkSize.x),
-			Mathf.CeilToInt(MapSize.y / (float) ChunkSize.z), Mathf.CeilToInt(MapSize.z / (float) ChunkSize.z));
-		MapGenerationStarted?.Invoke(maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z, 0);
-
-		using var t = new Timer(time =>
-			Debug.Log($"Generate All took {time / (maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z)}ms average"));
-
+			Mathf.CeilToInt(MapSize.y / (float) ChunkSize.z),
+			Mathf.CeilToInt(MapSize.z / (float) ChunkSize.z));
+		MapGenerationStarted?.Invoke(maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z);
+		
 		factor = Mathf.CeilToInt(1 / MapData.VertDistance);
 
 		chunks = new Chunk[maxChunkCoord.x, maxChunkCoord.y, maxChunkCoord.z];

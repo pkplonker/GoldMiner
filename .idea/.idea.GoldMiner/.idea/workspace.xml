@@ -5,10 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MarchingCubes/Chunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MarchingCubes/Chunk.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PoissonData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/PropCollectionEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/PropCollectionEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/World.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/World.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggableTerrain.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MarchingCubes/ChunkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MarchingCubes/ChunkManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MarchingCubes/Noise.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MarchingCubes/Noise.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/OneTimeProp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/OneTimeProp.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PropSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PropSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/SubSurfaceProp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/SubSurfaceProp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Props/SurfaceProp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Props/SurfaceProp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PropSpawner.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PropSpawner.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/PoissonData.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/MapLoadingUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/MapLoadingUI.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,9 +62,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerInteractionStateMachine.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerReference.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerStats.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Props/KillZoneSpawner.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Props/MultiAttemptSingleInstanceSpawnerWithTerrainParent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Props/OneTimeProp.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Props/Prop.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SaveTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SceneHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateMachine.cs" root0="FORCE_HIGHLIGHTING" />
@@ -311,107 +318,94 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/UI/MapLoadingUI.cs</url>
-          <line>124</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="124" containingFunctionPresentation="Method 'NewChunk'">
+          <line>26</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="30" containingFunctionPresentation="Method 'Awake'">
             <startOffsets>
-              <option value="2727" />
+              <option value="501" />
             </startOffsets>
             <endOffsets>
-              <option value="2760" />
+              <option value="510" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="148" />
+          <option name="timeStamp" value="159" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/UI/MapLoadingUI.cs</url>
-          <line>76</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="76" containingFunctionPresentation="Method 'Complete'">
+          <line>35</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="39" containingFunctionPresentation="Method 'OnDisable'">
             <startOffsets>
-              <option value="1806" />
+              <option value="833" />
             </startOffsets>
             <endOffsets>
-              <option value="1816" />
+              <option value="919" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="149" />
+          <option name="timeStamp" value="160" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/UI/MapLoadingUI.cs</url>
-          <line>82</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="82" containingFunctionPresentation="Method 'ProgressStarted'">
+          <line>42</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="43" containingFunctionPresentation="Method 'MapGenerated'">
             <startOffsets>
-              <option value="1896" />
+              <option value="1141" />
             </startOffsets>
             <endOffsets>
-              <option value="1913" />
+              <option value="1161" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="150" />
+          <option name="timeStamp" value="161" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/UI/MapLoadingUI.cs</url>
-          <line>67</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="67" containingFunctionPresentation="Method 'UpdateTotals'">
+          <line>51</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="53" containingFunctionPresentation="Method 'UpdateTotals'">
             <startOffsets>
-              <option value="1645" />
+              <option value="1313" />
             </startOffsets>
             <endOffsets>
-              <option value="1703" />
+              <option value="1355" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="151" />
+          <option name="timeStamp" value="162" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/UI/MapLoadingUI.cs</url>
-          <line>61</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="61" containingFunctionPresentation="Method 'NewProp'">
+          <line>59</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="59" containingFunctionPresentation="Method 'Complete'">
             <startOffsets>
-              <option value="1555" />
+              <option value="1420" />
             </startOffsets>
             <endOffsets>
-              <option value="1583" />
+              <option value="1430" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="152" />
+          <option name="timeStamp" value="163" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/UI/MapLoadingUI.cs</url>
-          <line>52</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="52" containingFunctionPresentation="Method 'MapGenerated'">
+          <line>65</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="65" containingFunctionPresentation="Method 'ProgressStarted'">
             <startOffsets>
-              <option value="1379" />
+              <option value="1499" />
             </startOffsets>
             <endOffsets>
-              <option value="1399" />
+              <option value="1524" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="153" />
+          <option name="timeStamp" value="164" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/UI/MapLoadingUI.cs</url>
-          <line>36</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="36" containingFunctionPresentation="Method 'Start'">
+          <line>77</line>
+          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="77" containingFunctionPresentation="Method 'StopCor'">
             <startOffsets>
-              <option value="680" />
+              <option value="1683" />
             </startOffsets>
             <endOffsets>
-              <option value="766" />
+              <option value="1707" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="154" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/UI/MapLoadingUI.cs</url>
-          <line>44</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\UI\MapLoadingUI.cs" initialLine="44" containingFunctionPresentation="Method 'OnDisable'">
-            <startOffsets>
-              <option value="1028" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1114" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="155" />
+          <option name="timeStamp" value="165" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -419,6 +413,7 @@
       <configuration name="UNITY_DEBUG_RUN_CONFIGURATION">
         <watch expression="d" />
         <watch expression="transform.position" />
+        <watch expression="triangleArray" />
       </configuration>
     </watches-manager>
   </component>

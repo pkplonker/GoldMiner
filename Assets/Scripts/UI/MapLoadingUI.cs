@@ -17,12 +17,8 @@ namespace UI
 		[SerializeField]
 		private float fadeTime = 0.3f;
 
-		private int currentPropProgress;
 		private int currentChunkProgress;
-		private int requiredProp;
-		private int requiredChunk;
 		private int totalRequired;
-		private int currentTotal;
 		private float currentFillTarget;
 		private Coroutine updatingCor;
 
@@ -32,7 +28,6 @@ namespace UI
 			StopCor();
 			ServiceLocator.Instance.GetService<ChunkManager>().OnChunkGeneratedAction += NewChunk;
 			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerationStarted += ProgressStarted;
-			PropSpawner.OnPropGenerated += NewProp;
 			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerated += MapGenerated;
 		}
 
@@ -40,7 +35,6 @@ namespace UI
 		{
 			ServiceLocator.Instance.GetService<ChunkManager>().OnChunkGeneratedAction -= NewChunk;
 			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerationStarted -= ProgressStarted;
-			PropSpawner.OnPropGenerated -= NewProp;
 			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerated -= MapGenerated;
 		}
 
@@ -53,16 +47,9 @@ namespace UI
 			StopCor();
 		}
 
-		private void NewProp(int count)
-		{
-			currentPropProgress = count;
-			UpdateTotals();
-		}
-
 		private void UpdateTotals()
 		{
-			currentTotal = currentChunkProgress + currentPropProgress;
-			if (currentTotal == totalRequired)
+			if (currentChunkProgress == totalRequired)
 			{
 				Complete();
 			}
@@ -74,15 +61,10 @@ namespace UI
 			HideUI();
 		}
 
-		private void ProgressStarted(int chunks, int props)
+		private void ProgressStarted(int chunks)
 		{
-			currentTotal = 0;
 			currentChunkProgress = 0;
-			currentPropProgress = 0;
-
-			requiredChunk = chunks;
-			requiredProp = props;
-			totalRequired = requiredChunk + requiredProp;
+			totalRequired = chunks;
 			StopCor();
 
 			updatingCor = StartCoroutine(ProgressBarUpdateCor());
@@ -109,7 +91,7 @@ namespace UI
 		{
 			while (slider.value != 1f)
 			{
-				currentFillTarget = (float) currentTotal / totalRequired;
+				currentFillTarget = (float) currentChunkProgress / totalRequired;
 				slider.value = Mathf.Lerp(slider.value, currentFillTarget,
 					progressBarSpeed * Time.deltaTime);
 				yield return null;
