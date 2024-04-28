@@ -23,7 +23,6 @@ public class TerrainNoise3DCompute :  IDisposable
 	private static readonly int WORLD_OFFSET = Shader.PropertyToID("worldOffset");
 	private static readonly int WORLD_CHUNK = Shader.PropertyToID("worldChunk");
 	private static readonly int MAX_CHUNK = Shader.PropertyToID("maxChunk");
-	private static readonly int GROUND_DISTANCE_FACTOR = Shader.PropertyToID("distanceFactor");
 	private static readonly int GROUND_HEIGHT = Shader.PropertyToID("groundHeight");
 	private static readonly int ISOLEVEL = Shader.PropertyToID("isoLevel");
 	private static readonly int AMPLITUDE = Shader.PropertyToID("amplitude");
@@ -44,22 +43,22 @@ public class TerrainNoise3DCompute :  IDisposable
 		random = new System.Random();
 	}
 
-	public void GenerateNoiseMap(Vector3Int dimensions, MarchingCubeNoise noiseData, Vector3 offset, Action<float4[]> callback,
+	public void GenerateNoiseMap(Vector3Int dimensions, MarchingCubeMapData mapDataData, Vector3 offset, Action<float4[]> callback,
 		AsyncQueue computeShaderQueue, AsyncQueue computeShaderReadbackQueue, Vector3Int worldChunk,
 		Vector3Int maxChunk)
 	{
-		random = new System.Random(noiseData.Seed);
+		random = new System.Random(mapDataData.Seed);
 
-		var octaveOffsets = CalculateOctaveOffsets(noiseData.Octaves, offset, random);
-		noiseExtents = CalculateExtents(noiseData);
+		var octaveOffsets = CalculateOctaveOffsets(mapDataData.Octaves, offset, random);
+		noiseExtents = CalculateExtents(mapDataData);
 
-		noiseExtents /= ((float) noiseData.Octaves / 2);
+		noiseExtents /= ((float) mapDataData.Octaves / 2);
 		var size = dimensions.x * dimensions.y * dimensions.z;
 		var data = new float4[size];
-		EnsureBuffersInitialized(noiseData.Octaves, size);
+		EnsureBuffersInitialized(mapDataData.Octaves, size);
 		foreach (var o in octaveOffsets)
 			octaveOffsetsBuffer.SetData(octaveOffsets.ToArray());
-		SetShaderParameters(dimensions, noiseData, offset);
+		SetShaderParameters(dimensions, mapDataData, offset);
 		noiseShader.SetFloats(WORLD_CHUNK, worldChunk.x, worldChunk.y, worldChunk.z);
 		noiseShader.SetFloats(MAX_CHUNK, maxChunk.x, maxChunk.y, maxChunk.z);
 
@@ -97,15 +96,15 @@ public class TerrainNoise3DCompute :  IDisposable
 		});
 	}
 
-	public static float CalculateExtents(MarchingCubeNoise noise)
+	public static float CalculateExtents(MarchingCubeMapData mapData)
 	{
 		float noiseExtents = 0f;
-		float amp = noise.Amplitude;
+		float amp = mapData.Amplitude;
 
-		for (int i = 0; i < noise.Octaves; i++)
+		for (int i = 0; i < mapData.Octaves; i++)
 		{
 			noiseExtents += amp;
-			amp *= noise.Persistance;
+			amp *= mapData.Persistance;
 		}
 
 		return noiseExtents*2.2f;
@@ -126,24 +125,23 @@ public class TerrainNoise3DCompute :  IDisposable
 		}
 	}
 
-	private void SetShaderParameters(Vector3Int dimensions, MarchingCubeNoise noiseData, Vector3 offset)
+	private void SetShaderParameters(Vector3Int dimensions, MarchingCubeMapData mapDataData, Vector3 offset)
 	{
 		noiseShader.SetBuffer(kernelIndex, RESULT, resultsBuffer);
 		noiseShader.SetBuffer(kernelIndex, OCTAVE_OFFSETS, octaveOffsetsBuffer);
 		noiseShader.SetFloat(NOISE_EXTENTS, noiseExtents);
 
-		noiseShader.SetFloat(PERSISTANCE, noiseData.Persistance);
-		noiseShader.SetFloat(LACUNARITY, noiseData.Lacunarity);
-		noiseShader.SetFloat(SCALE, noiseData.Scale);
-		noiseShader.SetFloat(VERTDISTANCE, noiseData.VertDistance);
+		noiseShader.SetFloat(PERSISTANCE, mapDataData.Persistance);
+		noiseShader.SetFloat(LACUNARITY, mapDataData.Lacunarity);
+		noiseShader.SetFloat(SCALE, mapDataData.Scale);
+		noiseShader.SetFloat(VERTDISTANCE, mapDataData.VertDistance);
 
-		noiseShader.SetInt(OCTAVES, noiseData.Octaves);
+		noiseShader.SetInt(OCTAVES, mapDataData.Octaves);
 		noiseShader.SetInts(SIZE, dimensions.x, dimensions.y, dimensions.z);
 		noiseShader.SetFloats(WORLD_OFFSET, offset.x, offset.y, offset.z);
-		noiseShader.SetFloat(GROUND_DISTANCE_FACTOR, noiseData.GroundDistanceFactor);
-		noiseShader.SetFloat(GROUND_HEIGHT, noiseData.GroundHeight);
-		noiseShader.SetFloat(ISOLEVEL, noiseData.IsoLevel);
-		noiseShader.SetFloat(AMPLITUDE, noiseData.Amplitude);
+		noiseShader.SetFloat(GROUND_HEIGHT, mapDataData.GroundHeight);
+		noiseShader.SetFloat(ISOLEVEL, mapDataData.IsoLevel);
+		noiseShader.SetFloat(AMPLITUDE, mapDataData.Amplitude);
 
 	}
 

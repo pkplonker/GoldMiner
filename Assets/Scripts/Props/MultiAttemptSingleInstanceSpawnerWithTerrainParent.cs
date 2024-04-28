@@ -8,7 +8,7 @@ using UnityEngine;
 	menuName = "Props/Spawns/New Multi-attempt Single instance spawn - Parented")]
 public class MultiAttemptSingleInstanceSpawnerWithTerrainParent : MultiAttemptSingleInstanceSpawn
 {
-	public override bool Spawn(MapData mapData, out GameObject currentInstance)
+	public override bool Spawn(MarchingCubeMapData mapData, out GameObject currentInstance)
 	{
 		var result = base.Spawn(mapData, out currentInstance);
 		if (result)

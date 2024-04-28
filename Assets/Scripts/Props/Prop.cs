@@ -49,7 +49,7 @@ namespace Props
 			
 		}
 		public IEnumerator ProcessPointDataCor(PoissonData poissonData,
-			Action callback, PropSpawner propSpawner, MapData mapData)
+			Action callback, PropSpawner propSpawner, MarchingCubeMapData mapData)
 		{
 			var index = poissonData.Index;
 
@@ -61,7 +61,7 @@ namespace Props
 
 			var points = poissonData.Points;
 
-			var prng = new System.Random(mapData.seed);
+			var prng = new System.Random(mapData.Seed);
 			points.ShuffleWithPRNG(prng);
 			var numToSpawn = CalculateNumberToSpawn(mapData, points);
 			var tolerance = GetTolerance();
@@ -86,20 +86,20 @@ namespace Props
 			callback?.Invoke();
 		}
 
-		protected virtual int CalculateNumberToSpawn(MapData mapData, List<Vector2> points)
+		protected virtual int CalculateNumberToSpawn(MarchingCubeMapData mapData, List<Vector2> points)
 		{
 			var result = (int) Mathf.Min(points.Count,
-				MaxQuantityPer100M / 100f * (mapData.MapChunkSize * mapData.ChunksPerRow));
+				MaxQuantityPer100M / 100f * (mapData.MapSize.x*mapData.MapSize.z));
 			return result;
 		}
 
-		protected virtual bool CalculatePlacement(MapData mapData, List<Vector2> points, int i, float tolerance,
+		protected virtual bool CalculatePlacement(MarchingCubeMapData mapData, List<Vector2> points, int i, float tolerance,
 			out Vector3 result,
 			out Quaternion rotation)
 		{
 			result = CalculatePosition(new Vector3(points[i].x, 0, points[i].y),
 				mapData);
-			rotation = CalculateRotation(i, mapData.seed);
+			rotation = CalculateRotation(i, mapData.Seed);
 			if (result.IsInfinity()) return false;
 			var bounds = BoundDrawer.GetBounds(Prefab);
 			var isFlat = BoundDrawer.DetermineIfGeometryIsFlat(new BoundDrawer.GeometryFlatData(
@@ -114,19 +114,20 @@ namespace Props
 			return Quaternion.Euler(0, prng.NextSingle(0, 360), 0);
 		}
 
-		protected virtual Vector3 CalculatePosition(Vector3 position, MapData mapData, float factor = 10)
+		protected virtual Vector3 CalculatePosition(Vector3 position, MarchingCubeMapData mapData, float factor = 10)
 		{
-			position.y = mapData.HeightMultiplier;
-			if (!Physics.Raycast(position, Vector3.down, out var hit, mapData.HeightMultiplier + factor,
+			//position.y = mapData.HeightMultiplier;
+			//changed at integration
+			if (!Physics.Raycast(position, Vector3.down, out var hit, 20/*mapData.HeightMultiplier + factor*/,
 				    LayerMask.GetMask(mapData.GroundLayer))) return Vector3.positiveInfinity;
 
-			position.y = hit.point.y - GetDropIntoTerrainAmount(mapData.seed, position);
+			position.y = hit.point.y - GetDropIntoTerrainAmount(mapData.Seed, position);
 			return position;
 		}
 
 		protected virtual float GetDropIntoTerrainAmount(int seed, Vector3 position) => 0f;
 
-		public virtual float GetSpawnSize(MapData mapData) =>
-			InBoundryOnly ? mapData.GetSize() - (mapData.BoundaryInstep * 2) : mapData.GetSize();
+		public virtual float GetSpawnSize(MarchingCubeMapData mapData) =>
+			InBoundryOnly ? mapData.MapSize2D - (mapData.BoundaryInstep * 2) : mapData.MapSize2D;
 	}
 }

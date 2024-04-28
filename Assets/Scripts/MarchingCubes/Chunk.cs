@@ -19,7 +19,7 @@ public class Chunk : MonoBehaviour
 	[SerializeField]
 	private TerrainNoise3DCompute noiseGenerator;
 
-	private MarchingCubeNoise noiseData;
+	private MarchingCubeMapData mapDataData;
 	private Vector3[] vertices = Array.Empty<Vector3>();
 	private int[] indices = Array.Empty<int>();
 	private Vector3Int size;
@@ -33,10 +33,10 @@ public class Chunk : MonoBehaviour
 
 	public void Init(Vector3Int chunkCoord, ChunkManager chunkManager,
 		TerrainNoise3DCompute noiseGenerator, Vector3Int size,
-		MarchingCubeNoise noiseData, AsyncQueue computerShaderQueue, AsyncQueue readbackQueue)
+		MarchingCubeMapData mapDataData, AsyncQueue computerShaderQueue, AsyncQueue readbackQueue)
 	{
 		this.ChunkCoord = chunkCoord;
-		this.noiseData = noiseData;
+		this.mapDataData = mapDataData;
 		this.noiseGenerator = noiseGenerator;
 		this.size = size;
 		this.chunkManager = chunkManager;
@@ -47,13 +47,13 @@ public class Chunk : MonoBehaviour
 
 	private void Generate()
 	{
-		factor = Mathf.CeilToInt(1 / noiseData.VertDistance);
+		factor = Mathf.CeilToInt(1 / mapDataData.VertDistance);
 		var factoredSize = (size * factor) + new Vector3Int(1, 1, 1);
-		noiseGenerator.GenerateNoiseMap(factoredSize, noiseData,
-			transform.position / (noiseData.Scale * noiseData.VertDistance),
+		noiseGenerator.GenerateNoiseMap(factoredSize, mapDataData,
+			transform.position / (mapDataData.Scale * mapDataData.VertDistance),
 			(data =>
 			{
-				marchingCubes = new MarchingCubes(MarchingCubeShader, data, noiseData.IsoLevel, size, factor,
+				marchingCubes = new MarchingCubes(MarchingCubeShader, data, mapDataData.IsoLevel, size, factor,
 					BuildMesh, computerShaderQueue, readbackQueue);
 			}), computerShaderQueue, readbackQueue, ChunkCoord, chunkManager.maxChunkCoord);
 	}

@@ -27,13 +27,13 @@ namespace Props
 			if (depthMaximum > globalMaxDepth) depthMaximum = globalMaxDepth;
 		}
 
-		protected override bool CalculatePlacement(MapData mapData, List<Vector2> points, int i, float tolerance,
+		protected override bool CalculatePlacement(MarchingCubeMapData mapData, List<Vector2> points, int i, float tolerance,
 			out Vector3 result,
 			out Quaternion rotation)
 		{
 			result = CalculatePosition(
 				new Vector3(points[i].x + mapData.BoundaryInstep, 0, points[i].y + mapData.BoundaryInstep), mapData);
-			rotation = CalculateRotation(i, mapData.seed);
+			rotation = CalculateRotation(i, mapData.Seed);
 			return result != Vector3.positiveInfinity;
 		}
 

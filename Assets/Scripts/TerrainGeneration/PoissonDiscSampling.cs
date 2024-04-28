@@ -10,10 +10,10 @@ namespace TerrainGeneration
 	{
 		//Credit to Sebastian Lague for the original algorithm.
 		public static void GeneratePointsCor(int index, int maxPoints, Vector2 sampleRegionSize,
-			Action<PoissonData> callback, MapData mapData, int numSamplesBeforeRejection = 30)
+			Action<PoissonData> callback, MarchingCubeMapData mapData, int numSamplesBeforeRejection = 30)
 		{
 			Profiler.BeginSample("disc");
-			var prng = new System.Random(mapData.seed + index);
+			var prng = new System.Random(mapData.Seed + index);
     
 			float area = sampleRegionSize.x * sampleRegionSize.y;
 			float radius = Mathf.Sqrt(area / maxPoints);

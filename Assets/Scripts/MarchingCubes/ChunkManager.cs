@@ -18,7 +18,7 @@ public class ChunkManager : MonoBehaviour, IService
 	private GameObject ChunkPrefab;
 
 	[SerializeField]
-	public MarchingCubeNoise MapData;
+	public MarchingCubeMapData MapData;
 
 	private readonly Dictionary<Chunk, List<NoiseMapChange>> modifications = new();
 

@@ -41,7 +41,7 @@ namespace Props
 
 		private static void DestroyObject(GameObject spawned) => Destroy(spawned);
 
-		private void SpawnAll(MapData mapData)
+		private void SpawnAll(MarchingCubeMapData mapData)
 		{
 			DespawnObjects();
 
@@ -51,7 +51,7 @@ namespace Props
 			}
 		}
 
-		protected virtual void Spawn(SingleInstanceSpawn sis, MapData mapData)
+		protected virtual void Spawn(SingleInstanceSpawn sis, MarchingCubeMapData mapData)
 		{
 			if (sis.Spawn(mapData, out GameObject obj))
 			{
@@ -65,7 +65,7 @@ namespace Props
 			}
 		}
 
-		private void HandleFailedSpawn(SingleInstanceSpawn sis, MapData mapData)
+		private void HandleFailedSpawn(SingleInstanceSpawn sis, MarchingCubeMapData mapData)
 		{
 			if (!sis.allowFailure)
 				ServiceLocator.Instance.GetService<SceneHandler>()

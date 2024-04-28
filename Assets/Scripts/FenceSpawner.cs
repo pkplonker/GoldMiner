@@ -15,7 +15,7 @@ public class FenceSpawner : SingleInstanceSpawn
 	[SerializeField] private List<float> Heights;
 	private GameObject fenceParent;
 
-	public override bool Spawn(MapData mapData, out GameObject currentInstance)
+	public override bool Spawn(MarchingCubeMapData mapData, out GameObject currentInstance)
 	{
 		CalculatePoints(mapData);
 		if (Points.Count == 0 || Heights.Count == 0) throw new ArgumentNullException();
@@ -91,12 +91,12 @@ public class FenceSpawner : SingleInstanceSpawn
 
 	public override string GetName() => "Fence";
 
-	private void CalculatePoints(MapData mapData)
+	private void CalculatePoints(MarchingCubeMapData mapData)
 	{
 		Points ??= new();
 		Points.Clear();
 		var small = mapData.BoundaryInstep;
-		var large = mapData.GetSize() - small;
+		var large = mapData.MapSize2D - small;
 		Points.Add(new Vector3(small, 0, large));
 		Points.Add(new Vector3(large, 0, large));
 		Points.Add(new Vector3(large, 0, small));

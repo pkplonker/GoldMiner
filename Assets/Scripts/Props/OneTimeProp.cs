@@ -16,6 +16,6 @@
 
 	 public class OneTimeProp : Prop
 	 {
-		 protected override int CalculateNumberToSpawn(MapData mapData, List<Vector2> points) => 1;
+		 protected override int CalculateNumberToSpawn(MarchingCubeMapData mapData, List<Vector2> points) => 1;
 	 }
  }
