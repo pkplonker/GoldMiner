@@ -250,10 +250,9 @@ public class ChunkManager : MonoBehaviour, IService
 
 	public Chunk GetChunkFromPosition(Vector3 result)
 	{
-		var multiplier = 1 * mapData.VertDistance;
-		var x = Mathf.FloorToInt(result.x / (mapData.ChunkSize.x * multiplier));
-		var y = Mathf.FloorToInt(result.y / (mapData.ChunkSize.z * multiplier));
-		var z = Mathf.FloorToInt(result.z / (mapData.ChunkSize.z * multiplier));
+		var x = Mathf.FloorToInt(result.x / mapData.ChunkSize.x);
+		var y = Mathf.FloorToInt(result.y / mapData.ChunkSize.z);
+		var z = Mathf.FloorToInt(result.z / mapData.ChunkSize.z);
 		return Chunks[x, y, z];
 	}
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MapData
   m_EditorClassIdentifier: 
   IsoLevel: 0.5
-  VertDistance: 1
+  VertDistance: 0.2
   Lacunarity: 0.7
   Seed: 0
   Octaves: 8

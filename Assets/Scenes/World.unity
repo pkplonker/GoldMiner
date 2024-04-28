@@ -307,18 +307,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorldGenerator
       objectReference: {fileID: 0}
-    - target: {fileID: 7923012736426775509, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      propertyPath: <PropCollections>k__BackingField
-      value: 
-      objectReference: {fileID: 11400000, guid: baeb76e7e0d690e418658baa4b276127,
-        type: 2}
-    - target: {fileID: 8497369500623639814, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      propertyPath: MapData
-      value: 
-      objectReference: {fileID: 11400000, guid: 8da5b7854ad34324f97106864988b3e3,
-        type: 2}
     - target: {fileID: 8903269289263273574, guid: d0337ca1ae9181c408fb8039c89767a5,
         type: 3}
       propertyPath: m_RootOrder
@@ -377,35 +365,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3804337690170444713, guid: d0337ca1ae9181c408fb8039c89767a5,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 464811873}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0337ca1ae9181c408fb8039c89767a5, type: 3}
---- !u!1 &464811868 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3804337690170444713, guid: d0337ca1ae9181c408fb8039c89767a5,
-    type: 3}
-  m_PrefabInstance: {fileID: 454881007}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &464811873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 464811868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10964694ec8108f419e23430ba9f21a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabsToSpawn:
-  - {fileID: 11400000, guid: f1d07c405f4ba0c48aaba3d4f2457d2e, type: 2}
-  - {fileID: 11400000, guid: 11a2257726678cc44a6f9e83b93fa4e7, type: 2}
-  - {fileID: 11400000, guid: c4923b9c33f28a74d8aae5a6a33ed9bf, type: 2}
-  - {fileID: 11400000, guid: 1771f14b3753fd341a9a6271efb206f6, type: 2}
 --- !u!224 &512644919 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9065263140822230608, guid: f116c7c21cd16e9449602ec4a637e2d6,

@@ -13,8 +13,9 @@ public class MultiAttemptSingleInstanceSpawnerWithTerrainParent : MultiAttemptSi
 		var result = base.Spawn(mapData, out currentInstance);
 		if (result)
 		{
-			currentInstance.transform.SetParent(ServiceLocator.Instance.GetService<ChunkManager>()
-				.GetChunkFromPosition(currentInstance.transform.position).transform);
+			var parent = ServiceLocator.Instance.GetService<ChunkManager>()
+				.GetChunkFromPosition(currentInstance.transform.position);
+			currentInstance.transform.SetParent(parent.transform);
 		}
 
 		return result;
