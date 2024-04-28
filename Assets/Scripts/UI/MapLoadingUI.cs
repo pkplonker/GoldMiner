@@ -36,11 +36,6 @@ namespace UI
 			ServiceLocator.Instance.GetService<ChunkManager>().MapGenerated += MapGenerated;
 		}
 
-		private void Start()
-		{
-			
-		}
-
 		private void OnDisable()
 		{
 			ServiceLocator.Instance.GetService<ChunkManager>().OnChunkGeneratedAction -= NewChunk;

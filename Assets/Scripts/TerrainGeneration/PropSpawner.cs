@@ -71,28 +71,31 @@ namespace TerrainGeneration
 			{
 				for (var j = 0; j < chunkManager.maxChunkCoord.z; j++)
 				{
-					// GameObject terrainChunk = chunkManager.chunks[] .gameObject;
-					//
-					// var childObjects = terrainChunk.GetComponentsInChildren<Transform>()
-					// 	.Select(x => x.gameObject)
-					// 	.Where(x => x != terrainChunk)
-					// 	.ToArray();
-					//
-					// if (childObjects.Length > 0)
-					// {
-					// 	StaticBatchingUtility.Combine(childObjects, terrainChunk);
-					// }
+					for (var k = 0; k < chunkManager.maxChunkCoord.z; k++)
+					{
+						GameObject terrainChunk = chunkManager.chunks[i,j,k].gameObject;
+
+						var childObjects = terrainChunk.GetComponentsInChildren<Transform>()
+							.Select(x => x.gameObject)
+							.Where(x => x != terrainChunk)
+							.ToArray();
+
+						if (childObjects.Length > 0)
+						{
+							StaticBatchingUtility.Combine(childObjects, terrainChunk);
+						}
+					}
 				}
 			}
 		}
 
 		public void SpawnProp(int index, Vector3 result, Quaternion rotation)
 		{
-			// var parent = chunkManager.GetChunkFromPosition(result).transform;
-			// var go = Instantiate(PropCollections.Props[index].Prefab, parent != null ? parent : transform);
-			// go.transform.position = result;
-			// go.transform.rotation = rotation;
-			// go.isStatic = PropCollections.Props[index].StaticObject;
+			var parent = chunkManager.GetChunkFromPosition(result).transform;
+			var go = Instantiate(PropCollections.Props[index].Prefab, parent != null ? parent : transform);
+			go.transform.position = result;
+			go.transform.rotation = rotation;
+			go.isStatic = PropCollections.Props[index].StaticObject;
 		}
 
 		

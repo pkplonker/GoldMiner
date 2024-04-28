@@ -259,4 +259,13 @@ public class ChunkManager : MonoBehaviour, IService
 	private float GetDigValue() => 1;
 
 	public void Initialize() { }
+
+	public Chunk GetChunkFromPosition(Vector3 result)
+	{
+		var multiplier = 1 * MapData.VertDistance;
+		var x = Mathf.FloorToInt(result.x / (MapData.ChunkSize.x * multiplier));
+		var y = Mathf.FloorToInt(result.y / (MapData.ChunkSize.z * multiplier));
+		var z = Mathf.FloorToInt(result.z / (MapData.ChunkSize.z * multiplier));
+		return chunks[x, y, z];
+	}
 }
