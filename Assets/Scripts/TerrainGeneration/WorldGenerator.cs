@@ -3,6 +3,8 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -10,7 +12,7 @@ using UnityEngine;
 /// </summary>
 public class WorldGenerator : MonoBehaviour, IService
 {
-	public ChunkManager ChunkManager{ get; private set; }
+	public ChunkManager ChunkManager { get; private set; }
 	public event Action<int, int> OnChunkGeneratedAction;
 	public event Action<int> MapGenerationStarted;
 	public event Action MapGenerated;
@@ -18,6 +20,9 @@ public class WorldGenerator : MonoBehaviour, IService
 
 	[SerializeField]
 	public MarchingCubeMapData MapData;
+
+	[SerializeField]
+	private float startDelayTimeForDebug = 0;
 
 	private void Awake()
 	{
@@ -30,6 +35,12 @@ public class WorldGenerator : MonoBehaviour, IService
 		ChunkManager.OnChunkGeneratedAction += OnChunkGenerated;
 		ChunkManager.TerrainGenerated += OnMapGenerated;
 		ChunkManager.TerrainGenerationStarted += OnMapGenerationStarted;
+		StartCoroutine(StartDelayCor());
+	}
+
+	private IEnumerator StartDelayCor()
+	{
+		yield return new WaitForSeconds(startDelayTimeForDebug);
 		Generate();
 	}
 

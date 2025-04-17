@@ -31,6 +31,16 @@ public class Chunk : MonoBehaviour
 	private Vector3Int maxChunkCoord;
 	public static Action<Chunk> OnChunkGenerated;
 	public Vector3Int ChunkCoord { get; private set; }
+	private Mesh mesh;
+
+	private void Awake()
+	{
+		mesh = new Mesh
+		{
+			name = $"ChunkMesh_{GetInstanceID()}"
+		};
+		meshFilter.sharedMesh = mesh;
+	}
 
 	public void Init(Vector3Int chunkCoord, ChunkManager chunkManager,
 		TerrainNoise3DCompute noiseGenerator, Vector3Int size,
