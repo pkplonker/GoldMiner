@@ -7,7 +7,7 @@ public class KillZoneSpawner : SingleInstanceSpawn
 	[SerializeField] private float killHeight = -10f;
 	[SerializeField] private Vector3 boxSize = new Vector3(10000f, 1f, 10000f);
 
-	public override bool Spawn(MapData mapData, out GameObject killZone)
+	public override bool Spawn(MarchingCubeMapData mapData, out GameObject killZone)
 	{
 		killZone = new GameObject("KillZone");
 		var boxCollider = killZone.AddComponent<BoxCollider>();

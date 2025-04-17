@@ -1,5 +1,4 @@
 using System.Collections;
-using StuartHeathTools;
 using TerrainGeneration;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,16 +7,17 @@ namespace UI
 {
 	public class MapLoadingUI : CanvasGroupBase
 	{
-		[SerializeField] private Slider slider;
-		[SerializeField] private float progressBarSpeed = 4f;
-		[SerializeField] private float fadeTime = 0.3f;
+		[SerializeField]
+		private Slider slider;
 
-		private int currentPropProgress;
+		[SerializeField]
+		private float progressBarSpeed = 4f;
+
+		[SerializeField]
+		private float fadeTime = 0.3f;
+
 		private int currentChunkProgress;
-		private int requiredProp;
-		private int requiredChunk;
 		private int totalRequired;
-		private int currentTotal;
 		private float currentFillTarget;
 		private Coroutine updatingCor;
 
@@ -25,25 +25,19 @@ namespace UI
 		{
 			HideUI();
 			StopCor();
-		}
-
-		private void Start()
-		{
-			MapGeneratorTerrain.OnChunkGenerated += NewChunk;
-			ServiceLocator.Instance.GetService<MapGenerator>().MapGenerationStarted += ProgressStarted;
-			PropSpawner.OnPropGenerated += NewProp;
-			ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated += MapGenerated;
+			ServiceLocator.Instance.GetService<WorldGenerator>().OnChunkGeneratedAction += NewChunk;
+			ServiceLocator.Instance.GetService<WorldGenerator>().MapGenerationStarted += ProgressStarted;
+			ServiceLocator.Instance.GetService<WorldGenerator>().MapGenerated += MapGenerated;
 		}
 
 		private void OnDisable()
 		{
-			MapGeneratorTerrain.OnChunkGenerated -= NewChunk;
-			ServiceLocator.Instance.GetService<MapGenerator>().MapGenerationStarted -= ProgressStarted;
-			PropSpawner.OnPropGenerated -= NewProp;
-			ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -= MapGenerated;
+			ServiceLocator.Instance.GetService<WorldGenerator>().OnChunkGeneratedAction -= NewChunk;
+			ServiceLocator.Instance.GetService<WorldGenerator>().MapGenerationStarted -= ProgressStarted;
+			ServiceLocator.Instance.GetService<WorldGenerator>().MapGenerated -= MapGenerated;
 		}
 
-		private void MapGenerated(float obj)
+		private void MapGenerated()
 		{
 			Destroy(gameObject);
 			if (updatingCor != null) StopCoroutine(updatingCor);
@@ -52,16 +46,9 @@ namespace UI
 			StopCor();
 		}
 
-		private void NewProp(int count)
-		{
-			currentPropProgress = count;
-			UpdateTotals();
-		}
-
 		private void UpdateTotals()
 		{
-			currentTotal = currentChunkProgress + currentPropProgress;
-			if (currentTotal == totalRequired)
+			if (currentChunkProgress == totalRequired)
 			{
 				Complete();
 			}
@@ -73,15 +60,10 @@ namespace UI
 			HideUI();
 		}
 
-		private void ProgressStarted(int chunks, int props)
+		private void ProgressStarted(int chunks)
 		{
-			currentTotal = 0;
 			currentChunkProgress = 0;
-			currentPropProgress = 0;
-
-			requiredChunk = chunks;
-			requiredProp = props;
-			totalRequired = requiredChunk + requiredProp;
+			totalRequired = chunks;
 			StopCor();
 
 			updatingCor = StartCoroutine(ProgressBarUpdateCor());
@@ -108,7 +90,7 @@ namespace UI
 		{
 			while (slider.value != 1f)
 			{
-				currentFillTarget = (float) currentTotal / totalRequired;
+				currentFillTarget = (float) currentChunkProgress / totalRequired;
 				slider.value = Mathf.Lerp(slider.value, currentFillTarget,
 					progressBarSpeed * Time.deltaTime);
 				yield return null;

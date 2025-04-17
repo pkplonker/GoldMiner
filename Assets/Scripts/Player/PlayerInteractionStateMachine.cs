@@ -44,6 +44,8 @@ namespace Player
 		[field: Range(0, -20f), SerializeField]
 		public float MaxDigDepth { get; private set; }
 
+		[field: Range(0, 2f), SerializeField]
+		public float DigRadius { get; private set; }
 		private void Start()
 		{
 			Animator.SetLayerWeight(Animator.GetLayerIndex("RightHand"), 0);

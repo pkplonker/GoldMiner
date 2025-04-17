@@ -15,7 +15,7 @@ public class FenceSpawner : SingleInstanceSpawn
 	[SerializeField] private List<float> Heights;
 	private GameObject fenceParent;
 
-	public override bool Spawn(MapData mapData, out GameObject currentInstance)
+	public override bool Spawn(MarchingCubeMapData mapData, out GameObject currentInstance)
 	{
 		CalculatePoints(mapData);
 		if (Points.Count == 0 || Heights.Count == 0) throw new ArgumentNullException();
@@ -37,6 +37,7 @@ public class FenceSpawner : SingleInstanceSpawn
 				positionVector = Vector3.ClampMagnitude(positionVector, distance);
 				var position = startPoint + positionVector;
 				position.y = GetTerrainHeight(position);
+				
 				if (j != quantity)
 				{
 					Instantiate(PostPrefab, position - postInsertion, Quaternion.identity, fenceParent.transform);
@@ -91,12 +92,13 @@ public class FenceSpawner : SingleInstanceSpawn
 
 	public override string GetName() => "Fence";
 
-	private void CalculatePoints(MapData mapData)
+	private void CalculatePoints(MarchingCubeMapData mapData)
 	{
 		Points ??= new();
 		Points.Clear();
 		var small = mapData.BoundaryInstep;
-		var large = mapData.GetSize() - small;
+		//this should actually use the mapsize correctly and not assume that it's square.
+		var large = mapData.MapSize.x - small;
 		Points.Add(new Vector3(small, 0, large));
 		Points.Add(new Vector3(large, 0, large));
 		Points.Add(new Vector3(large, 0, small));
@@ -132,6 +134,15 @@ public class FenceSpawner : SingleInstanceSpawn
 	private float GetTerrainHeight(Vector3 position)
 	{
 		var ray = new Ray(position + Vector3.up * 1000f, Vector3.down);
-		return Physics.Raycast(ray, out RaycastHit hitInfo) ? hitInfo.point.y : position.y;
+		var result = Physics.Raycast(ray, out RaycastHit hitInfo) ? hitInfo.point.y : position.y;
+		
+		if (result == 0)
+		{
+			Debug.DrawLine(position+Vector3.up*1000f,position,Color.red,20f);
+
+			Debug.LogWarning("fence through floor");
+		}
+
+		return result;
 	}
 }

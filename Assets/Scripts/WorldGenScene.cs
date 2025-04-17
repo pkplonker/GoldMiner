@@ -14,7 +14,7 @@ using UnityEngine.UI;
 /// </summary>
 public class WorldGenScene : MonoBehaviour
 {
-	[SerializeField] private MapData mapData;
+	[SerializeField] private MarchingCubeMapData mapData;
 	[SerializeField] private TMP_InputField inputField;
 	[SerializeField] private int seedMax;
 	[SerializeField] private int seedMin;
@@ -28,12 +28,12 @@ public class WorldGenScene : MonoBehaviour
 
 	private void Awake() => UpdateInputToSeed();
 
-	private void UpdateInputToSeed() => inputField.text = mapData.seed.ToString();
+	private void UpdateInputToSeed() => inputField.text = mapData.Seed.ToString();
 
 	// UI button
 	public void RandomBtn()
 	{
-		mapData.seed = UnityEngine.Random.Range(seedMin, seedMax);
+		mapData.Seed = UnityEngine.Random.Range(seedMin, seedMax);
 		UpdateInputToSeed();
 	}
 

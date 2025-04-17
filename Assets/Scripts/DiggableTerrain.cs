@@ -22,7 +22,7 @@ public class DiggableTerrain : MonoBehaviour
 	private MeshFilter meshFilter;
 	private bool setup;
 	private float digAmount;
-	private TerrainChunk terrainChunk;
+	//private TerrainChunk terrainChunk;
 	private float vertexColorFactor;
 	private TerrainDigPropController terrainDigPropController;
 	public event Action<DigParams> OnDig;
@@ -41,27 +41,27 @@ public class DiggableTerrain : MonoBehaviour
 
 	public bool Dig(DigParams digParams, bool isReplay)
 	{
-		if (!setup) Setup();
-		var digCompleteCallback = terrainDigPropController.CanDig(digParams.HitPoint);
-		if (digCompleteCallback != null)
-		{
-			digAmount = digParams.DigAmount;
-			vertexColorFactor = digAmount / SubSurfaceProp.globalMaxDepth;
-			var mesh = meshFilter.mesh;
-			var hitVertsIndexes = GetHitVerts(digParams.TriangleIndex, mesh);
-
-			var verts = UpdateVerts(digAmount, hitVertsIndexes, mesh.vertices, out var result);
-			if (result && verts != null)
-				UpdateCollider(RegenerateMesh(verts));
-
-			CheckNeighbours(hitVertsIndexes);
-
-			GetCurrentChunk().ProcessNormalAlignment();
-			digCompleteCallback?.Invoke();
-			if (!isReplay)
-				OnDig?.Invoke(digParams);
-			return true;
-		}
+		// if (!setup) Setup();
+		// var digCompleteCallback = terrainDigPropController.CanDig(digParams.HitPoint);
+		// if (digCompleteCallback != null)
+		// {
+		// 	digAmount = digParams.DigAmount;
+		// 	vertexColorFactor = digAmount / SubSurfaceProp.globalMaxDepth;
+		// 	var mesh = meshFilter.mesh;
+		// 	var hitVertsIndexes = GetHitVerts(digParams.TriangleIndex, mesh);
+		//
+		// 	var verts = UpdateVerts(digAmount, hitVertsIndexes, mesh.vertices, out var result);
+		// 	if (result && verts != null)
+		// 		UpdateCollider(RegenerateMesh(verts));
+		//
+		// 	CheckNeighbours(hitVertsIndexes);
+		//
+		// 	GetCurrentChunk().ProcessNormalAlignment();
+		// 	digCompleteCallback?.Invoke();
+		// 	if (!isReplay)
+		// 		OnDig?.Invoke(digParams);
+		// 	return true;
+		// }
 
 		return false;
 	}
@@ -75,64 +75,64 @@ public class DiggableTerrain : MonoBehaviour
 
 	private void CheckNeighbours(int[] hitVertsIndexes)
 	{
-		var changes = new List<TerrainChange>();
-		var terrainChunk = GetCurrentChunk();
-		var mapData = terrainChunk.MapData;
-		var x = terrainChunk.X;
-		var y = terrainChunk.Y;
-
-		var vertsPerRow = (mapData.MapChunkSize * mapData.LOD) + 1;
-		var totalVerts = vertsPerRow * vertsPerRow;
-
-		foreach (var index in hitVertsIndexes)
-		{
-			var val = CheckTop(index, vertsPerRow, totalVerts);
-			if (val != -1) changes.Add(new TerrainChange(x, y + 1, val));
-
-			val = CheckBottom(index, vertsPerRow, totalVerts);
-			if (val != -1) changes.Add(new TerrainChange(x, y - 1, val));
-
-			val = CheckLeft(index, vertsPerRow);
-			if (val != -1) changes.Add(new TerrainChange(x - 1, y, val));
-
-			val = CheckRight(index, vertsPerRow);
-			if (val != -1) changes.Add(new TerrainChange(x + 1, y, val));
-
-			if (index == 0) changes.Add(new TerrainChange(x - 1, y - 1, totalVerts - 1));
-			if (index == totalVerts - 1) changes.Add(new TerrainChange(x + 1, y + 1, 0));
-			if (index == vertsPerRow - 1) changes.Add(new TerrainChange(x + 1, y - 1, totalVerts - vertsPerRow));
-			if (index == totalVerts - vertsPerRow) changes.Add(new TerrainChange(x - 1, y + 1, vertsPerRow - 1));
-		}
-
-		ProcessNeighbourChanges(changes);
+		// var changes = new List<TerrainChange>();
+		// var terrainChunk = GetCurrentChunk();
+		// var mapData = terrainChunk.MapData;
+		// var x = terrainChunk.X;
+		// var y = terrainChunk.Y;
+		//
+		// var vertsPerRow = (mapData.MapChunkSize * mapData.LOD) + 1;
+		// var totalVerts = vertsPerRow * vertsPerRow;
+		//
+		// foreach (var index in hitVertsIndexes)
+		// {
+		// 	var val = CheckTop(index, vertsPerRow, totalVerts);
+		// 	if (val != -1) changes.Add(new TerrainChange(x, y + 1, val));
+		//
+		// 	val = CheckBottom(index, vertsPerRow, totalVerts);
+		// 	if (val != -1) changes.Add(new TerrainChange(x, y - 1, val));
+		//
+		// 	val = CheckLeft(index, vertsPerRow);
+		// 	if (val != -1) changes.Add(new TerrainChange(x - 1, y, val));
+		//
+		// 	val = CheckRight(index, vertsPerRow);
+		// 	if (val != -1) changes.Add(new TerrainChange(x + 1, y, val));
+		//
+		// 	if (index == 0) changes.Add(new TerrainChange(x - 1, y - 1, totalVerts - 1));
+		// 	if (index == totalVerts - 1) changes.Add(new TerrainChange(x + 1, y + 1, 0));
+		// 	if (index == vertsPerRow - 1) changes.Add(new TerrainChange(x + 1, y - 1, totalVerts - vertsPerRow));
+		// 	if (index == totalVerts - vertsPerRow) changes.Add(new TerrainChange(x - 1, y + 1, vertsPerRow - 1));
+		// }
+		//
+		// ProcessNeighbourChanges(changes);
 	}
 
-	private TerrainChunk GetCurrentChunk() => terrainChunk == null ? GetComponent<TerrainChunk>() : terrainChunk;
+	//private TerrainChunk GetCurrentChunk() => terrainChunk == null ? GetComponent<TerrainChunk>() : terrainChunk;
 
 	private void ProcessNeighbourChanges(IEnumerable<TerrainChange> changesRequested)
 	{
-		var changes = changesRequested.Distinct().ToList();
-
-		Dictionary<DiggableTerrain, List<int>> batchedChanges = new Dictionary<DiggableTerrain, List<int>>();
-
-		foreach (var change in changes)
-		{
-			if (change.X < 0 || change.X > MapGeneratorTerrain.terrainChunks.GetLength(0) - 1) continue;
-			if (change.Y < 0 || change.Y > MapGeneratorTerrain.terrainChunks.GetLength(1) - 1) continue;
-
-			var dt = MapGeneratorTerrain.terrainChunks[change.X, change.Y].GetComponent<DiggableTerrain>();
-			if (dt == null) continue;
-			if (!batchedChanges.ContainsKey(dt)) batchedChanges[dt] = new List<int>();
-
-			batchedChanges[dt].Add(change.Index);
-		}
-
-		foreach (var kvp in batchedChanges)
-		{
-			var dt = kvp.Key;
-			var indices = kvp.Value.ToArray();
-			dt.DigAtVertIndices(indices, digAmount);
-		}
+		// var changes = changesRequested.Distinct().ToList();
+		//
+		// Dictionary<DiggableTerrain, List<int>> batchedChanges = new Dictionary<DiggableTerrain, List<int>>();
+		//
+		// foreach (var change in changes)
+		// {
+		// 	if (change.X < 0 || change.X > MapGeneratorTerrain.terrainChunks.GetLength(0) - 1) continue;
+		// 	if (change.Y < 0 || change.Y > MapGeneratorTerrain.terrainChunks.GetLength(1) - 1) continue;
+		//
+		// 	var dt = MapGeneratorTerrain.terrainChunks[change.X, change.Y].GetComponent<DiggableTerrain>();
+		// 	if (dt == null) continue;
+		// 	if (!batchedChanges.ContainsKey(dt)) batchedChanges[dt] = new List<int>();
+		//
+		// 	batchedChanges[dt].Add(change.Index);
+		// }
+		//
+		// foreach (var kvp in batchedChanges)
+		// {
+		// 	var dt = kvp.Key;
+		// 	var indices = kvp.Value.ToArray();
+		// 	dt.DigAtVertIndices(indices, digAmount);
+		// }
 	}
 
 	private void DigAtVertIndices(int[] indices, float digAmount)
@@ -164,7 +164,7 @@ public class DiggableTerrain : MonoBehaviour
 
 	private Mesh RegenerateMesh(Vector3[] newVerts)
 	{
-		vertexColorFactor = digAmount / SubSurfaceProp.globalMaxDepth;
+		vertexColorFactor = digAmount / SubSurfaceProp.GlobalMaxDepth;
 		var oldMesh = meshFilter.mesh;
 		var oldVerts = oldMesh.vertices;
 

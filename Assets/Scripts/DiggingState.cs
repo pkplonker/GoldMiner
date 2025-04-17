@@ -19,7 +19,7 @@ public class DiggingState : BaseState
 	private void UpdateMarkerPosition()
 	{
 		stateMachine.diggingTarget.enabled = true;
-		;
+
 		var ray = stateMachine.Camera.ScreenPointToRay(ServiceLocator.Instance.GetService<PlayerInputManager>()
 			.GetMousePosition());
 		if (!Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(stateMachine.GROUND_LAYER))) return;
@@ -90,27 +90,16 @@ public class DiggingState : BaseState
 		Profiler.BeginSample("Digging");
 #endif
 		//cast ray to get vertex
-		var ray = stateMachine.Camera.ScreenPointToRay(ServiceLocator.Instance.GetService<PlayerInputManager>()
-			.GetMousePosition());
-		if (Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(GetLayerMask())))
-		{
-			if (hit.point == Vector3.negativeInfinity) Debug.Log("Failed to get hit point");
-			else if (hit.collider != null)
-			{
-				if (hit.collider.TryGetComponent(out DiggableTerrain terrain))
-				{
-					if (terrain.Dig(hit,
-						    new DiggableTerrain.DigParams
-							    {DigAmount = stateMachine.DigDepth, PlayVFX = true}))
-					{
-						lastDigTime = Time.time;
-						return;
-					}
-				}
-			}
-		}
 
-		UnableToDig(hit.point);
+		if (!Physics.Raycast(stateMachine.Camera.ScreenPointToRay(ServiceLocator.Instance
+			    .GetService<PlayerInputManager>()
+			    .GetMousePosition()), out var hit, 20f)) return;
+		var chunk = hit.collider.gameObject.GetComponent<Chunk>();
+		if (chunk == null) return;
+		if (!chunk.Modify(hit, stateMachine.DigRadius))
+		{
+			UnableToDig(hit.point);
+		}
 
 #if UNITY_EDITOR
 		Profiler.EndSample();

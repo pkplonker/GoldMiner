@@ -15,9 +15,9 @@ namespace UI
 			Hide();
 		}
 
-		private void OnEnable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated += StartGame;
-
-		private void OnDisable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -= StartGame;
+		// private void OnEnable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated += StartGame;
+		//
+		// private void OnDisable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -= StartGame;
 
 		private void StartGame(float f) => Toggle();
 

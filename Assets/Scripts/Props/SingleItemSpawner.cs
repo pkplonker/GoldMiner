@@ -15,22 +15,22 @@ namespace Props
 	{
 		[SerializeField] private List<SingleInstanceSpawn> prefabsToSpawn;
 		private static List<GameObject> spawnedPrefabs = new();
+		private WorldGenerator worldGenerator;
 
-		private void OnEnable()
+		private void Start()
 		{
-			var mapGenerator = ServiceLocator.Instance.GetService<MapGenerator>();
-			mapGenerator.TerrainGenerated += SpawnAll;
-			mapGenerator.MapGenerationStarted += DespawnObjects;
+			worldGenerator = ServiceLocator.Instance.GetService<WorldGenerator>();
+			worldGenerator.TerrainGenerated += SpawnAll;
+			worldGenerator.MapGenerationStarted += DespawnObjects;
 		}
-
+		
 		private void OnDisable()
 		{
-			var mapGenerator = ServiceLocator.Instance.GetService<MapGenerator>();
-			mapGenerator.TerrainGenerated -= SpawnAll;
-			mapGenerator.MapGenerationStarted -= DespawnObjects;
+			worldGenerator.TerrainGenerated -= SpawnAll;
+			worldGenerator.MapGenerationStarted -= DespawnObjects;
 		}
 
-		private void DespawnObjects(int notRequired = 0, int notRequired2 = 0)
+		private void DespawnObjects(int _ = 0)
 		{
 			if (spawnedPrefabs == null || spawnedPrefabs.Count == 0) return;
 			foreach (var spawned in spawnedPrefabs)
@@ -41,17 +41,17 @@ namespace Props
 
 		private static void DestroyObject(GameObject spawned) => Destroy(spawned);
 
-		private void SpawnAll(MapData mapData)
+		private void SpawnAll()
 		{
 			DespawnObjects();
 
 			foreach (var p in prefabsToSpawn)
 			{
-				Spawn(p, mapData);
+				Spawn(p, worldGenerator.MapData);
 			}
 		}
 
-		protected virtual void Spawn(SingleInstanceSpawn sis, MapData mapData)
+		protected virtual void Spawn(SingleInstanceSpawn sis, MarchingCubeMapData mapData)
 		{
 			if (sis.Spawn(mapData, out GameObject obj))
 			{
@@ -65,7 +65,7 @@ namespace Props
 			}
 		}
 
-		private void HandleFailedSpawn(SingleInstanceSpawn sis, MapData mapData)
+		private void HandleFailedSpawn(SingleInstanceSpawn sis, MarchingCubeMapData mapData)
 		{
 			if (!sis.allowFailure)
 				ServiceLocator.Instance.GetService<SceneHandler>()

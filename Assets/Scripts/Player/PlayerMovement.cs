@@ -36,6 +36,7 @@ namespace Player
 		[SerializeField] private float topClamp = 89.0f;
 
 		[SerializeField] private float bottomClamp = -89.0f;
+		[SerializeField] private Vector3 startRotation;
 
 		private float cinemachineTargetPitch;
 		private bool grounded = true;
@@ -70,6 +71,7 @@ namespace Player
 #if UNITY_EDITOR
 			moveSpeed *= 3;
 #endif
+			transform.rotation.SetLookRotation(startRotation,Vector3.up);
 		}
 
 		public void SetCanMove(bool cm)
@@ -97,11 +99,11 @@ namespace Player
 			SetCanMove(true);
 		}
 
-		private void OnEnable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated +=
-			MapGeneratorOnMapGenerated;
-
-		private void OnDisable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -=
-			MapGeneratorOnMapGenerated;
+		// private void OnEnable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated +=
+		// 	MapGeneratorOnMapGenerated;
+		//
+		// private void OnDisable() => ServiceLocator.Instance.GetService<MapGenerator>().MapGenerated -=
+		// 	MapGeneratorOnMapGenerated;
 
 		private void MapGeneratorOnMapGenerated(float obj)
 		{

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using StuartHeathTools;
 using TerrainGeneration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,7 +14,7 @@ public class SceneHandler : MonoBehaviour, IService
 		ServiceLocator.Instance.RegisterService(this);
 	}
 
-	public void HandleFailedGeneration(MapData mapData)
+	public void HandleFailedGeneration(MarchingCubeMapData mapData)
 	{
 #if !UNITY_EDITOR
 		var old = mapData.seed;

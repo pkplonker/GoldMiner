@@ -2661,6 +2661,7 @@ MonoBehaviour:
   cinemachineCameraTarget: {fileID: 2811365849900761655}
   topClamp: 89
   bottomClamp: -89
+  startRotation: {x: 0, y: 35, z: 0}
 --- !u!114 &161934956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2688,6 +2689,7 @@ MonoBehaviour:
   CanMove: 0
   digInterval: 0
   <MaxDigDepth>k__BackingField: -1
+  <DigRadius>k__BackingField: 0.2
 --- !u!114 &730840486265341367
 MonoBehaviour:
   m_ObjectHideFlags: 0
