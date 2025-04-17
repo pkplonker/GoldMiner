@@ -5,8 +5,6 @@ using Debug = UnityEngine.Debug;
 
 public class ChunkManager : MonoBehaviour, IService
 {
-	
-
 	public Chunk[,,] Chunks { get; private set; }
 
 	[SerializeField]
@@ -14,7 +12,6 @@ public class ChunkManager : MonoBehaviour, IService
 
 	private readonly Dictionary<Chunk, List<NoiseMapChange>> modifications = new();
 
-	private int factor;
 	private AsyncQueue computeShaderQueue;
 
 	[SerializeField]
@@ -80,11 +77,11 @@ public class ChunkManager : MonoBehaviour, IService
 	public void GenerateChunks(MarchingCubeMapData mapData)
 	{
 		this.mapData = mapData;
-		maxChunkCoord = new Vector3Int(Mathf.CeilToInt( this.mapData.MapSize.x / (float) this.mapData.ChunkSize.x),
-			Mathf.CeilToInt(this.mapData.MapSize.y / (float) this.mapData.ChunkSize.z),
+		maxChunkCoord = new Vector3Int(Mathf.CeilToInt(this.mapData.MapSize.x / (float) this.mapData.ChunkSize.x),
+			Mathf.CeilToInt(this.mapData.MapSize.y / (float) this.mapData.ChunkSize.y),
 			Mathf.CeilToInt(this.mapData.MapSize.z / (float) this.mapData.ChunkSize.z));
 		TerrainGenerationStarted?.Invoke(maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z);
-		
+
 		Chunks = new Chunk[maxChunkCoord.x, maxChunkCoord.y, maxChunkCoord.z];
 		for (int x = 0; x < maxChunkCoord.x; x++)
 		{
@@ -94,11 +91,13 @@ public class ChunkManager : MonoBehaviour, IService
 				{
 					//DrawSolidDebugChunk(x, y, z);
 					var chunkGO = GameObject.Instantiate(ChunkPrefab,
-						new Vector3(this.mapData.ChunkSize.x * x, this.mapData.ChunkSize.y * y, this.mapData.ChunkSize.z * z), Quaternion.identity);
+						new Vector3(this.mapData.ChunkSize.x * x, this.mapData.ChunkSize.y * y,
+							this.mapData.ChunkSize.z * z), Quaternion.identity);
 					chunkGO.transform.SetParent(transform);
 					var chunk = chunkGO.GetComponent<Chunk>();
 					Chunks[x, y, z] = chunk;
-					chunk.Init(new Vector3Int(x, y, z), this, new TerrainNoise3DCompute(NoiseShader), this.mapData.ChunkSize,
+					chunk.Init(new Vector3Int(x, y, z), this, new TerrainNoise3DCompute(NoiseShader),
+						this.mapData.ChunkSize,
 						this.mapData, computeShaderQueue, gpuAsyncReadbackqueue);
 					chunk.GetComponent<MeshRenderer>().material.color = new Color(UnityEngine.Random.Range(0f, 1f),
 						UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
@@ -117,15 +116,18 @@ public class ChunkManager : MonoBehaviour, IService
 	{
 		var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		go.transform.localScale = this.mapData.ChunkSize;
-		go.transform.position = new Vector3(this.mapData.ChunkSize.x * x, this.mapData.ChunkSize.y * y, this.mapData.ChunkSize.z * z);
+		go.transform.position = new Vector3(this.mapData.ChunkSize.x * x, this.mapData.ChunkSize.y * y,
+			this.mapData.ChunkSize.z * z);
 		go.GetComponent<MeshRenderer>().material.color = new Color(UnityEngine.Random.value,
 			UnityEngine.Random.value, UnityEngine.Random.value);
 	}
 
 	public bool Modify(Chunk chunk, RaycastHit hitInfo, float radius)
 	{
+		int factor = Mathf.CeilToInt(1f / mapData.VertDistance);
 		Vector3 hitPoint = chunk.transform.InverseTransformPoint(hitInfo.point) * factor;
-		var paddedSize = (this.mapData.ChunkSize * factor) + new Vector3Int(1, 1, 1);
+
+		Vector3Int paddedSize = (mapData.ChunkSize * factor) + new Vector3Int(1, 1, 1);
 
 		int minX = Mathf.FloorToInt(hitPoint.x - radius * factor);
 		int maxX = Mathf.CeilToInt(hitPoint.x + radius * factor);
@@ -241,8 +243,8 @@ public class ChunkManager : MonoBehaviour, IService
 		});
 	}
 
-	private static int GetIndex(int x, int y, int z, Vector3Int paddedSize) =>
-		x + y * paddedSize.x + z * paddedSize.x * paddedSize.y;
+	private static int GetIndex(int x, int y, int z, Vector3Int sz) =>
+		x + y * sz.x + z * sz.x * sz.y;
 
 	private float GetDigValue() => 1;
 
@@ -251,7 +253,7 @@ public class ChunkManager : MonoBehaviour, IService
 	public Chunk GetChunkFromPosition(Vector3 result)
 	{
 		var x = Mathf.FloorToInt(result.x / mapData.ChunkSize.x);
-		var y = Mathf.FloorToInt(result.y / mapData.ChunkSize.z);
+		var y = Mathf.FloorToInt(result.y / mapData.ChunkSize.y);
 		var z = Mathf.FloorToInt(result.z / mapData.ChunkSize.z);
 		return Chunks[x, y, z];
 	}

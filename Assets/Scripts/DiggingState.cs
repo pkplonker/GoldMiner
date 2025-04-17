@@ -19,7 +19,7 @@ public class DiggingState : BaseState
 	private void UpdateMarkerPosition()
 	{
 		stateMachine.diggingTarget.enabled = true;
-		;
+
 		var ray = stateMachine.Camera.ScreenPointToRay(ServiceLocator.Instance.GetService<PlayerInputManager>()
 			.GetMousePosition());
 		if (!Physics.Raycast(ray, out var hit, 20f, LayerMask.GetMask(stateMachine.GROUND_LAYER))) return;

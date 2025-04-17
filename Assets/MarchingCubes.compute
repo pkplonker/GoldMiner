@@ -329,14 +329,18 @@ float3 CalculateVertexPosition(float3 start, float3 end)
     return (start + end) / 2;
 }
 
-int Index(int3 input)
+int Index(int3 p, int3 size)  
 {
-    return (size.x * size.y * input.z) + (size.y * input.y) + input.x;
+	return p.x                      
+		 + p.y * size.x             
+		 + p.z * size.x * size.y;   
 }
 
 int Index(int x, int y, int z)
 {
-    return (size.x * size.y * z) + (size.y * y) + x;
+	return x                      
+		 + y * size.x             
+		 + z * size.x * size.y;
 }
 
 // float3 Interpolate(float4 v1, float4 v2)

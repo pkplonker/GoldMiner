@@ -2,7 +2,6 @@
 // Copyright (C) 2022 Stuart Heath. All rights reserved.
 //
 
-using StuartHeathTools;
 using UnityEngine;
 
 namespace UI
