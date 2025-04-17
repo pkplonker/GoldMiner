@@ -8,8 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/World.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/World.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/Chunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/Chunk.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainNoise3DCompute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/TerrainNoise3DCompute.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/WorldGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/WorldGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/ChunkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/ChunkManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +87,8 @@
     <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/Scripts/TerrainGeneration/Chunk.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/Scripts/TerrainGeneration/Chunk.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/ChunkBalancer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Test/TerrainTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/ButtonHoverEffectScale.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/CanvasGroupController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -344,10 +346,10 @@
           <line>131</line>
           <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\TerrainGeneration\Chunk.cs" containingFunctionPresentation="Method 'Modify'">
             <startOffsets>
-              <option value="3589" />
+              <option value="3603" />
             </startOffsets>
             <endOffsets>
-              <option value="3629" />
+              <option value="3643" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="154" />

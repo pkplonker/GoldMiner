@@ -76,31 +76,52 @@ public class ChunkManager : MonoBehaviour, IService
 
 	public void GenerateChunks(MarchingCubeMapData mapData)
 	{
+		// ---------- cache ----------
 		this.mapData = mapData;
-		maxChunkCoord = new Vector3Int(Mathf.CeilToInt(this.mapData.MapSize.x / (float) this.mapData.ChunkSize.x),
-			Mathf.CeilToInt(this.mapData.MapSize.y / (float) this.mapData.ChunkSize.y),
-			Mathf.CeilToInt(this.mapData.MapSize.z / (float) this.mapData.ChunkSize.z));
-		TerrainGenerationStarted?.Invoke(maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z);
+		var chunkSize = mapData.ChunkSize;
+		var mapSize = mapData.MapSize;
+
+		maxChunkCoord = new Vector3Int(
+			(mapSize.x + chunkSize.x - 1) / chunkSize.x,
+			(mapSize.y + chunkSize.y - 1) / chunkSize.y,
+			(mapSize.z + chunkSize.z - 1) / chunkSize.z);
+
+		int totalChunks = maxChunkCoord.x * maxChunkCoord.y * maxChunkCoord.z;
+		TerrainGenerationStarted?.Invoke(totalChunks);
 
 		Chunks = new Chunk[maxChunkCoord.x, maxChunkCoord.y, maxChunkCoord.z];
-		for (int x = 0; x < maxChunkCoord.x; x++)
+
+		Transform parent = transform;
+
+		for (int x = 0; x < maxChunkCoord.x; ++x)
 		{
-			for (int y = 0; y < maxChunkCoord.y; y++)
+			float posX = chunkSize.x * x;
+
+			for (int y = 0; y < maxChunkCoord.y; ++y)
 			{
-				for (int z = 0; z < maxChunkCoord.z; z++)
+				float posY = chunkSize.y * y;
+
+				for (int z = 0; z < maxChunkCoord.z; ++z)
 				{
-					//DrawSolidDebugChunk(x, y, z);
-					var chunkGO = GameObject.Instantiate(ChunkPrefab,
-						new Vector3(this.mapData.ChunkSize.x * x, this.mapData.ChunkSize.y * y,
-							this.mapData.ChunkSize.z * z), Quaternion.identity);
-					chunkGO.transform.SetParent(transform);
+					Vector3 localPos = new(posX, posY, chunkSize.z * z);
+
+					GameObject chunkGO = Instantiate(ChunkPrefab, parent, false);
+					chunkGO.transform.localPosition = localPos;
+
+					var noise = new TerrainNoise3DCompute(NoiseShader);
+
 					var chunk = chunkGO.GetComponent<Chunk>();
+					chunk.Init(
+						new Vector3Int(x, y, z),
+						this,
+						noise,
+						chunkSize,
+						mapData,
+						computeShaderQueue,
+						gpuAsyncReadbackqueue
+					);
+
 					Chunks[x, y, z] = chunk;
-					chunk.Init(new Vector3Int(x, y, z), this, new TerrainNoise3DCompute(NoiseShader),
-						this.mapData.ChunkSize,
-						this.mapData, computeShaderQueue, gpuAsyncReadbackqueue);
-					chunk.GetComponent<MeshRenderer>().material.color = new Color(UnityEngine.Random.Range(0f, 1f),
-						UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
 				}
 			}
 		}
