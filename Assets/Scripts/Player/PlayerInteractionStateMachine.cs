@@ -11,41 +11,65 @@ namespace Player
 	{
 		public static event Action<BaseState> OnStateChanged;
 
-		[HideInInspector] public Camera Camera;
+		[HideInInspector]
+		public Camera Camera;
+
 		public readonly BaseState UiState = new UIState();
 		public readonly BaseState DiggingState = new DiggingState();
 		public readonly BaseState DetectingState = new DetectorState();
 		public readonly BaseState InteractState = new InteractState();
 		public BaseState PreviousState;
-		[Header("Digging")] public SpriteRenderer diggingTarget;
-		public readonly string GROUND_LAYER = "Ground";
-		[field: SerializeField] public float digRange { get; private set; } = 2f;
-		[field: SerializeField] public float interactionRange { get; private set; } = 2f;
 
-		[field: SerializeField] public float DigDepth { get; private set; } = 1f;
+		[Header("Digging")]
+		public SpriteRenderer diggingTarget;
+
+		public readonly string GROUND_LAYER = "Ground";
+
+		[field: SerializeField]
+		public float digRange { get; private set; } = 2f;
+
+		[field: SerializeField]
+		public float interactionRange { get; private set; } = 2f;
 
 		[field: Header("Detecting"), SerializeField]
 		public Transform RigHandTarget { get; private set; }
 
-		[field: SerializeField] public Transform HandleIKTarget { get; private set; }
-		[field: SerializeField] public Animator Animator { get; private set; }
-		[field: SerializeField] public Rig Rig { get; private set; }
-		[field: SerializeField] public GameObject DetectorModel { get; private set; }
-		[field: SerializeField] public Image Reticle { get; private set; }
-		[SerializeField] private PlayerReference playerReference;
+		[field: SerializeField]
+		public Transform HandleIKTarget { get; private set; }
+
+		[field: SerializeField]
+		public Animator Animator { get; private set; }
+
+		[field: SerializeField]
+		public Rig Rig { get; private set; }
+
+		[field: SerializeField]
+		public GameObject DetectorModel { get; private set; }
+
+		[field: SerializeField]
+		public Image Reticle { get; private set; }
+
+		[SerializeField]
+		private PlayerReference playerReference;
+
 		public static bool IsDetecting;
 		public static bool IsManualDetecting;
 		public bool CanMove;
 		private PlayerMovement playerMovement;
-		[SerializeField] public float digInterval = 0.6f;
+
+		[SerializeField]
+		public float digInterval = 0.6f;
+
 		public event Action OnPlayerDestroyed;
 		public static event Action<bool> OnDetectorManualToggleChanged;
 
-		[field: Range(0, -20f), SerializeField]
-		public float MaxDigDepth { get; private set; }
+		[field: Header("Digging")]
+		[field: SerializeField]
+		public Vector3 DigDimensions { get; private set; }
 
-		[field: Range(0, 2f), SerializeField]
-		public float DigRadius { get; private set; }
+		[field: Range(-10, 0f), SerializeField]
+		public float DigForce { get; set; }
+
 		private void Start()
 		{
 			Animator.SetLayerWeight(Animator.GetLayerIndex("RightHand"), 0);
@@ -98,8 +122,6 @@ namespace Player
 			IsDetecting = !IsDetecting;
 			ChangeState(IsDetecting ? DetectingState : InteractState);
 		}
-		
-		
 
 		private void OnDisable()
 		{

@@ -96,7 +96,7 @@ public class DiggingState : BaseState
 			    .GetMousePosition()), out var hit, 20f)) return;
 		var chunk = hit.collider.gameObject.GetComponent<Chunk>();
 		if (chunk == null) return;
-		if (!chunk.Modify(hit, stateMachine.DigRadius))
+		if (!chunk.Modify(hit, stateMachine.DigDimensions,stateMachine.DigForce))
 		{
 			UnableToDig(hit.point);
 		}

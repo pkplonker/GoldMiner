@@ -123,7 +123,7 @@ public class Chunk : MonoBehaviour
 			TaskContinuationOptions.None, MainThreadDispatcher.Instance.Sceduler);
 	}
 
-	public bool Modify(RaycastHit hitInfo, float radius) => chunkManager.Modify(this, hitInfo, radius);
+	public bool Modify(RaycastHit hitInfo, Vector3 digDimensions,float digForce) => chunkManager.Modify(this, hitInfo, digDimensions, digForce);
 
 	public void Modify(List<NoiseMapChange> changes)
 	{

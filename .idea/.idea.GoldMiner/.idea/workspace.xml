@@ -6,10 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="d25d9fc1-f911-4a6c-8dd1-266995e28ae0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoldMiner/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/World.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/World.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MapData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MapData.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiggingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiggingState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInteractionStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInteractionStateMachine.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/Chunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/Chunk.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/ChunkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/ChunkManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/Digger.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/Digger.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,10 +40,13 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/735c071c072642ad8d077fa38c650a28173400/97/da0d9d70/RenderChain.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9c2967a135e648bdb993c5397a44991b573620/e8/3285562c/StructLayoutAttribute.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ac87b54e58ee4be198261fd5c8030d5293ee00/1b/92901cc6/SerializedObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c2d036c16ca64e0eb93703a3b13e733a171c00/02/9860ddc9/ComputeShader.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c2d036c16ca64e0eb93703a3b13e733a171c00/34/80bed544/Debug.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c2d036c16ca64e0eb93703a3b13e733a171c00/37/99b27d66/ComputeBuffer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c2d036c16ca64e0eb93703a3b13e733a171c00/70/2e101942/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c2d036c16ca64e0eb93703a3b13e733a171c00/75/fc8902cb/AsyncGPUReadbackRequest.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c2d036c16ca64e0eb93703a3b13e733a171c00/88/253c6c2e/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c2d036c16ca64e0eb93703a3b13e733a171c00/9b/143339c0/Object.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c2d036c16ca64e0eb93703a3b13e733a171c00/ec/233b75e2/ComputeBuffer.cs" root0="FORCE_HIGHLIGHTING" />
@@ -89,6 +96,11 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/ChunkBalancer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/Scripts/TerrainGeneration/MarchingCubes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Test/TerrainTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/ButtonHoverEffectScale.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/CanvasGroupController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -105,6 +117,8 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/SellGoldButton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/TweenUIPanel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/WorldGenScene.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/TerrainNoise.compute" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://S:/Users/pkplo/OneDrive/Documents/UnityProjects/GoldMiner/Assets/TerrainNoise.compute" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.4/Tests/Editor/BurstDisassemblerTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../QuickOutline/QuickOutline/Scripts/Outline.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Stuart Heath Custom Tools/Assets/Unity-Stuart-Heath-Custom-Tools/Editor/VersionUpdater.cs" root0="SKIP_HIGHLIGHTING" />
@@ -124,25 +138,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "XThreadsFramesViewSplitterKey": "0.069565214",
-    "git-widget-placeholder": "Dev",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.069565214&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$PROJECT_DIR$/../../../Desktop/Builds/Goldminer\GoldMiner.exe" />
@@ -186,10 +200,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="372">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="372" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -314,45 +328,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="119" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/Digger.cs</url>
-          <line>17</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\TerrainGeneration\Digger.cs" containingFunctionPresentation="Method 'Update'">
-            <startOffsets>
-              <option value="260" />
-            </startOffsets>
-            <endOffsets>
-              <option value="269" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="140" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/Digger.cs</url>
-          <line>17</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\TerrainGeneration\Digger.cs" containingFunctionPresentation="Method 'Update'">
-            <startOffsets>
-              <option value="260" />
-            </startOffsets>
-            <endOffsets>
-              <option value="269" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="141" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/TerrainGeneration/Chunk.cs</url>
-          <line>131</line>
-          <properties documentPath="S:\Users\pkplo\OneDrive\Documents\UnityProjects\GoldMiner\Assets\Scripts\TerrainGeneration\Chunk.cs" containingFunctionPresentation="Method 'Modify'">
-            <startOffsets>
-              <option value="3603" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3643" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="154" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

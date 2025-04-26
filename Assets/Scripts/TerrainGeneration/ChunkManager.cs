@@ -143,19 +143,19 @@ public class ChunkManager : MonoBehaviour, IService
 			UnityEngine.Random.value, UnityEngine.Random.value);
 	}
 
-	public bool Modify(Chunk chunk, RaycastHit hitInfo, float radius)
+	public bool Modify(Chunk chunk, RaycastHit hitInfo, Vector3 digDimensions, float digForce)
 	{
 		int factor = Mathf.CeilToInt(1f / mapData.VertDistance);
 		Vector3 hitPoint = chunk.transform.InverseTransformPoint(hitInfo.point) * factor;
 
 		Vector3Int paddedSize = (mapData.ChunkSize * factor) + new Vector3Int(1, 1, 1);
 
-		int minX = Mathf.FloorToInt(hitPoint.x - radius * factor);
-		int maxX = Mathf.CeilToInt(hitPoint.x + radius * factor);
-		int minY = Mathf.FloorToInt(hitPoint.y - radius * factor);
-		int maxY = Mathf.CeilToInt(hitPoint.y + radius * factor);
-		int minZ = Mathf.FloorToInt(hitPoint.z - radius * factor);
-		int maxZ = Mathf.CeilToInt(hitPoint.z + radius * factor);
+		int minX = Mathf.FloorToInt(hitPoint.x - digDimensions.x * factor);
+		int maxX = Mathf.CeilToInt(hitPoint.x + digDimensions.x * factor);
+		int minY = Mathf.FloorToInt(hitPoint.y - digDimensions.y * factor);
+		int maxY = Mathf.CeilToInt(hitPoint.y + digDimensions.y * factor);
+		int minZ = Mathf.FloorToInt(hitPoint.z - digDimensions.z * factor);
+		int maxZ = Mathf.CeilToInt(hitPoint.z + digDimensions.z * factor);
 
 		modifications[chunk] = new List<NoiseMapChange>();
 		for (int x = minX; x < maxX; x++)
@@ -176,9 +176,9 @@ public class ChunkManager : MonoBehaviour, IService
 						continue;
 					}
 
-					ProcessNeighbors(x, y, z, paddedSize, chunk, modifications);
+					ProcessNeighbors(x, y, z, paddedSize, chunk, modifications, digForce);
 
-					CreateModification(chunk, modifications, x, y, z, paddedSize);
+					CreateModification(chunk, modifications, x, y, z, paddedSize, digForce);
 				}
 			}
 		}
@@ -193,7 +193,7 @@ public class ChunkManager : MonoBehaviour, IService
 	}
 
 	private void ProcessNeighbors(int x, int y, int z, Vector3Int paddedSize, Chunk chunk,
-		Dictionary<Chunk, List<NoiseMapChange>> modifications)
+		Dictionary<Chunk, List<NoiseMapChange>> modifications, float digForce)
 	{
 		if (!IsOnEdgeOrCorner(x, y, z, paddedSize))
 			return;
@@ -209,7 +209,7 @@ public class ChunkManager : MonoBehaviour, IService
 				for (int dz = minZ; dz <= maxZ; dz++)
 				{
 					if (dx == 0 && dy == 0 && dz == 0) continue;
-					ProcessNeighborChunk(x, y, z, dx, dy, dz, paddedSize, chunk, modifications);
+					ProcessNeighborChunk(x, y, z, dx, dy, dz, paddedSize, chunk, modifications, digForce);
 				}
 			}
 		}
@@ -223,7 +223,7 @@ public class ChunkManager : MonoBehaviour, IService
 	}
 
 	private void ProcessNeighborChunk(int x, int y, int z, int dx, int dy, int dz, Vector3Int paddedSize, Chunk chunk,
-		Dictionary<Chunk, List<NoiseMapChange>> modifications)
+		Dictionary<Chunk, List<NoiseMapChange>> modifications, float digForce)
 	{
 		var chunkOffset = new Vector3Int(dx, dy, dz);
 		var chunkIndex = chunk.ChunkCoord + chunkOffset;
@@ -235,7 +235,7 @@ public class ChunkManager : MonoBehaviour, IService
 			var newY = (dy != 0) ? (dy == -1 ? paddedSize.y - 1 : 0) : y;
 			var newZ = (dz != 0) ? (dz == -1 ? paddedSize.z - 1 : 0) : z;
 
-			CreateModification(neighbourChunk, modifications, newX, newY, newZ, paddedSize);
+			CreateModification(neighbourChunk, modifications, newX, newY, newZ, paddedSize, digForce);
 		}
 	}
 
@@ -245,7 +245,7 @@ public class ChunkManager : MonoBehaviour, IService
 		chunkIndex.z < chunks.GetLength(2);
 
 	private void CreateModification(Chunk chunk, Dictionary<Chunk, List<NoiseMapChange>> modifications, int x,
-		int y, int z, Vector3Int paddedSize)
+		int y, int z, Vector3Int paddedSize, float digForce)
 	{
 		if (!modifications.ContainsKey(chunk))
 		{
@@ -260,14 +260,12 @@ public class ChunkManager : MonoBehaviour, IService
 		modifications[chunk].Add(new NoiseMapChange
 		{
 			Index = GetIndex(x, y, z, paddedSize),
-			Value = GetDigValue(),
+			Value = digForce,
 		});
 	}
 
 	private static int GetIndex(int x, int y, int z, Vector3Int sz) =>
 		x + y * sz.x + z * sz.x * sz.y;
-
-	private float GetDigValue() => 1;
 
 	public void Initialize() { }
 
