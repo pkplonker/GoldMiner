@@ -2688,7 +2688,7 @@ MonoBehaviour:
   CanMove: 0
   digInterval: 0
   <DigDimensions>k__BackingField: {x: 0.3, y: 0.1, z: 0.3}
-  <DigForce>k__BackingField: -0.1
+  <DigForce>k__BackingField: 0.631
 --- !u!114 &730840486265341367
 MonoBehaviour:
   m_ObjectHideFlags: 0

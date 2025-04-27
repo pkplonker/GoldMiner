@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: MapData
   m_EditorClassIdentifier: 
   IsoLevel: 0.5
-  VertDistance: 0.1
+  VertDistance: 0.2
   Lacunarity: 0.7
   Seed: 0
   Octaves: 8
   Persistance: 1.7
-  NoiseScale: 2
-  GroundHeight: 2
+  NoiseScale: 4
+  GroundHeight: 0
   Amplitude: 30
   GroundLayer: Ground
   BoundaryInstep: 5
-  MapSize: {x: 90, y: 9, z: 90}
-  ChunkSize: {x: 5, y: 5, z: 5}
+  MapSize: {x: 90, y: 18, z: 90}
+  ChunkSize: {x: 9, y: 9, z: 9}

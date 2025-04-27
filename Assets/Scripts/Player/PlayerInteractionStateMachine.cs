@@ -67,7 +67,7 @@ namespace Player
 		[field: SerializeField]
 		public Vector3 DigDimensions { get; private set; }
 
-		[field: Range(-10, 0f), SerializeField]
+		[field: Range(0, 1f), SerializeField]
 		public float DigForce { get; set; }
 
 		private void Start()
@@ -106,7 +106,7 @@ namespace Player
 
 		private void OnDestroy()
 		{
-			playerReference.SetPlayer(null);
+			playerReference.UnsetPlayer(this);
 			OnPlayerDestroyed?.Invoke();
 		}
 

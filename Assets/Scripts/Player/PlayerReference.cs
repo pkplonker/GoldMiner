@@ -1,27 +1,34 @@
- //
- // Copyright (C) 2022 Stuart Heath. All rights reserved.
- //
+//
+// Copyright (C) 2022 Stuart Heath. All rights reserved.
+//
 
- using System;
- using UnityEngine;
+using System;
+using UnityEngine;
 
- namespace Player
- {
-	 /// <summary>
-	 ///PlayerReference full description
-	 /// </summary>
-	 [CreateAssetMenu(fileName = "Player Reference",menuName = "References/PlayerReference")]
+namespace Player
+{
+	/// <summary>
+	///PlayerReference full description
+	/// </summary>
+	[CreateAssetMenu(fileName = "Player Reference", menuName = "References/PlayerReference")]
+	public class PlayerReference : ScriptableObject
+	{
+		private PlayerInteractionStateMachine Player;
+		public static event Action OnPlayerChanged;
+		public PlayerInteractionStateMachine GetPlayer() => Player;
 
-	 public class PlayerReference : ScriptableObject
-	 {
-		 private PlayerInteractionStateMachine Player;
-		 public static event Action OnPlayerChanged;
-		 public  PlayerInteractionStateMachine GetPlayer() => Player;
+		public void SetPlayer(PlayerInteractionStateMachine player)
+		{
+			Player = player;
+			OnPlayerChanged?.Invoke();
+		}
 
-		 public void SetPlayer(PlayerInteractionStateMachine player)
-		 {
-			 Player = player;
-			 OnPlayerChanged?.Invoke();
-		 }
-	 }
- }
+		public void UnsetPlayer(PlayerInteractionStateMachine playerInteractionStateMachine)
+		{
+			if (Player == playerInteractionStateMachine)
+			{
+				Player = null;
+			}
+		}
+	}
+}
